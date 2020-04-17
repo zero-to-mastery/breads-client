@@ -1,0 +1,11 @@
+{
+    "root": "build/",
+    "route": {
+        "/**": "index.html"
+    },
+    "proxies": {
+        "/api": {
+            "origin": "https://breads-server.herokuapp.com/api"
+        }
+    }
+}

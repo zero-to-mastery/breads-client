@@ -28,7 +28,6 @@
     "redux-thunk": "^2.3.0",
     "sinon": "^9.0.2"
   },
-  "homepage": "http://aTmb405.github.io/",
   "proxy": "http://localhost:8080/api",
   "scripts": {
     "start": "react-scripts start",
