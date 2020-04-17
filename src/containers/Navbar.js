@@ -8,7 +8,9 @@ import { fetchNotifications, updateNotifications } from '../store/actions/notifi
 
 class Navbar extends Component {
     componentDidMount() {
-        this.props.fetchNotifications();
+        if (this.props.currentUser.isAuthenticated) {
+            this.props.fetchNotifications();
+        }
     }
 
     logout = e => {
