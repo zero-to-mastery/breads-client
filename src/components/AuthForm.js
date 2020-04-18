@@ -82,7 +82,7 @@ class AuthForm extends Component {
                                         type='text'
                                         value={email}
                                     />
-                                    <label htmlFor='image'>Image:</label>
+                                    <label htmlFor='image'>Image Url:</label>
                                     <input
                                         autoComplete='off'
                                         className='form-control'
