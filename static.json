@@ -4,7 +4,7 @@
         "/**": "index.html"
     },
     "proxies": {
-        "/api": {
+        "/api/": {
             "origin": "https://breads-server.herokuapp.com/api"
         }
     }
