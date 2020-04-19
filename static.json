@@ -5,7 +5,7 @@
     },
     "proxies": {
         "/api/": {
-            "origin": "https://breads-server.herokuapp.com/api"
+            "origin": "${REACT_APP_AXIOS_URL}"
         }
     }
 }
