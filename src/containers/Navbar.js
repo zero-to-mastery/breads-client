@@ -42,7 +42,7 @@ class Navbar extends Component {
                         BREADS<small> beta</small>
                     </Link>
                     <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
-                        <span className='navbar-toggler-icon'></span>
+                        <a className='navbar-toggler-icon'></a>
                     </button>
                     {this.props.currentUser.isAuthenticated ? (
                         <div className='collapse navbar-collapse collapsable' id='collapsable'>    
@@ -85,7 +85,7 @@ class Navbar extends Component {
                             </button>
                         </div>
                     ) : (
-                        <div className='collapse navbar-collapse' id='collapsable'>
+                        <div className='collapse navbar-collapse collapsable' id='collapsable'>
                             <ul className='nav navbar-nav ml-auto'>
                                 <li>
                                     <NavLink exact to='/signup' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
