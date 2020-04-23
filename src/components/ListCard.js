@@ -15,10 +15,10 @@ const ListCard = props => {
                     <h5 className='card-title'>{props.username}</h5>
                 </Link>
                 {props.first} {props.last}
-                <Link to={`/${props.id}/pubs`}>
+                <Link to={`/${props.id}/subscriptions`}>
                     <p>Subscriptions</p>
                 </Link>
-                {props.pubs === 'yes' && (
+                {props.subscribed === 'yes' && (
                     <small onClick={props.removeSubscription} className='text-danger unsubscribe'>Unsubscribe</small>
                 )}
             </div>

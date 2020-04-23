@@ -22,20 +22,19 @@ export const removeSubscription = (sub_id, pub_id) => {
     }
 }
 
-export const postNewSubscription = pub_id => (dispatch, getState) => {
+export const postNewSubscription = sub_id => (dispatch, getState) => {
     let { currentUser } = getState();
-    const sub_id = currentUser.user.id;
-    return apiCall('post', '/subscribe', { sub_id, pub_id })
+    const user_id = currentUser.user.id;
+    return apiCall('post', `/users/${user_id}/subscriptions`, { sub_id })
         .then(res => {})
         .catch(err => dispatch(addError(err.message)));
 }
 
-// display user's subscriptions
-export const fetchSubscriptions = () => {
+export const fetchSubscriptionReadings = () => {
     return (dispatch, getState) => {
         let {currentUser} = getState();
         const id = currentUser.user.id;
-        return apiCall('get', `/subscriptions/${id}`)
+        return apiCall('get', `/readings/${id}/subscriptions`)
             .then(res => {
                 dispatch(loadSubscriptions(res));
             })

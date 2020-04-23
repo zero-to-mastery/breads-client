@@ -1,43 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../store/actions/subscriptions';
-import { fetchSummary, removeSummary } from '../store/actions/summary';
+import { fetchSubscriptions } from '../store/actions/users';
+import { removeSubscription } from '../store/actions/subscriptions';
 import List from '../components/List';
-import ListItem from '../components/ListItem';
+import ListCard from '../components/ListCard';
 
 class SubscriptionsList extends Component {
     componentDidMount() {
-        this.props.fetchSubscriptions();
+        this.props.fetchSubscriptions(this.props.match.params.id);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.props.fetchSubscriptions(this.props.match.params.id);
+        }
     }
     render() {
-        const { subscriptions, summary, fetchSummary, removeSummary } = this.props;
-        let subscriptionsList = subscriptions.map(s => (  
-            <ListItem
-                key={s.id}
-                reading_id={s.id}
-                title={s.title}
-                domain={s.domain}
-                url={s.url}
-                word_count={s.word_count}
-                username={s.username}
-                image={s.image}
-                user_id={s.user_id}
-                summary={summary.summary}
-                viewSummary={fetchSummary.bind(this, s.id, s.url)}
-                removeSummary={removeSummary}
-            />    
+        const { users, removeSubscription, currentUser, match } = this.props;
+        let subscriptionsList = [];
+            subscriptionsList = users.map(p => (           
+            <ListCard
+                key={p.id}
+                id={p.id}
+                first={p.first_name}
+                last={p.last_name}
+                username={p.username}
+                image={p.image}
+                removeSubscription={removeSubscription.bind(this, currentUser, p.id)}
+                subscribed={currentUser == match.params.id ? 'yes' : 'no'}
+            />
         ));
         return (
-            <List list_data={subscriptionsList} display='list-group' />
+            <List list_data={subscriptionsList} display='card-columns' />
         )
     }
 }
 
 function mapStateToProps(state) {
     return {
-        subscriptions: state.subscriptions,
-        summary: state.summary
+        users: state.users,
+        currentUser: state.currentUser.user.id
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions, fetchSummary, removeSummary })(SubscriptionsList);
+export default connect(mapStateToProps, { fetchSubscriptions, removeSubscription })(SubscriptionsList);

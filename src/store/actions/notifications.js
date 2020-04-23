@@ -12,7 +12,7 @@ export const fetchNotifications = () => {
     return (dispatch, getState) => {
         let {currentUser} = getState();
         const id = currentUser.user.id;
-        return apiCall('get', `/notifications/${id}`)
+        return apiCall('get', `/users/${id}/notifications`)
             .then(res => {
                 dispatch(loadNotifications(res));
             })
@@ -22,12 +22,11 @@ export const fetchNotifications = () => {
     }
 }
 
-export const updateNotifications = (sub_id) => {
+export const updateNotifications = () => {
     return (dispatch, getState) => {
         let {currentUser} = getState();
         const id = currentUser.user.id;
-        console.log(sub_id);
-        return apiCall('put', `/notifications/${id}`, id)
+        return apiCall('put', `/users/${id}/notifications`)
             .then(res => {})
             .catch(err => {
                 dispatch(addError(err.message));

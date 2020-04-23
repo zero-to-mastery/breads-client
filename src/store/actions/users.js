@@ -30,9 +30,9 @@ export const fetchUsers = () => {
     }
 }
 
-export const fetchPubs = user_id => {
+export const fetchSubscriptions = user_id => {
     return dispatch => {
-        return apiCall('get', `/users/${user_id}`)
+        return apiCall('get', `/users/${user_id}/subscriptions`)
             .then(res => {
                 dispatch(loadUsers(res));
             })
@@ -44,7 +44,7 @@ export const fetchPubs = user_id => {
 
 export const searchUsers = search => {
     return dispatch => {
-        return apiCall('get', `/search/${search}`)
+        return apiCall('get', `/users/search?users=${search}`)
             .then(res => {
                 dispatch(loadUsers(res));
             })

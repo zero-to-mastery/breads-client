@@ -8,8 +8,8 @@ import { removeError } from '../store/actions/errors';
 import Timeline from '../components/Timeline';
 import UserAside from '../components/UserAside';
 import UserReadingsList from './UserReadingsList';
-import PubsList from './PubsList';
 import SubscriptionsList from './SubscriptionsList';
+import SubscriptionReadingsList from './SubscriptionReadingsList';
 import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
@@ -102,7 +102,7 @@ const Routes = props => {
                                     image={currentUser.user.image}
                                     username={currentUser.user.username}
                                 />
-                                <SubscriptionsList />
+                                <SubscriptionReadingsList />
                                 <ArticleForm history={props.history}/>
                             </Timeline>
                         </div>
@@ -163,7 +163,7 @@ const Routes = props => {
                                     image={currentUser.user.image}
                                     username={currentUser.user.username}
                                 />
-                                <PubsList match={props.match}/>
+                                <SubscriptionsList match={props.match}/>
                             </Timeline>
                         </div>
                     )
