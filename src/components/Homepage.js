@@ -5,13 +5,12 @@ import UserAside from './UserAside';
 import ReadingsList from '../containers/ReadingsList';
 import ArticleForm from '../containers/ArticleForm';
 
-
-const Homepage = props => { //({ errors, currentUser })
+const Homepage = props => {
     if (!props.currentUser.isAuthenticated) {
         return (
             <div className='home-hero'>
                 <h1>What's Happening?</h1>
-                <h4>New to READINGS?</h4>
+                <h4>New to BREADS?</h4>
                 <Link to='/signup' className='btn btn-primary'>
                     Sign up here
                 </Link>

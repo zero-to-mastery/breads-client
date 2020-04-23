@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUser } from '../store/actions/auth';
-// import PropTypes from 'prop-types';
 
 class UpdateForm extends Component {
     constructor(props) {
@@ -20,9 +19,15 @@ class UpdateForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.updateUser(this.props.currentUser.user.id, this.state.image, this.state.username);
+        this.props.updateUser(this.props.currentUser.user.id, this.state.image, this.state.username)
+        .then(() => {
+            this.props.history.push('/');
+        })
+        .catch(() => {
+            return;
+        });
     }
-    // UPDATE STATE WITH MYSQL DATA
+
     render() {
         const { username, image } = this.state;
         const { heading, buttonText, errors, history, removeError } = this.props;
