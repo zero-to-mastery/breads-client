@@ -12,6 +12,7 @@ import PubsList from './PubsList';
 import SubscriptionsList from './SubscriptionsList';
 import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
+import UpdateForm from './UpdateForm';
 
 
 const Routes = props => {
@@ -133,7 +134,23 @@ const Routes = props => {
             />
             <Route
                 exact
-                path='/:id/pubs'
+                path='/:id/edit'
+                render={props => {
+                    return (
+                        <UpdateForm
+                            onAuth={authUser}
+                            removeError={removeError}
+                            errors={errors}
+                            buttonText='Update'
+                            heading={currentUser.user.username}
+                            {...props}
+                        />
+                    )
+                }}
+            />
+            <Route
+                exact
+                path='/:id/subscriptions'
                 render={props => {
                     return (
                         <div>

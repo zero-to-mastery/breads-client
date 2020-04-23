@@ -40,3 +40,13 @@ export function authUser(type, userData) {
         });
     }
 }
+
+export const updateUser = (id, image, username) => {
+    return dispatch => {
+        return apiCall('put', `/users/${id}`, {image, username})
+            .then(res => {})
+            .catch(err => {
+                dispatch(addError(err.message));
+            });
+    }
+}

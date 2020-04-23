@@ -44,12 +44,20 @@ const UserAside = ({ id, image, username, readings }) => {
                 <div className='card-body'>
                     <h5 className='card-title'>{username}</h5>
                     {user_id === id && 
-                        <NavLink exact to={`/${id}/pubs`} activeClassName='badge badge-primary' className='badge'>
-                            Subscriptions
-                        </NavLink>
+                        <div>
+                            <NavLink exact to={`/${id}/edit`} className='text-muted'>
+                                <small>Edit</small>
+                            </NavLink>
+                            <NavLink exact to={`/${id}/subscriptions`} activeClassName='badge badge-primary' className='badge'>
+                                Subscriptions
+                            </NavLink>
+                        </div>
                     }
-                    {totalArticles}
-                    {totalBooks}
+                    <div>
+                        {totalArticles}
+                        {totalBooks}
+                    </div>
+                    
                 </div>
             </div>
         </aside>
