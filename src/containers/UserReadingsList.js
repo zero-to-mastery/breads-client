@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserReadings, removeReading } from '../store/actions/readings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
+import { removeLoader } from '../store/actions/loaders';
 import List from '../components/List';
 import ListItem from '../components/ListItem';
 
 class UserReadingsList extends Component {
     componentDidMount() {
         this.props.fetchUserReadings(this.props.match.params.id);
+        this.props.removeLoader();
     }
-// clear reading state whenever logged out or failed login
+
     render() {
-        const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser } = this.props;
+        const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser, isLoading } = this.props;
         let userReadingsList = readings.map(r => (
             <ListItem
                 key={r.id}
@@ -30,9 +32,12 @@ class UserReadingsList extends Component {
                 isCorrectUser={currentUser === r.user_id}
             /> 
         ));
-        return (
-            <List list_data={userReadingsList} display='list-group' />
-        )
+        // console.log(isLoading);
+        if (isLoading) {
+            return <div>LOADING DATA</div>
+        } else {
+            return <List list_data={userReadingsList} display='list-group' />
+        }
     }
 }
 
@@ -40,8 +45,15 @@ function mapStateToProps(state) {
     return {
         readings: state.readings,
         summary: state.summary,
-        currentUser: state.currentUser.user.id
+        currentUser: state.currentUser.user.id,
+        isLoading: state.isLoading
     }
 }
 
-export default connect(mapStateToProps, { fetchUserReadings, fetchSummary, removeReading, removeSummary })(UserReadingsList);
+export default connect(mapStateToProps, { 
+    fetchUserReadings,
+    fetchSummary,
+    removeReading,
+    removeSummary,
+    removeLoader
+})(UserReadingsList);

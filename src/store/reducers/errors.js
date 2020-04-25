@@ -1,4 +1,3 @@
-// display error messages to user
 import { ADD_ERROR, REMOVE_ERROR } from "../actionTypes";
 
 export default (state = { message: null }, action) => {

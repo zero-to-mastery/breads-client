@@ -6,6 +6,7 @@ import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
 import { sendResetEmail, resetPassword } from '../store/actions/users';
+import { removeLoader } from '../store/actions/loaders';
 import Timeline from '../components/Timeline';
 import UserAside from '../components/UserAside';
 import UserReadingsList from './UserReadingsList';
@@ -19,7 +20,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm';
 
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, removeLoader, currentUser, readings } = props;
     return (
         <Switch>
             <Route
@@ -161,6 +162,7 @@ const Routes = props => {
                                     image={currentUser.user.image}
                                     username={currentUser.user.username}
                                     readings={readings}
+                                    match={props.match}
                                 />
                                 <UserReadingsList match={props.match}/>
                                 <ArticleForm history={props.history}/>
@@ -219,5 +221,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword })(Routes)
+  connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword, removeLoader })(Routes)
 );

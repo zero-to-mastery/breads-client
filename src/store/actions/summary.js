@@ -11,17 +11,6 @@ export const removeSummary = () => ({
     type: REMOVE_SUMMARY
 });
 
-// export const removeSummary = () => {
-//     return dispatch => {
-//         try {
-//             return dispatch(removeSummary(''));
-//         }
-//         catch (err) {
-//             return dispatch(addError(err.message));
-//         }
-//     };
-// };
-
 export const fetchSummary = (reading_id) => {
     return dispatch => {
         return apiCall('get', `/readings/${reading_id}/summary`)

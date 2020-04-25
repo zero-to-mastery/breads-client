@@ -6,6 +6,7 @@ import summary from './summary';
 import users from './users';
 import subscriptions from './subscriptions';
 import notifications from './notifications';
+import loaders from './loaders';
 
 const rootReducer = combineReducers({
     currentUser,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     summary,
     users,
     subscriptions,
-    notifications
+    notifications,
+    loaders
 });
   
 export default rootReducer;
