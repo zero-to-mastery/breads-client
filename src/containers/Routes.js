@@ -5,7 +5,7 @@ import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
-import { sendResetEmail } from '../store/actions/users';
+import { sendResetEmail, resetPassword } from '../store/actions/users';
 import Timeline from '../components/Timeline';
 import UserAside from '../components/UserAside';
 import UserReadingsList from './UserReadingsList';
@@ -15,10 +15,11 @@ import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
+import ResetPasswordForm from '../components/ResetPasswordForm';
 
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, currentUser, readings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings } = props;
     return (
         <Switch>
             <Route
@@ -83,6 +84,23 @@ const Routes = props => {
                         />
                     )
                 }}
+            />
+            <Route 
+                exact
+                path='/reset/:username/:token'
+                render={props => {
+                    return (
+                        <ResetPasswordForm 
+                            reset={resetPassword}
+                            removeError={removeError}
+                            errors={errors}
+                            buttonText='Save new password'
+                            heading='Reset your password'
+                            {...props}
+                        />
+                    )
+                }}
+            
             />
             <Route
                 exact
@@ -201,5 +219,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError, sendResetEmail })(Routes)
+  connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword })(Routes)
 );
