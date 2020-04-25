@@ -22,16 +22,16 @@ class UserAside extends Component {
             user = {},
             user_id;
 
-        if (readings) {
+        if (readings && readings.length) {
             for (const property in readings[0].data) {
                 user[property] = readings[0].data[property]
             }
             // make sure image change is consistent with id of user in url
-            if (match.params.id == user.user_id) {
+            if (match && match.params.id == user[0].user_id) {
                 user_id = id;
-                id = user.user_id;
-                if (user.image) image = user.image;
-                if (user.username) username = user.username;
+                id = user[0].user_id;
+                if (user[0].image) image = user[0].image;
+                if (user[0].username) username = user[0].username;
             }
 
             readings[0].data.forEach(r => {
@@ -74,14 +74,13 @@ class UserAside extends Component {
                 </div>
             </aside>
         )
-        
     }
 }
 
 function mapStateToProps(state) {
     return {
         // isLoading: state.isLoading,
-        users: state.users,
+        users: state.users
     }
 }
 

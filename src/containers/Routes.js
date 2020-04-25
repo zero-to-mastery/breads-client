@@ -20,7 +20,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm';
 
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, removeLoader, currentUser, readings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings } = props; // removeLoader
     return (
         <Switch>
             <Route
@@ -201,6 +201,8 @@ const Routes = props => {
                                     id={currentUser.user.id}
                                     image={currentUser.user.image}
                                     username={currentUser.user.username}
+                                    readings={readings}
+                                    match={props.match}
                                 />
                                 <SubscriptionsList match={props.match}/>
                             </Timeline>
