@@ -53,3 +53,16 @@ export const searchUsers = search => {
             });
     }
 }
+
+export function sendResetEmail(email) {
+    return dispatch => {
+        // return new Promise((resolve, reject) => {
+            return apiCall('post', '/users/reset', { email })
+                .then(res => {})
+                .catch(err => {
+                    dispatch(addError(err.message));
+                    // reject();
+                });
+        // });
+    }
+}

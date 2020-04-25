@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 class AuthForm extends Component {
@@ -117,7 +118,14 @@ class AuthForm extends Component {
                             <button type='submit' className='btn btn-primary btn-block btn-lg'>
                                 {buttonText}
                             </button>
-                        </form>  
+                        </form>
+                        {!signup && 
+                            <Link to='/reset'>
+                                <button className='btn btn-warning btn-block btn-lg'>
+                                    Forgot Password?
+                                </button>
+                            </Link>
+                        }
                     </div>
                 </div>
             </div>

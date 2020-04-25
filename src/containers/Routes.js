@@ -5,6 +5,7 @@ import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
+import { sendResetEmail } from '../store/actions/users';
 import Timeline from '../components/Timeline';
 import UserAside from '../components/UserAside';
 import UserReadingsList from './UserReadingsList';
@@ -13,10 +14,11 @@ import SubscriptionReadingsList from './SubscriptionReadingsList';
 import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
+import EmailForm from '../components/EmailForm';
 
 
 const Routes = props => {
-    const { authUser, errors, removeError, currentUser, readings } = props;
+    const { authUser, errors, removeError, sendResetEmail, currentUser, readings } = props;
     return (
         <Switch>
             <Route
@@ -38,6 +40,7 @@ const Routes = props => {
                 render={props => {
                     return (
                         <AuthForm
+                            reset={sendResetEmail}
                             onAuth={authUser}
                             removeError={removeError}
                             errors={errors}
@@ -60,6 +63,22 @@ const Routes = props => {
                             signup
                             buttonText='Sign up'
                             heading='Join today!'
+                            {...props}
+                        />
+                    )
+                }}
+            />
+            <Route
+                exact
+                path='/reset'
+                render={props => {
+                    return (
+                        <EmailForm
+                            reset={sendResetEmail}
+                            removeError={removeError}
+                            errors={errors}
+                            buttonText='Send reset email'
+                            heading='Enter email address'
                             {...props}
                         />
                     )
@@ -182,5 +201,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError })(Routes)
+  connect(mapStateToProps, { authUser, removeError, sendResetEmail })(Routes)
 );
