@@ -15,28 +15,7 @@ class ReadingsList extends Component {
 
     render() {
         const { readings, summary, fetchSummary, removeSummary, postNewSubscription } = this.props;
-        // let readingsList;
-        // if (readings[0]) console.log(readings[0])
-        // if (readings[0]) {
-        //     readingsList = readings[0].data.map(r => (  
-        //         <ListItem
-        //             key={r.id}
-        //             id={r.id}
-        //             title={r.title}
-        //             domain={r.domain}
-        //             url={r.url}
-        //             word_count={r.word_count}
-        //             user_id={r.user_id}
-        //             username={r.username}
-        //             image={r.image}
-        //             summary={summary.summary}
-        //             viewSummary={fetchSummary.bind(this, r.id, r.article_url)}
-        //             removeSummary={removeSummary}
-        //             newSubscription={postNewSubscription.bind(this, r.user_id)}
-        //         />              
-        //     ));
-        // }
-        
+
         const cache = new CellMeasurerCache({
             fixedWidth: true,
             defaultHeight: 187
@@ -76,6 +55,14 @@ class ReadingsList extends Component {
             );
         };
         return (
+            // <List
+            //     props={this.props}
+            //     readings={readings}
+            //     summary={summary}
+            //     fetchSummary={fetchSummary}
+            //     removeSummary={removeSummary}
+            //     postNewSubscription={postNewSubscription}
+            // />
             <div className='col-lg-6 col-sm-10 offset-sm-1 offset-lg-0'>
                 <WindowScroller>
                     {({ height, isScrolling, onChildScroll, scrollTop }) => (
@@ -100,7 +87,6 @@ class ReadingsList extends Component {
                     )}
                 </WindowScroller>
             </div>
-            // <List list_data={readingsList} display='list-group' />
         )
     }
 }

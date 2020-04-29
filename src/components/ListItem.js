@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
 
 const ListItem = props => {
-    console.log(props.style);
     return (
         <li style={props.style} className='list-group-item'>
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='.text-dark'>{props.title}</a></h5>
