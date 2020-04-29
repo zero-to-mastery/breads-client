@@ -4,7 +4,6 @@ import { fetchReadings } from '../store/actions/readings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import { fetchUsers } from '../store/actions/users';
 import { postNewSubscription } from '../store/actions/subscriptions';
-// import List from '../components/List';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
@@ -25,7 +24,6 @@ class ReadingsList extends Component {
         if (readings[0]) x = readings[0].data;
         
         const renderRow = ({ index, key, parent, style }) => {
-            console.log(x.length);
             return (
                 <CellMeasurer
                     rowIndex={index}
@@ -55,14 +53,6 @@ class ReadingsList extends Component {
             );
         };
         return (
-            // <List
-            //     props={this.props}
-            //     readings={readings}
-            //     summary={summary}
-            //     fetchSummary={fetchSummary}
-            //     removeSummary={removeSummary}
-            //     postNewSubscription={postNewSubscription}
-            // />
             <div className='col-lg-6 col-sm-10 offset-sm-1 offset-lg-0'>
                 <WindowScroller>
                     {({ height, isScrolling, onChildScroll, scrollTop }) => (
@@ -98,4 +88,10 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchReadings, fetchSummary, removeSummary, fetchUsers, postNewSubscription })(ReadingsList);
+export default connect(mapStateToProps, { 
+    fetchReadings,
+    fetchSummary,
+    removeSummary,
+    fetchUsers,
+    postNewSubscription
+})(ReadingsList);
