@@ -1,9 +1,6 @@
 import React from 'react';
-import ListItem from '../components/ListItem';
-import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
-
-const List1 = (props) => {
+const List = (props) => {
     return (
         <div className='col-lg-6 col-sm-10 offset-sm-1 offset-lg-0'>
             {props.list_data ? (//.length
@@ -21,4 +18,4 @@ const List1 = (props) => {
     )
 }
 
-export default List1;
+export default List;
