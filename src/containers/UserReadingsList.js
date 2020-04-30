@@ -11,9 +11,15 @@ class UserReadingsList extends Component {
         this.props.fetchUserReadings(this.props.match.params.id);
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.props.fetchUserReadings(this.props.match.params.id);
+        }
+    }
+
     render() {
         const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser } = this.props;
-        
+
         const cache = new CellMeasurerCache({
             fixedWidth: true,
             defaultHeight: 187
