@@ -19,17 +19,16 @@ class Navbar extends Component {
         this.props.history.push('/');
     }
 
-    handleClick = e => {
+    handleClick = (index, e) => {
         e.preventDefault();
-        this.props.updateNotifications(this.props.notifications.subscriber_id);
+        this.props.updateNotifications(this.props.notifications[index].subscriber_id);
     }
 
     render() {
         const { notifications } = this.props;
-        let notificationsList = notifications.map(n => (
-            <button onClick={this.handleClick} key={n.subscriber_id} className='dropdown-item'>
+        let notificationsList = notifications.map((n, index) => (
+            <button onClick={(e) => this.handleClick(index, e)} key={n.subscriber_id} className='dropdown-item'>
                 <span key={n.subscriber_id} className='text-primary'>
-                {/* onClick={this.handleClick.bind(n.subscriber_id)} */}
                 {n.username}</span> started following you!
             </button>
         ));

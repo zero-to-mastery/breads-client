@@ -5,7 +5,7 @@ const notification = (state=[], action) => {
         case LOAD_NOTIFICATIONS:
             return [...action.notifications];
         case REMOVE_NOTIFICATIONS:
-            return state.filter(notification => notification.subscriber_id !== action.sub_id);
+            return state.filter(notification => notification.subscriber_id !== action.id);
         default:
             return state;
     }
