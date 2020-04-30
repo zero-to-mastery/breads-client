@@ -21,14 +21,13 @@ class Navbar extends Component {
 
     handleClick = e => {
         e.preventDefault();
-        this.props.updateNotifications();
+        this.props.updateNotifications(this.props.notifications.subscriber_id);
     }
 
     render() {
         const { notifications } = this.props;
-
         let notificationsList = notifications.map(n => (
-            <button key={n.subscriber_id} className='dropdown-item'>
+            <button onClick={this.handleClick} key={n.subscriber_id} className='dropdown-item'>
                 <span key={n.subscriber_id} className='text-primary'>
                 {/* onClick={this.handleClick.bind(n.subscriber_id)} */}
                 {n.username}</span> started following you!
@@ -71,7 +70,7 @@ class Navbar extends Component {
                                     <span className='badge badge-pill badge-danger'>{notificationsList.length}</span>
                                 )}
                             </button>
-                            <div onClick={this.handleClick} className='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
+                            <div className='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
                                 {!notificationsList.length ? (
                                     <button className='dropdown-item'>
                                         No new subscribers!

@@ -5,7 +5,10 @@ const reading = (state=[], action) => {
         case LOAD_READINGS:
             return [action.readings];
         case REMOVE_READING:
-            return state.filter(reading => reading.id !== action.id);
+            return [{
+                data: state[0].data.filter(reading => reading.id !== action.id),
+                websites: state[0].websites
+            }];
         default:
             return state;
     }

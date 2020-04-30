@@ -6,9 +6,8 @@ import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
 import { sendResetEmail, resetPassword } from '../store/actions/users';
-import { removeLoader } from '../store/actions/loaders';
 import Timeline from '../components/Timeline';
-import UserAside from '../components/UserAside';
+import UserAside from './UserAside';
 import UserReadingsList from './UserReadingsList';
 import SubscriptionsList from './SubscriptionsList';
 import SubscriptionReadingsList from './SubscriptionReadingsList';
@@ -223,5 +222,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword, removeLoader })(Routes)
+  connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword })(Routes)
 );

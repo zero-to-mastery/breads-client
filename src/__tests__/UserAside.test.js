@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import UserAside from '../components/UserAside';
+import UserAside from '../containers/UserAside';
 
 function shallowSetup() {
     const props = {

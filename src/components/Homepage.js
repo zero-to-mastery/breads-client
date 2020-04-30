@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Timeline from './Timeline';
-import UserAside from './UserAside';
+import UserAside from '../containers/UserAside';
 import ReadingsList from '../containers/ReadingsList';
 import ArticleForm from '../containers/ArticleForm';
 

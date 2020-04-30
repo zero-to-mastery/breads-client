@@ -15,6 +15,12 @@ class AuthForm extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.history.listen(() => {
+            this.props.removeError();
+        });
+    }
+
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -36,11 +42,7 @@ class AuthForm extends Component {
 
     render() {
         const { first_name, last_name, email, username, password, image } = this.state;
-        const { heading, buttonText, signup, errors, history, removeError } = this.props;
-
-        history.listen(() => {
-            removeError();
-        });
+        const { heading, buttonText, signup, errors } = this.props;
 
         return (
             <div>
