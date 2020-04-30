@@ -51,8 +51,8 @@ class UserReadingsList extends Component {
                         summary={summary.summary}
                         viewSummary={fetchSummary.bind(this, x[index].id, x[index].article_url)}
                         removeSummary={removeSummary}
-                        removeReading={removeReading.bind(this, x.user_id, x.id)}
-                        isCorrectUser={currentUser === x.user_id}
+                        removeReading={removeReading.bind(this, x[index].user_id, x[index].id)}
+                        isCorrectUser={currentUser === x[index].user_id}
                         style={style}
                     />
                 </CellMeasurer>
