@@ -1,5 +1,5 @@
 import React from 'react';
-// import Moment from 'react-moment';
+import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
 
@@ -10,6 +10,9 @@ const ListItem = props => {
             <div className='row reading-area'>
                 <p className='lead'>{props.domain}</p>
                 <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>
+                <Moment className='text-muted ml-auto' fromNow>
+                    {props.date}
+                </Moment>
             </div>
             <div className='row'>
                 <img

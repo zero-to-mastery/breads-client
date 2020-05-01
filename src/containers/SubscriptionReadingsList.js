@@ -38,6 +38,7 @@ class SubscriptionsList extends Component {
                         url={x[index].url}
                         word_count={x[index].word_count}
                         user_id={x[index].user_id}
+                        date={x[index].created_at}
                         username={x[index].username}
                         image={x[index].image}
                         summary={summary.summary}
