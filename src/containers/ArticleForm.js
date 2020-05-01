@@ -25,9 +25,9 @@ class ArticleForm extends Component {
         let path = this.props.history.location.pathname;
         
         if (path === '/') {
-            setTimeout(() => this.props.fetchReadings(), 2500);
+            setTimeout(() => this.props.fetchReadings(), 5000);
         } else if (path !== '/subscriptions') {
-            setTimeout(() => this.props.fetchUserReadings(this.props.currentUser), 2500);
+            setTimeout(() => this.props.fetchUserReadings(this.props.currentUser), 5000);
         }
     };
 
