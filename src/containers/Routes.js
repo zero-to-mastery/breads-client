@@ -140,7 +140,7 @@ const Routes = props => {
                                     username={currentUser.user.username}
                                 />
                                 <SubscriptionReadingsList />
-                                <ArticleForm history={props.history}/>
+                                <ArticleForm history={props.history} />
                             </Timeline>
                         </div>
                     )
@@ -164,7 +164,7 @@ const Routes = props => {
                                     match={props.match}
                                 />
                                 <UserReadingsList match={props.match}/>
-                                <ArticleForm history={props.history}/>
+                                <ArticleForm history={props.history} match={props.match}/>
                             </Timeline>
                         </div>
                     )

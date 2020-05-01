@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postNewReading, fetchReadings } from '../store/actions/readings';
+import { postNewReading, fetchReadings, fetchUserReadings } from '../store/actions/readings';
 
 class ArticleForm extends Component {
     constructor(props) {
@@ -23,15 +22,17 @@ class ArticleForm extends Component {
         e.preventDefault();
         this.props.postNewReading(this.state.url);
         this.setState({ url: '' });
-        this.props.history.push('/');
-        // this.props.history.goBack();
-        // window.location.reload(false);
-        // this.props.fetchReadings();
+        let path = this.props.history.location.pathname;
+        
+        if (path === '/') {
+            setTimeout(() => this.props.fetchReadings(), 2500);
+        } else if (path !== '/subscriptions') {
+            setTimeout(() => this.props.fetchUserReadings(this.props.currentUser), 2500);
+        }
     };
 
     render() {
         const { url } = this.state;
-        // const { errors } = this.props; //readings
 
         return (
             <aside className='col-lg-3 col-md-10 offset-sm-1 offset-lg-0'>
@@ -59,9 +60,9 @@ class ArticleForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        // errors: state.errors,
-        readings: state.readings
+        readings: state.readings,
+        currentUser: state.currentUser.user.id
     }
 }
 
-export default connect(mapStateToProps, { postNewReading, fetchReadings })(ArticleForm);
+export default connect(mapStateToProps, { postNewReading, fetchReadings, fetchUserReadings })(ArticleForm);
