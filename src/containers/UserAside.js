@@ -51,14 +51,14 @@ class UserAside extends Component {
                     <img
                         src={image || DefaultImage}
                         alt={username}
-                        className='img-thumbnail'
+                        className='card-img-top'
                     />
                     <div className='card-body'>
                         <h5 className='card-title'>{username}</h5>
                         {user_id === id && 
                             <div>
-                                <NavLink exact to={`/${id}/edit`} className='text-muted'>
-                                    <small>Edit</small>
+                                <NavLink exact to={`/${id}/edit`} className='badge text-warning'>
+                                    Edit
                                 </NavLink>
                                 <NavLink exact to={`/${id}/subscriptions`} activeClassName='badge badge-primary' className='badge'>
                                     Subscriptions: {users.length}

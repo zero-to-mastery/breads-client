@@ -8,7 +8,7 @@ const ListCard = props => {
             <img
                 src={props.image || DefaultImage}
                 alt={props.username}
-                className='img-thumbnail'
+                className='card-img-top'
             />
             <div className='card-body'>
                 <Link to={`/${props.id}`}>

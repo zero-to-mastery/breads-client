@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { updateUser } from '../store/actions/auth';
 
 class UpdateForm extends Component {
@@ -30,7 +31,7 @@ class UpdateForm extends Component {
 
     render() {
         const { username, image } = this.state;
-        const { heading, buttonText, errors, history, removeError } = this.props;
+        const { heading, path, buttonText, errors, history, removeError } = this.props;
         history.listen(() => {
             removeError();
         });
@@ -63,10 +64,13 @@ class UpdateForm extends Component {
                             type='text'
                             value={username}
                         />
-                        <button type='submit' className='btn btn-primary btn-block btn-lg'>
+                        <button type='submit' className='btn btn-primary btn-block btn-lg mt-2'>
                             {buttonText}
                         </button>
-                    </form>  
+                    </form>
+                    <NavLink exact to={`/${path}`} className='btn btn-warning btn-block mt-2'>
+                        Return
+                    </NavLink>
                 </div>
             </div>
         )

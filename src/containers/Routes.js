@@ -181,6 +181,7 @@ const Routes = props => {
                             errors={errors}
                             buttonText='Update'
                             heading={currentUser.user.username}
+                            path={currentUser.user.id}
                             {...props}
                         />
                     )
