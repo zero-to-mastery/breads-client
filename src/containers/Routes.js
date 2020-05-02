@@ -134,13 +134,13 @@ const Routes = props => {
                                 <div className='alert alert-danger'>{errors.message}</div>
                             )}
                             <Timeline>
+                                <ArticleForm history={props.history} />
                                 <UserAside
                                     id={currentUser.user.id}
                                     image={currentUser.user.image}
                                     username={currentUser.user.username}
                                 />
                                 <SubscriptionReadingsList />
-                                <ArticleForm history={props.history} />
                             </Timeline>
                         </div>
                     )
@@ -156,6 +156,7 @@ const Routes = props => {
                                 <div className='alert alert-danger'>{errors.message}</div>
                             )}
                             <Timeline>
+                                <ArticleForm history={props.history} match={props.match}/>
                                 <UserAside
                                     id={currentUser.user.id}
                                     image={currentUser.user.image}
@@ -164,7 +165,6 @@ const Routes = props => {
                                     match={props.match}
                                 />
                                 <UserReadingsList match={props.match}/>
-                                <ArticleForm history={props.history} match={props.match}/>
                             </Timeline>
                         </div>
                     )
