@@ -10,8 +10,6 @@ class ArticleForm extends Component {
         }
     }
 
-    // need to immediately add to readings list
-
     handleChange = e => {
         this.setState({
             url: e.target.value
@@ -35,8 +33,8 @@ class ArticleForm extends Component {
         const { url } = this.state;
 
         return (
-            <aside className='col-lg-3 col-md-10 offset-sm-1 offset-lg-0'>
-                <form onSubmit={this.handleNewUrl} className='form-inline'>
+            <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2  offset-lg-3 offset-xl-0 order-xl-1'>
+                <form onSubmit={this.handleNewUrl}  className='input-group'>
                     <label htmlFor='url'></label>
                     <div className='input-group'>
                         <input

@@ -23,13 +23,14 @@ const Homepage = props => {
                 <div className='alert alert-danger'>{props.errors.message}</div>
             )}
             <Timeline>
+                <ArticleForm history={props.history}/>
                 <UserAside 
                     id={props.currentUser.user.id}
                     image={props.currentUser.user.image}
                     username={props.currentUser.user.username}
                 />
                 <ReadingsList />
-                <ArticleForm history={props.history}/>
+                
             </Timeline>
         </div>
     )

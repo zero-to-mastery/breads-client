@@ -45,7 +45,7 @@ class UserAside extends Component {
         }
 
         return (
-            <aside className='col-lg-3 col-sm-10 offset-sm-1 offset-lg-0'>
+            <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
                 {/* position-fixed */}
                 <div className='card'>
                     <img

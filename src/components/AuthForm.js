@@ -65,6 +65,7 @@ class AuthForm extends Component {
                                             onChange={this.handleChange}
                                             type='text'
                                             value={first_name}
+                                            required
                                         />
                                     </div>
                                     <div className='form-group col-md-6'>
@@ -77,6 +78,7 @@ class AuthForm extends Component {
                                             onChange={this.handleChange}
                                             type='text'
                                             value={last_name}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -91,6 +93,7 @@ class AuthForm extends Component {
                                             onChange={this.handleChange}
                                             type='text'
                                             value={email}
+                                            required
                                         />
                                     </div>
                                     <div className='form-group col-md-6'>
@@ -103,6 +106,7 @@ class AuthForm extends Component {
                                             onChange={this.handleChange}
                                             type='text'
                                             value={image}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -119,6 +123,7 @@ class AuthForm extends Component {
                                     onChange={this.handleChange}
                                     type='text'
                                     value={username}
+                                    required
                                 />
                             </div>
                             <div className='form-group col-md-6'>
@@ -131,6 +136,7 @@ class AuthForm extends Component {
                                     onChange={this.handleChange}
                                     type='password'
                                     value={password}
+                                    required
                                 />
                             </div>
                         </div>

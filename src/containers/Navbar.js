@@ -34,7 +34,7 @@ class Navbar extends Component {
         ));
 
         return (
-            <nav className='navbar fixed-top navbar-expand-md navbar-dark bg-dark'>
+            <nav className='navbar fixed-top navbar-expand-lg navbar-dark bg-dark'>
                 <div className='container-fluid'>
                     <Link className='navbar-brand' to='/'>
                         BREADS<small> beta</small>
@@ -45,7 +45,7 @@ class Navbar extends Component {
                     {this.props.currentUser.isAuthenticated ? (
                         <div className='collapse navbar-collapse collapsable' id='collapsable'>    
                             <SearchForm history={this.props.history}/>
-                            <ul className='nav navbar-nav m-auto'>
+                            <ul className='navbar-nav m-auto'>
                                 <li>
                                     <NavLink exact to='/' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
                                         Global
