@@ -35,13 +35,19 @@ class AuthForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const authType = this.props.signup ? 'signup' : 'signin';
-        const formData = new FormData();
+        let formData;
+        if (authType === 'singup') {
+            formData = new FormData();
             formData.append('first_name', this.state.first_name);
             formData.append('last_name', this.state.last_name);
             formData.append('email', this.state.email);
             formData.append('username', this.state.username);
             formData.append('password', this.state.password);
             formData.append('image', this.state.image);
+        } else {
+            formData = this.state;
+        }
+        
         this.props
         .onAuth(authType, formData)
         .then(() => {
