@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 
 class AuthForm extends Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class AuthForm extends Component {
             email: '',
             username: '',
             password: '',
-            image: ''
+            image: null
         }
     }
 
@@ -22,16 +21,29 @@ class AuthForm extends Component {
     }
 
     handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        if (e.target.name === 'image') {
+            this.setState({
+                [e.target.name]: e.target.files[0]
+            })
+        } else { 
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+        }
     };
 
     handleSubmit = e => {
         e.preventDefault();
         const authType = this.props.signup ? 'signup' : 'signin';
+        const formData = new FormData();
+            formData.append('first_name', this.state.first_name);
+            formData.append('last_name', this.state.last_name);
+            formData.append('email', this.state.email);
+            formData.append('username', this.state.username);
+            formData.append('password', this.state.password);
+            formData.append('image', this.state.image);
         this.props
-        .onAuth(authType, this.state)
+        .onAuth(authType, formData)
         .then(() => {
             this.props.history.push('/');
         })
@@ -99,13 +111,12 @@ class AuthForm extends Component {
                                     <div className='form-group col-md-6'>
                                         <label htmlFor='image'>Image Url:</label>
                                         <input
-                                            autoComplete='off'
-                                            className='form-control'
+                                            className='form-control-file'
                                             id='image'
                                             name='image'
                                             onChange={this.handleChange}
-                                            type='text'
-                                            value={image}
+                                            type='file'
+                                            accept='image/*'
                                             required
                                         />
                                     </div>
