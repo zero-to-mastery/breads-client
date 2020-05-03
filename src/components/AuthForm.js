@@ -36,7 +36,7 @@ class AuthForm extends Component {
         e.preventDefault();
         const authType = this.props.signup ? 'signup' : 'signin';
         let formData;
-        if (authType === 'singup') {
+        if (authType === 'signup') {
             formData = new FormData();
             formData.append('first_name', this.state.first_name);
             formData.append('last_name', this.state.last_name);
