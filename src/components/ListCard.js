@@ -4,11 +4,11 @@ import DefaultImage from '../images/default-profile-image.jpg';
 
 const ListCard = props => {
     return (
-        <div className='card'>
+        <div className='card border-secondary'>
             <img
                 src={props.image || DefaultImage}
                 alt={props.username}
-                className='card-img-top'
+                className='card-img-top border-bottom border-secondary'
             />
             <div className='card-body'>
                 <Link to={`/${props.id}`}>

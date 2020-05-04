@@ -5,8 +5,8 @@ import DefaultImage from '../images/default-profile-image.jpg';
 
 const ListItem = props => {
     return (
-        <li style={props.style} className='list-group-item'>
-            <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='.text-dark'>{props.title}</a></h5>
+        <li style={props.style} className='list-group-item border-secondary'>
+            <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
             <div className='row reading-area'>
                 <p className='lead'>{props.domain}</p>
                 <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>

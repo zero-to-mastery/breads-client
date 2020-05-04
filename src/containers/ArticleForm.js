@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postNewReading, fetchReadings, fetchUserReadings } from '../store/actions/readings';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ArticleForm extends Component {
     constructor(props) {
@@ -47,7 +48,9 @@ class ArticleForm extends Component {
                             value={url}
                         />
                         <div className='input-group-append'>
-                            <button type='submit' className='btn btn-outline-primary btn-sm'>Submit</button>
+                            <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
+                                <FontAwesomeIcon icon='search'/>
+                            </button>
                         </div>
                     </div>
                 </form>

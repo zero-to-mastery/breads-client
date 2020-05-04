@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import './fontawesome';
+
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 

@@ -5,6 +5,7 @@ import { logout } from '../store/actions/auth';
 import { withRouter } from 'react-router-dom';
 import SearchForm from './SearchForm';
 import { fetchNotifications, updateNotifications } from '../store/actions/notifications';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Navbar extends Component {
     componentDidMount() {
@@ -34,64 +35,62 @@ class Navbar extends Component {
         ));
 
         return (
-            <nav className='navbar fixed-top navbar-expand-lg navbar-dark bg-dark'>
+            <nav className='navbar fixed-top navbar-expand-lg navbar-primary bg-white border-bottom border-secondary'>
                 <div className='container-fluid'>
                     <Link className='navbar-brand' to='/'>
-                        BREADS<small> beta</small>
+                        <strong>🍞 BREADS</strong><small> beta</small>
                     </Link>
-                    <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
-                        <span className='navbar-toggler-icon'></span>
+                    {this.props.currentUser.isAuthenticated &&
+                        <SearchForm history={this.props.history}/>
+                    }
+                    <button className='navbar-toggler text-primary' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
+                        <FontAwesomeIcon icon='bars' size='2x'/>
                     </button>
                     {this.props.currentUser.isAuthenticated ? (
                         <div className='collapse navbar-collapse collapsable' id='collapsable'>    
-                            <SearchForm history={this.props.history}/>
-                            <ul className='navbar-nav m-auto'>
-                                <li>
-                                    <NavLink exact to='/' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
-                                        Global
+                            <ul className='nav ml-auto justify-content-end'>
+                                <div className='mr-auto'>
+                                    <NavLink exact to='/' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
+                                        <FontAwesomeIcon icon='globe-americas' size='2x'/>
                                     </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to={`/${this.props.currentUser.user.id}`} activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
-                                        Your Reads
+                                    <NavLink exact to={`/${this.props.currentUser.user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
+                                        <FontAwesomeIcon icon='user' size='2x'/>
                                     </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to='/subscriptions' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
-                                        Subscriptions
+                                    <NavLink exact to='/subscriptions' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
+                                        <FontAwesomeIcon icon='users' size='2x'/>
                                     </NavLink>
-                                </li>
+                                </div>
+                                <button className='btn text-primary btn-sm' type='button' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                    {!notificationsList.length ? (
+                                        <FontAwesomeIcon icon={['far', 'bell']} size='2x'/>
+                                    ) : (
+                                        <FontAwesomeIcon icon='bell' size='2x' spin/>
+                                    )}
+                                </button>
+                                <div className='dropdown-menu dropdown-menu-right border-secondary' aria-labelledby='navbarDropdown'>
+                                    {!notificationsList.length ? (
+                                        <button className='dropdown-item'>
+                                            No new subscribers!
+                                        </button>
+                                    ) : ( 
+                                        notificationsList
+                                    )}
+                                </div>
+                                <button onClick={this.logout} className='btn text-primary btn-sm'>
+                                    <FontAwesomeIcon icon='sign-out-alt' size='2x'/>
+                                </button>
                             </ul>
-                            <button className='btn text-white btn-sm dropdown-toggle' type='button' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                {!notificationsList.length ? (
-                                    <span className='badge badge-pill badge-primary'>{notificationsList.length}</span>
-                                ) : (
-                                    <span className='badge badge-pill badge-danger'>{notificationsList.length}</span>
-                                )}
-                            </button>
-                            <div className='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
-                                {!notificationsList.length ? (
-                                    <button className='dropdown-item'>
-                                        No new subscribers!
-                                    </button>
-                                ) : ( 
-                                    notificationsList
-                                )}
-                            </div>
-                            <button onClick={this.logout} className='btn text-white btn-sm'>
-                                Log out
-                            </button>
                         </div>
                     ) : (
                         <div className='collapse navbar-collapse collapsable' id='collapsable'>
                             <ul className='nav navbar-nav ml-auto'>
                                 <li>
-                                    <NavLink exact to='/signup' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
+                                    <NavLink exact to='/signup' activeClassName='bg-light btn-outline-primary' className='btn text-primary btn-sm'>
                                         Sign up
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink exact to='/signin' activeClassName='bg-primary text-white' className='btn text-white btn-sm'>
+                                    <NavLink exact to='/signin' activeClassName='bg-light btn-outline-primary' className='btn text-primary btn-sm'>
                                         Log in
                                     </NavLink>
                                 </li>

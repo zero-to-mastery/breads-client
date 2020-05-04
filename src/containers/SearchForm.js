@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchUsers } from '../store/actions/users';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchForm extends Component {
     constructor(props) {
@@ -40,7 +41,9 @@ class SearchForm extends Component {
                         value={search}
                     />
                     <div className='input-group-append'>
-                        <button type='submit' className='btn btn-outline-light btn-sm'>Search</button>
+                        <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
+                            <FontAwesomeIcon icon='search'/>
+                        </button>
                     </div>
                 </div>
             </form>

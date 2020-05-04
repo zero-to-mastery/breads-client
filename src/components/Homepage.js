@@ -8,9 +8,9 @@ import ArticleForm from '../containers/ArticleForm';
 const Homepage = props => {
     if (!props.currentUser.isAuthenticated) {
         return (
-            <div className='home-hero'>
-                <h1>What's Happening?</h1>
-                <h4>New to BREADS?</h4>
+            <div className='home-hero text-secondary'>
+                <h1>🍞 Welcome to BREADS 🍞</h1>
+                <h4>A website to keep track of what you read online</h4>
                 <Link to='/signup' className='btn btn-primary'>
                     Sign up here
                 </Link>
