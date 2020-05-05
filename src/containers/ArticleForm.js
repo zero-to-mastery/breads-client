@@ -49,7 +49,7 @@ class ArticleForm extends Component {
                         />
                         <div className='input-group-append'>
                             <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                                <FontAwesomeIcon icon='search'/>
+                                <FontAwesomeIcon icon='check'/>
                             </button>
                         </div>
                     </div>

@@ -10,18 +10,15 @@ const ListItem = props => {
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
             <div className='row reading-area'>
                 <p className='lead'>{props.domain}</p>
-                <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>
-                <Moment className='text-muted ml-auto' fromNow>
-                    {props.date}
-                </Moment>                
+                <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>               
             </div>
             <div className='row'>
                 <img
                     src={props.image || DefaultImage}
                     alt={props.username}
-                    height='100'
-                    width='100'
-                    className='timeline-image'
+                    height='48'
+                    width='48'
+                    // className='timeline-image'
                 />
                 <div className='dropdown'>
                     <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -36,6 +33,9 @@ const ListItem = props => {
                         </button>
                     </div>
                 </div>
+                <Moment className='text-muted mt-3' fromNow>
+                    {props.date}
+                </Moment> 
                 {props.summary === '' || props.summary.id != props.id
                     ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
                         <FontAwesomeIcon icon='book-reader'/>
