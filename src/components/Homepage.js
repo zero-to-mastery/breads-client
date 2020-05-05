@@ -9,7 +9,11 @@ const Homepage = props => {
     if (!props.currentUser.isAuthenticated) {
         return (
             <div className='home-hero text-secondary'>
-                <h1>🍞 Welcome to BREADS 🍞</h1>
+                <h1>
+                    <span role='img' aria-label='breads'>🍞 </span>
+                    Welcome to BREADS
+                    <span role='img' aria-label='breads'> 🍞</span>
+                </h1>
                 <h4>A website to keep track of what you read online</h4>
                 <Link to='/signup' className='btn btn-primary'>
                     Sign up here

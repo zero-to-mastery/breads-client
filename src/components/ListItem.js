@@ -2,6 +2,7 @@ import React from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ListItem = props => {
     return (
@@ -12,7 +13,7 @@ const ListItem = props => {
                 <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>
                 <Moment className='text-muted ml-auto' fromNow>
                     {props.date}
-                </Moment>
+                </Moment>                
             </div>
             <div className='row'>
                 <img
@@ -22,17 +23,30 @@ const ListItem = props => {
                     width='100'
                     className='timeline-image'
                 />
-                <Link to={`/${props.user_id}`}>
-                    <p className='btn text-primary m-2'><small>{props.username}</small></p>
-                </Link>
-                <p onClick={props.newSubscription} className='btn text-muted m-2 subscribe'><small>Subscribe</small></p>
+                <div className='dropdown'>
+                    <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                        <small>{props.username}</small>
+                    </p>
+                    <div className='dropdown-menu border-secondary' aria-labelledby='dropdownMenuLink'>
+                        <Link to={`/${props.user_id}`}>
+                            <button className='dropdown-item'>{props.username}'s Profile</button>
+                        </Link>
+                        <button onClick={props.newSubscription} className='dropdown-item'>
+                            <small>Subscribe</small>
+                        </button>
+                    </div>
+                </div>
                 {props.summary === '' || props.summary.id != props.id
-                    ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'><small>View Summary</small></p>
-                    : <p onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'><small>Remove Summary</small></p>
+                    ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
+                        <FontAwesomeIcon icon='book-reader'/>
+                    </p>
+                    : <p onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'>
+                        <FontAwesomeIcon icon='window-close'/>
+                    </p>
                 }
                 {props.isCorrectUser && (
                     <p onClick={props.removeReading} className='btn text-danger m-2 delete'>
-                        <small>Delete</small>
+                        <FontAwesomeIcon icon={['far', 'trash-alt']}/>
                     </p>
                 )}
                 {props.summary.id == props.id &&

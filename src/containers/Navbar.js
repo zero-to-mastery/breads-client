@@ -35,19 +35,20 @@ class Navbar extends Component {
         ));
 
         return (
-            <nav className='navbar fixed-top navbar-expand-lg navbar-primary bg-white border-bottom border-secondary'>
+            <nav className='navbar fixed-top navbar-expand-sm navbar-primary bg-white border-bottom border-secondary'>
                 <div className='container-fluid'>
                     <Link className='navbar-brand' to='/'>
-                        <strong>🍞 BREADS</strong><small> beta</small>
+                        <span role='img' aria-label='breads'>🍞</span>
                     </Link>
-                    {this.props.currentUser.isAuthenticated &&
+                    {/* {this.props.currentUser.isAuthenticated &&
                         <SearchForm history={this.props.history}/>
-                    }
-                    <button className='navbar-toggler text-primary' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
+                    } */}
+                    <button className='btn navbar-toggler text-primary ml-auto' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
                         <FontAwesomeIcon icon='bars' size='2x'/>
                     </button>
                     {this.props.currentUser.isAuthenticated ? (
-                        <div className='collapse navbar-collapse collapsable' id='collapsable'>    
+                        <div className='collapse navbar-collapse collapsable' id='collapsable'>
+                            <SearchForm history={this.props.history}/>
                             <ul className='nav ml-auto justify-content-end'>
                                 <div className='mr-auto'>
                                     <NavLink exact to='/' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>

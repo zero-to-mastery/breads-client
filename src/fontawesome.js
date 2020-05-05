@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faGlobeAmericas, faUser, faUsers, faSearch, faSignOutAlt, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faBell as farBell, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faGlobeAmericas, faUser, faUsers, faSearch, faSignOutAlt, faBell, faBars, faBookReader, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faBell as farBell, faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
     faGlobeAmericas,
@@ -11,5 +11,8 @@ library.add(
     faBell,
     farBell,
     faEdit,
-    faBars
+    faBars,
+    faTrashAlt,
+    faBookReader,
+    faWindowClose
 );

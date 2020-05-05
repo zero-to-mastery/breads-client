@@ -59,7 +59,7 @@ class AuthForm extends Component {
     }
 
     render() {
-        const { first_name, last_name, email, username, password, image } = this.state;
+        const { first_name, last_name, email, username, password } = this.state;
         const { heading, buttonText, signup, errors } = this.props;
 
         return (
