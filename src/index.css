@@ -1,5 +1,3 @@
-/* refactor to individual css sheets */
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +5,6 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* background-color: #EEF0F2; */
     background-color: #f8f9fa !important;
 }
 
@@ -30,31 +27,14 @@ code {
     align-items: center;
     justify-content: center;
     z-index: -1;
-    /* background-color: skyblue; */
-    /* background-image: url('./images/signed-out-home.jpg'); */
     text-align: center;
     padding: 1rem;
     background-position: center center;
     background-size: cover;
-    /* color: #fff; */
-    /* text-shadow: 0 0 8px #66757f; */
 }
-
-/* #readings .list-group-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 7px 20px 12px;
-} */
-  
-/* #readings:not(.no-hover) .list-group-item:hover {
-    background-color: #e6ecf0;
-} */
   
 .timeline-image {
-    border-radius: 50px;
-    height: 48px;
-    width: 48px;
-    margin: 2px 30px 10px 10px;
+    object-fit: scale-down;
 }
   
 .btn:hover {
@@ -68,11 +48,9 @@ code {
 input[type="text"], textarea {
     outline: none;
     box-shadow:none !important;
-    /* border:1px solid #ccc !important; */
 }
 
 .btn:focus {
     outline: none;
     box-shadow:none !important;
-    /* border:1px solid #ccc !important; */
 }

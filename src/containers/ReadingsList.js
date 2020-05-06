@@ -13,7 +13,7 @@ class ReadingsList extends Component {
     }
 
     render() {
-        const { readings, summary, fetchSummary, removeSummary, postNewSubscription } = this.props;
+        const { readings, summary, fetchSummary, removeSummary, postNewSubscription, loading } = this.props;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -48,6 +48,7 @@ class ReadingsList extends Component {
                         viewSummary={fetchSummary.bind(this, x[index].id, x[index].article_url)}
                         removeSummary={removeSummary}
                         newSubscription={postNewSubscription.bind(this, x[index].user_id)}
+                        loading={loading}
                         style={style}
                     />
                 </CellMeasurer>
@@ -71,6 +72,7 @@ class ReadingsList extends Component {
                                         scrollTop={scrollTop}
                                         isScrolling={isScrolling}
                                         onChildScroll={onChildScroll}
+                                        style={{ outline: 'none' }}
                                     />
                                 )}
                             </AutoSizer> 
@@ -85,7 +87,8 @@ class ReadingsList extends Component {
 function mapStateToProps(state) {
     return {
         readings: state.readings,
-        summary: state.summary
+        summary: state.summary,
+        loading: state.loading
     }
 }
 

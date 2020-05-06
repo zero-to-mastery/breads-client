@@ -18,7 +18,7 @@ const ListItem = props => {
                     alt={props.username}
                     height='48'
                     width='48'
-                    // className='timeline-image'
+                    className='timeline-image'
                 />
                 <div className='dropdown'>
                     <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -33,16 +33,21 @@ const ListItem = props => {
                         </button>
                     </div>
                 </div>
-                <Moment className='text-muted mt-3' fromNow>
+                <Moment className='text-muted mt-3' fromNow ago>
                     {props.date}
                 </Moment> 
-                {props.summary === '' || props.summary.id != props.id
+                {props.loading.isLoading && props.loading.id === props.id
                     ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
-                        <FontAwesomeIcon icon='book-reader'/>
+                        <FontAwesomeIcon icon='spinner' pulse/>
                     </p>
-                    : <p onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'>
-                        <FontAwesomeIcon icon='window-close'/>
-                    </p>
+                    : [(props.summary === '' || props.summary.id != props.id
+                        ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
+                            <FontAwesomeIcon icon='book-reader'/>
+                        </p>
+                        : <p onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'>
+                            <FontAwesomeIcon icon='window-close'/>
+                        </p>
+                    )]
                 }
                 {props.isCorrectUser && (
                     <p onClick={props.removeReading} className='btn text-danger m-2 delete'>

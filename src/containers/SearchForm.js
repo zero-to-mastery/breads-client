@@ -53,7 +53,6 @@ class SearchForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        // errors: state.errors,
         readings: state.readings
     }
 }

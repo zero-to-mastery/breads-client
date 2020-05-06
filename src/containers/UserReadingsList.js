@@ -18,7 +18,7 @@ class UserReadingsList extends Component {
     }
 
     render() {
-        const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser } = this.props;
+        const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser, loading } = this.props;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -54,6 +54,7 @@ class UserReadingsList extends Component {
                         removeSummary={removeSummary}
                         removeReading={removeReading.bind(this, x[index].user_id, x[index].id)}
                         isCorrectUser={currentUser === x[index].user_id}
+                        loading={loading}
                         style={style}
                     />
                 </CellMeasurer>
@@ -77,6 +78,7 @@ class UserReadingsList extends Component {
                                         scrollTop={scrollTop}
                                         isScrolling={isScrolling}
                                         onChildScroll={onChildScroll}
+                                        style={{ outline: 'none' }}
                                     />
                                 )}
                             </AutoSizer> 
@@ -93,6 +95,7 @@ function mapStateToProps(state) {
         readings: state.readings,
         summary: state.summary,
         currentUser: state.currentUser.user.id,
+        loading: state.loading
     }
 }
 
