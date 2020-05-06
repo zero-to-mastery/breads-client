@@ -3,6 +3,7 @@
     "routes": {
         "/**": "index.html"
     },
+    "https_only": true,
     "proxies": {
         "/api/": {
             "origin": "${REACT_APP_AXIOS_URL}"
