@@ -10,7 +10,8 @@ import {
     faBookReader,
     faWindowClose,
     faCheck,
-    faSpinner
+    faSpinner,
+    faChartBar
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faBell as farBell,
@@ -32,5 +33,6 @@ library.add(
     faBookReader,
     faWindowClose,
     faCheck,
-    faSpinner
+    faSpinner,
+    faChartBar
 );

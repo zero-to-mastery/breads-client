@@ -1,6 +1,7 @@
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
 import { LOAD_READINGS, REMOVE_READING } from '../actionTypes';
+import { addLoader, removeLoader } from './loading';
 
 export const loadReadings = readings => ({
     type: LOAD_READINGS,
@@ -23,10 +24,12 @@ export const removeReading = (user_id, reading_id) => {
 };
 
 export const fetchReadings = () => {
-    return dispatch => { //getState
+    return dispatch => {
+        dispatch(addLoader());
         return apiCall('get', '/readings')
             .then(res => {
                 dispatch(loadReadings(res));
+                dispatch(removeLoader());
             })
             .catch(err => {
                 dispatch(addError(err.message));

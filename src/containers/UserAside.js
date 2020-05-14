@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSubscriptions } from '../store/actions/users';
+import { fetchUserReadings } from '../store/actions/readings';
 import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UserAside extends Component {
     componentDidMount() {
         this.props.fetchSubscriptions(this.props.id);
+        if (this.props.match) {
+            this.props.fetchUserReadings(this.props.match.params.id);
+        }
     }
 
     render() {
@@ -39,7 +43,12 @@ class UserAside extends Component {
                 totalWords += r.word_count/100000;
             }); 
 
-            totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings[0].data.length}</strong></p>;
+            totalReadings = <p className='card-text reading-sum'>
+                                Readings: <strong>{readings[0].data.length}</strong>
+                                <NavLink exact to={`/${id}/chart`}>
+                                    <FontAwesomeIcon icon='chart-bar'/>
+                                </NavLink>
+                            </p>;
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings[0].websites.length}</strong></p>;
             topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings[0].websites[0].domain}</strong></p>;
             totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
@@ -88,4 +97,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions })(UserAside);
+export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings })(UserAside);

@@ -16,10 +16,11 @@ import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
+import Heatmap from '../components/Heatmap';
 
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings } = props; // removeLoader
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings, loading } = props;
     return (
         <Switch>
             <Route
@@ -210,6 +211,32 @@ const Routes = props => {
                     )
                 }}
             />
+            <Route
+                exact
+                path='/:id/chart'
+                render={props => {
+                    return (
+                        <div>
+                            {errors.message && (
+                                <div className='alert alert-danger'>{errors.message}</div>
+                            )}
+                            <Timeline>
+                                <UserAside
+                                    id={currentUser.user.id}
+                                    image={currentUser.user.image}
+                                    username={currentUser.user.username}
+                                    readings={readings}
+                                    match={props.match}
+                                />
+                                <Heatmap
+                                    readings={readings}
+                                    loading={loading}
+                                />
+                            </Timeline>
+                        </div>
+                    )
+                }}
+            />
         </Switch>
     );
 }
@@ -218,7 +245,8 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
     errors: state.errors,
-    readings: state.readings
+    readings: state.readings,
+    loading: state.loading
   };
 }
 
