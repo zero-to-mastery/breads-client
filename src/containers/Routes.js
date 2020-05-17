@@ -16,8 +16,6 @@ import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
-import Heatmap from '../components/Heatmap';
-
 
 const Routes = props => {
     const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings, loading } = props;
@@ -206,32 +204,6 @@ const Routes = props => {
                                     match={props.match}
                                 />
                                 <SubscriptionsList match={props.match}/>
-                            </Timeline>
-                        </div>
-                    )
-                }}
-            />
-            <Route
-                exact
-                path='/:id/chart'
-                render={props => {
-                    return (
-                        <div>
-                            {errors.message && (
-                                <div className='alert alert-danger'>{errors.message}</div>
-                            )}
-                            <Timeline>
-                                <UserAside
-                                    id={currentUser.user.id}
-                                    image={currentUser.user.image}
-                                    username={currentUser.user.username}
-                                    readings={readings}
-                                    match={props.match}
-                                />
-                                <Heatmap
-                                    readings={readings}
-                                    loading={loading}
-                                />
                             </Timeline>
                         </div>
                     )

@@ -45,9 +45,6 @@ class UserAside extends Component {
 
             totalReadings = <p className='card-text reading-sum'>
                                 Readings: <strong>{readings[0].data.length}</strong>
-                                <NavLink exact to={`/${id}/chart`}>
-                                    <FontAwesomeIcon icon='chart-bar'/>
-                                </NavLink>
                             </p>;
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings[0].websites.length}</strong></p>;
             topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings[0].websites[0].domain}</strong></p>;
