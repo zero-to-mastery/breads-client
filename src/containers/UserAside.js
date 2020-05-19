@@ -36,29 +36,25 @@ class UserAside extends Component {
             user = {},
             user_id;
         
-        if (readings && 
-            readings.length > 0 &&
-            readings[0].data.length > 0) {
-            for (const property in readings[0].data) {
-                user[property] = readings[0].data[property]
+        if (readings && readings.data.length > 0) {
+            for (const property in readings.data[0]) {
+                user[property] = readings.data[0][property]
             }
             // make sure image change is consistent with id of user in url
-            if (match && match.params.id == user[0].user_id) {
+            if (match && user && match.params.id == user.user_id) {
                 user_id = id;
-                id = user[0].user_id;
-                if (user[0].image) image = user[0].image;
-                if (user[0].username) username = user[0].username;
+                id = user.user_id;
+                image = user.image;
+                username = user.username;
             }
 
-            readings[0].data.forEach(r => {
+            readings.data.forEach(r => {
                 totalWords += r.word_count/100000;
             }); 
 
-            totalReadings = <p className='card-text reading-sum'>
-                                Readings: <strong>{readings[0].data.length}</strong>
-                            </p>;
-            totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings[0].websites.length}</strong></p>;
-            topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings[0].websites[0].domain}</strong></p>;
+            totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings.data.length}</strong></p>;
+            totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
+            topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
             totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
         }
 
@@ -84,7 +80,7 @@ class UserAside extends Component {
                             Subscriptions: {users.length}
                         </NavLink>
 
-                        {loading
+                        {loading.isLoading && !loading.id
                             ? <p className='m-2 m-auto'>
                                 <FontAwesomeIcon icon='spinner' pulse/>
                             </p>
@@ -106,7 +102,7 @@ function mapStateToProps(state) {
     return {
         currentUser: state.currentUser.user,
         users: state.users,
-        loading: state.loading.isLoading
+        loading: state.loading
     }
 }
 

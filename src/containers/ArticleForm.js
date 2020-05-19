@@ -50,7 +50,7 @@ class ArticleForm extends Component {
                         />
                         <div className='input-group-append'>
                             <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                            {loading
+                            {loading.isLoading && !loading.id
                                 ? <FontAwesomeIcon icon='spinner' pulse/>
                                 : <FontAwesomeIcon icon='plus'/>
                             }
@@ -66,7 +66,7 @@ class ArticleForm extends Component {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser.user.id,
-        loading: state.loading.isLoading
+        loading: state.loading
     }
 }
 

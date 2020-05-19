@@ -21,7 +21,7 @@ class ReadingsList extends Component {
         });
 
         let x = [];
-        if (readings[0]) x = readings[0].data;
+        if (readings) x = readings.data;
         
         const renderRow = ({ index, key, parent, style }) => {
             return (

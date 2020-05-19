@@ -1,14 +1,16 @@
 import { LOAD_READINGS, REMOVE_READING } from '../actionTypes';
 
-const reading = (state=[{data: [], websites: []}], action) => {
+const reading = (state={data: [], websites: []}, action) => {
     switch (action.type) {
         case LOAD_READINGS:
-            return [action.readings];
+            console.log({...action.readings});
+            // return [action.readings];
+            return {...action.readings};
         case REMOVE_READING:
-            return [{
+            return {
                 data: state[0].data.filter(reading => reading.id !== action.id),
                 websites: state[0].websites
-            }];
+            };
         default:
             return state;
     }
