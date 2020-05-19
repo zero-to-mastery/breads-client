@@ -54,3 +54,7 @@ input[type="text"], textarea {
     outline: none;
     box-shadow:none !important;
 }
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}

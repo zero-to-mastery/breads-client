@@ -14,12 +14,6 @@ class AuthForm extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.history.listen(() => {
-            this.props.removeError();
-        });
-    }
-
     handleChange = e => {
         if (e.target.name === 'image') {
             this.setState({
@@ -60,15 +54,20 @@ class AuthForm extends Component {
 
     render() {
         const { first_name, last_name, email, username, password } = this.state;
-        const { heading, buttonText, signup, errors } = this.props;
+        const { heading, buttonText, signup, errors, removeError } = this.props;
 
         return (
-            <div className='row justify-content-md-center text-center'>
+            <div className='row justify-content-md-center text-center py-5'>
                 <div className='col-md-6'>
                     <form onSubmit={this.handleSubmit}>
                         <h2>{heading}</h2>
                         {errors.message && (
-                            <div className='alert alert-danger'>{errors.message}</div>
+                                <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                    {errors.message}
+                                    <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
                         )}
                         {signup && (
                             <div>

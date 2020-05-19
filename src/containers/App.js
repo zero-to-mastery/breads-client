@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
-import Main from './Main';
+import Routes from './Routes';
 import { Provider } from 'react-redux'; //makes react and redux connect together
 import { configureStore } from '../store';
 import { setAuthorizationToken, setCurrentUser } from '../store/actions/auth';
@@ -21,10 +21,8 @@ if (localStorage.jwtToken) {
 
 const App = () => (
     <Provider store={store}>
-        <div className='onboarding'>
-            <Navbar />
-            <Main />
-        </div>
+        <Navbar />
+        <Routes />
     </Provider>
 );
 

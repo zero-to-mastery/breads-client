@@ -20,6 +20,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm';
 const Routes = props => {
     const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings, loading } = props;
     return (
+        <div className='container-fluid py-5'>
         <Switch>
             <Route
                 exact
@@ -28,6 +29,7 @@ const Routes = props => {
                     return (
                         <Homepage
                             errors={errors}
+                            removeError={removeError}
                             currentUser={currentUser}
                             {...props}
                         />
@@ -210,6 +212,7 @@ const Routes = props => {
                 }}
             />
         </Switch>
+        </div>
     );
 }
 

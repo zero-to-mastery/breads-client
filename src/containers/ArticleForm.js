@@ -44,7 +44,7 @@ class ArticleForm extends Component {
                             id='url'
                             name='url'
                             onChange={this.handleChange}
-                            placeholder='www.coolarticle.com'
+                            placeholder='Paste article url here'
                             value={url}
                         />
                         <div className='input-group-append'>
