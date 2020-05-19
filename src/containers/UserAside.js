@@ -25,6 +25,7 @@ class UserAside extends Component {
 
     render() {
         let {  currentUser, readings, match, users, loading } = this.props;
+        console.log(loading)
         let totalReadings,
             totalWebsites,
             topWebsite,
@@ -80,7 +81,7 @@ class UserAside extends Component {
                             Subscriptions: {users.length}
                         </NavLink>
 
-                        {loading.isLoading && !loading.id
+                        {loading.isLoading && loading.id === 'userReadings'
                             ? <p className='m-2 m-auto'>
                                 <FontAwesomeIcon icon='spinner' pulse/>
                             </p>
