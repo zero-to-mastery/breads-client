@@ -33,11 +33,7 @@ const Homepage = props => {
             )}
             <Timeline>
                 <ArticleForm history={props.history}/>
-                <UserAside 
-                    id={props.currentUser.user.id}
-                    image={props.currentUser.user.image}
-                    username={props.currentUser.user.username}
-                />
+                <UserAside />
                 <ReadingsList />
             </Timeline>
         </div>

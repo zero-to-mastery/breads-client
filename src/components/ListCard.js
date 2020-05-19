@@ -15,9 +15,9 @@ const ListCard = props => {
                     <h5 className='card-title'>{props.username}</h5>
                 </Link>
                 {props.first} {props.last}
-                <Link to={`/${props.id}/subscriptions`}>
+                {/* <Link to={`/${props.id}/subscriptions`}>
                     <p>Subscriptions</p>
-                </Link>
+                </Link> */}
                 {props.subscribed === 'yes' && (
                     <small onClick={props.removeSubscription} className='text-danger unsubscribe'>Unsubscribe</small>
                 )}

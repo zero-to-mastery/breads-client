@@ -8,20 +8,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UserAside extends Component {
     componentDidMount() {
-        this.props.fetchSubscriptions(this.props.id);
         if (this.props.match) {
+            this.props.fetchSubscriptions(this.props.match.params.id);
+            this.props.fetchUserReadings(this.props.match.params.id);
+        } else {
+            this.props.fetchSubscriptions(this.props.currentUser.id);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
+            this.props.fetchSubscriptions(this.props.match.params.id);
             this.props.fetchUserReadings(this.props.match.params.id);
         }
     }
 
     render() {
-        let { id, image, username, readings, match, users } = this.props;
-        
+        let {  currentUser, readings, match, users, loading } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
             totalBooks,
             totalWords = 0,
+            id = currentUser.id,
+            image = currentUser.image,
+            username = currentUser.username,
             user = {},
             user_id;
         
@@ -53,7 +64,6 @@ class UserAside extends Component {
 
         return (
             <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
-                {/* position-fixed */}
                 <div className='card border-secondary'>
                     <img
                         src={image || DefaultImage}
@@ -70,17 +80,21 @@ class UserAside extends Component {
                             }
                         </div>
                         
-                        {user_id === id && 
-                            <NavLink exact to={`/${id}/subscriptions`} className='text-primary'>
-                                Subscriptions: {users.length}
-                            </NavLink>
+                        <NavLink exact to={`/${id}/subscriptions`} className='text-primary'>
+                            Subscriptions: {users.length}
+                        </NavLink>
+
+                        {loading
+                            ? <p className='m-2 m-auto'>
+                                <FontAwesomeIcon icon='spinner' pulse/>
+                            </p>
+                            : <div>
+                                {totalReadings}
+                                {totalWebsites}
+                                {topWebsite}
+                                {totalBooks}
+                            </div>
                         }
-                        <div>
-                            {totalReadings}
-                            {totalWebsites}
-                            {topWebsite}
-                            {totalBooks}
-                        </div>
                     </div>
                 </div>
             </aside>
@@ -90,7 +104,9 @@ class UserAside extends Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        currentUser: state.currentUser.user,
+        users: state.users,
+        loading: state.loading.isLoading
     }
 }
 

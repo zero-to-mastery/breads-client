@@ -9,7 +9,7 @@ import {
     faBars,
     faBookReader,
     faWindowClose,
-    faCheck,
+    faPlus,
     faSpinner,
     faChartBar
 } from '@fortawesome/free-solid-svg-icons';
@@ -32,7 +32,7 @@ library.add(
     faTrashAlt,
     faBookReader,
     faWindowClose,
-    faCheck,
+    faPlus,
     faSpinner,
     faChartBar
 );

@@ -32,6 +32,7 @@ class ArticleForm extends Component {
 
     render() {
         const { url } = this.state;
+        const { loading } = this.props;
 
         return (
             <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2  offset-lg-3 offset-xl-0 order-xl-1'>
@@ -49,7 +50,10 @@ class ArticleForm extends Component {
                         />
                         <div className='input-group-append'>
                             <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                                <FontAwesomeIcon icon='check'/>
+                            {loading
+                                ? <FontAwesomeIcon icon='spinner' pulse/>
+                                : <FontAwesomeIcon icon='plus'/>
+                            }
                             </button>
                         </div>
                     </div>
@@ -61,8 +65,8 @@ class ArticleForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.readings,
-        currentUser: state.currentUser.user.id
+        currentUser: state.currentUser.user.id,
+        loading: state.loading.isLoading
     }
 }
 

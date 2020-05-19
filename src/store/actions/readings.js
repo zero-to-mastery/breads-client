@@ -38,12 +38,12 @@ export const fetchReadings = () => {
 }
 
 export const fetchUserReadings = userId => {
-    return (dispatch, getState) => {
-        // let {currentUser} = getState();
-        // const id = currentUser.user.id;
+    return dispatch => {
+        dispatch(addLoader());
         return apiCall('get', `/readings/${userId}`)
             .then(res => {
                 dispatch(loadReadings(res));
+                dispatch(removeLoader());
             })
             .catch(err => {
                 dispatch(addError(err.message));
@@ -52,6 +52,7 @@ export const fetchUserReadings = userId => {
 }
 
 export const postNewReading = url => (dispatch, getState) => {
+    dispatch(addLoader());
     let { currentUser } = getState();
     const id = currentUser.user.id;
     return apiCall('post', `/users/${id}/readings`, { url })

@@ -1,22 +1,17 @@
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
-import { LOAD_USERS } from '../actionTypes';//, FILTER_USERS
+import { LOAD_USERS } from '../actionTypes';
+import { addLoader, removeLoader } from './loading';
 
 export const loadUsers = users => ({
     type: LOAD_USERS,
     users
 });
 
-// export const filterUsers = users => ({
-//     type: FILTER_USERS,
-//     users
-// });
-
 export const fetchUsers = () => {
     return (dispatch, getState) => {
         const { users } = getState();
-        console.log(users);
-        if (users.length === 0) { // don't run if users has been filtered
+        if (users.length === 0) {
             return apiCall('get', '/users')
             .then(res => {
                 console.log('FETCH');
@@ -44,9 +39,11 @@ export const fetchSubscriptions = user_id => {
 
 export const searchUsers = search => {
     return dispatch => {
+        dispatch(addLoader());
         return apiCall('get', `/users/search?users=${search}`)
             .then(res => {
                 dispatch(loadUsers(res));
+                dispatch(removeLoader());
             })
             .catch(err => {
                 dispatch(addError(err.message));
