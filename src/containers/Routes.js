@@ -18,7 +18,7 @@ import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings, userReadings } = props;
     return (
         <div className='container-fluid py-5'>
             <Switch>
@@ -150,7 +150,7 @@ const Routes = props => {
                                 <Timeline>
                                     <ArticleForm history={props.history} match={props.match}/>
                                     <UserAside
-                                        readings={readings}
+                                        readings={userReadings}
                                         match={props.match}
                                     />
                                     <UserReadingsList match={props.match}/>
@@ -205,7 +205,8 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
     errors: state.errors,
-    readings: state.readings
+    readings: state.readings,
+    userReadings: state.userReadings
   };
 }
 

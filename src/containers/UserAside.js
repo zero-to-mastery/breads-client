@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSubscriptions } from '../store/actions/users';
-import { fetchUserReadings } from '../store/actions/readings';
+import { fetchUserReadings } from '../store/actions/userReadings';
 import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadings, removeReading } from '../store/actions/readings';
+import { fetchUserReadings, removeUserReading } from '../store/actions/userReadings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
@@ -17,7 +17,7 @@ class UserReadingsList extends Component {
     }
 
     render() {
-        const { readings, removeReading, summary, fetchSummary, removeSummary, currentUser, loading } = this.props;
+        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, loading } = this.props;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -51,7 +51,7 @@ class UserReadingsList extends Component {
                         summary={summary.summary}
                         viewSummary={fetchSummary.bind(this, x[index].id, x[index].article_url)}
                         removeSummary={removeSummary}
-                        removeReading={removeReading.bind(this, x[index].user_id, x[index].id)}
+                        removeReading={removeUserReading.bind(this, x[index].user_id, x[index].id)}
                         isCorrectUser={currentUser === x[index].user_id}
                         loading={loading}
                         style={style}
@@ -91,7 +91,7 @@ class UserReadingsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.readings,
+        readings: state.userReadings,
         summary: state.summary,
         currentUser: state.currentUser.user.id,
         loading: state.loading
@@ -101,6 +101,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { 
     fetchUserReadings,
     fetchSummary,
-    removeReading,
+    removeUserReading,
     removeSummary
 })(UserReadingsList);

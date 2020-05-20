@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postNewReading, fetchReadings, fetchUserReadings } from '../store/actions/readings';
+import { postNewReading, fetchReadings } from '../store/actions/readings';
+import { fetchUserReadings } from '../store/actions/userReadings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ArticleForm extends Component {

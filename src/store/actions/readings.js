@@ -13,16 +13,6 @@ export const removeReadings = id => ({
     id
 });
 
-export const removeReading = (user_id, reading_id) => {
-    return dispatch => {
-        return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
-            .then(() => dispatch(removeReadings(reading_id)))
-            .catch(err => {
-                dispatch(addError(err.message));
-            });
-    };
-};
-
 export const fetchReadings = () => {
     return dispatch => {
         dispatch(addLoader('reading'));
@@ -34,20 +24,6 @@ export const fetchReadings = () => {
             .catch(err => {
                 dispatch(addError(err.message));
             });
-    }
-}
-
-export const fetchUserReadings = userId => {
-    return dispatch => {
-        dispatch(addLoader('userReadings'));
-        return apiCall('get', `/readings/${userId}`)
-            .then(res => {
-                dispatch(loadReadings(res));
-                dispatch(removeLoader());
-            })
-            .catch(err => {
-                dispatch(addError(err.message));
-            })
     }
 }
 
