@@ -1,7 +1,6 @@
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
 import { LOAD_USERS } from '../actionTypes';
-import { addLoader, removeLoader } from './loading';
 
 export const loadUsers = users => ({
     type: LOAD_USERS,
@@ -37,30 +36,13 @@ export const fetchSubscriptions = user_id => {
     }
 }
 
-export const searchUsers = search => {
+export function sendResetEmail(email) {
     return dispatch => {
-        dispatch(addLoader());
-        return apiCall('get', `/users/search?users=${search}`)
-            .then(res => {
-                dispatch(loadUsers(res));
-                dispatch(removeLoader());
-            })
+        return apiCall('post', '/users/reset', { email })
+            .then(res => {})
             .catch(err => {
                 dispatch(addError(err.message));
             });
-    }
-}
-
-export function sendResetEmail(email) {
-    return dispatch => {
-        // return new Promise((resolve, reject) => {
-            return apiCall('post', '/users/reset', { email })
-                .then(res => {})
-                .catch(err => {
-                    dispatch(addError(err.message));
-                    // reject();
-                });
-        // });
     }
 }
 

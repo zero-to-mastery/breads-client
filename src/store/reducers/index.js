@@ -8,6 +8,7 @@ import subscriptions from './subscriptions';
 import notifications from './notifications';
 import loading from './loading';
 import userReadings from './userReadings';
+import search from './search';
 
 const rootReducer = combineReducers({
     currentUser,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     subscriptions,
     notifications,
     loading,
-    userReadings
+    userReadings,
+    search
 });
   
 export default rootReducer;

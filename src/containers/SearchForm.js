@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchUsers } from '../store/actions/users';
+import { searchUsers } from '../store/actions/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchForm extends Component {

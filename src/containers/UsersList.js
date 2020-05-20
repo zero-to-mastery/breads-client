@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UsersList extends Component {
     render() {
-        const { users, loading } = this.props;
-        let usersList = users.map(u => (           
+        const { search, loading } = this.props;
+        let resultsList = search.map(u => (           
             <ListCard
                 key={u.id}
                 id={u.id}
@@ -26,14 +26,14 @@ class UsersList extends Component {
         }
             
         return (
-            <List list_data={usersList} display='card-columns' />
+            <List list_data={resultsList} display='card-columns' />
         )
     }
 }
 
 function mapStateToProps(state) {
     return {
-        users: state.users,
+        search: state.search,
         loading: state.loading.isLoading
     }
 }
