@@ -1,14 +1,10 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faGlobeAmericas,
-    faUser,
-    faUsers,
     faSearch,
     faSignOutAlt,
     faBell,
     faBars,
     faBookReader,
-    faWindowClose,
     faPlus,
     faSpinner,
     faChartBar,
@@ -17,13 +13,11 @@ import {
 import {
     faBell as farBell,
     faEdit,
-    faTrashAlt
+    faTrashAlt,
+    faWindowClose
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
-    faGlobeAmericas,
-    faUser,
-    faUsers,
     faSearch,
     faSignOutAlt,
     faBell,

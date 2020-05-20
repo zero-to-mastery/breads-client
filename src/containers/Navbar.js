@@ -35,14 +35,11 @@ class Navbar extends Component {
         ));
 
         return (
-            <nav className='navbar fixed-top navbar-expand-sm navbar-primary bg-white border-bottom border-secondary'>
+            <nav className='navbar fixed-top navbar-expand-md navbar-primary bg-white border-bottom border-secondary'>
                 <div className='container-fluid'>
                     <Link className='navbar-brand' to='/'>
                         <span role='img' aria-label='breads'>🍞</span>
                     </Link>
-                    {/* {this.props.currentUser.isAuthenticated &&
-                        <SearchForm history={this.props.history}/>
-                    } */}
                     <button className='btn navbar-toggler text-primary ml-auto' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
                         <FontAwesomeIcon icon='bars' size='2x'/>
                     </button>
@@ -52,20 +49,20 @@ class Navbar extends Component {
                             <ul className='nav ml-auto justify-content-end'>
                                 <div className='mr-auto'>
                                     <NavLink exact to='/' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        <FontAwesomeIcon icon='globe-americas' size='2x'/>
+                                        Global
                                     </NavLink>
                                     <NavLink exact to={`/${this.props.currentUser.user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        <FontAwesomeIcon icon='user' size='2x'/>
+                                        Your Reads
                                     </NavLink>
                                     <NavLink exact to='/subscriptions' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        <FontAwesomeIcon icon='users' size='2x'/>
+                                        Subscriptions
                                     </NavLink>
                                 </div>
                                 <button className='btn text-primary btn-sm' type='button' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                     {!notificationsList.length ? (
-                                        <FontAwesomeIcon icon={['far', 'bell']} size='2x'/>
+                                        <FontAwesomeIcon icon={['far', 'bell']} />
                                     ) : (
-                                        <FontAwesomeIcon icon='bell' size='2x' spin/>
+                                        <FontAwesomeIcon icon='bell' spin />
                                     )}
                                 </button>
                                 <div className='dropdown-menu dropdown-menu-right border-secondary' aria-labelledby='navbarDropdown'>
@@ -78,7 +75,7 @@ class Navbar extends Component {
                                     )}
                                 </div>
                                 <button onClick={this.logout} className='btn text-primary btn-sm'>
-                                    <FontAwesomeIcon icon='sign-out-alt' size='2x'/>
+                                    <FontAwesomeIcon icon='sign-out-alt' />
                                 </button>
                             </ul>
                         </div>
