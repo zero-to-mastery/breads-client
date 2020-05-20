@@ -37,12 +37,8 @@ code {
     object-fit: scale-down;
 }
   
-.btn:hover {
+.btn:hover, .badge, .unsubscribe {
     cursor: pointer;
-}
-
-.badge {
-    cursor: pointer
 }
 
 input[type="text"], textarea {

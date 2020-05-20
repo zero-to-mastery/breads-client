@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ListCard = props => {
     return (
@@ -11,16 +12,17 @@ const ListCard = props => {
                 className='card-img-top border-bottom border-secondary'
             />
             <div className='card-body'>
-                <Link to={`/${props.id}`}>
-                    <h5 className='card-title'>{props.username}</h5>
-                </Link>
+                <div className='row pl-3 pr-3'>
+                    <Link to={`/${props.id}`} className='card-title mr-auto'>
+                        <h5>{props.username}</h5>
+                    </Link>
+                    {props.subscribed === 'yes' && (
+                        <small onClick={props.removeSubscription} className='text-danger unsubscribe'>
+                            <FontAwesomeIcon icon='user-times'/>
+                        </small>
+                    )}
+                </div>
                 {props.first} {props.last}
-                {/* <Link to={`/${props.id}/subscriptions`}>
-                    <p>Subscriptions</p>
-                </Link> */}
-                {props.subscribed === 'yes' && (
-                    <small onClick={props.removeSubscription} className='text-danger unsubscribe'>Unsubscribe</small>
-                )}
             </div>
         </div>
     )

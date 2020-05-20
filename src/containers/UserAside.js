@@ -25,7 +25,6 @@ class UserAside extends Component {
 
     render() {
         let {  currentUser, readings, match, users, loading } = this.props;
-        console.log(loading)
         let totalReadings,
             totalWebsites,
             topWebsite,
