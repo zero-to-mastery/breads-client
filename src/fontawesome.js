@@ -8,13 +8,13 @@ import {
     faPlus,
     faSpinner,
     faChartBar,
+    faWindowClose,
     faUserTimes
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faBell as farBell,
     faEdit,
-    faTrashAlt,
-    faWindowClose
+    faTrashAlt
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
