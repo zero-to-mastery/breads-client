@@ -8,6 +8,7 @@ import { removeError } from '../store/actions/errors';
 import { sendResetEmail, resetPassword } from '../store/actions/users';
 import Timeline from '../components/Timeline';
 import UserAside from './UserAside';
+import SubscriptionsAside from './SubscriptionsAside';
 import UserReadingsList from './UserReadingsList';
 import SubscriptionsList from './SubscriptionsList';
 import SubscriptionReadingsList from './SubscriptionReadingsList';
@@ -131,7 +132,7 @@ const Routes = props => {
                                 )}
                                 <Timeline>
                                     <ArticleForm history={props.history} />
-                                    <UserAside />
+                                    <SubscriptionsAside />
                                     <SubscriptionReadingsList />
                                 </Timeline>
                             </div>

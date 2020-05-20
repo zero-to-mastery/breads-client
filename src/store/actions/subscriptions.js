@@ -1,6 +1,7 @@
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
 import { LOAD_SUBSCRIPTIONS, REMOVE_SUBSCRIPTION } from '../actionTypes';
+import { addLoader, removeLoader } from './loading';
 
 export const loadSubscriptions = subscriptions => ({
     type: LOAD_SUBSCRIPTIONS,
@@ -32,11 +33,13 @@ export const postNewSubscription = sub_id => (dispatch, getState) => {
 
 export const fetchSubscriptionReadings = () => {
     return (dispatch, getState) => {
+        dispatch(addLoader('subReadings'));
         let {currentUser} = getState();
         const id = currentUser.user.id;
         return apiCall('get', `/readings/${id}/subscriptions`)
             .then(res => {
                 dispatch(loadSubscriptions(res));
+                dispatch(removeLoader());
             })
             .catch(err => {
                 dispatch(addError(err.message));

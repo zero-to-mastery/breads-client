@@ -18,7 +18,7 @@ class SubscriptionsList extends Component {
         });
 
         let x = [];
-        if (subscriptions) x = subscriptions;
+        if (subscriptions) x = subscriptions.data;
         
         const renderRow = ({ index, key, parent, style }) => {
             return (

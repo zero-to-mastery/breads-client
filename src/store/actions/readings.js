@@ -15,7 +15,7 @@ export const removeReadings = id => ({
 
 export const fetchReadings = () => {
     return dispatch => {
-        dispatch(addLoader('reading'));
+        dispatch(addLoader('readings'));
         return apiCall('get', '/readings')
             .then(res => {
                 dispatch(loadReadings(res));
