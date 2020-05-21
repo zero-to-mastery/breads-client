@@ -37,7 +37,7 @@ code {
     object-fit: scale-down;
 }
   
-.btn:hover, .badge, .unsubscribe {
+.btn:hover, .badge, .unsubscribe, .dropdown-item {
     cursor: pointer;
 }
 
@@ -53,4 +53,8 @@ input[type="text"], textarea {
 
 .list-group-item:hover {
     background-color: #f8f9fa;
+}
+
+.avoid-click {
+    pointer-events: none;
 }
