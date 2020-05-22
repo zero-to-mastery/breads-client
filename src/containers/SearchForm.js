@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from '../store/actions/readings';
-import { searchUsers } from '../store/actions/search';
+import { searchAll, searchUsers } from '../store/actions/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import reactStringReplace from 'react-string-replace';
@@ -16,23 +15,20 @@ class SearchForm extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchReadings();
+        this.props.searchAll();
     }
 
     findMatches(wordToMatch) {
         if (wordToMatch !== '') {
-            return this.props.readings.data.reduce((unique, item) => {
+            let users = this.props.search.users.filter(query => {
                 const regex = new RegExp(wordToMatch, 'gi');
-                if (item.first_name.match(regex) || item.last_name.match(regex)) {
-                    console.log([...new Set(item.first_name)]);
-                    return [...new Set(item.first_name)]
-                }
-                if (item.title.match(regex)) {
-                    console.log([...new Set(item.title)])
-                    return [...new Set(item.title)]
-                }
-                // return query.first_name.match(regex) || query.last_name.match(regex) || Object.values(query.title.match(regex));
-            }, []);
+                return query.first_name.match(regex) || query.last_name.match(regex)// || query.title.match(regex);
+            });
+            let readings = this.props.search.readings.filter(query => {
+                const regex = new RegExp(wordToMatch, 'gi');
+                return query.title.match(regex);
+            });
+            return [...users, ...readings];
         }
     }
 
@@ -46,7 +42,7 @@ class SearchForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         if (this.state.search !== '') {
-            this.props.searchUsers(this.state.search);
+            // this.props.searchUsers(this.state.search);
             this.setState({ search: '' });
             this.props.history.push('/users');
         }
@@ -63,52 +59,44 @@ class SearchForm extends Component {
                 const firstName = reactStringReplace(query.first_name, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
                 const lastName = reactStringReplace(query.last_name, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
                 const title = reactStringReplace(query.title, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
-                
-                let item = [];
-                if (firstName.length > 1 || lastName.length > 1) {
-                    item.push((<li key={index + query.first_name} className='dropdown-item'>
-                                    <Link to={`/${query.user_id}`}>
-                                        <span className='name'>{firstName} {lastName} </span>
-                                    </Link>
-                                </li>
-                    ));
-                }
                 if (title.length > 1) {
-                    item.push((<li key={index + query.title} className='dropdown-item'>
+                    return <li key={index + query.title} className='dropdown-item text-truncate'>
                                     <a href={query.url} target='_blank'  rel='noopener noreferrer' className='text-dark'>{title}</a>
                                 </li>
-                    ));
+                    ;
                 }
-
-                return [...item];
+                if (firstName.length > 1 || lastName.length > 1) {
+                    return <li key={index + query.first_name} className='dropdown-item text-truncate'>
+                                    <Link to={`/${query.id}`}>
+                                        <span className='name'>{firstName} {lastName}</span>
+                                    </Link>
+                                </li>
+                    ;
+                }
             });
-            console.log(searchResults)
         }
 
         return (
             <form onSubmit={this.handleSubmit} className='form-inline dropdown' autoComplete='off'>
                 <label htmlFor='search'></label>
-                <div className='input-group' id='navbarDropdown' data-toggle='dropdown'
-                        aria-haspopup='true'
-                        aria-expanded='false'>
+                <div className='input-group' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                    <div className='input-group-prepend'>
+                        <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
+                            <FontAwesomeIcon icon='search'/>
+                        </button>
+                    </div>
                     <input
                         type='text'
                         className='form-control form-control-sm'
                         id='search'
                         name='search'
                         onChange={this.handleChange}
-                        placeholder='Search for friends'
+                        placeholder='Search Breads'
                         value={search}
-                        
                     />
                 </div>
-                <div className='input-group-append'>
-                    <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                        <FontAwesomeIcon icon='search'/>
-                    </button>
-                </div>
-                <ul className='dropdown-menu border-secondary' role='menu' aria-labelledby='navbarDropdown'>
-                    {searchResults.length > 1
+                <ul className='dropdown-menu border-secondary search-results overflow-auto' role='menu' aria-labelledby='navbarDropdown'>
+                    {searchResults.length >= 1
                         ? searchResults
                         : <button className='dropdown-item avoid-click'>
                             ...
@@ -122,8 +110,9 @@ class SearchForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.readings
+        readings: state.readings,
+        search: state.search
     }
 }
 
-export default connect(mapStateToProps, { searchUsers, fetchReadings })(SearchForm);
+export default connect(mapStateToProps, { searchAll, searchUsers })(SearchForm);

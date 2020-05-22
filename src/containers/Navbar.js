@@ -55,7 +55,7 @@ class Navbar extends Component {
                                         Your Reads
                                     </NavLink>
                                     <NavLink exact to='/subscriptions' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        Subscriptions
+                                        Friends
                                     </NavLink>
                                 </div>
                                 <button className='btn text-primary btn-sm' type='button' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

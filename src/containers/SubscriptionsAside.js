@@ -31,7 +31,7 @@ class SubscriptionsAside extends Component {
             <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
                 <div className='card border-secondary'>
                     <div className='card-body'>
-                        <h5 className='card-title'>Subscription Readings</h5>
+                        <h5 className='card-title'>Friend's Readings</h5>
                         {loading.isLoading && loading.id === 'subReadings'
                             ? <p className='m-2 m-auto'>
                                 <FontAwesomeIcon icon='spinner' pulse/>

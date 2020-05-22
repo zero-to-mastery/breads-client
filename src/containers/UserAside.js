@@ -77,7 +77,7 @@ class UserAside extends Component {
                         </div>
                         
                         <NavLink exact to={`/${id}/subscriptions`} className='text-primary'>
-                            Subscriptions: {users.length}
+                            Friends: {users.length}
                         </NavLink>
 
                         {loading.isLoading && loading.id === 'userReadings'
