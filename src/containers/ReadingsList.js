@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from '../store/actions/readings';
+import { fetchReadings, markFavorite, unfavorite } from '../store/actions/readings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import { fetchUsers } from '../store/actions/users';
 import { postNewSubscription } from '../store/actions/subscriptions';
@@ -13,7 +13,7 @@ class ReadingsList extends Component {
     }
 
     render() {
-        const { readings, summary, fetchSummary, removeSummary, postNewSubscription, loading } = this.props;
+        const { readings, summary, fetchSummary, removeSummary, postNewSubscription, markFavorite, unfavorite, loading } = this.props;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -44,10 +44,13 @@ class ReadingsList extends Component {
                         date={x[index].created_at}
                         username={x[index].username}
                         image={x[index].image}
+                        favorite={x[index].favorite}
                         summary={summary.summary}
                         viewSummary={fetchSummary.bind(this, x[index].id, x[index].article_url)}
                         removeSummary={removeSummary}
                         newSubscription={postNewSubscription.bind(this, x[index].user_id)}
+                        markFavorite={markFavorite.bind(this, x[index].id)}
+                        unfavorite={unfavorite.bind(this, x[index].id)}
                         loading={loading}
                         style={style}
                     />
@@ -97,5 +100,7 @@ export default connect(mapStateToProps, {
     fetchSummary,
     removeSummary,
     fetchUsers,
-    postNewSubscription
+    postNewSubscription,
+    markFavorite,
+    unfavorite
 })(ReadingsList);

@@ -10,7 +10,7 @@ const ListItem = props => {
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
             <div className='row reading-area'>
                 <p className='lead'>{props.domain}</p>
-                <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>               
+                <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>             
             </div>
             <div className='row'>
                 <img
@@ -49,6 +49,15 @@ const ListItem = props => {
                         </p>
                     )]
                 }
+                {props.favorite
+                    ? <p onClick={props.unfavorite} className='btn text-muted m-2'>
+                        <FontAwesomeIcon icon='bookmark'/>
+                    </p>
+                    : <p onClick={props.markFavorite} className='btn text-muted m-2'>
+                        <FontAwesomeIcon icon={['far', 'bookmark']}/>
+                    </p>
+                }
+                
                 {props.isCorrectUser && (
                     <p onClick={props.removeReading} className='btn text-danger m-2 delete'>
                         <FontAwesomeIcon icon={['far', 'trash-alt']}/>

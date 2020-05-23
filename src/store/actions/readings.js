@@ -35,3 +35,25 @@ export const postNewReading = url => (dispatch, getState) => {
         .then(res => {})
         .catch(err => dispatch(addError(err.message)));
 }
+
+export const markFavorite = id => {
+    return (dispatch, getState) => {
+        console.log(id);
+        let { currentUser } = getState();
+        const user_id = currentUser.user.id;
+        return apiCall('post', `/readings/${id}/favorite/${user_id}`)
+            .then(res => {})
+            .catch(err => dispatch(addError(err.message)));
+    }
+}
+
+export const unfavorite = id => {
+    return (dispatch, getState) => {
+        console.log(id);
+        let { currentUser } = getState();
+        const user_id = currentUser.user.id;
+        return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
+            .then(res => {})
+            .catch(err => dispatch(addError(err.message)));
+    }
+}

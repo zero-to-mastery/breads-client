@@ -9,12 +9,14 @@ import {
     faSpinner,
     faChartBar,
     faWindowClose,
-    faUserTimes
+    faUserTimes,
+    faBookmark
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faBell as farBell,
     faEdit,
-    faTrashAlt
+    faTrashAlt,
+    faBookmark as farBookmark
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
@@ -30,5 +32,7 @@ library.add(
     faPlus,
     faSpinner,
     faChartBar,
-    faUserTimes
+    faUserTimes,
+    faBookmark,
+    farBookmark
 );
