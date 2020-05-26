@@ -30,6 +30,8 @@ class UserAside extends Component {
             topWebsite,
             totalBooks,
             totalWords = 0,
+            numFavorites,
+            favorites = 0,
             id = currentUser.id,
             image = currentUser.image,
             username = currentUser.username,
@@ -50,11 +52,18 @@ class UserAside extends Component {
 
             readings.data.forEach(r => {
                 totalWords += r.word_count/100000;
-            }); 
+            });
+            
+            readings.data.forEach(r => {
+                if (r.favorite == match.params.id) {
+                    favorites++;
+                }
+            });
 
+            numFavorites = <p className='card-text favorites-sum'>Favorites: <strong>{favorites}</strong></p>
             totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings.data.length}</strong></p>;
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
-            topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
+            topWebsite = <p className='card-text website-top'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
             totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
         }
 
@@ -86,6 +95,7 @@ class UserAside extends Component {
                             </p>
                             : <div>
                                 {totalReadings}
+                                {numFavorites}
                                 {totalWebsites}
                                 {topWebsite}
                                 {totalBooks}
