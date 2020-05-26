@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserReadings, removeUserReading } from '../store/actions/userReadings';
+import { markFavorite, unfavorite } from '../store/actions/userReadings';
+// import { fetchFavorites } from '../store/actions/favorites';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
@@ -8,16 +10,18 @@ import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from
 class UserReadingsList extends Component {
     componentDidMount() {
         this.props.fetchUserReadings(this.props.match.params.id);
+        // this.props.fetchFavorites(this.props.match.params.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.props.fetchUserReadings(this.props.match.params.id);
+            // this.props.fetchFavorites(this.props.match.params.id);
         }
     }
 
     render() {
-        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, loading } = this.props;
+        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading } = this.props;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -52,6 +56,9 @@ class UserReadingsList extends Component {
                         viewSummary={fetchSummary.bind(this, x[index].id, x[index].article_url)}
                         removeSummary={removeSummary}
                         removeReading={removeUserReading.bind(this, x[index].user_id, x[index].id)}
+                        favorite={x[index].favorite === currentUser}
+                        markFavorite={markFavorite.bind(this, x[index].id)}
+                        unfavorite={unfavorite.bind(this, x[index].id)}
                         isCorrectUser={currentUser === x[index].user_id}
                         loading={loading}
                         style={style}
@@ -102,5 +109,8 @@ export default connect(mapStateToProps, {
     fetchUserReadings,
     fetchSummary,
     removeUserReading,
-    removeSummary
+    removeSummary,
+    markFavorite,
+    unfavorite,
+    // fetchFavorites
 })(UserReadingsList);

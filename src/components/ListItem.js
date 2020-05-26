@@ -49,20 +49,20 @@ const ListItem = props => {
                         </p>
                     )]
                 }
-                {props.favorite
-                    ? <p onClick={props.unfavorite} className='btn text-muted m-2'>
-                        <FontAwesomeIcon icon='bookmark'/>
-                    </p>
-                    : <p onClick={props.markFavorite} className='btn text-muted m-2'>
-                        <FontAwesomeIcon icon={['far', 'bookmark']}/>
-                    </p>
-                }
-                
                 {props.isCorrectUser && (
+                    props.favorite
+                        ? <p onClick={props.unfavorite} className='btn text-muted m-2'>
+                            <FontAwesomeIcon icon='bookmark'/>
+                        </p>
+                        : <p onClick={props.markFavorite} className='btn text-muted m-2'>
+                            <FontAwesomeIcon icon={['far', 'bookmark']}/>
+                        </p>
+                )}
+                {props.isCorrectUser && 
                     <p onClick={props.removeReading} className='btn text-danger m-2 delete'>
                         <FontAwesomeIcon icon={['far', 'trash-alt']}/>
                     </p>
-                )}
+                }
                 {props.summary.id == props.id &&
                     <p className='summary-data'>{props.summary.data}</p>
                 }
