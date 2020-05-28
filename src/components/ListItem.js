@@ -5,6 +5,7 @@ import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ListItem = props => {
+    console.log(props.favorite);
     return (
         <li style={props.style} className='list-group-item border-secondary'>
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
@@ -36,7 +37,7 @@ const ListItem = props => {
                     </div>
                 }
                 <Moment className='text-muted mt-3 ml-2' fromNow ago>
-                    {props.date}
+                    <small>{props.date}</small>
                 </Moment> 
                 {props.loading.isLoading && props.loading.id === props.id
                     ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>

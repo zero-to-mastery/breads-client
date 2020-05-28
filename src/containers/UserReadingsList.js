@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadings, removeUserReading } from '../store/actions/userReadings';
-import { markFavorite, unfavorite } from '../store/actions/favoriteReadings';
+import { fetchUserReadings, removeUserReading, markFavorite, unfavorite } from '../store/actions/userReadings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
