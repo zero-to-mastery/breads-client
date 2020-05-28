@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSubscriptions } from '../store/actions/users';
 import { fetchUserReadings } from '../store/actions/userReadings';
+import { fetchFavoriteReadings } from '../store/actions/favoriteReadings';
 import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,6 +12,7 @@ class UserAside extends Component {
         if (this.props.match) {
             this.props.fetchSubscriptions(this.props.match.params.id);
             this.props.fetchUserReadings(this.props.match.params.id);
+            this.props.fetchFavoriteReadings(this.props.match.params.id);
         } else {
             this.props.fetchSubscriptions(this.props.currentUser.id);
         }
@@ -20,18 +22,18 @@ class UserAside extends Component {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
             this.props.fetchSubscriptions(this.props.match.params.id);
             this.props.fetchUserReadings(this.props.match.params.id);
+            this.props.fetchFavoriteReadings(this.props.match.params.id);
         }
     }
 
     render() {
-        let {  currentUser, readings, match, users, loading } = this.props;
+        let {  currentUser, readings, match, users, loading, favorites } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
             totalBooks,
             totalWords = 0,
-            numFavorites,
-            favorites = 0,
+            totalFavorites,
             id = currentUser.id,
             image = currentUser.image,
             username = currentUser.username,
@@ -54,14 +56,15 @@ class UserAside extends Component {
                 totalWords += r.word_count/100000;
             });
             
-            readings.data.forEach(r => {
-                if (r.favorite == match.params.id) {
-                    favorites++;
-                }
-            });
-
-            numFavorites = <p className='card-text favorites-sum'>Favorites: <strong>{favorites}</strong></p>
-            totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings.data.length}</strong></p>;
+            if (favorites) {
+                totalFavorites = <NavLink exact to={`/${id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                                    Favorites: <strong>{favorites.length}</strong>
+                                </NavLink>
+            }
+            
+            totalReadings = <NavLink exact to={`/${id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                                Readings: <strong>{readings.data.length}</strong>
+                            </NavLink>
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
             topWebsite = <p className='card-text website-top'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
             totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
@@ -95,7 +98,7 @@ class UserAside extends Component {
                             </p>
                             : <div>
                                 {totalReadings}
-                                {numFavorites}
+                                {totalFavorites}
                                 {totalWebsites}
                                 {topWebsite}
                                 {totalBooks}
@@ -110,10 +113,11 @@ class UserAside extends Component {
 
 function mapStateToProps(state) {
     return {
+        favorites: state.favoriteReadings,
         currentUser: state.currentUser.user,
         users: state.users,
         loading: state.loading
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings })(UserAside);
+export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings, fetchFavoriteReadings })(UserAside);

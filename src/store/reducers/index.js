@@ -9,6 +9,7 @@ import notifications from './notifications';
 import loading from './loading';
 import userReadings from './userReadings';
 import search from './search';
+import favoriteReadings from './favoriteReadings';
 
 const rootReducer = combineReducers({
     currentUser,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     notifications,
     loading,
     userReadings,
-    search
+    search,
+    favoriteReadings
 });
   
 export default rootReducer;

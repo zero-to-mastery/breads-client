@@ -20,20 +20,22 @@ const ListItem = props => {
                     width='48'
                     className='timeline-image'
                 />
-                <div className='dropdown'>
-                    <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                        <small>{props.username}</small>
-                    </p>
-                    <div className='dropdown-menu border-secondary' aria-labelledby='dropdownMenuLink'>
-                        <Link to={`/${props.user_id}`}>
-                            <button className='dropdown-item'>{props.username}'s Profile</button>
-                        </Link>
-                        <button onClick={props.newSubscription} className='dropdown-item'>
-                            <small>Subscribe</small>
-                        </button>
+                {!props.isCorrectUser && 
+                    <div className='dropdown'>
+                        <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            <small>{props.username}</small>
+                        </p>
+                        <div className='dropdown-menu border-secondary' aria-labelledby='dropdownMenuLink'>
+                            <Link to={`/${props.user_id}`}>
+                                <button className='dropdown-item'>{props.username}'s Profile</button>
+                            </Link>
+                            <button onClick={props.newSubscription} className='dropdown-item'>
+                                <small>Subscribe</small>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <Moment className='text-muted mt-3' fromNow ago>
+                }
+                <Moment className='text-muted mt-3 ml-2' fromNow ago>
                     {props.date}
                 </Moment> 
                 {props.loading.isLoading && props.loading.id === props.id

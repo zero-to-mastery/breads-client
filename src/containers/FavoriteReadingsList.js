@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadings, removeUserReading } from '../store/actions/userReadings';
-import { markFavorite, unfavorite } from '../store/actions/favoriteReadings';
+import { removeUserReading } from '../store/actions/userReadings';
+import { fetchFavoriteReadings, markFavorite, unfavorite } from '../store/actions/favoriteReadings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
-class UserReadingsList extends Component {
+class FavoriteReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchUserReadings(this.props.match.params.id);
+        this.props.fetchFavoriteReadings(this.props.match.params.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.props.fetchUserReadings(this.props.match.params.id);
+            this.props.fetchFavoriteReadings(this.props.match.params.id);
         }
     }
 
@@ -26,7 +26,7 @@ class UserReadingsList extends Component {
         });
 
         let x = [];
-        if (readings) x = readings.data;
+        if (readings) x = readings;
         
         const renderRow = ({ index, key, parent, style }) => {
             return (
@@ -95,7 +95,7 @@ class UserReadingsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.userReadings,
+        readings: state.favoriteReadings,
         summary: state.summary,
         currentUser: state.currentUser.user.id,
         loading: state.loading
@@ -103,10 +103,10 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
-    fetchUserReadings,
+    fetchFavoriteReadings,
     fetchSummary,
     removeUserReading,
     removeSummary,
     markFavorite,
     unfavorite
-})(UserReadingsList);
+})(FavoriteReadingsList);

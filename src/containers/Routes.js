@@ -12,6 +12,7 @@ import SubscriptionsAside from './SubscriptionsAside';
 import UserReadingsList from './UserReadingsList';
 import SubscriptionsList from './SubscriptionsList';
 import SubscriptionReadingsList from './SubscriptionReadingsList';
+import FavoriteReadingsList from './FavoriteReadingsList';
 import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
@@ -19,7 +20,7 @@ import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, readings, userReadings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, userReadings } = props;
     return (
         <div className='container-fluid py-5'>
             <Switch>
@@ -111,7 +112,12 @@ const Routes = props => {
                         return (
                             <div>
                                 {errors.message && (
-                                    <div className='alert alert-danger'>{errors.message}</div>
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
                                 )}
                                 <Timeline>
                                     <UserAside />
@@ -128,7 +134,12 @@ const Routes = props => {
                         return (
                             <div>
                                 {errors.message && (
-                                    <div className='alert alert-danger'>{errors.message}</div>
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
                                 )}
                                 <Timeline>
                                     <ArticleForm history={props.history} />
@@ -146,7 +157,12 @@ const Routes = props => {
                         return (
                             <div>
                                 {errors.message && (
-                                    <div className='alert alert-danger'>{errors.message}</div>
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
                                 )}
                                 <Timeline>
                                     <ArticleForm history={props.history} match={props.match}/>
@@ -184,14 +200,46 @@ const Routes = props => {
                         return (
                             <div>
                                 {errors.message && (
-                                    <div className='alert alert-danger'>{errors.message}</div>
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
                                 )}
                                 <Timeline>
+                                    <ArticleForm history={props.history} match={props.match}/>
                                     <UserAside
-                                        readings={readings}
+                                        readings={userReadings}
                                         match={props.match}
                                     />
                                     <SubscriptionsList match={props.match}/>
+                                </Timeline>
+                            </div>
+                        )
+                    }}
+                />
+                <Route
+                    exact
+                    path='/:id/favorites'
+                    render={props => {
+                        return (
+                            <div>
+                                {errors.message && (
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
+                                )}
+                                <Timeline>
+                                    <ArticleForm history={props.history} match={props.match}/>
+                                    <UserAside
+                                        readings={userReadings}
+                                        match={props.match}
+                                    />
+                                    <FavoriteReadingsList match={props.match}/>
                                 </Timeline>
                             </div>
                         )

@@ -24,12 +24,12 @@ const Homepage = props => {
     return (
         <div>
             {props.errors.message && (
-                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                        {props.errors.message}
-                        <button onClick={props.removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
-                    </div>
+                <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                    {props.errors.message}
+                    <button onClick={props.removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
             )}
             <Timeline>
                 <ArticleForm history={props.history}/>
