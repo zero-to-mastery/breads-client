@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSubscriptions, removeSubscription } from '../store/actions/subscriptions';
-// import { removeSubscription } from '../store/actions/subscriptionReadings';
 import List from '../components/List';
 import ListCard from '../components/ListCard';
 

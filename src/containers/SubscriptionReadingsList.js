@@ -5,7 +5,6 @@ import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
-
 class SubscriptionsList extends Component {
     componentDidMount() {
         this.props.fetchSubscriptionReadings();

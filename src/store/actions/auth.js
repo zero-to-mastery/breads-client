@@ -52,3 +52,23 @@ export const updateUser = (id, image, username) => {
             });
     }
 }
+
+export function sendResetEmail(email) {
+    return dispatch => {
+        return apiCall('post', '/users/reset', { email })
+            .then(res => {})
+            .catch(err => {
+                dispatch(addError(err.message));
+            });
+    }
+}
+
+export function resetPassword(username, token, password) {
+    return dispatch => {
+        return apiCall('post', `/users/${username}/reset/${token}`, { password })
+            .then(res => {})
+            .catch(err => {
+                dispatch(addError(err.message));
+            });
+    }
+}

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import reactStringReplace from 'react-string-replace';
 
-
 class SearchForm extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +43,7 @@ class SearchForm extends Component {
         if (this.state.search !== '') {
             // this.props.searchUsers(this.state.search);
             this.setState({ search: '' });
-            this.props.history.push('/users');
+            // this.props.history.push('/users');
         }
     }
 

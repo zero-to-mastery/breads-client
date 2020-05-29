@@ -5,7 +5,7 @@ import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
-import { sendResetEmail, resetPassword } from '../store/actions/subscriptions';
+import { sendResetEmail, resetPassword } from '../store/actions/auth';
 import Timeline from '../components/Timeline';
 import UserAside from './UserAside';
 import SubscriptionsAside from './SubscriptionsAside';
@@ -13,7 +13,6 @@ import UserReadingsList from './UserReadingsList';
 import SubscriptionsList from './SubscriptionsList';
 import SubscriptionReadingsList from './SubscriptionReadingsList';
 import FavoriteReadingsList from './FavoriteReadingsList';
-import UsersList from './UsersList';
 import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
@@ -104,28 +103,6 @@ const Routes = props => {
                         )
                     }}
                 
-                />
-                <Route
-                    exact
-                    path='/users'
-                    render={props => {
-                        return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
-                                <Timeline>
-                                    <UserAside />
-                                    <UsersList />
-                                </Timeline>
-                            </div>
-                        )
-                    }}
                 />
                 <Route
                     exact
