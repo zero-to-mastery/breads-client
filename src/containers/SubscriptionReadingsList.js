@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from '../store/actions/subscriptions';
+import { fetchSubscriptionReadings } from '../store/actions/subscriptionReadings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
@@ -11,14 +11,14 @@ class SubscriptionsList extends Component {
         this.props.fetchSubscriptionReadings();
     }
     render() {
-        const { subscriptions, summary, fetchSummary, removeSummary, loading } = this.props;
+        const { readings, summary, fetchSummary, removeSummary, loading } = this.props;
         const cache = new CellMeasurerCache({
             fixedWidth: true,
             defaultHeight: 187
         });
 
         let x = [];
-        if (subscriptions) x = subscriptions.data;
+        if (readings) x = readings.data;
         
         const renderRow = ({ index, key, parent, style }) => {
             return (
@@ -82,7 +82,7 @@ class SubscriptionsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        subscriptions: state.subscriptions,
+        readings: state.subscriptionReadings,
         summary: state.summary,
         loading: state.loading
     }

@@ -5,7 +5,7 @@ import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
-import { sendResetEmail, resetPassword } from '../store/actions/users';
+import { sendResetEmail, resetPassword } from '../store/actions/subscriptions';
 import Timeline from '../components/Timeline';
 import UserAside from './UserAside';
 import SubscriptionsAside from './SubscriptionsAside';

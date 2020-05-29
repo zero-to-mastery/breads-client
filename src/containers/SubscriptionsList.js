@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../store/actions/users';
-import { removeSubscription } from '../store/actions/subscriptions';
+import { fetchSubscriptions, removeSubscription } from '../store/actions/subscriptions';
+// import { removeSubscription } from '../store/actions/subscriptionReadings';
 import List from '../components/List';
 import ListCard from '../components/ListCard';
 
@@ -15,9 +15,9 @@ class SubscriptionsList extends Component {
         }
     }
     render() {
-        const { users, removeSubscription, currentUser, match } = this.props;
+        const { friends, removeSubscription, currentUser, match } = this.props;
         let subscriptionsList = [];
-            subscriptionsList = users.map(p => (           
+            subscriptionsList = friends.map(p => (           
             <ListCard
                 key={p.id}
                 id={p.id}
@@ -37,7 +37,7 @@ class SubscriptionsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.users,
+        friends: state.subscriptions,
         currentUser: state.currentUser.user.id
     }
 }

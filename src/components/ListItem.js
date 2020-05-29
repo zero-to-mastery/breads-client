@@ -5,8 +5,6 @@ import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ListItem = props => {
-    console.log(props.favorite);
-    console.log(props.date);
     return (
         <li style={props.style} className='list-group-item border-secondary'>
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>

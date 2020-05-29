@@ -3,8 +3,9 @@ import currentUser from './currentUser';
 import errors from './errors';
 import readings from './readings';
 import summary from './summary';
-import users from './users';
 import subscriptions from './subscriptions';
+import user from './user';
+import subscriptionReadings from './subscriptionReadings';
 import notifications from './notifications';
 import loading from './loading';
 import userReadings from './userReadings';
@@ -16,8 +17,9 @@ const rootReducer = combineReducers({
     errors,
     readings,
     summary,
-    users,
     subscriptions,
+    user,
+    subscriptionReadings,
     notifications,
     loading,
     userReadings,

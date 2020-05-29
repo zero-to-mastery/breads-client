@@ -1,17 +1,14 @@
-import { LOAD_SUBSCRIPTIONS, REMOVE_SUBSCRIPTION } from '../actionTypes';
+import { LOAD_SUBSCRIPTIONS, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
 
-const subscription = (state={data: [], websites: []}, action) => {
+const user = (state=[], action) => {
     switch (action.type) {
         case LOAD_SUBSCRIPTIONS:
-            return {...action.subscriptions};
-        case REMOVE_SUBSCRIPTION:
-            return {
-                data: state.data.filter(sub => sub.id !== action.id),
-                websites: state.websites
-            }
+            return [...action.users];
+        case REMOVE_SUBSCRIPTIONS:
+            return state.filter(sub => sub.id !== action.id)
         default:
             return state;
     }
 }
 
-export default subscription;
+export default user;

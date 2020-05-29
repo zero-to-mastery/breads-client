@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchReadings } from '../store/actions/readings';
 import { fetchSummary, removeSummary } from '../store/actions/summary';
-import { fetchUsers } from '../store/actions/users';
+// import { fetchUsers } from '../store/actions/users';
 import { postNewSubscription } from '../store/actions/subscriptions';
 import ListItem from '../components/ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
@@ -96,6 +96,6 @@ export default connect(mapStateToProps, {
     fetchReadings,
     fetchSummary,
     removeSummary,
-    fetchUsers,
+    // fetchUsers,
     postNewSubscription
 })(ReadingsList);

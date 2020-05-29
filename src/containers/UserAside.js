@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../store/actions/users';
+import { fetchSubscriptions } from '../store/actions/subscriptions';
 import { fetchUserReadings } from '../store/actions/userReadings';
 import { fetchFavoriteReadings } from '../store/actions/favoriteReadings';
-import DefaultImage from '../images/default-profile-image.jpg';
+import { fetchUser } from '../store/actions/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UserAside extends Component {
     componentDidMount() {
         if (this.props.match) {
+            this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
             this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchFavoriteReadings(this.props.match.params.id);
@@ -20,6 +21,7 @@ class UserAside extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
+            this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
             this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchFavoriteReadings(this.props.match.params.id);
@@ -27,42 +29,25 @@ class UserAside extends Component {
     }
 
     render() {
-        let {  currentUser, readings, match, users, loading, favorites } = this.props;
+        let {  currentUser, readings, friends, loading, favorites, user } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
             totalBooks,
             totalWords = 0,
-            totalFavorites,
-            id = currentUser.id,
-            image = currentUser.image,
-            username = currentUser.username,
-            user = {},
-            user_id;
+            totalFavorites;
         
         if (readings && readings.data.length > 0) {
-            for (const property in readings.data[0]) {
-                user[property] = readings.data[0][property]
-            }
-            // make sure image change is consistent with id of user in url
-            if (match && user && match.params.id == user.user_id) {
-                user_id = id;
-                id = user.user_id;
-                image = user.image;
-                username = user.username;
-            }
-
             readings.data.forEach(r => {
                 totalWords += r.word_count/100000;
             });
             
             if (favorites) {
-                totalFavorites = <NavLink exact to={`/${id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                totalFavorites = <NavLink exact to={`/${user.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
                                     Favorites: <strong>{favorites.length}</strong>
                                 </NavLink>
             }
-            
-            totalReadings = <NavLink exact to={`/${id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+            totalReadings = <NavLink exact to={`/${user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
                                 Readings: <strong>{readings.data.length}</strong>
                             </NavLink>
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
@@ -74,22 +59,22 @@ class UserAside extends Component {
             <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
                 <div className='card border-secondary'>
                     <img
-                        src={image || DefaultImage}
-                        alt={username}
+                        src={user.image}
+                        alt={user.username}
                         className='card-img-top border-bottom border-secondary'
                     />
                     <div className='card-body'>
                         <div className='row pl-3 pr-3'>
-                            <h5 className='card-title mr-auto'>{username}</h5>
-                            {user_id === id && 
-                                <NavLink exact to={`/${id}/edit`} className='text-warning'>
+                            <h5 className='card-title mr-auto'>{user.username}</h5>
+                            {currentUser.id === user.id && 
+                                <NavLink exact to={`/${user.id}/edit`} className='text-warning'>
                                     <FontAwesomeIcon icon={['far', 'edit']}/>
                                 </NavLink>
                             }
                         </div>
                         
-                        <NavLink exact to={`/${id}/subscriptions`} className='text-primary'>
-                            Friends: {users.length}
+                        <NavLink exact to={`/${user.id}/subscriptions`} className='text-primary'>
+                            Friends: {friends.length}
                         </NavLink>
 
                         {loading.isLoading && loading.id === 'userReadings'
@@ -115,9 +100,10 @@ function mapStateToProps(state) {
     return {
         favorites: state.favoriteReadings,
         currentUser: state.currentUser.user,
-        users: state.users,
+        friends: state.subscriptions,
+        user: state.user,
         loading: state.loading
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings, fetchFavoriteReadings })(UserAside);
+export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings, fetchFavoriteReadings, fetchUser })(UserAside);

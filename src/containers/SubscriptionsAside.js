@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from '../store/actions/subscriptions';
+import { fetchSubscriptionReadings } from '../store/actions/subscriptionReadings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SubscriptionsAside extends Component {
@@ -9,7 +9,7 @@ class SubscriptionsAside extends Component {
     }
 
     render() {
-        let {  readings, loading } = this.props;
+        let { readings, loading } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
@@ -52,7 +52,7 @@ class SubscriptionsAside extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.subscriptions,
+        readings: state.subscriptionReadings,
         loading: state.loading
     }
 }
