@@ -16,7 +16,9 @@ const VirtualizedList = props => {
             unfavorite
         } = props;
 
-        const r = readings.data;
+        let r;
+        if (readings.data) r = readings.data;
+        else r = readings;
 
         const cache = new CellMeasurerCache({
             fixedWidth: true,
