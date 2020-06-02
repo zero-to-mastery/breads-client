@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSubscriptionReadings } from '../store/actions/subscriptionReadings';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Aside from '../components/Aside';
 
 class SubscriptionsAside extends Component {
     componentDidMount() {
@@ -15,12 +15,12 @@ class SubscriptionsAside extends Component {
             topWebsite,
             totalBooks,
             totalWords = 0;
-        
+            
         if (readings && readings.data.length > 0) {
             readings.data.forEach(r => {
                 totalWords += r.word_count/100000;
             }); 
-
+            
             totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings.data.length}</strong></p>;
             totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
             topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
@@ -28,24 +28,16 @@ class SubscriptionsAside extends Component {
         }
 
         return (
-            <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
-                <div className='card border-secondary'>
-                    <div className='card-body'>
-                        <h5 className='card-title'>Friend's Readings</h5>
-                        {loading.isLoading && loading.id === 'subReadings'
-                            ? <p className='m-2 m-auto'>
-                                <FontAwesomeIcon icon='spinner' pulse/>
-                            </p>
-                            : <div>
-                                {totalReadings}
-                                {totalWebsites}
-                                {topWebsite}
-                                {totalBooks}
-                            </div>
-                        }
-                    </div>
-                </div>
-            </aside>
+            <Aside
+                readings={readings}
+                loading={loading}
+                loading_id='subReadings'
+                title="Friend's Readings"
+                totalReadings={totalReadings}
+                totalWebsites={totalWebsites}
+                topWebsite={topWebsite}
+                totalBooks={totalBooks}
+            />
         )
     }
 }

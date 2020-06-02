@@ -1,8 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
-import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import UserImage from './UserImage';
 
 const ListItem = props => {
     return (
@@ -13,12 +13,12 @@ const ListItem = props => {
                 <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>             
             </div>
             <div className='row'>
-                <img
-                    src={props.image || DefaultImage}
-                    alt={props.username}
+                <UserImage
+                    image={props.image}
+                    username={props.username}
+                    class='timeline-image'
                     height='48'
                     width='48'
-                    className='timeline-image'
                 />
                 {!props.isCorrectUser && 
                     <div className='dropdown'>
