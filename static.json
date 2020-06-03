@@ -8,5 +8,17 @@
         "/api/": {
             "origin": "${REACT_APP_AXIOS_URL}"
         }
+    },
+    "headers": {
+        "/**": {
+            "Strict-Transport-Security": "max-age=31557600; includeSubDomains;",
+            "Cache-Control": "no-cache",
+            "Content-Security-Policy": "default-src 'self' https://staging-breads-server.herokuapp.com/ https://www.breads.io; script-src 'self' https://staging-breads-server.herokuapp.com/ https://www.breads.io;",
+            "X-Content-Type-Options": "nosniff",
+            "X-Frame-Options": "SAMEORIGIN",
+            "X-XSS-Protection": "1; mode=block",
+            "X-DNS-Prefetch-Control": "off",
+            "X-Download-Options": "noopen"
+        }
     }
 }
