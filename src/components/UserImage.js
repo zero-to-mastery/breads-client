@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultImage from '../images/logo512.png';
+import DefaultImage from '../images/white-background.png';
 
 const UserImage = props => {
     return (

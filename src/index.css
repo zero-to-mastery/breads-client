@@ -32,6 +32,10 @@ code {
     background-position: center center;
     background-size: cover;
 }
+
+.timeline {
+    max-width: 1200px;
+}
   
 .timeline-image {
     object-fit: scale-down;
