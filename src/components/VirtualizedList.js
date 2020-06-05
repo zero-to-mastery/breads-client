@@ -52,7 +52,7 @@ const VirtualizedList = props => {
                     removeSummary={removeSummary}
                     loading={loading}
                     style={style}
-                    favorite={r[index].favorite === currentUser}
+                    favorite={r[index].favorite === currentUser.user.id}
                     newSubscription={postNewSubscription ? postNewSubscription.bind(this, r[index].user_id) : undefined}
                     removeReading={removeUserReading ? removeUserReading.bind(this, r[index].user_id, r[index].id) : undefined}
                     markFavorite={markFavorite ? markFavorite.bind(this, r[index].id) : undefined}
