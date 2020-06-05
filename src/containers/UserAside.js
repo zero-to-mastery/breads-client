@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../store/actions/subscriptions';
+import { fetchSubscriptions, postNewSubscription } from '../store/actions/subscriptions';
 import { fetchUserReadings } from '../store/actions/userReadings';
 import { fetchFavoriteReadings } from '../store/actions/favoriteReadings';
 import { fetchUser } from '../store/actions/user';
@@ -32,7 +32,7 @@ class UserAside extends Component {
     }
 
     render() {
-        let {  currentUser, readings, friends, loading, favorites, user } = this.props;
+        let {  currentUser, readings, friends, loading, favorites, user, postNewSubscription } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
@@ -68,6 +68,7 @@ class UserAside extends Component {
                 favorites={favorites}
                 friends={friends}
                 image={image}
+                newSubscription={postNewSubscription.bind(this, user.id)}
             >
                 <NavLink exact to={`/${user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Readings' stat={totalReadings}/>
@@ -93,4 +94,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions, fetchUserReadings, fetchFavoriteReadings, fetchUser })(UserAside);
+export default connect(mapStateToProps, { fetchSubscriptions, postNewSubscription, fetchUserReadings, fetchFavoriteReadings, fetchUser })(UserAside);

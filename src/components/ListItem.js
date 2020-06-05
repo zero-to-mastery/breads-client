@@ -21,21 +21,9 @@ const ListItem = props => {
                     width='48'
                 />
                 {!props.isCorrectUser && 
-                    <div className='dropdown'>
-                        <p className='btn text-primary m-2' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                            <small>{props.username}</small>
-                        </p>
-                        <div className='dropdown-menu border-secondary' aria-labelledby='dropdownMenuLink'>
-                            <Link to={`/${props.user_id}`}>
-                                <button className='dropdown-item'>{props.username}'s Profile</button>
-                            </Link>
-                            {props.isAuthenticated &&
-                                <button onClick={props.newSubscription} className='dropdown-item'>
-                                    <small>Subscribe</small>
-                                </button>
-                            }
-                        </div>
-                    </div>
+                    <Link to={`/${props.user_id}`} className='btn text-primary m-2'>
+                        <small>{props.username}</small>
+                    </Link>    
                 }
                 <Moment className='text-muted mt-3 ml-2' fromNow ago>
                     {props.date}

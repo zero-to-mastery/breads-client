@@ -13,7 +13,8 @@ const VirtualizedList = props => {
         removeUserReading,
         currentUser,
         markFavorite,
-        unfavorite
+        unfavorite,
+        isAuthenticated
     } = props;
 
     let r;
@@ -57,7 +58,7 @@ const VirtualizedList = props => {
                     markFavorite={markFavorite ? markFavorite.bind(this, r[index].id) : undefined}
                     unfavorite={unfavorite ? unfavorite.bind(this, r[index].id) : undefined}
                     isCorrectUser={currentUser ? currentUser.user.id === r[index].user_id : false}
-                    isAuthenticated={currentUser.isAuthenticated}
+                    isAuthenticated={isAuthenticated}
                 />
             </CellMeasurer>
         );

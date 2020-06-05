@@ -19,6 +19,7 @@ import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 import SignUpCard from '../components/SignUpCard';
+import ErrorAlert from '../components/ErrorAlert';
 
 const Routes = props => {
     const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, userReadings } = props;
@@ -30,15 +31,10 @@ const Routes = props => {
                     path='/'
                     render={props => {
                         return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
                                 <Timeline>
                                     {currentUser.isAuthenticated
                                         ? <ArticleForm history={props.history}/>
@@ -47,7 +43,7 @@ const Routes = props => {
                                     <GlobalAside />
                                     <ReadingsList />
                                 </Timeline>
-                            </div>
+                            </>
                         )
                     }}
                 />
@@ -123,15 +119,10 @@ const Routes = props => {
                     path='/subscriptions'
                     render={props => {
                         return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
                                 <Timeline>
                                     {currentUser.isAuthenticated
                                         ? <ArticleForm history={props.history}/>
@@ -140,7 +131,7 @@ const Routes = props => {
                                     <SubscriptionsAside />
                                     <SubscriptionReadingsList />
                                 </Timeline>
-                            </div>
+                            </>
                         )
                     }}
                 />
@@ -149,15 +140,10 @@ const Routes = props => {
                     path='/:id'
                     render={props => {
                         return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
                                 <Timeline>
                                     {currentUser.isAuthenticated
                                         ? <ArticleForm history={props.history} match={props.match}/>
@@ -169,7 +155,7 @@ const Routes = props => {
                                     />
                                     <UserReadingsList match={props.match}/>
                                 </Timeline>
-                            </div>
+                            </>
                         )
                     }}
                 />
@@ -195,15 +181,10 @@ const Routes = props => {
                     path='/:id/subscriptions'
                     render={props => {
                         return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
                                 <Timeline>
                                     {currentUser.isAuthenticated
                                         ? <ArticleForm history={props.history} match={props.match}/>
@@ -215,7 +196,7 @@ const Routes = props => {
                                     />
                                     <SubscriptionsList match={props.match}/>
                                 </Timeline>
-                            </div>
+                            </>
                         )
                     }}
                 />
@@ -224,15 +205,10 @@ const Routes = props => {
                     path='/:id/favorites'
                     render={props => {
                         return (
-                            <div>
-                                {errors.message && (
-                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                        {errors.message}
-                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>
-                                )}
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
                                 <Timeline>
                                     {currentUser.isAuthenticated
                                         ? <ArticleForm history={props.history} match={props.match}/>
@@ -244,7 +220,7 @@ const Routes = props => {
                                     />
                                     <FavoriteReadingsList match={props.match}/>
                                 </Timeline>
-                            </div>
+                            </>
                         )
                     }}
                 />

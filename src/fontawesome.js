@@ -10,7 +10,8 @@ import {
     faChartBar,
     faWindowClose,
     faUserTimes,
-    faBookmark
+    faBookmark,
+    faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faBell as farBell,
@@ -34,5 +35,6 @@ library.add(
     faChartBar,
     faUserTimes,
     faBookmark,
-    farBookmark
+    farBookmark,
+    faUserPlus
 );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ErrorAlert from './ErrorAlert';
 
 class AuthForm extends Component {
     constructor(props) {
@@ -61,14 +62,9 @@ class AuthForm extends Component {
                 <div className='col-md-6'>
                     <form onSubmit={this.handleSubmit}>
                         <h2>{heading}</h2>
-                        {errors.message && (
-                                <div className='alert alert-danger alert-dismissible fade show' role='alert'>
-                                    {errors.message}
-                                    <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>
-                        )}
+                        {errors.message && 
+                            <ErrorAlert errors={errors} removeError={removeError}/>
+                        }
                         {signup && (
                             <div>
                                 <div className='form-row'>

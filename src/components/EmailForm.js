@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ErrorAlert from './ErrorAlert';
 
 class EmailForm extends Component {
     constructor(props) {
@@ -40,9 +41,9 @@ class EmailForm extends Component {
                     <div className='col-md-6'>
                         <form onSubmit={this.handleSubmit}>
                             <h2>{heading}</h2>
-                            {errors.message && (
-                                <div className='alert alert-danger'>{errors.message}</div>
-                            )}
+                            {errors.message && 
+                                <ErrorAlert errors={errors} removeError={removeError}/>
+                            }
                             <label htmlFor='email'>Email:</label>
                             <input
                                 autoComplete='off'

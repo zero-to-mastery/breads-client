@@ -51,8 +51,7 @@ class ArticleForm extends Component {
                         />
                         <div className='input-group-append'>
                             <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                                {loading.isLoading &&
-                                (loading.id.includes('newReading') || loading.id.includes('readings'))
+                                {loading.isLoading && loading.id.includes('newReading')
                                     ? <FontAwesomeIcon icon='spinner' pulse/>
                                     : <FontAwesomeIcon icon='plus'/>
                                 }

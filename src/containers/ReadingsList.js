@@ -11,7 +11,7 @@ class ReadingsList extends Component {
     }
 
     render() {
-        const { readings, summary, fetchSummary, removeSummary, postNewSubscription, loading, currentUser } = this.props;
+        const { readings, summary, fetchSummary, removeSummary, postNewSubscription, loading, isAuthenticated } = this.props;
 
         return (
             <VirtualizedList 
@@ -21,7 +21,7 @@ class ReadingsList extends Component {
                 removeSummary={removeSummary}
                 postNewSubscription={postNewSubscription}
                 loading={loading}
-                currentUser={currentUser}
+                isAuthenticated={isAuthenticated}
             />
         )
     }
@@ -32,7 +32,7 @@ function mapStateToProps(state) {
         readings: state.readings,
         summary: state.summary,
         loading: state.loading,
-        currentUser: state.currentUser
+        isAuthenticated: state.currentUser.isAuthenticated
     }
 }
 

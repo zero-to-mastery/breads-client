@@ -15,6 +15,11 @@ const Aside = (props) => {
                                 <FontAwesomeIcon icon={['far', 'edit']}/>
                             </NavLink>
                         }
+                        {props.id && props.id !== props.user_id && 
+                            <button onClick={props.newSubscription} className='btn text-primary btn-sm'>
+                                <FontAwesomeIcon icon='user-plus'/>
+                            </button>
+                        }
                     </div>
                     {props.friends && 
                         <NavLink exact to={`/${props.user_id}/subscriptions`} className='text-primary'>
