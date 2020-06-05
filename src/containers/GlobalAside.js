@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchReadings } from '../store/actions/readings';
 import Aside from '../components/Aside';
+import ReadingStats from '../components/ReadingsStats';
 
 class GlobalAside extends Component {
     componentDidMount() {
@@ -21,23 +22,22 @@ class GlobalAside extends Component {
                 totalWords += r.word_count/100000;
             }); 
             
-            totalReadings = <p className='card-text reading-sum'>Readings: <strong>{readings.data.length}</strong></p>;
-            totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
-            topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
-            totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
+            totalReadings = readings.data.length;
+            totalWebsites = readings.websites.length;
+            topWebsite = readings.websites[0].domain;
+            totalBooks = totalWords.toFixed(2);
         }
 
         return (
             <Aside
                 readings={readings}
-                loading={loading}
-                loading_id='readings'
                 title='Global Readings'
-                totalReadings={totalReadings}
-                totalWebsites={totalWebsites}
-                topWebsite={topWebsite}
-                totalBooks={totalBooks}
-            />
+            >
+                <ReadingStats loading={loading} loading_id='readings' statName='Readings' stat={totalReadings}/>
+                <ReadingStats loading={loading} loading_id='readings' statName='Websites Read From' stat={totalWebsites}/>
+                <ReadingStats loading={loading} loading_id='readings' statName='Most Read Website' stat={topWebsite}/>
+                <ReadingStats loading={loading} loading_id='readings' statName='Loaves' stat={totalBooks}/>
+            </Aside>
         )
     }
 }

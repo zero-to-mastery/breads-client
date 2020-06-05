@@ -1,11 +1,17 @@
 import { ADD_LOADER, REMOVE_LOADER } from "../actionTypes";
 
-export default (state = { isLoading: false, id: null }, action) => {
+export default (state = { isLoading: false, id: [] }, action) => {
     switch (action.type) {
         case ADD_LOADER:
-            return { ...state, isLoading: true, id: action.id };
+            return { 
+                isLoading: true,
+                id: [...state.id, action.id]
+            };
         case REMOVE_LOADER:
-            return { ...state, isLoading: false, id: null };
+            return { 
+                isLoading: state.id.length <= 1 ? false : true,
+                id: state.id.filter(loader => loader !== action.id)
+            };
         default:
             return state;
     }

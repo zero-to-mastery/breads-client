@@ -14,11 +14,11 @@ export const removeSearchResults = () => ({
 
 export const searchAll = () => {
     return dispatch => {
-        dispatch(addLoader());
+        dispatch(addLoader('search'));
         return apiCall('get', `/search`)
             .then(res => {
                 dispatch(loadSearchResults(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('search'));
             })
             .catch(err => {
                 dispatch(addError(err.message));
@@ -28,11 +28,11 @@ export const searchAll = () => {
 
 export const searchUsers = search => {
     return dispatch => {
-        dispatch(addLoader());
+        dispatch(addLoader('search'));
         return apiCall('get', `/search/users?users=${search}`)
             .then(res => {
                 dispatch(loadSearchResults(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('search'));
             })
             .catch(err => {
                 dispatch(addError(err.message));

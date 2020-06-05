@@ -4,6 +4,11 @@ const reading = (state={data: [], websites: []}, action) => {
     switch (action.type) {
         case LOAD_USER_READINGS:
             return {...action.readings};
+        case REMOVE_USER_READING:
+            return {
+                data: state.data.filter(reading => reading.id !== action.id),
+                websites: state.websites
+            };
         case ADD_FAVORITE:
             return {
                 data: state.data.map(reading =>
@@ -20,11 +25,6 @@ const reading = (state={data: [], websites: []}, action) => {
                         : reading),
                 websites: state.websites
             }
-        case REMOVE_USER_READING:
-            return {
-                data: state.data.filter(reading => reading.id !== action.id),
-                websites: state.websites
-            };
         default:
             return state;
     }

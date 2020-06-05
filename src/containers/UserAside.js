@@ -7,6 +7,7 @@ import { fetchFavoriteReadings } from '../store/actions/favoriteReadings';
 import { fetchUser } from '../store/actions/user';
 import UserImage from '../components/UserImage';
 import Aside from '../components/Aside';
+import ReadingStats from '../components/ReadingsStats';
 
 
 class UserAside extends Component {
@@ -50,36 +51,34 @@ class UserAside extends Component {
                 totalWords += r.word_count/100000;
             }); 
 
-            totalReadings = <NavLink exact to={`/${user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                                Readings: <strong>{readings.data.length}</strong>
-                            </NavLink>
-            totalWebsites = <p className='card-text website-sum'>Websites Read From: <strong>{readings.websites.length}</strong></p>;
-            topWebsite = <p className='card-text website-sum'>Most Read Website: <strong>{readings.websites[0].domain}</strong></p>;
-            totalBooks = <p className='card-text book-sum'>Loaves: <strong>{totalWords.toFixed(2)}</strong></p>;
+            totalReadings = readings.data.length;
+            totalWebsites = readings.websites.length;
+            topWebsite = readings.websites[0].domain;
+            totalBooks = totalWords.toFixed(2);
         }
-        if (favorites) {
-            totalFavorites = <NavLink exact to={`/${user.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
-                                Favorites: <strong>{favorites.length}</strong>
-                            </NavLink>
-        }
+
+        if (favorites) totalFavorites = favorites.length;
 
         return (
             <Aside
                 readings={readings}
-                loading={loading}
-                loading_id='userReadings'
                 title={user.username}
-                totalReadings={totalReadings}
-                totalWebsites={totalWebsites}
-                topWebsite={topWebsite}
-                totalBooks={totalBooks}
-                totalFavorites={totalFavorites}
                 id={currentUser.id}
                 user_id={user.id}
                 favorites={favorites}
                 friends={friends}
                 image={image}
-            />
+            >
+                <NavLink exact to={`/${user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                    <ReadingStats loading={loading} loading_id='userReadings' statName='Readings' stat={totalReadings}/>
+                </NavLink>
+                <NavLink exact to={`/${user.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                    <ReadingStats loading={loading} loading_id='FavoriteReadings' statName='Favorites' stat={totalFavorites}/>
+                </NavLink>
+                <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/>
+                <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/>
+                <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
+            </Aside>
         )
     }
 }

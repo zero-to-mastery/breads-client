@@ -1,15 +1,16 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import { authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
 import { sendResetEmail, resetPassword } from '../store/actions/auth';
 import Timeline from '../components/Timeline';
 import UserAside from './UserAside';
+import GlobalAside from './GlobalAside';
 import SubscriptionsAside from './SubscriptionsAside';
 import UserReadingsList from './UserReadingsList';
+import ReadingsList from './ReadingsList';
 import SubscriptionsList from './SubscriptionsList';
 import SubscriptionReadingsList from './SubscriptionReadingsList';
 import FavoriteReadingsList from './FavoriteReadingsList';
@@ -17,6 +18,7 @@ import ArticleForm from './ArticleForm';
 import UpdateForm from './UpdateForm';
 import EmailForm from '../components/EmailForm';
 import ResetPasswordForm from '../components/ResetPasswordForm';
+import SignUpCard from '../components/SignUpCard';
 
 const Routes = props => {
     const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, userReadings } = props;
@@ -28,12 +30,24 @@ const Routes = props => {
                     path='/'
                     render={props => {
                         return (
-                            <Homepage
-                                errors={errors}
-                                removeError={removeError}
-                                currentUser={currentUser}
-                                {...props}
-                            />
+                            <div>
+                                {errors.message && (
+                                    <div className='alert alert-danger alert-dismissible fade show' role='alert'>
+                                        {errors.message}
+                                        <button onClick={removeError} type='button' className='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
+                                )}
+                                <Timeline>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history}/>
+                                        : <SignUpCard />
+                                    }
+                                    <GlobalAside />
+                                    <ReadingsList />
+                                </Timeline>
+                            </div>
                         )
                     }}
                 />
@@ -119,7 +133,10 @@ const Routes = props => {
                                     </div>
                                 )}
                                 <Timeline>
-                                    <ArticleForm history={props.history} />
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history}/>
+                                        : <SignUpCard />
+                                    }
                                     <SubscriptionsAside />
                                     <SubscriptionReadingsList />
                                 </Timeline>
@@ -142,7 +159,10 @@ const Routes = props => {
                                     </div>
                                 )}
                                 <Timeline>
-                                    <ArticleForm history={props.history} match={props.match}/>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        : <SignUpCard />
+                                    }
                                     <UserAside
                                         readings={userReadings}
                                         match={props.match}
@@ -185,7 +205,10 @@ const Routes = props => {
                                     </div>
                                 )}
                                 <Timeline>
-                                    <ArticleForm history={props.history} match={props.match}/>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        : <SignUpCard />
+                                    }
                                     <UserAside
                                         readings={userReadings}
                                         match={props.match}
@@ -211,7 +234,10 @@ const Routes = props => {
                                     </div>
                                 )}
                                 <Timeline>
-                                    <ArticleForm history={props.history} match={props.match}/>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        : <SignUpCard />
+                                    }
                                     <UserAside
                                         readings={userReadings}
                                         match={props.match}

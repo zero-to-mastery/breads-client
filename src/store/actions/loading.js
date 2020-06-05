@@ -5,6 +5,7 @@ export const addLoader = id => ({
     id
 });
 
-export const removeLoader = () => ({
-    type: REMOVE_LOADER
+export const removeLoader = id => ({
+    type: REMOVE_LOADER,
+    id
 });

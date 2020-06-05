@@ -16,7 +16,7 @@ export const fetchSubscriptionReadings = () => {
         return apiCall('get', `/readings/${id}/subscriptions`)
             .then(res => {
                 dispatch(loadSubscriptionReadings(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('subReadings'));
             })
             .catch(err => {
                 dispatch(addError(err.message));

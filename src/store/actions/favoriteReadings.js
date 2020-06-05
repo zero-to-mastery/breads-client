@@ -14,7 +14,7 @@ export const fetchFavoriteReadings = userId => {
         return apiCall('get', `/readings/${userId}/favorites`)
             .then(res => {
                 dispatch(loadFavorites(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('favoriteReadings'));
             })
             .catch(err => {
                 dispatch(addError(err.message));

@@ -19,7 +19,7 @@ export const fetchReadings = () => {
         return apiCall('get', '/readings')
             .then(res => {
                 dispatch(loadReadings(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('readings'));
             })
             .catch(err => {
                 dispatch(addError(err.message));
@@ -28,11 +28,11 @@ export const fetchReadings = () => {
 }
 
 export const postNewReading = url => (dispatch, getState) => {
-    dispatch(addLoader());
+    dispatch(addLoader('newReading'));
     let { currentUser } = getState();
     const id = currentUser.user.id;
     return apiCall('post', `/users/${id}/readings`, { url })
-        .then(res => {})
+        .then(() => dispatch(removeLoader('newReading')))
         .catch(err => dispatch(addError(err.message)));
 }
 

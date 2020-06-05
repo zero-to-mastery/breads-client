@@ -39,7 +39,7 @@ export const fetchUserReadings = userId => {
         return apiCall('get', `/readings/${userId}`)
             .then(res => {
                 dispatch(loadUserReadings(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader('userReadings'));
             })
             .catch(err => {
                 dispatch(addError(err.message));

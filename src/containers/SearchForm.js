@@ -21,7 +21,7 @@ class SearchForm extends Component {
         if (wordToMatch !== '') {
             let users = this.props.search.users.filter(query => {
                 const regex = new RegExp(wordToMatch, 'gi');
-                return query.first_name.match(regex) || query.last_name.match(regex)// || query.title.match(regex);
+                return query.first_name.match(regex) || query.last_name.match(regex);
             });
             let readings = this.props.search.readings.filter(query => {
                 const regex = new RegExp(wordToMatch, 'gi');
@@ -49,6 +49,7 @@ class SearchForm extends Component {
 
     render() {
         const { search } = this.state;
+        const { loading } = this.props;
         let searchResults = [];
 
         if (search !== '') {
@@ -81,7 +82,10 @@ class SearchForm extends Component {
                 <div className='input-group' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                     <div className='input-group-prepend'>
                         <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                            <FontAwesomeIcon icon='search'/>
+                            {loading.isLoading && loading.id.includes('search')
+                                ? <FontAwesomeIcon icon='spinner' pulse/>
+                                : <FontAwesomeIcon icon='search'/>
+                            }
                         </button>
                     </div>
                     <input
@@ -110,7 +114,8 @@ class SearchForm extends Component {
 function mapStateToProps(state) {
     return {
         readings: state.readings,
-        search: state.search
+        search: state.search,
+        loading: state.loading
     }
 }
 

@@ -18,7 +18,7 @@ export const fetchSummary = (reading_id) => {
         return apiCall('get', `/readings/${reading_id}/summary`)
             .then(res => {
                 dispatch(loadSummary(res));
-                dispatch(removeLoader());
+                dispatch(removeLoader(reading_id));
             })
             .catch(err => {
                 dispatch(addError(err.message));

@@ -29,24 +29,26 @@ const ListItem = props => {
                             <Link to={`/${props.user_id}`}>
                                 <button className='dropdown-item'>{props.username}'s Profile</button>
                             </Link>
-                            <button onClick={props.newSubscription} className='dropdown-item'>
-                                <small>Subscribe</small>
-                            </button>
+                            {props.isAuthenticated &&
+                                <button onClick={props.newSubscription} className='dropdown-item'>
+                                    <small>Subscribe</small>
+                                </button>
+                            }
                         </div>
                     </div>
                 }
                 <Moment className='text-muted mt-3 ml-2' fromNow ago>
                     {props.date}
                 </Moment> 
-                {props.loading.isLoading && props.loading.id === props.id
+                {props.loading.isLoading && props.loading.id.includes(props.id)
                     ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
                         <FontAwesomeIcon icon='spinner' pulse/>
                     </p>
                     : [(props.summary === '' || props.summary.id != props.id
-                        ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
+                        ? <p key='view' onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
                             <FontAwesomeIcon icon='book-reader'/>
                         </p>
-                        : <p onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'>
+                        : <p key='remove' onClick={props.removeSummary} className='btn text-muted m-2 ml-auto'>
                             <FontAwesomeIcon icon='window-close'/>
                         </p>
                     )]

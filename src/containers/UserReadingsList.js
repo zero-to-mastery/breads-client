@@ -38,7 +38,7 @@ function mapStateToProps(state) {
     return {
         readings: state.userReadings,
         summary: state.summary,
-        currentUser: state.currentUser.user.id,
+        currentUser: state.currentUser,
         loading: state.loading
     }
 }
