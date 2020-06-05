@@ -50,7 +50,6 @@ export const fetchUserReadings = userId => {
 // add new favorite
 export const markFavorite = id => {
     return (dispatch, getState) => {
-        console.log(id);
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('post', `/readings/${id}/favorite/${user_id}`)
@@ -62,7 +61,6 @@ export const markFavorite = id => {
 // remove from favorites
 export const unfavorite = id => {
     return (dispatch, getState) => {
-        console.log(id);
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
