@@ -13,8 +13,8 @@
         "/**": {
             "Strict-Transport-Security": "max-age=31557600; includeSubDomains;",
             "Cache-Control": "no-cache",
-            "Content-Security-Policy": "default-src 'self' https:; image-src 'self' https: data:",
-            "Content-Security-Policy-Report-Only": "default-src 'self' https:; image-src 'self' https: data:; report-uri http://staging-breads-server.herokuapp.com/api/csp-report",
+            "Content-Security-Policy": "default-src 'self' https:; script-src 'self' https: 'sha256-IjRw88EIRqqX+VpFI3slzD4qzNuRp0RfxZuz50uE2eQ='; img-src 'self' https: data: 'sha256-UTjtaAWWTyzFjRKbltk24jHijlTbP20C1GUYaWPqg7E=' 'sha256-deDIoPlRijnpfbTDYsK+8JmDfUBmpwpnb0L/SUV8NeU='",
+            "Content-Security-Policy-Report-Only": "default-src 'self' https:; img-src 'self' https: data:; 'sha256-UTjtaAWWTyzFjRKbltk24jHijlTbP20C1GUYaWPqg7E=' 'sha256-deDIoPlRijnpfbTDYsK+8JmDfUBmpwpnb0L/SUV8NeU='; report-uri https://staging-breads-server.herokuapp.com/api/csp-report",
             "X-Content-Type-Options": "nosniff",
             "X-Frame-Options": "SAMEORIGIN",
             "X-XSS-Protection": "1; mode=block",
