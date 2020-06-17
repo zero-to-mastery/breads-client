@@ -1,0 +1,1 @@
+export const LOAD_FAVORITES = 'LOAD_FAVORITES';
