@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSubscriptions, postNewSubscription } from '../subscriptions/subscriptionsAction';
 import { fetchUserReadings } from '../userReadings/userReadingsActions';
-import { fetchFavoriteReadings } from '../favReadings/favoriteReadingsActions';
+import { fetchFavoriteReadings } from '../favReadings/actions';
 import { fetchUser } from './userAction';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';

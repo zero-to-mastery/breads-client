@@ -11,7 +11,7 @@ import UserReadingsList from '../features/userReadings/UserReadingsList';
 import ReadingsList from '../features/globalReadings/ReadingsList';
 import SubscriptionsList from '../features/subscriptions/SubscriptionsList';
 import SubscriptionReadingsList from '../features/subReadings/SubscriptionReadingsList';
-import FavoriteReadingsList from '../features/favReadings/FavoriteReadingsList';
+import { FavoriteReadingsList } from '../features/favReadings';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 

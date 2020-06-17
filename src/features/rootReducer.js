@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
 import errors from './errors';
+import favoriteReadings from './favReadings';
 import readings from './globalReadings/readingsReducer';
 import summary from './summary/summaryReducer';
 import subscriptions from './subscriptions/subscriptionsReducer';
@@ -10,11 +11,11 @@ import notifications from './notifications/notificationsReducer';
 import loading from './loader/loadingReducer';
 import userReadings from './userReadings/userReadingsReducer';
 import search from './search/searchReducer';
-import favoriteReadings from './favReadings/favoriteReadingsReducer';
 
 const rootReducer = combineReducers({
     [auth.constants.NAME]: auth.reducer,
     [errors.constants.NAME]: errors.reducer,
+    [favoriteReadings.constants.NAME]: favoriteReadings.reducer,
     readings,
     summary,
     subscriptions,
@@ -23,8 +24,7 @@ const rootReducer = combineReducers({
     notifications,
     loading,
     userReadings,
-    search,
-    favoriteReadings
+    search
 });
   
 export default rootReducer;

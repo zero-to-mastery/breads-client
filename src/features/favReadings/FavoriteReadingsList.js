@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeUserReading, markFavorite, unfavorite } from '../userReadings/userReadingsActions';
-import { fetchFavoriteReadings } from './favoriteReadingsActions';
+import { fetchFavoriteReadings } from './actions';
 import { fetchSummary, removeSummary } from '../summary/summaryAction';
 import VirtualizedList from '../../common/VirtualizedList';
 
