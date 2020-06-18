@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeUserReading, markFavorite, unfavorite } from '../userReadings/userReadingsActions';
+import { removeUserReading, markFavorite, unfavorite } from '../userReadings/actions';
 import { fetchFavoriteReadings } from './actions';
-import { fetchSummary, removeSummary } from '../summary/summaryAction';
+import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class FavoriteReadingsList extends Component {
@@ -45,10 +45,9 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
+    ...summary.actions,
     fetchFavoriteReadings,
-    fetchSummary,
     removeUserReading,
-    removeSummary,
     markFavorite,
     unfavorite
 })(FavoriteReadingsList);

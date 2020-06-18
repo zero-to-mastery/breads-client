@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from './readingsActions';
+import { fetchReadings } from './actions';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
 
@@ -44,7 +44,7 @@ class GlobalAside extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.readings,
+        readings: state.globalReadings,
         loading: state.loading
     }
 }

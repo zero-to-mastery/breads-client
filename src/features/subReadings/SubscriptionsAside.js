@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from './subscriptionReadingsActions';
+import { fetchSubscriptionReadings } from './actions';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
 

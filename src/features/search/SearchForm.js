@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchAll, searchUsers } from './searchAction';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import reactStringReplace from 'react-string-replace';
+import { searchAll, searchUsers } from './actions';
 
 class SearchForm extends Component {
     constructor(props) {

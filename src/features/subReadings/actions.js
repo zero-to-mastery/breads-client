@@ -1,7 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { LOAD_SUBSCRIPTION_READINGS } from './actionTypes';
-import { addLoader, removeLoader } from '../loader/loadingAction';
+import { addLoader, removeLoader } from '../loader/actions';
 
 export const loadSubscriptionReadings = subscriptions => ({
     type: LOAD_SUBSCRIPTION_READINGS,

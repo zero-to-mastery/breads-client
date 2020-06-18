@@ -1,7 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { LOAD_READINGS, REMOVE_READING } from './actionTypes';
-import { addLoader, removeLoader } from '../loader/loadingAction';
+import { addLoader, removeLoader } from '../loader/actions';
 
 export const loadReadings = readings => ({
     type: LOAD_READINGS,

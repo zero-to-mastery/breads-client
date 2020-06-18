@@ -3,15 +3,13 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../features/auth';
 import errors, { ErrorAlert } from '../features/errors';
-import Timeline from '../common/Timeline';
-import UserAside from '../features/user/UserAside';
-import GlobalAside from '../features/globalReadings/GlobalAside';
-import SubscriptionsAside from '../features/subReadings/SubscriptionsAside';
-import UserReadingsList from '../features/userReadings/UserReadingsList';
-import ReadingsList from '../features/globalReadings/ReadingsList';
-import SubscriptionsList from '../features/subscriptions/SubscriptionsList';
-import SubscriptionReadingsList from '../features/subReadings/SubscriptionReadingsList';
 import { FavoriteReadingsList } from '../features/favReadings';
+import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
+import { SubscriptionReadingsList, SubscriptionsAside } from '../features/subReadings';
+import { SubscriptionsList } from '../features/subscriptions';
+import { UserAside } from '../features/user';
+import { UserReadingsList } from '../features/userReadings';
+import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 
@@ -35,7 +33,7 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <GlobalAside />
-                                    <ReadingsList />
+                                    <GlobalReadingsList />
                                 </Timeline>
                             </>
                         )
@@ -227,12 +225,10 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
     errors: state.errors,
-    readings: state.readings,
     userReadings: state.userReadings
   };
 }
 
 export default withRouter(
   connect(mapStateToProps, { ...auth.actions, ...errors.actions })(Routes)
-//   connect(mapStateToProps, { authUser, removeError, sendResetEmail, resetPassword })(Routes)
 );

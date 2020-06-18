@@ -1,7 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { LOAD_USER_READINGS, REMOVE_USER_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
-import { addLoader, removeLoader } from '../loader/loadingAction';
+import { addLoader, removeLoader } from '../loader/actions';
 
 export const loadUserReadings = readings => ({
     type: LOAD_USER_READINGS,

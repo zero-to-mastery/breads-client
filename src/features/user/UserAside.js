@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchSubscriptions, postNewSubscription } from '../subscriptions/subscriptionsAction';
-import { fetchUserReadings } from '../userReadings/userReadingsActions';
-import { fetchFavoriteReadings } from '../favReadings/actions';
-import { fetchUser } from './userAction';
+import subscriptions from '../subscriptions';
+import userReadings from '../userReadings';
+import favReadings from '../favReadings';
+import { fetchUser } from './actions';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
@@ -15,7 +15,6 @@ class UserAside extends Component {
         if (this.props.match) {
             this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
-            this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchFavoriteReadings(this.props.match.params.id);
         } else {
             this.props.fetchSubscriptions(this.props.currentUser.id);
@@ -26,7 +25,6 @@ class UserAside extends Component {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
             this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
-            this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchFavoriteReadings(this.props.match.params.id);
         }
     }
@@ -94,4 +92,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptions, postNewSubscription, fetchUserReadings, fetchFavoriteReadings, fetchUser })(UserAside);
+export default connect(mapStateToProps, { ...subscriptions.actions, ...userReadings.actions, ...favReadings.actions, fetchUser })(UserAside);

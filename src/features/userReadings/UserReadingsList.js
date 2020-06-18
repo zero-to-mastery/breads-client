@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadings, removeUserReading, markFavorite, unfavorite } from './userReadingsActions';
-import { fetchSummary, removeSummary } from '../summary/summaryAction';
+import { fetchUserReadings, removeUserReading, markFavorite, unfavorite } from './actions';
+import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class UserReadingsList extends Component {
@@ -44,10 +44,9 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
+    ...summary.actions,
     fetchUserReadings,
-    fetchSummary,
     removeUserReading,
-    removeSummary,
     markFavorite,
     unfavorite
 })(UserReadingsList);

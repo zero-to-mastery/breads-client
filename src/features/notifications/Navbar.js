@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../auth/actions';
-import { withRouter } from 'react-router-dom';
-import SearchForm from '../search/SearchForm';
-import { fetchNotifications, updateNotifications } from './notificationsActions';
+import auth from '../auth';
+import { SearchForm } from '../search';
+import { fetchNotifications, updateNotifications } from './actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Navbar extends Component {
@@ -108,4 +107,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps, { logout, fetchNotifications, updateNotifications })(Navbar));
+export default withRouter(connect(mapStateToProps, { ...auth.actions, fetchNotifications, updateNotifications })(Navbar));

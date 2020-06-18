@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptions, removeSubscription } from './subscriptionsAction';
+import { fetchSubscriptions, removeSubscription } from './actions';
 import List from '../../common/List';
 import ListCard from '../../common/ListCard';
 // REFACTOR - DOES THIS NEED TO FETCHSUBSCRIPTIONS?

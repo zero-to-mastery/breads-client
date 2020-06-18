@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from './subscriptionReadingsActions';
-import { fetchSummary, removeSummary } from '../summary/summaryAction';
+import { fetchSubscriptionReadings } from './actions';
+import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class SubscriptionsList extends Component {
@@ -36,6 +36,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     fetchSubscriptionReadings,
-    fetchSummary,
-    removeSummary
+    ...summary.actions
 })(SubscriptionsList);

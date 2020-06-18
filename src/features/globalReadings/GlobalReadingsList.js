@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from './readingsActions';
-import { fetchSummary, removeSummary } from '../summary/summaryAction';
+import { fetchReadings } from './actions';
+import summmary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
+import summary from '../summary';
 
 class ReadingsList extends Component {
     componentDidMount() {
@@ -27,7 +28,7 @@ class ReadingsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.readings,
+        readings: state.globalReadings,
         summary: state.summary,
         loading: state.loading,
         isAuthenticated: state.currentUser.isAuthenticated
@@ -36,6 +37,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { 
     fetchReadings,
-    fetchSummary,
-    removeSummary
+    ...summary.actions
 })(ReadingsList);

@@ -8,7 +8,6 @@ const VirtualizedList = props => {
         summary,
         fetchSummary,
         removeSummary,
-        postNewSubscription,
         loading,
         removeUserReading,
         currentUser,
