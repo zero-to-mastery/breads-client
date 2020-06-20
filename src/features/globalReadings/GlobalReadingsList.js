@@ -7,7 +7,13 @@ import VirtualizedList from '../../common/VirtualizedList';
 
 class ReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchReadingsIfNeeded('global');
+        this.props.fetchReadingsIfNeeded(this.props.list);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.path !== prevProps.match.path) {
+            this.props.fetchReadingsIfNeeded(this.props.list);
+        }
     }
 
     render() {
@@ -26,9 +32,9 @@ class ReadingsList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        readings: getReadings(state),
+        readings: getReadings(state, ownProps.list),
         summary: state.summary,
         loading: state.loading,
         isAuthenticated: state.currentUser.isAuthenticated

@@ -1,17 +1,7 @@
-import { combineReducers } from 'redux';
-import { RECEIVE_ENTITIES, SELECT_LIST } from "../actions";
+import { RECEIVE_ENTITIES } from "../actions";
 
 const getIds = (readings) => {
     return Object.values(readings).map(reading => reading.id);
-}
-
-const selectedList = (state = '', action) => {
-    switch (action.type) {
-        case SELECT_LIST:
-            return action.list
-        default:
-            return state
-    }
 }
 
 const readingsByList = (state = {}, action) => {

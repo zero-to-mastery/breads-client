@@ -5,17 +5,15 @@ import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../fea
 import errors, { ErrorAlert } from '../features/errors';
 import { FavoriteReadingsList } from '../features/favReadings';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
-import { SubscriptionReadingsList, SubscriptionsAside } from '../features/subReadings';
 import { SubscriptionsList } from '../features/subscriptions';
 import { UserAside } from '../features/user';
 import { UserReadingsList } from '../features/userReadings';
-// import { getUserReadings } from '../features/globalReadings/reducer'
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser, userReadings } = props;
+    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser } = props;
     return (
         <div className='container-fluid py-5'>
             <Switch>
@@ -33,8 +31,8 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history}/>
                                         : <SignUpCard />
                                     }
-                                    <GlobalAside />
-                                    <GlobalReadingsList />
+                                    <GlobalAside list='global' title='Global' match={props.match}/>
+                                    <GlobalReadingsList list='global' match={props.match}/>
                                 </Timeline>
                             </>
                         )
@@ -121,8 +119,8 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history}/>
                                         : <SignUpCard />
                                     }
-                                    <SubscriptionsAside />
-                                    <SubscriptionReadingsList />
+                                    <GlobalAside list='subscriptions' title="Friend's" match={props.match} />
+                                    <GlobalReadingsList list='subscriptions' match={props.match}/>
                                 </Timeline>
                             </>
                         )
@@ -142,10 +140,7 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside
-                                        readings={userReadings}
-                                        match={props.match}
-                                    />
+                                    <UserAside match={props.match}/>
                                     <UserReadingsList match={props.match}/>
                                 </Timeline>
                             </>
@@ -183,10 +178,7 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside
-                                        readings={userReadings}
-                                        match={props.match}
-                                    />
+                                    <UserAside match={props.match}/>
                                     <SubscriptionsList match={props.match}/>
                                 </Timeline>
                             </>
@@ -207,10 +199,7 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside
-                                        readings={userReadings}
-                                        match={props.match}
-                                    />
+                                    <UserAside match={props.match}/>
                                     <FavoriteReadingsList match={props.match}/>
                                 </Timeline>
                             </>
@@ -222,11 +211,10 @@ const Routes = props => {
     );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    errors: state.errors,
-    // userReadings: getUserReadings(state)
+    errors: state.errors
   };
 }
 

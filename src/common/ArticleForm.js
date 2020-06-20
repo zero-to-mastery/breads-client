@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postNewReading, fetchReadings } from '../features/globalReadings/actions';
-import { fetchUserReadings } from '../features/userReadings/actions';
+import { postNewReading, fetchReadingsIfNeeded } from '../features/globalReadings/actions';
+import { fetchUserReadingsIfNeeded } from '../features/userReadings/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ArticleForm extends Component {
@@ -18,6 +18,14 @@ class ArticleForm extends Component {
         });
     };
 
+    // decouple/consolidate reading lists
+    // new reading adds to db, but not to state
+    // markFav and unFav don't work because there's no favorite reducer now
+    // if subsReads are empty, it emptys readings state -- this affects logging out too
+        // because entities.readings is empty
+    // if I unfollow someone, their readings still show up in my subscription feed
+    // deleteReading deletes from db, but not from state
+    
     handleNewUrl = e => {
         e.preventDefault();
         this.props.postNewReading(this.state.url);
@@ -25,9 +33,9 @@ class ArticleForm extends Component {
         let path = this.props.history.location.pathname;
         
         if (path === '/') {
-            setTimeout(() => this.props.fetchReadings(), 5000);
+            setTimeout(() => this.props.fetchReadingsIfNeeded(), 5000);
         } else if (path !== '/subscriptions') {
-            setTimeout(() => this.props.fetchUserReadings(this.props.currentUser), 5000);
+            setTimeout(() => this.props.fetchUserReadingsIfNeeded(this.props.currentUser), 5000);
         }
     };
 
@@ -71,4 +79,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { postNewReading, fetchReadings, fetchUserReadings })(ArticleForm);
+export default connect(mapStateToProps, { postNewReading, fetchReadingsIfNeeded, fetchUserReadingsIfNeeded })(ArticleForm);
