@@ -1,6 +1,6 @@
 import { LOAD_USER_READINGS, REMOVE_USER_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
 
-const reading = (state={data: [], websites: []}, action) => {
+const reading = (state = {}, action) => {
     switch (action.type) {
         case LOAD_USER_READINGS:
             return {...action.readings};

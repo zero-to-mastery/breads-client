@@ -5,6 +5,7 @@ import favoriteReadings from './favReadings';
 import globalReadings from './globalReadings';
 import loading from './loader';
 import notifications from './notifications';
+import readingsByList from './readingsList';
 import search from './search';
 import subscriptionReadings from './subReadings';
 import subscriptions from './subscriptions';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     [globalReadings.constants.NAME]: globalReadings.reducer,
     [loading.constants.NAME]: loading.reducer,
     [notifications.constants.NAME]: notifications.reducer,
+    [readingsByList.constants.NAME]: readingsByList.reducer,
     [search.constants.NAME]: search.reducer,
     [subscriptionReadings.constants.NAME]: subscriptionReadings.reducer,
     [subscriptions.constants.NAME]: subscriptions.reducer,

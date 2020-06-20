@@ -2,6 +2,9 @@ import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { LOAD_READINGS, REMOVE_READING } from './actionTypes';
 import { addLoader, removeLoader } from '../loader/actions';
+import { receiveEntities } from '../actions';
+import { normalize } from 'normalizr';
+import * as schema from '../../common/services/schema';
 
 export const loadReadings = readings => ({
     type: LOAD_READINGS,
@@ -18,7 +21,8 @@ export const fetchReadings = () => {
         dispatch(addLoader('readings'));
         return apiCall('get', '/readings')
             .then(res => {
-                dispatch(loadReadings(res));
+                dispatch(receiveEntities('global', normalize(res, [schema.reading])));
+                // dispatch(loadReadings(res));
                 dispatch(removeLoader('readings'));
             })
             .catch(err => {
@@ -57,3 +61,28 @@ export const unfavorite = id => {
             .catch(err => dispatch(addError(err.message)));
     }
 }
+
+const shouldFetchReadings = (state, list) => {
+    const readings = state.readingsByList[list];
+    if (!readings) {
+         return true;
+    }
+    // else if (loader.isLoading) {
+    //      return false;
+    // }
+}
+
+export const fetchReadingsIfNeeded = (list) => {
+    return (dispatch, getState) => {
+        if (shouldFetchReadings(getState(), list)) {
+            return dispatch(fetchReadings());
+        }
+    }
+}
+
+// export const SELECT_LIST = 'SELECT_LIST';
+
+// export function selectList(list) {
+//      type: SELECT_LIST,
+//      list
+// }

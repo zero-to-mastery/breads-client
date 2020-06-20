@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserImage from './UserImage';
 
 const ListItem = props => {
+    const { users } = props;
     return (
         <li style={props.style} className='list-group-item border-secondary'>
             <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
@@ -14,15 +16,15 @@ const ListItem = props => {
             </div>
             <div className='row'>
                 <UserImage
-                    image={props.image}
-                    username={props.username}
+                    image={users[props.reader].image}
+                    username={users[props.reader].username}
                     class='timeline-image'
                     height='48'
                     width='48'
                 />
                 {!props.isCorrectUser && 
-                    <Link to={`/${props.user_id}`} className='btn text-primary m-2'>
-                        <small>{props.username}</small>
+                    <Link to={`/${users[props.reader].id}`} className='btn text-primary m-2'>
+                        <small>{users[props.reader].username}</small>
                     </Link>    
                 }
                 <Moment className='text-muted mt-3 ml-2' fromNow ago>
@@ -63,4 +65,11 @@ const ListItem = props => {
     )
 }
 
-export default ListItem;
+// export default ListItem;
+function mapStateToProps(state) {
+    return {
+        users: state.user,
+    }
+}
+
+export default connect(mapStateToProps)(ListItem);

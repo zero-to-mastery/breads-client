@@ -2,6 +2,9 @@ import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { LOAD_USER_READINGS, REMOVE_USER_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
 import { addLoader, removeLoader } from '../loader/actions';
+import { receiveEntities } from '../actions';
+import { normalize } from 'normalizr';
+import * as schema from '../../common/services/schema';
 
 export const loadUserReadings = readings => ({
     type: LOAD_USER_READINGS,
@@ -33,12 +36,13 @@ export const removeUserReading = (user_id, reading_id) => {
     };
 };
 
-export const fetchUserReadings = userId => {
+export const fetchUserReadings = (list, userId) => {
     return dispatch => {
         dispatch(addLoader('userReadings'));
         return apiCall('get', `/readings/${userId}`)
             .then(res => {
-                dispatch(loadUserReadings(res));
+                dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                // dispatch(loadUserReadings(res));
                 dispatch(removeLoader('userReadings'));
             })
             .catch(err => {
@@ -66,5 +70,23 @@ export const unfavorite = id => {
         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
             .then(() => dispatch(removeFavorite(id)))
             .catch(err => dispatch(addError(err.message)));
+    }
+}
+
+const shouldFetchUserReadings = (state, list) => {
+    const readings = state.readingsByList[list];
+    if (!readings) {
+         return true;
+    }
+    // else if (loader.isLoading) {
+    //      return false;
+    // }
+}
+
+export const fetchUserReadingsIfNeeded = (list, id) => {
+    return (dispatch, getState) => {
+        if (shouldFetchUserReadings(getState(), list)) {
+            return dispatch(fetchUserReadings(list, id));
+        }
     }
 }

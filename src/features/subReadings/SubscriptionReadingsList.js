@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from './actions';
+import { fetchSubscriptionReadingsIfNeeded } from './actions';
+import { getSubscriptionReadings } from '../globalReadings/reducer';
 import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class SubscriptionsList extends Component {
     componentDidMount() {
-        this.props.fetchSubscriptionReadings();
+        this.props.fetchSubscriptionReadingsIfNeeded('subscriptions');
     }
 
     render() {
@@ -27,7 +28,7 @@ class SubscriptionsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.subscriptionReadings,
+        readings: getSubscriptionReadings(state),
         summary: state.summary,
         loading: state.loading,
         isAuthenticated: state.currentUser.isAuthenticated
@@ -35,6 +36,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchSubscriptionReadings,
+    fetchSubscriptionReadingsIfNeeded,
     ...summary.actions
 })(SubscriptionsList);

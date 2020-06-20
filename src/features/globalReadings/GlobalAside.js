@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from './actions';
+import { fetchReadingsIfNeeded } from './actions';
+import { getReadings } from './reducer';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
 
 class GlobalAside extends Component {
     componentDidMount() {
-        this.props.fetchReadings();
+        this.props.fetchReadingsIfNeeded('global');
     }
 
     render() {
-        let {  readings, loading } = this.props;
+        let { readings, loading } = this.props;
         let totalReadings,
-            totalWebsites,
-            topWebsite,
+            // totalWebsites,
+            // topWebsite,
             totalBooks,
             totalWords = 0;
             
-        if (readings && readings.data.length > 0) {
-            readings.data.forEach(r => {
+        if (readings && readings.length > 0) {
+            readings.forEach(r => {
                 totalWords += r.word_count/100000;
             }); 
             
-            totalReadings = readings.data.length;
-            totalWebsites = readings.websites.length;
-            topWebsite = readings.websites[0].domain;
+            totalReadings = readings.length;
+            // totalWebsites = readings.websites.length;
+            // topWebsite = readings.websites[0].domain;
             totalBooks = totalWords.toFixed(2);
         }
 
@@ -34,8 +35,8 @@ class GlobalAside extends Component {
                 title='Global Readings'
             >
                 <ReadingStats loading={loading} loading_id='readings' statName='Readings' stat={totalReadings}/>
-                <ReadingStats loading={loading} loading_id='readings' statName='Websites Read From' stat={totalWebsites}/>
-                <ReadingStats loading={loading} loading_id='readings' statName='Most Read Website' stat={topWebsite}/>
+                {/* <ReadingStats loading={loading} loading_id='readings' statName='Websites Read From' stat={totalWebsites}/> */}
+                {/* <ReadingStats loading={loading} loading_id='readings' statName='Most Read Website' stat={topWebsite}/> */}
                 <ReadingStats loading={loading} loading_id='readings' statName='Loaves' stat={totalBooks}/>
             </Aside>
         )
@@ -44,9 +45,9 @@ class GlobalAside extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.globalReadings,
+        readings: getReadings(state),
         loading: state.loading
     }
 }
 
-export default connect(mapStateToProps, { fetchReadings })(GlobalAside);
+export default connect(mapStateToProps, { fetchReadingsIfNeeded })(GlobalAside);

@@ -9,6 +9,7 @@ import { SubscriptionReadingsList, SubscriptionsAside } from '../features/subRea
 import { SubscriptionsList } from '../features/subscriptions';
 import { UserAside } from '../features/user';
 import { UserReadingsList } from '../features/userReadings';
+import { getUserReadings } from '../features/globalReadings/reducer'
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
@@ -225,7 +226,7 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
     errors: state.errors,
-    userReadings: state.userReadings
+    userReadings: getUserReadings(state)
   };
 }
 

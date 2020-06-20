@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionReadings } from './actions';
+import { fetchSubscriptionReadingsIfNeeded } from './actions';
+import { getSubscriptionReadings } from '../globalReadings/reducer';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
 
 class SubscriptionsAside extends Component {
     componentDidMount() {
-        this.props.fetchSubscriptionReadings();
+        this.props.fetchSubscriptionReadingsIfNeeded('subscriptions');
     }
 
     render() {
         let { readings, loading } = this.props;
         let totalReadings,
-            totalWebsites,
-            topWebsite,
+            // totalWebsites,
+            // topWebsite,
             totalBooks,
             totalWords = 0;
             
-        if (readings && readings.data.length > 0) {
-            readings.data.forEach(r => {
+        if (readings && readings.length > 0) {
+            readings.forEach(r => {
                 totalWords += r.word_count/100000;
             }); 
             
-            totalReadings = readings.data.length;
-            totalWebsites = readings.websites.length;
-            topWebsite = readings.websites[0].domain;
+            totalReadings = readings.length;
+            // totalWebsites = readings.websites.length;
+            // topWebsite = readings.websites[0].domain;
             totalBooks = totalWords.toFixed(2);
         }
 
@@ -34,8 +35,8 @@ class SubscriptionsAside extends Component {
                 title="Friend's Readings"
             >
                 <ReadingStats loading={loading} loading_id='subReadings' statName='Readings' stat={totalReadings}/>
-                <ReadingStats loading={loading} loading_id='subReadings' statName='Websites Read From' stat={totalWebsites}/>
-                <ReadingStats loading={loading} loading_id='subReadings' statName='Most Read Website' stat={topWebsite}/>
+                {/* <ReadingStats loading={loading} loading_id='subReadings' statName='Websites Read From' stat={totalWebsites}/> */}
+                {/* <ReadingStats loading={loading} loading_id='subReadings' statName='Most Read Website' stat={topWebsite}/> */}
                 <ReadingStats loading={loading} loading_id='subReadings' statName='Loaves' stat={totalBooks}/>
             </Aside>
         )
@@ -44,9 +45,10 @@ class SubscriptionsAside extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.subscriptionReadings,
+        readings: getSubscriptionReadings(state),
+        // readings: state.subscriptionReadings,
         loading: state.loading
     }
 }
 
-export default connect(mapStateToProps, { fetchSubscriptionReadings })(SubscriptionsAside);
+export default connect(mapStateToProps, { fetchSubscriptionReadingsIfNeeded })(SubscriptionsAside);

@@ -16,9 +16,11 @@ const VirtualizedList = props => {
         isAuthenticated
     } = props;
 
-    let r;
-    if (readings.data) r = readings.data;
-    else r = readings;
+    // NEED TO DECOUPLE FROM STATE SHAPE
+    let r = {};
+    if (readings && readings.length > 0) r = readings;
+    // r = readings.data;
+    // else 
 
     const cache = new CellMeasurerCache({
         fixedWidth: true,
@@ -40,22 +42,23 @@ const VirtualizedList = props => {
                     id={r[index].id}
                     title={r[index].title}
                     domain={r[index].domain}
-                    url={r[index].url}
                     word_count={r[index].word_count}
-                    user_id={r[index].user_id}
+                    url={r[index].url}
                     date={r[index].created_at}
-                    username={r[index].username}
-                    image={r[index].image}
+                    favorite={currentUser ? r[index].favorite === currentUser.user.id : false}
+                    reader={r[index].reader}
+                    // user_id={r[index].reader.id}
+                    // username={r[index].reader.username}
+                    // image={r[index].reader.image}
                     summary={summary.summary}
                     viewSummary={fetchSummary.bind(this, r[index].id, r[index].article_url)}
                     removeSummary={removeSummary}
                     loading={loading}
                     style={style}
-                    favorite={currentUser ? r[index].favorite === currentUser.user.id : false}
-                    removeReading={removeUserReading ? removeUserReading.bind(this, r[index].user_id, r[index].id) : undefined}
+                    removeReading={removeUserReading ? removeUserReading.bind(this, r[index].reader, r[index].id) : undefined}
                     markFavorite={markFavorite ? markFavorite.bind(this, r[index].id) : undefined}
                     unfavorite={unfavorite ? unfavorite.bind(this, r[index].id) : undefined}
-                    isCorrectUser={currentUser ? currentUser.user.id === r[index].user_id : false}
+                    isCorrectUser={currentUser ? currentUser.user.id === r[index].reader : false}
                     isAuthenticated={isAuthenticated}
                 />
             </CellMeasurer>
@@ -74,7 +77,7 @@ const VirtualizedList = props => {
                                     deferredMeasurementCache={cache}
                                     rowHeight={cache.rowHeight}
                                     rowRenderer={renderRow}
-                                    rowCount={r.length}
+                                    rowCount={Object.keys(r).length}
                                     autoHeight
                                     scrollTop={scrollTop}
                                     isScrolling={isScrolling}

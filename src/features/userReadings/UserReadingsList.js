@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadings, removeUserReading, markFavorite, unfavorite } from './actions';
+import { fetchUserReadingsIfNeeded, fetchUserReadings, removeUserReading, markFavorite, unfavorite } from './actions';
+import { getUserReadings } from '../globalReadings/reducer'
 import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class UserReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchUserReadings(this.props.match.params.id);
+        this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.props.fetchUserReadings(this.props.match.params.id);
+            // this.props.fetchUserReadings(this.props.match.params.id);
+            this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
         }
     }
 
@@ -34,9 +36,9 @@ class UserReadingsList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        readings: state.userReadings,
+        readings: getUserReadings(state, ownProps.match.params.id),
         summary: state.summary,
         currentUser: state.currentUser,
         loading: state.loading
@@ -45,6 +47,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { 
     ...summary.actions,
+    fetchUserReadingsIfNeeded,
     fetchUserReadings,
     removeUserReading,
     markFavorite,

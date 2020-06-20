@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchReadings } from './actions';
-import summmary from '../summary';
-import VirtualizedList from '../../common/VirtualizedList';
+import { fetchReadingsIfNeeded } from './actions';
+import { getReadings } from './reducer';
 import summary from '../summary';
+import VirtualizedList from '../../common/VirtualizedList';
 
 class ReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchReadings();
+        this.props.fetchReadingsIfNeeded('global');
     }
 
     render() {
@@ -28,7 +28,7 @@ class ReadingsList extends Component {
 
 function mapStateToProps(state) {
     return {
-        readings: state.globalReadings,
+        readings: getReadings(state),
         summary: state.summary,
         loading: state.loading,
         isAuthenticated: state.currentUser.isAuthenticated
@@ -36,6 +36,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
-    fetchReadings,
+    fetchReadingsIfNeeded,
     ...summary.actions
 })(ReadingsList);
