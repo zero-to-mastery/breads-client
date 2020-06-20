@@ -25,6 +25,12 @@ export const getFavoriteReadings = (state, id) => {
     }
 }
 
+export const getReadingById = (state, list, id) => {
+    if (state.readingsByList[`${list}`]) { // give time for readingsByList to add object
+        return state.readings[id];
+    }
+}
+
 const reading = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_ENTITIES:

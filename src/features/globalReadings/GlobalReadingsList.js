@@ -17,7 +17,7 @@ class ReadingsList extends Component {
     }
 
     render() {
-        const { readings, summary, fetchSummary, removeSummary, loading, isAuthenticated } = this.props;
+        const { readings, summary, fetchSummary, removeSummary, loading, isAuthenticated, list } = this.props;
 
         return (
             <VirtualizedList 
@@ -27,6 +27,8 @@ class ReadingsList extends Component {
                 removeSummary={removeSummary}
                 loading={loading}
                 isAuthenticated={isAuthenticated}
+                list={list}
+                // 4 extra props
             />
         )
     }
@@ -34,14 +36,16 @@ class ReadingsList extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getReadings(state, ownProps.list),
+        readings: getReadings(state, ownProps.list), // different action
         summary: state.summary,
         loading: state.loading,
         isAuthenticated: state.currentUser.isAuthenticated
+        // current User prop
     }
 }
 
 export default connect(mapStateToProps, { 
     fetchReadingsIfNeeded,
-    ...summary.actions
+    ...summary.actions 
+    // 4 extra actions - 2 in global
 })(ReadingsList);

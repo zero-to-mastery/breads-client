@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserReadingsIfNeeded, removeUserReading, markFavorite, unfavorite } from '../userReadings/actions';
-// import {  } from '../userReadings/actions';
 import { getFavoriteReadings } from '../globalReadings/reducer';
 import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
@@ -13,22 +12,12 @@ class FavoriteReadingsList extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            // this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
         }
     }
-    // componentDidMount() {
-    //     this.props.fetchFavoriteReadings(this.props.match.params.id);
-    // }
-
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.match.params.id !== prevProps.match.params.id) {
-    //         this.props.fetchFavoriteReadings(this.props.match.params.id);
-    //     }
-    // }
 
     render() {
-        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading } = this.props;
+        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading, match } = this.props;
         
         return (
             <VirtualizedList 
@@ -41,6 +30,7 @@ class FavoriteReadingsList extends Component {
                 markFavorite={markFavorite}
                 unfavorite={unfavorite}
                 loading={loading}
+                list={match.params.id}
             />
         )
     }

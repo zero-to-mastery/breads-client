@@ -4,31 +4,32 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserImage from './UserImage';
+import { getReadingById } from '../features/globalReadings/reducer';
 
 const ListItem = props => {
-    const { users } = props;
+    const { users, reading } = props; // get actions from store, not readingList!!
     return (
         <li style={props.style} className='list-group-item border-secondary'>
-            <h5 className='row'><a href={`${props.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{props.title}</strong></a></h5>
+            <h5 className='row'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
             <div className='row reading-area'>
-                <p className='lead'>{props.domain}</p>
-                <p className='text-muted ml-auto'>~{Number(props.word_count).toLocaleString()} words</p>             
+                <p className='lead'>{reading.domain}</p>
+                <p className='text-muted ml-auto'>~{Number(reading.word_count).toLocaleString()} words</p>             
             </div>
             <div className='row'>
                 <UserImage
-                    image={users[props.reader].image}
-                    username={users[props.reader].username}
+                    image={users[reading.reader].image}
+                    username={users[reading.reader].username}
                     class='timeline-image'
                     height='48'
                     width='48'
                 />
                 {!props.isCorrectUser && 
-                    <Link to={`/${users[props.reader].id}`} className='btn text-primary m-2'>
-                        <small>{users[props.reader].username}</small>
+                    <Link to={`/${users[reading.reader].id}`} className='btn text-primary m-2'>
+                        <small>{users[reading.reader].username}</small>
                     </Link>    
                 }
                 <Moment className='text-muted mt-3 ml-2' fromNow ago>
-                    {props.date}
+                    {reading.date}
                 </Moment> 
                 {props.loading.isLoading && props.loading.id.includes(props.id)
                     ? <p onClick={props.viewSummary} className='btn text-muted m-2 ml-auto'>
@@ -44,7 +45,7 @@ const ListItem = props => {
                     )]
                 }
                 {props.isCorrectUser && (
-                    props.favorite
+                    reading.favorite
                         ? <p onClick={props.unfavorite} className='btn text-muted m-2'>
                             <FontAwesomeIcon icon='bookmark'/>
                         </p>
@@ -57,7 +58,7 @@ const ListItem = props => {
                         <FontAwesomeIcon icon={['far', 'trash-alt']}/>
                     </p>
                 }
-                {props.summary.id == props.id &&
+                {props.summary.id == reading.id &&
                     <p className='summary-data'>{props.summary.data}</p>
                 }
             </div>
@@ -65,10 +66,10 @@ const ListItem = props => {
     )
 }
 
-// export default ListItem;
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
         users: state.user,
+        reading: getReadingById(state, ownProps.list, ownProps.id)
     }
 }
 

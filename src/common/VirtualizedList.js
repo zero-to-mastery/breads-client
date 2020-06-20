@@ -13,7 +13,8 @@ const VirtualizedList = props => {
         currentUser,
         markFavorite,
         unfavorite,
-        isAuthenticated
+        isAuthenticated,
+        list
     } = props;
 
     // NEED TO DECOUPLE FROM STATE SHAPE
@@ -40,16 +41,8 @@ const VirtualizedList = props => {
                 <ListItem 
                     key={key}
                     id={r[index].id}
-                    title={r[index].title}
-                    domain={r[index].domain}
-                    word_count={r[index].word_count}
-                    url={r[index].url}
-                    date={r[index].created_at}
+                    list={list}
                     favorite={currentUser ? r[index].favorite === currentUser.user.id : false}
-                    reader={r[index].reader}
-                    // user_id={r[index].reader.id}
-                    // username={r[index].reader.username}
-                    // image={r[index].reader.image}
                     summary={summary.summary}
                     viewSummary={fetchSummary.bind(this, r[index].id, r[index].article_url)}
                     removeSummary={removeSummary}

@@ -12,13 +12,12 @@ class UserReadingsList extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            // this.props.fetchUserReadings(this.props.match.params.id);
             this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
         }
     }
 
     render() {
-        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading } = this.props;
+        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading, match } = this.props;
         
         return (
             <VirtualizedList 
@@ -26,11 +25,12 @@ class UserReadingsList extends Component {
                 summary={summary}
                 fetchSummary={fetchSummary}
                 removeSummary={removeSummary}
+                loading={loading}
                 removeUserReading={removeUserReading}
                 currentUser={currentUser}
                 markFavorite={markFavorite}
                 unfavorite={unfavorite}
-                loading={loading}
+                list={match.params.id}
             />
         )
     }
@@ -50,6 +50,6 @@ export default connect(mapStateToProps, {
     fetchUserReadingsIfNeeded,
     fetchUserReadings,
     removeUserReading,
-    markFavorite,
-    unfavorite
+    markFavorite, // in global
+    unfavorite // in global
 })(UserReadingsList);
