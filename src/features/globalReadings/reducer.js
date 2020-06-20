@@ -1,10 +1,11 @@
 import { LOAD_READINGS, REMOVE_READING } from './actionTypes';
 import { RECEIVE_ENTITIES } from '../actions';
+import { NAME } from './constants';
 
 export const getReadings = state => {
     if (state.readingsByList['global']) { // give time for readingsByList to add global object
         return state.readingsByList['global'].map(id => {
-            return state.globalReadings[id];
+            return state[NAME][id];
         }).reverse();
     }
 }
@@ -12,7 +13,7 @@ export const getReadings = state => {
 export const getSubscriptionReadings = state => {
     if (state.readingsByList['subscriptions']) { // give time for readingsByList to add subscriptions object
         return state.readingsByList['subscriptions'].map(id => {
-            return state.globalReadings[id];
+            return state[NAME][id];
         }).reverse();
     }
 }
@@ -20,8 +21,15 @@ export const getSubscriptionReadings = state => {
 export const getUserReadings = (state, id) => {
     if (state.readingsByList[`${id}`]) { // give time for readingsByList to add user object
         return state.readingsByList[`${id}`].map(id => {
-            return state.globalReadings[id];
+            return state[NAME][id];
         }).reverse();
+    }
+}
+
+export const getFavoriteReadings = (state, id) => {
+    if (state.readingsByList[`${id}`]) { // give time for readingsByList to add user object
+        let userReadings = getUserReadings(state, id);
+        return userReadings.filter(reading => reading.favorite === reading.reader);
     }
 }
 

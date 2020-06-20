@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeUserReading, markFavorite, unfavorite } from '../userReadings/actions';
-import { fetchFavoriteReadings } from './actions';
+import { fetchUserReadingsIfNeeded, removeUserReading, markFavorite, unfavorite } from '../userReadings/actions';
+// import {  } from '../userReadings/actions';
+import { getFavoriteReadings } from '../globalReadings/reducer';
 import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class FavoriteReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchFavoriteReadings(this.props.match.params.id);
+        this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.props.fetchFavoriteReadings(this.props.match.params.id);
+            // this.props.fetchUserReadings(this.props.match.params.id);
+            this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
         }
     }
+    // componentDidMount() {
+    //     this.props.fetchFavoriteReadings(this.props.match.params.id);
+    // }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.match.params.id !== prevProps.match.params.id) {
+    //         this.props.fetchFavoriteReadings(this.props.match.params.id);
+    //     }
+    // }
 
     render() {
         const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading } = this.props;
@@ -35,9 +46,9 @@ class FavoriteReadingsList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        readings: state.favoriteReadings,
+        readings: getFavoriteReadings(state, ownProps.match.params.id),
         summary: state.summary,
         currentUser: state.currentUser,
         loading: state.loading
@@ -46,7 +57,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { 
     ...summary.actions,
-    fetchFavoriteReadings,
+    fetchUserReadingsIfNeeded,
     removeUserReading,
     markFavorite,
     unfavorite

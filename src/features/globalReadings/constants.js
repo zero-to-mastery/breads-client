@@ -1,1 +1,1 @@
-export const NAME = 'globalReadings';
+export const NAME = 'readings';

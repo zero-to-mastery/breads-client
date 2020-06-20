@@ -9,7 +9,7 @@ import { getUserById } from './reducer';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
-
+import { getUserReadings, getFavoriteReadings } from '../globalReadings/reducer';
 
 class UserAside extends Component {
     componentDidMount() {
@@ -47,7 +47,6 @@ class UserAside extends Component {
                         username={u.username}
                         class='card-img-top border-bottom border-secondary'
                     />;
-        
         if (readings && readings.length > 0) {
             readings.forEach(r => {
                 totalWords += r.word_count/100000;
@@ -87,7 +86,8 @@ class UserAside extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        favorites: state.favoriteReadings,
+        readings: getUserReadings(state, ownProps.match.params.id),
+        favorites: getFavoriteReadings(state, ownProps.match.params.id),
         currentUser: state.currentUser.user,
         friends: state.subscriptions,
         user: getUserById(state, ownProps.match.params.id),
