@@ -19,6 +19,14 @@ class ListItem extends Component {
         // because entities.readings is empty
     // if I unfollow someone, their readings still show up in my subscription feed
     // if user has no readings, profile doesn't display 'cannot read 'filter' of undefined
+        // no readings are loaded on 'subscriptions' url
+    // make each 'handle' function its own component
+    // user - NEXT STATE UPDATE
+        // id
+        // username
+        // image
+        // favorites [ ... ]
+        // friends [ ... ]
 
     handleClick = () => {
         // markFav and unFav don't work because there's no favorite reducer now
@@ -35,65 +43,65 @@ class ListItem extends Component {
     }
     
     render() {
-    const { id, style, users, reading, summary, removeSummary, loading, currentUser } = this.props;
-    
-    return (
-        <li style={style} className='list-group-item border-secondary'>
-            <h5 className='row'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
-            <div className='row reading-area'>
-                <p className='lead'>{reading.domain}</p>
-                <p className='text-muted ml-auto'>~{Number(reading.word_count).toLocaleString()} words</p>             
-            </div>
-            <div className='row'>
-                <UserImage
-                    image={users[reading.reader].image}
-                    username={users[reading.reader].username}
-                    class='timeline-image'
-                    height='48'
-                    width='48'
-                />
-                {!this.props.isCorrectUser && 
-                    <Link to={`/${users[reading.reader].id}`} className='btn text-primary m-2'>
-                        <small>{users[reading.reader].username}</small>
-                    </Link>    
-                }
-                <Moment className='text-muted mt-3 ml-2' fromNow ago>
-                    {reading.date}
-                </Moment> 
-                {loading.isLoading && loading.id.includes(id)
-                    ? <p className='btn text-muted m-2 ml-auto'>
-                        <FontAwesomeIcon icon='spinner' pulse/>
-                    </p>
-                    : [(!summary.hasOwnProperty('data') || summary.id != id
-                        ? <p key='view' onClick={this.handleSummary} className='btn text-muted m-2 ml-auto'>
-                            <FontAwesomeIcon icon='book-reader'/>
+        const { id, style, users, reading, summary, removeSummary, loading, currentUser } = this.props;
+        
+        return (
+            <li style={style} className='list-group-item border-secondary'>
+                <h5 className='row'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
+                <div className='row reading-area'>
+                    <p className='lead'>{reading.domain}</p>
+                    <p className='text-muted ml-auto'>~{Number(reading.word_count).toLocaleString()} words</p>             
+                </div>
+                <div className='row'>
+                    <UserImage
+                        image={users[reading.reader].image}
+                        username={users[reading.reader].username}
+                        class='timeline-image'
+                        height='48'
+                        width='48'
+                    />
+                    {!this.props.isCorrectUser && 
+                        <Link to={`/${users[reading.reader].id}`} className='btn text-primary m-2'>
+                            <small>{users[reading.reader].username}</small>
+                        </Link>    
+                    }
+                    <Moment className='text-muted mt-3 ml-2' fromNow ago>
+                        {reading.date}
+                    </Moment> 
+                    {loading.isLoading && loading.id.includes(id)
+                        ? <p className='btn text-muted m-2 ml-auto'>
+                            <FontAwesomeIcon icon='spinner' pulse/>
                         </p>
-                        : <p key='remove' onClick={removeSummary} className='btn text-muted m-2 ml-auto'>
-                            <FontAwesomeIcon icon='window-close'/>
+                        : [(!summary.hasOwnProperty('data') || summary.id != id
+                            ? <p key='view' onClick={this.handleSummary} className='btn text-muted m-2 ml-auto'>
+                                <FontAwesomeIcon icon='book-reader'/>
+                            </p>
+                            : <p key='remove' onClick={removeSummary} className='btn text-muted m-2 ml-auto'>
+                                <FontAwesomeIcon icon='window-close'/>
+                            </p>
+                        )]
+                    }
+                    {currentUser.user.id === reading.reader && (
+                        reading.favorite
+                            ? <p onClick={this.handleClick} className='btn text-muted m-2'>
+                                <FontAwesomeIcon icon='bookmark'/>
+                            </p>
+                            : <p onClick={this.handleClick} className='btn text-muted m-2'>
+                                <FontAwesomeIcon icon={['far', 'bookmark']}/>
+                            </p>
+                    )}
+                    {currentUser.user.id === reading.reader && 
+                        <p onClick={this.handleReadingRemoval} className='btn text-danger m-2 delete'>
+                            <FontAwesomeIcon icon={['far', 'trash-alt']}/>
                         </p>
-                    )]
-                }
-                {currentUser.user.id === reading.reader && (
-                    reading.favorite
-                        ? <p onClick={this.handleClick} className='btn text-muted m-2'>
-                            <FontAwesomeIcon icon='bookmark'/>
-                        </p>
-                        : <p onClick={this.handleClick} className='btn text-muted m-2'>
-                            <FontAwesomeIcon icon={['far', 'bookmark']}/>
-                        </p>
-                )}
-                {currentUser.user.id === reading.reader && 
-                    <p onClick={this.handleReadingRemoval} className='btn text-danger m-2 delete'>
-                        <FontAwesomeIcon icon={['far', 'trash-alt']}/>
-                    </p>
-                }
-                {summary.id == reading.id &&
-                    <p className='summary-data'>{summary.data}</p>
-                }
-            </div>
-        </li>
-    )
-}
+                    }
+                    {summary.id == reading.id &&
+                        <p className='summary-data'>{summary.data}</p>
+                    }
+                </div>
+            </li>
+        )
+    }
 }
 
 function mapStateToProps(state, ownProps) {

@@ -10,11 +10,11 @@ export const getReadings = (state, id) => {
     }
 }
 
-export const getUserReadings = (state, id) => {
+export const getUserReadings = (state, id, fav) => {
     if (state.readingsByList[`${id}`]) { // give time for readingsByList to add user object
-        return state.readingsByList[`${id}`].map(id => {
-            return state[NAME][id];
-        }).reverse();
+        let userReadings = state.readingsByList[`${id}`].map(id => state[NAME][id]).reverse();
+        if (fav) return userReadings.filter(reading => reading.favorite === reading.reader);
+        return userReadings;
     }
 }
 

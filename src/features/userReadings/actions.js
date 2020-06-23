@@ -51,6 +51,20 @@ export const fetchUserReadings = (list, userId) => {
     }
 }
 
+export const fetchFavoriteReadings = userId => {
+    return dispatch => {
+        dispatch(addLoader('favoriteReadings'));
+        return apiCall('get', `/readings/${userId}/favorites`)
+            .then(res => {
+                // dispatch(loadFavorites(res));
+                dispatch(removeLoader('favoriteReadings'));
+            })
+            .catch(err => {
+                dispatch(addError(err.message));
+            })
+    }
+}
+
 // add new favorite
 export const markFavorite = id => {
     return (dispatch, getState) => {
@@ -83,9 +97,10 @@ const shouldFetchUserReadings = (state, list) => {
     // }
 }
 
-export const fetchUserReadingsIfNeeded = (list, id) => {
+export const fetchUserReadingsIfNeeded = (list, id, fav) => {
     return (dispatch, getState) => {
         if (shouldFetchUserReadings(getState(), list)) {
+            if (fav) dispatch(fetchFavoriteReadings(list, id));
             return dispatch(fetchUserReadings(list, id));
         }
     }

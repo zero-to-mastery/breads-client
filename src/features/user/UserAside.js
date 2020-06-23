@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import subscriptions from '../subscriptions';
 import userReadings from '../userReadings';
-import favReadings from '../favReadings';
+// import favReadings from '../favReadings';
 import { fetchUser } from './actions';
 import { getUserById } from './reducer';
 import UserImage from '../../common/UserImage';
@@ -95,4 +95,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { ...subscriptions.actions, ...userReadings.actions, ...favReadings.actions, fetchUser })(UserAside);
+export default connect(mapStateToProps, { ...subscriptions.actions, ...userReadings.actions, fetchUser })(UserAside);

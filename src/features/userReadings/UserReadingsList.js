@@ -6,11 +6,14 @@ import VirtualizedList from '../../common/VirtualizedList';
 
 class UserReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
+        this.props.fetchUserReadingsIfNeeded(
+            `${this.props.match.params.id}`,
+            this.props.match.params.id,
+            this.props.fav);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
+        if (this.props.match.url !== prevProps.match.url) {
             this.props.fetchUserReadingsIfNeeded(`${this.props.match.params.id}`, this.props.match.params.id);
         }
     }
@@ -29,7 +32,7 @@ class UserReadingsList extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getUserReadings(state, ownProps.match.params.id)
+        readings: getUserReadings(state, ownProps.match.params.id, ownProps.fav)
     }
 }
 

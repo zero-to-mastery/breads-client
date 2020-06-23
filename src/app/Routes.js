@@ -3,7 +3,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../features/auth';
 import errors, { ErrorAlert } from '../features/errors';
-import { FavoriteReadingsList } from '../features/favReadings';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
 import { SubscriptionsList } from '../features/subscriptions';
 import { UserAside } from '../features/user';
@@ -130,6 +129,7 @@ const Routes = props => {
                     exact
                     path='/:id'
                     render={props => {
+                        console.log(props.match);
                         return (
                             <>
                                 {errors.message && 
@@ -141,7 +141,7 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <UserAside match={props.match}/>
-                                    <UserReadingsList match={props.match}/>
+                                    <UserReadingsList fav={null} match={props.match}/>
                                 </Timeline>
                             </>
                         )
@@ -200,7 +200,7 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <UserAside match={props.match}/>
-                                    <FavoriteReadingsList match={props.match}/>
+                                    <UserReadingsList fav='true' match={props.match}/>
                                 </Timeline>
                             </>
                         )
@@ -212,12 +212,12 @@ const Routes = props => {
 }
 
 function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUser,
-    errors: state.errors
-  };
+    return {
+        currentUser: state.currentUser,
+        errors: state.errors
+    };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { ...auth.actions, ...errors.actions })(Routes)
+    connect(mapStateToProps, { ...auth.actions, ...errors.actions })(Routes)
 );
