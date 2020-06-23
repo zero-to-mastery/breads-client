@@ -6,7 +6,6 @@ import errors, { ErrorAlert } from '../features/errors';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
 import { SubscriptionsList } from '../features/subscriptions';
 import { UserAside } from '../features/user';
-import { UserReadingsList } from '../features/userReadings';
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
@@ -129,7 +128,6 @@ const Routes = props => {
                     exact
                     path='/:id'
                     render={props => {
-                        console.log(props.match);
                         return (
                             <>
                                 {errors.message && 
@@ -140,8 +138,11 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside match={props.match}/>
-                                    <UserReadingsList fav={null} match={props.match}/>
+                                    <UserAside fav='true' match={props.match}/>
+                                    <GlobalReadingsList
+                                        list={props.match.params.id}
+                                        id={props.match.params.id}
+                                        match={props.match}/>
                                 </Timeline>
                             </>
                         )
@@ -199,8 +200,12 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside match={props.match}/>
-                                    <UserReadingsList fav='true' match={props.match}/>
+                                    <UserAside fav='true' match={props.match}/>
+                                    <GlobalReadingsList
+                                        list={props.match.params.id}
+                                        id={props.match.params.id}
+                                        fav='true'
+                                        match={props.match}/>
                                 </Timeline>
                             </>
                         )

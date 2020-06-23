@@ -1,32 +1,20 @@
-import { REMOVE_READING } from './actionTypes';
+import { REMOVE_USER_READING } from './actionTypes';
 import { RECEIVE_ENTITIES } from '../actions';
 import { NAME } from './constants';
 
-export const getReadings = (state, id) => {
-    if (state.readingsByList[`${id}`]) { // give time for readingsByList to add object
-        return state.readingsByList[`${id}`].map(id => {
-            return state[NAME][id];
+export const getReadings = (state, list, fav) => {
+    if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
+        let userReadings = state.readingsByList[`${list}`].map(id => {
+            console.log(id);
+            return state[NAME][id]
         }).reverse();
-    }
-}
-
-export const getUserReadings = (state, id, fav) => {
-    if (state.readingsByList[`${id}`]) { // give time for readingsByList to add user object
-        let userReadings = state.readingsByList[`${id}`].map(id => state[NAME][id]).reverse();
         if (fav) return userReadings.filter(reading => reading.favorite === reading.reader);
         return userReadings;
     }
 }
 
-export const getFavoriteReadings = (state, id) => {
-    if (state.readingsByList[`${id}`]) { // give time for readingsByList to add user object
-        let userReadings = getUserReadings(state, id);
-        return userReadings.filter(reading => reading.favorite === reading.reader);
-    }
-}
-
 export const getReadingById = (state, list, id) => {
-    if (state.readingsByList[`${list}`]) { // give time for readingsByList to add object
+    if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
         return state.readings[id];
     }
 }
@@ -38,11 +26,11 @@ const reading = (state = {}, action) => {
             if (entities && entities.readings) {
                 return { ...state, ...entities.readings }
             }
-        case REMOVE_READING:
-            return {
-                data: state.data.filter(reading => reading.id !== action.id),
-                websites: state.websites
-            };
+        // case REMOVE_USER_READING:
+        //     return {
+        //         data: state.data.filter(reading => reading.id !== action.id),
+        //         websites: state.websites
+        //     };
         default:
             return state;
     }

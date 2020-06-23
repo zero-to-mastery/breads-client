@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import subscriptions from '../subscriptions';
-import userReadings from '../userReadings';
+import globalReadings from '../globalReadings';
 // import favReadings from '../favReadings';
 import { fetchUser } from './actions';
 import { getUserById } from './reducer';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
-import { getUserReadings, getFavoriteReadings } from '../globalReadings/reducer';
+import { getReadings } from '../globalReadings/reducer';
 
 class UserAside extends Component {
     componentDidMount() {
         if (this.props.match) {
             this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
-            this.props.fetchFavoriteReadings(this.props.match.params.id);
-            // this.props.fetchUserReadingsIfNeeded('user', this.props.match.params.id);
         } else {
             this.props.fetchSubscriptions(this.props.currentUser.id);
         }
@@ -27,7 +25,6 @@ class UserAside extends Component {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
             this.props.fetchUser(this.props.match.params.id)
             this.props.fetchSubscriptions(this.props.match.params.id);
-            this.props.fetchFavoriteReadings(this.props.match.params.id);
         }
     }
 
@@ -86,8 +83,8 @@ class UserAside extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getUserReadings(state, ownProps.match.params.id),
-        favorites: getFavoriteReadings(state, ownProps.match.params.id),
+        readings: getReadings(state, ownProps.match.params.id),
+        favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
         currentUser: state.currentUser.user,
         friends: state.subscriptions,
         user: getUserById(state, ownProps.match.params.id),
@@ -95,4 +92,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { ...subscriptions.actions, ...userReadings.actions, fetchUser })(UserAside);
+export default connect(mapStateToProps, { ...subscriptions.actions, ...globalReadings.actions, fetchUser })(UserAside);

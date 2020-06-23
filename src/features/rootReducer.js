@@ -9,7 +9,6 @@ import search from './search';
 import subscriptions from './subscriptions';
 import summary from './summary';
 import user from './user';
-import userReadings from './userReadings';
 
 const rootReducer = combineReducers({
     [auth.constants.NAME]: auth.reducer,
@@ -21,8 +20,7 @@ const rootReducer = combineReducers({
     [search.constants.NAME]: search.reducer,
     [subscriptions.constants.NAME]: subscriptions.reducer,
     [summary.constants.NAME]: summary.reducer,
-    [user.constants.NAME]: user.reducer,
-    // [userReadings.constants.NAME]: userReadings.reducer
+    [user.constants.NAME]: user.reducer
 });
   
 export default rootReducer;

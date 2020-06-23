@@ -6,13 +6,12 @@ import VirtualizedList from '../../common/VirtualizedList';
 
 class ReadingsList extends Component {
     componentDidMount() {
-        console.log(this.props.match.url);
-        this.props.fetchReadingsIfNeeded(this.props.list);
+        this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.url !== prevProps.match.url) {
-            this.props.fetchReadingsIfNeeded(this.props.list);
+            this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
         }
     }
 
@@ -30,7 +29,7 @@ class ReadingsList extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getReadings(state, ownProps.list), // different action
+        readings: getReadings(state, ownProps.list, ownProps.fav)
     }
 }
 

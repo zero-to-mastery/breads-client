@@ -5,14 +5,13 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserImage from './UserImage';
 import { getReadingById } from '../features/globalReadings/reducer';
-import { markFavorite, unfavorite } from '../features/globalReadings/actions';
+import { markFavorite, unfavorite, removeUserReading } from '../features/globalReadings/actions';
 import summary from '../features/summary';
-import { removeUserReading } from '../features/userReadings/actions';
 
 class ListItem extends Component {
     // decouple/consolidate reading lists
         // global and subscription - check
-        // fav and user
+        // fav and user - check
         // user and global
     // new reading adds to db, but not to state
     // if subsReads are empty, it emptys readings state -- this affects logging out too
@@ -44,7 +43,6 @@ class ListItem extends Component {
     
     render() {
         const { id, style, users, reading, summary, removeSummary, loading, currentUser } = this.props;
-        
         return (
             <li style={style} className='list-group-item border-secondary'>
                 <h5 className='row'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
@@ -66,7 +64,7 @@ class ListItem extends Component {
                         </Link>    
                     }
                     <Moment className='text-muted mt-3 ml-2' fromNow ago>
-                        {reading.date}
+                        {reading.created_at}
                     </Moment> 
                     {loading.isLoading && loading.id.includes(id)
                         ? <p className='btn text-muted m-2 ml-auto'>

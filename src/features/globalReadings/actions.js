@@ -4,7 +4,7 @@ import { addLoader, removeLoader } from '../loader/actions';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { ADD_FAVORITE, REMOVE_FAVORITE } from '../userReadings/actionTypes';
+import { REMOVE_USER_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
 
 
 export const addFavorite = id => ({
@@ -17,33 +17,58 @@ export const removeFavorite = id => ({
     id
 });
 
-export const fetchReadings = list => {
+export const removeUserReadings = id => ({
+    type: REMOVE_USER_READING,
+    id
+});
+
+export const fetchReadings = (list, id) => {
     return (dispatch, getState) => {
         dispatch(addLoader(list));
-        switch (list) {
-            case 'global':
-                return apiCall('get', '/readings')
-                    .then(res => {
-                        dispatch(receiveEntities(list, normalize(res, [schema.reading])));
-                        dispatch(removeLoader(list));
-                    })
-                    .catch(err => {
-                        dispatch(addError(err.message));
-                    });
-            case 'subscriptions':
-                let {currentUser} = getState();
-                const id = currentUser.user.id;
-                return apiCall('get', `/readings/${id}/subscriptions`)
-                    .then(res => {
-                        dispatch(receiveEntities(list, normalize(res, [schema.reading])));
-                        dispatch(removeLoader(list));
-                    })
-                    .catch(err => {
-                        dispatch(addError(err.message));
-                    });
-        }
+        if (list === 'global') {
+            return apiCall('get', '/readings')
+                .then(res => {
+                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    dispatch(removeLoader(list));
+                })
+                .catch(err => {
+                    dispatch(addError(err.message));
+                });
+        } else if (list === 'subscriptions') {
+            let {currentUser} = getState();
+            const id = currentUser.user.id;
+            return apiCall('get', `/readings/${id}/subscriptions`)
+                .then(res => {
+                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    dispatch(removeLoader(list));
+                })
+                .catch(err => {
+                    dispatch(addError(err.message));
+                });
+        } else if (id) {
+            return apiCall('get', `/readings/${id}`)
+                .then(res => {
+                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    // dispatch(loadUserReadings(res));
+                    dispatch(removeLoader('userReadings'));
+                })
+                .catch(err => {
+                    dispatch(addError(err.message));
+                });
+        } 
+        // else if (id && fav) {
+        //     return apiCall('get', `/readings/${id}/favorites`)
+        //         .then(res => {
+        //             // dispatch(loadFavorites(res));
+        //             dispatch(removeLoader('favoriteReadings'));
+        //         })
+        //         .catch(err => {
+        //             dispatch(addError(err.message));
+        //         });
+        // }
     }
 }
+
 
 export const postNewReading = url => (dispatch, getState) => {
     dispatch(addLoader('newReading'));
@@ -53,6 +78,16 @@ export const postNewReading = url => (dispatch, getState) => {
         .then(() => dispatch(removeLoader('newReading'))) // add reading to state
         .catch(err => dispatch(addError(err.message)));
 }
+
+export const removeUserReading = (user_id, reading_id) => {
+    return dispatch => {
+        return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
+            .then(() => dispatch(removeUserReadings(reading_id)))
+            .catch(err => {
+                dispatch(addError(err.message));
+            });
+    };
+};
 
 export const markFavorite = id => {
     return (dispatch, getState) => {
@@ -86,10 +121,12 @@ const shouldFetchReadings = (state, list) => { // same
     // }
 }
 
-export const fetchReadingsIfNeeded = (list) => {
+export const fetchReadingsIfNeeded = (list, id) => {
+    console.log(list);
+    console.log(id);
     return (dispatch, getState) => {
         if (shouldFetchReadings(getState(), list)) {
-            return dispatch(fetchReadings(list));
+            return dispatch(fetchReadings(list, id));
         }
     }
 }
