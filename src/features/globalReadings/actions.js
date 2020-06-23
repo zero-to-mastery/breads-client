@@ -55,17 +55,7 @@ export const fetchReadings = (list, id) => {
                 .catch(err => {
                     dispatch(addError(err.message));
                 });
-        } 
-        // else if (id && fav) {
-        //     return apiCall('get', `/readings/${id}/favorites`)
-        //         .then(res => {
-        //             // dispatch(loadFavorites(res));
-        //             dispatch(removeLoader('favoriteReadings'));
-        //         })
-        //         .catch(err => {
-        //             dispatch(addError(err.message));
-        //         });
-        // }
+        }
     }
 }
 
@@ -122,8 +112,6 @@ const shouldFetchReadings = (state, list) => { // same
 }
 
 export const fetchReadingsIfNeeded = (list, id) => {
-    console.log(list);
-    console.log(id);
     return (dispatch, getState) => {
         if (shouldFetchReadings(getState(), list)) {
             return dispatch(fetchReadings(list, id));

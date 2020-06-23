@@ -8,8 +8,6 @@ const VirtualizedList = props => {
     // NEED TO DECOUPLE FROM STATE SHAPE - removing this from virtualized list, remember to fix rowrenderer
     let r = {};
     if (readings && readings.length > 0) r = readings;
-    // r = readings.data;
-    // else 
 
     const cache = new CellMeasurerCache({
         fixedWidth: true,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getReadings } from './reducer';
-import Aside from '../../common/Aside';
-import ReadingStats from '../../common/ReadingsStats';
+import { getReadings } from '../reducer';
+import Aside from '../../../common/Aside';
+import ReadingStats from '../../../common/ReadingsStats';
 
 const GlobalAside = props => {
     let { readings, loading, list, title } = props;
