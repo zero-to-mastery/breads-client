@@ -17,17 +17,6 @@ class ArticleForm extends Component {
             url: e.target.value
         });
     };
-
-    // decouple/consolidate reading lists
-        // global and subscription - check
-        //  fav and user
-        // user and global
-    // new reading adds to db, but not to state
-    // markFav and unFav don't work because there's no favorite reducer now
-    // if subsReads are empty, it emptys readings state -- this affects logging out too
-        // because entities.readings is empty
-    // if I unfollow someone, their readings still show up in my subscription feed
-    // deleteReading deletes from db, but not from state
     
     handleNewUrl = e => {
         e.preventDefault();

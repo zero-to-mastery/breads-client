@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserReadingsIfNeeded, fetchUserReadings, removeUserReading, markFavorite, unfavorite } from './actions';
+import { fetchUserReadingsIfNeeded } from './actions';
 import { getUserReadings } from '../globalReadings/reducer'
-import summary from '../summary';
 import VirtualizedList from '../../common/VirtualizedList';
 
 class UserReadingsList extends Component {
@@ -17,19 +16,11 @@ class UserReadingsList extends Component {
     }
 
     render() {
-        const { readings, removeUserReading, summary, fetchSummary, removeSummary, currentUser, markFavorite, unfavorite, loading, match } = this.props;
+        const { readings, match } = this.props;
         
         return (
             <VirtualizedList 
                 readings={readings}
-                summary={summary}
-                fetchSummary={fetchSummary}
-                removeSummary={removeSummary}
-                loading={loading}
-                removeUserReading={removeUserReading}
-                currentUser={currentUser}
-                markFavorite={markFavorite}
-                unfavorite={unfavorite}
                 list={match.params.id}
             />
         )
@@ -38,18 +29,10 @@ class UserReadingsList extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getUserReadings(state, ownProps.match.params.id),
-        summary: state.summary,
-        currentUser: state.currentUser,
-        loading: state.loading
+        readings: getUserReadings(state, ownProps.match.params.id)
     }
 }
 
 export default connect(mapStateToProps, { 
-    ...summary.actions,
-    fetchUserReadingsIfNeeded,
-    fetchUserReadings,
-    removeUserReading,
-    markFavorite, // in global
-    unfavorite // in global
+    fetchUserReadingsIfNeeded
 })(UserReadingsList);

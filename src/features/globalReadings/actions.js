@@ -4,6 +4,18 @@ import { addLoader, removeLoader } from '../loader/actions';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
+import { ADD_FAVORITE, REMOVE_FAVORITE } from '../userReadings/actionTypes';
+
+
+export const addFavorite = id => ({
+    type: ADD_FAVORITE,
+    id
+});
+
+export const removeFavorite = id => ({
+    type: REMOVE_FAVORITE,
+    id
+});
 
 export const fetchReadings = list => {
     return (dispatch, getState) => {
@@ -48,7 +60,7 @@ export const markFavorite = id => {
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('post', `/readings/${id}/favorite/${user_id}`)
-            .then(res => {}) // add favorite to state
+            .then(res => dispatch(addFavorite(id))) // add favorite to state
             .catch(err => dispatch(addError(err.message)));
     }
 }
@@ -59,7 +71,7 @@ export const unfavorite = id => {
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
-            .then(res => {}) // add favorite to state
+            .then(res => dispatch(removeFavorite(id))) // add favorite to state
             .catch(err => dispatch(addError(err.message)));
     }
 }

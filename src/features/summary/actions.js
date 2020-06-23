@@ -15,6 +15,7 @@ export const removeSummary = () => ({
 export const fetchSummary = (reading_id) => {
     return dispatch => {
         dispatch(addLoader(reading_id));
+        console.log(reading_id);
         return apiCall('get', `/readings/${reading_id}/summary`)
             .then(res => {
                 dispatch(loadSummary(res));

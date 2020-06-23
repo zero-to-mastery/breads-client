@@ -3,21 +3,9 @@ import ListItem from './ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
 const VirtualizedList = props => {
-    const {
-        readings,
-        summary,
-        fetchSummary,
-        removeSummary,
-        loading,
-        removeUserReading,
-        currentUser,
-        markFavorite,
-        unfavorite,
-        isAuthenticated,
-        list
-    } = props;
+    const { readings, list } = props;
 
-    // NEED TO DECOUPLE FROM STATE SHAPE
+    // NEED TO DECOUPLE FROM STATE SHAPE - removing this from virtualized list, remember to fix rowrenderer
     let r = {};
     if (readings && readings.length > 0) r = readings;
     // r = readings.data;
@@ -42,17 +30,7 @@ const VirtualizedList = props => {
                     key={key}
                     id={r[index].id}
                     list={list}
-                    favorite={currentUser ? r[index].favorite === currentUser.user.id : false}
-                    summary={summary.summary}
-                    viewSummary={fetchSummary.bind(this, r[index].id, r[index].article_url)}
-                    removeSummary={removeSummary}
-                    loading={loading}
                     style={style}
-                    removeReading={removeUserReading ? removeUserReading.bind(this, r[index].reader, r[index].id) : undefined}
-                    markFavorite={markFavorite ? markFavorite.bind(this, r[index].id) : undefined}
-                    unfavorite={unfavorite ? unfavorite.bind(this, r[index].id) : undefined}
-                    isCorrectUser={currentUser ? currentUser.user.id === r[index].reader : false}
-                    isAuthenticated={isAuthenticated}
                 />
             </CellMeasurer>
         );
