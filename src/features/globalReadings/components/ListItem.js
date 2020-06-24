@@ -14,11 +14,12 @@ class ListItem extends Component {
         // fav and user - check
         // user and global - check
     // make each 'handle' function its own component - CHECK
-        
+    // new reading adds to db, but not to state - CHECK not really possible because python has to parse url
+
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
-    // new reading adds to db, but not to state
     // if I unfollow someone, their readings still show up in my subscription feed
+    // are readingLists in state derived data? no, just arrays. could turn into selectors
     // if user has no readings, profile doesn't display 'cannot read 'filter' of undefined
         // no readings are loaded on 'subscriptions' url
     // markFav and unFav don't work because there's no favorite reducer now

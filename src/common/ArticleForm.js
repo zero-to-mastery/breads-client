@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postNewReading, fetchReadingsIfNeeded } from '../features/globalReadings/actions';
+import globalReadings from '../features/globalReadings/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ArticleForm extends Component {
@@ -24,9 +24,9 @@ class ArticleForm extends Component {
         let path = this.props.history.location.pathname;
         
         if (path === '/') {
-            setTimeout(() => this.props.fetchReadingsIfNeeded('global'), 5000);
+            setTimeout(() => this.props.fetchReadings('global'), 5000);
         } else if (path !== '/subscriptions') {
-            setTimeout(() => this.props.fetchReadingsIfNeeded(this.props.currentUser, this.props.currentUser), 5000);
+            setTimeout(() => this.props.fetchReadings(this.props.currentUser, this.props.currentUser), 5000);
         }
     };
 
@@ -50,7 +50,8 @@ class ArticleForm extends Component {
                         />
                         <div className='input-group-append'>
                             <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                                {loading.isLoading && loading.id.includes('newReading')
+                                {loading.isLoading 
+                                // && loading.id.includes('newReading')
                                     ? <FontAwesomeIcon icon='spinner' pulse/>
                                     : <FontAwesomeIcon icon='plus'/>
                                 }
@@ -70,4 +71,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { postNewReading, fetchReadingsIfNeeded })(ArticleForm);
+export default connect(mapStateToProps, { ...globalReadings.actions })(ArticleForm);

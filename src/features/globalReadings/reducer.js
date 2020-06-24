@@ -1,4 +1,4 @@
-import { REMOVE_USER_READING } from './actionTypes';
+import { REMOVE_READING } from './actionTypes';
 import { RECEIVE_ENTITIES } from '../actions';
 import { NAME } from './constants';
 
@@ -23,12 +23,12 @@ const reading = (state = {}, action) => {
             if (entities && entities.readings) {
                 return { ...state, ...entities.readings }
             }
-        // case LOAD_READING:
-        // case REMOVE_USER_READING:
-        //     return {
-        //         data: state.data.filter(reading => reading.id !== action.id),
-        //         websites: state.websites
-        //     };
+        case REMOVE_READING:
+            console.log(action.id);
+            const key = action.id;
+            const { [key]: value, ...other } = state;
+            return other;
+            // return Object.keys(state).filter(id => id !== action.id);
         default:
             return state;
     }

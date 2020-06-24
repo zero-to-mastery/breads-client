@@ -1,10 +1,10 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { addLoader, removeLoader } from '../loader/actions';
-import { receiveEntities } from '../actions';
+import { receiveEntities, deleteReading } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { REMOVE_USER_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
+import { REMOVE_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
 
 
 export const addFavorite = id => ({
@@ -17,15 +17,15 @@ export const removeFavorite = id => ({
     id
 });
 
-export const removeUserReadings = id => ({
-    type: REMOVE_USER_READING,
+export const removeReadings = id => ({
+    type: REMOVE_READING,
     id
 });
 
 export const fetchReadings = (list, id) => {
     return (dispatch, getState) => {
-        dispatch(addLoader(list));
         if (list === 'global') {
+            dispatch(addLoader(list));
             return apiCall('get', '/readings')
                 .then(res => {
                     dispatch(receiveEntities(list, normalize(res, [schema.reading])));
@@ -35,6 +35,7 @@ export const fetchReadings = (list, id) => {
                     dispatch(addError(err.message));
                 });
         } else if (list === 'subscriptions') {
+            dispatch(addLoader(list));
             let {currentUser} = getState();
             const id = currentUser.user.id;
             return apiCall('get', `/readings/${id}/subscriptions`)
@@ -46,11 +47,11 @@ export const fetchReadings = (list, id) => {
                     dispatch(addError(err.message));
                 });
         } else if (id) {
+            dispatch(addLoader(list));
             return apiCall('get', `/readings/${id}`)
                 .then(res => {
                     dispatch(receiveEntities(list, normalize(res, [schema.reading])));
-                    // dispatch(loadUserReadings(res));
-                    dispatch(removeLoader('userReadings'));
+                    dispatch(removeLoader(list));
                 })
                 .catch(err => {
                     dispatch(addError(err.message));
@@ -70,12 +71,15 @@ export const postNewReading = url => (dispatch, getState) => {
 }
 
 export const removeUserReading = (user_id, reading_id) => {
+    console.log(user_id);
+    console.log(reading_id);
     return dispatch => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
-            .then(() => dispatch(removeUserReadings(reading_id)))
-            .catch(err => {
-                dispatch(addError(err.message));
-            });
+            .then(() => {
+                dispatch(deleteReading(user_id, reading_id));
+                dispatch(removeReadings(reading_id));
+            })
+            .catch(err => dispatch(addError(err.message)));
     };
 };
 
