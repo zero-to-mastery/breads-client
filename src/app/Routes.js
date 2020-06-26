@@ -179,7 +179,7 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside match={props.match}/>
+                                    <UserAside fav='true' match={props.match}/>
                                     <SubscriptionsList match={props.match}/>
                                 </Timeline>
                             </>

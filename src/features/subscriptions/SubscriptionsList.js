@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSubscriptions, removeSubscription } from './actions';
 import List from '../../common/List';
 import ListCard from '../../common/ListCard';
+import { getSubscriptions } from './selectors';
 // REFACTOR - DOES THIS NEED TO FETCHSUBSCRIPTIONS?
 class SubscriptionsList extends Component {
     componentDidMount() {
@@ -16,16 +17,12 @@ class SubscriptionsList extends Component {
     render() {
         const { friends, removeSubscription, currentUser, match } = this.props;
         let subscriptionsList = [];
-            subscriptionsList = friends.map(p => (           
+            subscriptionsList = friends.map(id => (  
             <ListCard
-                key={p.id}
-                id={p.id}
-                first={p.first_name}
-                last={p.last_name}
-                username={p.username}
-                image={p.image}
-                removeSubscription={removeSubscription.bind(this, currentUser, p.id)}
-                subscribed={currentUser == match.params.id ? 'yes' : 'no'}
+                key={id}
+                id={id}
+                removeSubscription={removeSubscription.bind(this, currentUser, id)}
+                subscribed={`${currentUser}` === match.params.id}
             />
         ));
         return (
@@ -34,9 +31,9 @@ class SubscriptionsList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        friends: state.subscriptions,
+        friends: getSubscriptions(state, ownProps.match.params.id),
         currentUser: state.currentUser.user.id
     }
 }

@@ -28,7 +28,7 @@ export const fetchReadings = (list, id) => {
             dispatch(addLoader(list));
             return apiCall('get', '/readings')
                 .then(res => {
-                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    dispatch(receiveEntities(normalize(res, [schema.reading]), list));
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
@@ -40,7 +40,7 @@ export const fetchReadings = (list, id) => {
             const id = currentUser.user.id;
             return apiCall('get', `/readings/${id}/subscriptions`)
                 .then(res => {
-                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    dispatch(receiveEntities(normalize(res, [schema.reading]), list));
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
@@ -50,7 +50,7 @@ export const fetchReadings = (list, id) => {
             dispatch(addLoader(list));
             return apiCall('get', `/readings/${id}`)
                 .then(res => {
-                    dispatch(receiveEntities(list, normalize(res, [schema.reading])));
+                    dispatch(receiveEntities(normalize(res, [schema.reading]), list));
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
@@ -76,7 +76,7 @@ export const removeUserReading = (user_id, reading_id) => {
     return dispatch => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
             .then(() => {
-                dispatch(deleteReading(user_id, reading_id));
+                dispatch(deleteReading(user_id, reading_id)); // make one action
                 dispatch(removeReadings(reading_id));
             })
             .catch(err => dispatch(addError(err.message)));

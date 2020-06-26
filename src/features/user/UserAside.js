@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import subscriptions from '../subscriptions';
 import globalReadings from '../globalReadings';
-// import favReadings from '../favReadings';
 import { fetchUser } from './actions';
-import { getUserById } from './reducer';
+import { getUserById } from './selectors';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
-import { getReadings } from '../globalReadings/reducer';
+
+const { getReadings } = globalReadings.selectors;
+const { getSubscriptions } = subscriptions.selectors;
 
 class UserAside extends Component {
     componentDidMount() {
@@ -58,6 +59,7 @@ class UserAside extends Component {
         if (favorites) totalFavorites = favorites.length;
         return (
             <Aside
+                // let aside get these from store like listitem
                 readings={readings}
                 title={u.username}
                 id={currentUser.id}
@@ -86,7 +88,7 @@ function mapStateToProps(state, ownProps) {
         readings: getReadings(state, ownProps.match.params.id),
         favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
         currentUser: state.currentUser.user,
-        friends: state.subscriptions,
+        friends: getSubscriptions(state, ownProps.match.params.id),
         user: getUserById(state, ownProps.match.params.id),
         loading: state.loading
     }

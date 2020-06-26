@@ -1,6 +1,6 @@
-export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES'
+export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES';
 // export const SELECT_LIST = 'SELECT_LIST'
-export const DELETE = 'DELETE'
+export const DELETE = 'DELETE';
 // export const INVALIDATE_LIST = 'INVALIDATE_LIST'
 
 // export function selectList(list) {
@@ -10,14 +10,15 @@ export const DELETE = 'DELETE'
 //   }
 // }
 
-export const receiveEntities = (list, entities) => ({
-    list,
+export const receiveEntities = (entities, list, id) => ({
     type: RECEIVE_ENTITIES,
-    payload: entities
+    payload: entities,
+    list,
+    id
 });
 
 export const deleteReading = (list, id) => ({
-  list,
   type: DELETE,
+  list,
   id
 });

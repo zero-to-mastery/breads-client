@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getReadings } from '../reducer';
+import { getReadings } from '../selectors';
 import Aside from '../../../common/Aside';
 import ReadingStats from '../../../common/ReadingsStats';
 

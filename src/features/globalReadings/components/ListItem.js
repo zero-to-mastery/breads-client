@@ -6,9 +6,9 @@ import UserImage from '../../../common/UserImage';
 import Summary from './Summary';
 import Favorites from './Favorites';
 import Delete from './Delete';
-import { getReadingById } from '../reducer';
+import { getReadingById } from '../selectors';
 
-class ListItem extends Component {
+class ListItem extends Component { // change back to function component
     // decouple/consolidate reading lists - CHECK
         // global and subscription - check
         // fav and user - check
@@ -18,12 +18,18 @@ class ListItem extends Component {
 
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
-    // if I unfollow someone, their readings still show up in my subscription feed
+        // give fetching to the aside instead?
+        // aside data is coupled to reading data!
+    // no websites
+    // if I unfollow someone, their readings still show up in my subscription feed <----- see below
     // are readingLists in state derived data? no, just arrays. could turn into selectors
-    // if user has no readings, profile doesn't display 'cannot read 'filter' of undefined
+    // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
         // no readings are loaded on 'subscriptions' url
+        
     // markFav and unFav don't work because there's no favorite reducer now
-    // deleteReading deletes from db, but not from state
+    // deleteReading deletes from db, but not from state - CHECK
+        // delete Reading only deletes from one reading list, other's keep the deleted reading
+    // use RESELECT
     
     render() {
         const { id, style, users, reading, summary } = this.props;

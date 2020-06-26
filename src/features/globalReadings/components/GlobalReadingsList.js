@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchReadingsIfNeeded } from '../actions';
-import { getReadings } from '../reducer';
+import { getReadings } from '../selectors';
 import VirtualizedList from './VirtualizedList';
 
 class ReadingsList extends Component {

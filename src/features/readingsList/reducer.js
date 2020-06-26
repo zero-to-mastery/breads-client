@@ -11,11 +11,11 @@ const readingsByList = (state = {}, action) => {
             if (entities && entities.readings) {
                 return { ...state, [action.list]: getIds(entities.readings) };
             }
-        case DELETE:
-            const list = state[action.list];
-            const filtered = list.filter(id => id !== action.id);
-            console.log(filtered);
-            return {...state, [action.list]: filtered};
+        // case DELETE:
+        //     const list = state[action.list];
+        //     const filtered = list.filter(id => id !== action.id);
+        //     console.log(filtered);
+        //     return {...state, [action.list]: filtered};
         default:
             return state
    }
