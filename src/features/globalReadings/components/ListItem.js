@@ -15,20 +15,25 @@ class ListItem extends Component { // change back to function component
         // user and global - check
     // make each 'handle' function its own component - CHECK
     // new reading adds to db, but not to state - CHECK not really possible because python has to parse url
+    // are readingLists in state derived data? no, just arrays. could turn into selectors - CHECK
+    // markFav and unFav don't work because there's no favorite reducer now - CHECK
+    // deleteReading deletes from db, but not from state - CHECK
+    // delete Reading only deletes from one reading list, other's keep the deleted reading - CHECK
+
 
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
         // give fetching to the aside instead?
         // aside data is coupled to reading data!
+        // happens with subscriptions too
     // no websites
     // if I unfollow someone, their readings still show up in my subscription feed <----- see below
-    // are readingLists in state derived data? no, just arrays. could turn into selectors
+        // if I follow someone, their readings don't get added in feed
     // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
         // no readings are loaded on 'subscriptions' url
+    // add reading action
         
-    // markFav and unFav don't work because there's no favorite reducer now
-    // deleteReading deletes from db, but not from state - CHECK
-        // delete Reading only deletes from one reading list, other's keep the deleted reading
+    
     // use RESELECT
     
     render() {

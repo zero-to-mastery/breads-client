@@ -13,9 +13,10 @@ export const toggleFavorite = (id, user_id) => ({
     user_id
 });
 
-export const removeReadings = id => ({
+export const removeReadings = (id, user_id) => ({
     type: REMOVE_READING,
-    id
+    id,
+    user_id
 });
 
 export const fetchReadings = (list, id) => {
@@ -72,8 +73,8 @@ export const removeUserReading = (user_id, reading_id) => {
     return dispatch => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
             .then(() => {
-                dispatch(deleteReading(user_id, reading_id)); // make one action
-                dispatch(removeReadings(reading_id));
+                // dispatch(deleteReading(user_id, reading_id)); // make one action
+                dispatch(removeReadings(reading_id, user_id));
             })
             .catch(err => dispatch(addError(err.message)));
     };

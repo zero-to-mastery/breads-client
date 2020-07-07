@@ -12,8 +12,14 @@ const subscriptions = (state = {}, action) => {
             if (entities && entities.users && action.list === action.id) {
                 return { ...state, [action.list]: getIds(entities.users)}
             }
-        // case REMOVE_SUBSCRIPTIONS:
-        //     return state.filter(sub => sub.id !== action.id)
+        case REMOVE_SUBSCRIPTIONS:
+            const { id, user_id } = action;
+            if (id && user_id) {
+                return {
+                    ...state,
+                    [user_id]: state[user_id].filter(sub => sub !== id)
+                }
+            }
         default:
             return state;
     }

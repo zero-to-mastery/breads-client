@@ -1,4 +1,8 @@
-import { RECEIVE_ENTITIES, DELETE } from "../actions";
+import { RECEIVE_ENTITIES } from '../actions';
+import { REMOVE_READING } from '../globalReadings/actionTypes';
+import { REMOVE_SUBSCRIPTIONS } from '../subscriptions/actionTypes';
+
+
 
 const getIds = (readings) => {
     return Object.values(readings).map(reading => reading.id);
@@ -11,11 +15,14 @@ const readingsByList = (state = {}, action) => {
             if (entities && entities.readings) {
                 return { ...state, [action.list]: getIds(entities.readings) };
             }
-        // case DELETE:
-        //     const list = state[action.list];
-        //     const filtered = list.filter(id => id !== action.id);
-        //     console.log(filtered);
-        //     return {...state, [action.list]: filtered};
+        case REMOVE_READING:
+            const { id, user_id } = action;
+            if (id && user_id) {
+                return {
+                    ...state,
+                    [user_id]: state[user_id].filter(sub => sub !== id)
+                }
+            }
         default:
             return state
    }
