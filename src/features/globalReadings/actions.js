@@ -4,17 +4,13 @@ import { addLoader, removeLoader } from '../loader/actions';
 import { receiveEntities, deleteReading } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { REMOVE_READING, ADD_FAVORITE, REMOVE_FAVORITE } from './actionTypes';
+import { REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
 
 
-export const addFavorite = id => ({
-    type: ADD_FAVORITE,
-    id
-});
-
-export const removeFavorite = id => ({
-    type: REMOVE_FAVORITE,
-    id
+export const toggleFavorite = (id, user_id) => ({
+    type: TOGGLE_FAVORITE,
+    id,
+    user_id
 });
 
 export const removeReadings = id => ({
@@ -85,22 +81,20 @@ export const removeUserReading = (user_id, reading_id) => {
 
 export const markFavorite = id => {
     return (dispatch, getState) => {
-        console.log(id);
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('post', `/readings/${id}/favorite/${user_id}`)
-            .then(res => dispatch(addFavorite(id))) // add favorite to state
+            .then(() => dispatch(toggleFavorite(id, user_id))) // add favorite to state
             .catch(err => dispatch(addError(err.message)));
     }
 }
 
 export const unfavorite = id => {
     return (dispatch, getState) => {
-        console.log(id);
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
-            .then(res => dispatch(removeFavorite(id))) // add favorite to state
+            .then(() => dispatch(toggleFavorite(id, user_id))) // remove favorite from state
             .catch(err => dispatch(addError(err.message)));
     }
 }

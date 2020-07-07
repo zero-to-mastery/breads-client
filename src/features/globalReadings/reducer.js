@@ -1,4 +1,4 @@
-import { REMOVE_READING } from './actionTypes';
+import { REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
 import { RECEIVE_ENTITIES } from '../actions';
 
 // export const getReadings = (state, list, fav) => {
@@ -21,6 +21,18 @@ const reading = (state = {}, action) => {
             const { entities } = action.payload;
             if (entities && entities.readings) {
                 return { ...state, ...entities.readings }
+            }
+        case TOGGLE_FAVORITE: 
+            const { id, user_id } = action;
+            if (id && user_id) {
+                const reading = state[id];
+                return {
+                    ...state,
+                    [id]: {
+                        ...reading,
+                        favorite: reading.favorite === null ? user_id : null
+                    }
+                }
             }
         case REMOVE_READING:
             const key = action.id;
