@@ -31,7 +31,7 @@ class ListItem extends Component { // change back to function component
         // happens with subscriptions too
         // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
             // no readings are loaded on 'subscriptions' url
-    // no websites
+    // no websites - derived data
     // better imports in global readings (loader and errors)
         
     

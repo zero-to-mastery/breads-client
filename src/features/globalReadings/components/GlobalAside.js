@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getReadings } from '../selectors';
+import { getReadings, getWebsites } from '../selectors';
 import Aside from '../../../common/Aside';
 import ReadingStats from '../../../common/ReadingsStats';
 
 const GlobalAside = props => {
-    let { readings, loading, list, title } = props;
+    let { readings, websites, loading, list, title } = props;
     let totalReadings,
-        // totalWebsites,
+        totalWebsites,
         // topWebsite,
         totalBooks,
         totalWords = 0;
@@ -18,7 +18,7 @@ const GlobalAside = props => {
         }); 
         
         totalReadings = readings.length;
-        // totalWebsites = readings.websites.length;
+        totalWebsites = Object.keys(websites).length;
         // topWebsite = readings.websites[0].domain;
         totalBooks = totalWords.toFixed(2);
     }
@@ -29,7 +29,7 @@ const GlobalAside = props => {
             title={title + ' Readings'}
         >
             <ReadingStats loading={loading} loading_id={list} statName='Readings' stat={totalReadings}/>
-            {/* <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/> */}
+            <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/>
             {/* <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/> */}
             <ReadingStats loading={loading} loading_id={list} statName='Loaves' stat={totalBooks}/>
         </Aside>
@@ -39,6 +39,7 @@ const GlobalAside = props => {
 function mapStateToProps(state, ownProps) {
     return {
         readings: getReadings(state, ownProps.list),
+        websites: getWebsites(state, ownProps.list),
         loading: state.loading
     }
 }

@@ -8,6 +8,7 @@ import { getUserById } from './selectors';
 import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
+import { getWebsites } from '../globalReadings/selectors';
 
 const { getReadings } = globalReadings.selectors;
 const { getSubscriptions } = subscriptions.selectors;
@@ -30,9 +31,9 @@ class UserAside extends Component {
     }
 
     render() {
-        let { currentUser, readings, friends, loading, favorites, user, postNewSubscription } = this.props;
+        let { currentUser, readings, websites, friends, loading, favorites, user, postNewSubscription } = this.props;
         let totalReadings,
-            // totalWebsites,
+            totalWebsites,
             // topWebsite,
             totalBooks,
             totalWords = 0,
@@ -51,7 +52,7 @@ class UserAside extends Component {
             }); 
 
             totalReadings = readings.length;
-            // totalWebsites = readings.websites.length;
+            totalWebsites = Object.keys(websites).length;
             // topWebsite = readings.websites[0].domain;
             totalBooks = totalWords.toFixed(2);
         }
@@ -75,7 +76,7 @@ class UserAside extends Component {
                 <NavLink exact to={`/${u.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
                     <ReadingStats loading={loading} loading_id='FavoriteReadings' statName='Favorites' stat={totalFavorites}/>
                 </NavLink>
-                {/* <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/> */}
+                <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/>
                 {/* <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/> */}
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
             </Aside>
@@ -86,6 +87,7 @@ class UserAside extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         readings: getReadings(state, ownProps.match.params.id),
+        websites: getWebsites(state, ownProps.match.params.id),
         favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
         currentUser: state.currentUser.user,
         friends: getSubscriptions(state, ownProps.match.params.id),
