@@ -19,19 +19,20 @@ class ListItem extends Component { // change back to function component
     // markFav and unFav don't work because there's no favorite reducer now - CHECK
     // deleteReading deletes from db, but not from state - CHECK
     // delete Reading only deletes from one reading list, other's keep the deleted reading - CHECK
+    // if I unfollow someone, their readings still show up in my subscription feed <----- see below - CHECK
 
 
+    // if I follow someone, their readings don't get added in feed
+        // add reading action and add subscription action
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
         // give fetching to the aside instead?
         // aside data is coupled to reading data!
         // happens with subscriptions too
+        // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
+            // no readings are loaded on 'subscriptions' url
     // no websites
-    // if I unfollow someone, their readings still show up in my subscription feed <----- see below
-        // if I follow someone, their readings don't get added in feed
-    // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
-        // no readings are loaded on 'subscriptions' url
-    // add reading action
+    // better imports in global readings (loader and errors)
         
     
     // use RESELECT

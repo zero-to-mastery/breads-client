@@ -11,10 +11,11 @@ export const loadSubscriptions = (users, id) => ({
     id
 });
 
-export const removeSubscriptions = (id, user_id) => ({
+export const removeSubscriptions = (id, user_id, readings) => ({
     type: REMOVE_SUBSCRIPTIONS,
     id,
-    user_id
+    user_id,
+    readings
 });
 
 export const fetchSubscriptions = user_id => {
@@ -32,11 +33,12 @@ export const fetchSubscriptions = user_id => {
 // ADD SUBSCRIPTION
 
 export const removeSubscription = (sub_id, pub_id) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const { readings } = getState()
         return apiCall('delete', `/users/${sub_id}/subscriptions/${pub_id}`)
             .then(() => {
                 console.log(pub_id);
-                dispatch(removeSubscriptions(pub_id, sub_id))
+                dispatch(removeSubscriptions(pub_id, sub_id, readings))
             })
             .catch(err => {
                 dispatch(errors.actions.addError(err.message));

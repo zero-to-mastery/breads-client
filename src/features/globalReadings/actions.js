@@ -1,7 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
 import { addLoader, removeLoader } from '../loader/actions';
-import { receiveEntities, deleteReading } from '../actions';
+import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
