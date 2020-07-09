@@ -25,10 +25,11 @@ class ListItem extends Component { // change back to function component
     // make sure listcard, aside work like listitem - pull own data from ids
         // aside - CHECK
         // listcard
-
     // if I follow someone, their readings don't get added in feed
         // add reading action - not sure if possible
-        // add subscription action
+        // add subscription action - CHECK
+
+    
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
         // give fetching to the aside instead?
@@ -36,6 +37,7 @@ class ListItem extends Component { // change back to function component
         // happens with subscriptions too
         // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
             // no readings are loaded on 'subscriptions' url
+    // move actiontypes into one file
     // better imports in global readings (loader and errors)
         
     

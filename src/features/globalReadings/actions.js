@@ -63,19 +63,14 @@ export const postNewReading = url => (dispatch, getState) => {
     let { currentUser } = getState();
     const id = currentUser.user.id;
     return apiCall('post', `/users/${id}/readings`, { url })
-        .then(() => dispatch(removeLoader('newReading'))) // add reading to state
+        .then(() => dispatch(removeLoader('newReading')))
         .catch(err => dispatch(addError(err.message)));
 }
 
 export const removeUserReading = (user_id, reading_id) => {
-    console.log(user_id);
-    console.log(reading_id);
     return dispatch => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
-            .then(() => {
-                // dispatch(deleteReading(user_id, reading_id)); // make one action
-                dispatch(removeReadings(reading_id, user_id));
-            })
+            .then(() => dispatch(removeReadings(reading_id, user_id)))
             .catch(err => dispatch(addError(err.message)));
     };
 };
@@ -100,14 +95,12 @@ export const unfavorite = id => {
     }
 }
 
-const shouldFetchReadings = (state, list) => { // same
+const shouldFetchReadings = (state, list) => {
     const readings = state.readingsByList[list];
-    if (!readings) {
-         return true;
-    }
-    // else if (loader.isLoading) {
-    //      return false;
-    // }
+    const upToDateSubscriptions = state.readingsByList.upToDate;
+
+    if (!readings) return true;
+    if (upToDateSubscriptions === false && list === 'subscriptions') return true;
 }
 
 export const fetchReadingsIfNeeded = (list, id) => {

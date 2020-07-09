@@ -14,16 +14,16 @@ class UserAside extends Component {
     componentDidMount() {
         if (this.props.match) {
             this.props.fetchUser(this.props.match.params.id)
-            this.props.fetchSubscriptions(this.props.match.params.id);
+            this.props.fetchSubscriptionsIfNeeded(this.props.match.params.id);
         } else {
-            this.props.fetchSubscriptions(this.props.currentUser.id);
+            this.props.fetchSubscriptionsIfNeeded(this.props.currentUser.id);
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
             this.props.fetchUser(this.props.match.params.id)
-            this.props.fetchSubscriptions(this.props.match.params.id);
+            this.props.fetchSubscriptionsIfNeeded(this.props.match.params.id);
         }
     }
 
