@@ -13,9 +13,9 @@ export const toggleFavorite = (id, user_id) => ({
     user_id
 });
 
-export const removeReadings = (id, user_id) => ({
+export const removeReadings = (reading_id, user_id) => ({
     type: REMOVE_READING,
-    id,
+    reading_id,
     user_id
 });
 

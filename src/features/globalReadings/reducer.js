@@ -35,7 +35,7 @@ const reading = (state = {}, action) => {
                 }
             }
         case REMOVE_READING:
-            const key = action.id;
+            const key = action.reading_id;
             const { [key]: value, ...other } = state;
             return other;
             // return Object.keys(state).filter(id => id !== action.id);

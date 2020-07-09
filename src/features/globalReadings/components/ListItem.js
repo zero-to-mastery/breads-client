@@ -27,7 +27,8 @@ class ListItem extends Component { // change back to function component
         // listcard
 
     // if I follow someone, their readings don't get added in feed
-        // add reading action and add subscription action
+        // add reading action - not sure if possible
+        // add subscription action
     // if subsReads are empty, it emptys readings state -- this affects logging out too
         // because entities.readings is empty
         // give fetching to the aside instead?
