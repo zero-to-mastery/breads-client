@@ -5,13 +5,10 @@ import subscriptions from '../subscriptions';
 import globalReadings from '../globalReadings';
 import { fetchUser } from './actions';
 import { getUserById } from './selectors';
-import UserImage from '../../common/UserImage';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
-import { getWebsites } from '../globalReadings/selectors';
 
-const { getReadings } = globalReadings.selectors;
-const { getSubscriptions } = subscriptions.selectors;
+const { getReadings, getWebsites } = globalReadings.selectors;
 
 class UserAside extends Component {
     componentDidMount() {
@@ -31,7 +28,7 @@ class UserAside extends Component {
     }
 
     render() {
-        let { currentUser, readings, websites, friends, loading, favorites, user, postNewSubscription } = this.props;
+        let { readings, websites, loading, favorites, user, match } = this.props;
         let totalReadings,
             totalWebsites,
             topWebsite,
@@ -42,11 +39,7 @@ class UserAside extends Component {
 
         let u = {};
         if (user) u = user;
-        let image = <UserImage
-                        image={u.image}
-                        username={u.username}
-                        class='card-img-top border-bottom border-secondary'
-                    />;
+        
         if (readings && readings.length > 0) {
             readings.forEach(r => {
                 totalWords += r.word_count/100000;
@@ -66,17 +59,7 @@ class UserAside extends Component {
 
         if (favorites) totalFavorites = favorites.length;
         return (
-            <Aside
-                // let aside get these from store like listitem
-                readings={readings}
-                title={u.username}
-                id={currentUser.id}
-                user_id={u.id}
-                favorites={favorites}
-                friends={friends}
-                image={image}
-                newSubscription={postNewSubscription.bind(this, u.id)}
-            >
+            <Aside match={match}>
                 <NavLink exact to={`/${u.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Readings' stat={totalReadings}/>
                 </NavLink>
@@ -96,8 +79,6 @@ function mapStateToProps(state, ownProps) {
         readings: getReadings(state, ownProps.match.params.id),
         websites: getWebsites(state, ownProps.match.params.id),
         favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
-        currentUser: state.currentUser.user,
-        friends: getSubscriptions(state, ownProps.match.params.id),
         user: getUserById(state, ownProps.match.params.id),
         loading: state.loading
     }

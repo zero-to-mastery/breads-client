@@ -24,8 +24,6 @@ class ListItem extends Component { // change back to function component
     // no top website - CHECK
 
 
-
-
     // if I follow someone, their readings don't get added in feed
         // add reading action and add subscription action
     // if subsReads are empty, it emptys readings state -- this affects logging out too
