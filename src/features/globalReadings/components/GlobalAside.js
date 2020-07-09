@@ -8,9 +8,10 @@ const GlobalAside = props => {
     let { readings, websites, loading, list, title } = props;
     let totalReadings,
         totalWebsites,
-        // topWebsite,
+        topWebsite,
         totalBooks,
-        totalWords = 0;
+        totalWords = 0,
+        maxReads = 0;
         
     if (readings && readings.length > 0) {
         readings.forEach(r => {
@@ -19,8 +20,14 @@ const GlobalAside = props => {
         
         totalReadings = readings.length;
         totalWebsites = Object.keys(websites).length;
-        // topWebsite = readings.websites[0].domain;
         totalBooks = totalWords.toFixed(2);
+
+        for (const prop in websites) {
+            if (websites[prop] > maxReads) {
+                maxReads = websites[prop];
+                topWebsite = prop;
+            }
+        }
     }
 
     return (
@@ -30,7 +37,7 @@ const GlobalAside = props => {
         >
             <ReadingStats loading={loading} loading_id={list} statName='Readings' stat={totalReadings}/>
             <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/>
-            {/* <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/> */}
+            <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/>
             <ReadingStats loading={loading} loading_id={list} statName='Loaves' stat={totalBooks}/>
         </Aside>
     )

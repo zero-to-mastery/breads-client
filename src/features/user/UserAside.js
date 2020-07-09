@@ -34,9 +34,10 @@ class UserAside extends Component {
         let { currentUser, readings, websites, friends, loading, favorites, user, postNewSubscription } = this.props;
         let totalReadings,
             totalWebsites,
-            // topWebsite,
+            topWebsite,
             totalBooks,
             totalWords = 0,
+            maxReads = 0,
             totalFavorites;
 
         let u = {};
@@ -53,8 +54,14 @@ class UserAside extends Component {
 
             totalReadings = readings.length;
             totalWebsites = Object.keys(websites).length;
-            // topWebsite = readings.websites[0].domain;
             totalBooks = totalWords.toFixed(2);
+
+            for (const prop in websites) {
+                if (websites[prop] > maxReads) {
+                    maxReads = websites[prop];
+                    topWebsite = prop;
+                }
+            }
         }
 
         if (favorites) totalFavorites = favorites.length;
@@ -77,7 +84,7 @@ class UserAside extends Component {
                     <ReadingStats loading={loading} loading_id='FavoriteReadings' statName='Favorites' stat={totalFavorites}/>
                 </NavLink>
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/>
-                {/* <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/> */}
+                <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/>
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
             </Aside>
         )

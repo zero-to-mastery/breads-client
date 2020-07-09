@@ -20,6 +20,10 @@ class ListItem extends Component { // change back to function component
     // deleteReading deletes from db, but not from state - CHECK
     // delete Reading only deletes from one reading list, other's keep the deleted reading - CHECK
     // if I unfollow someone, their readings still show up in my subscription feed <----- see below - CHECK
+    // no websites - derived data - CHECK
+    // no top website - CHECK
+
+
 
 
     // if I follow someone, their readings don't get added in feed
@@ -31,7 +35,7 @@ class ListItem extends Component { // change back to function component
         // happens with subscriptions too
         // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
             // no readings are loaded on 'subscriptions' url
-    // no websites - derived data
+    // make sure listcard, aside work like listitem - pull own data from ids
     // better imports in global readings (loader and errors)
         
     
