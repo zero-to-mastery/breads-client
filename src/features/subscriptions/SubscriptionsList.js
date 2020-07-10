@@ -9,6 +9,7 @@ class SubscriptionsList extends Component {
     render() {
         const { friends, removeSubscription, currentUser, match } = this.props;
         let subscriptionsList = [];
+        if (friends) {
             subscriptionsList = friends.map(id => (  
             <ListCard
             // refactor like listitem
@@ -18,6 +19,7 @@ class SubscriptionsList extends Component {
                 subscribed={`${currentUser}` === match.params.id}
             />
         ));
+            }
         return (
             <List list_data={subscriptionsList} display='card-columns' />
         )

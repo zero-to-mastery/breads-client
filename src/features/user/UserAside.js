@@ -28,17 +28,19 @@ class UserAside extends Component {
     }
 
     render() {
-        let { readings, websites, loading, favorites, user, match } = this.props;
-        let totalReadings,
-            totalWebsites,
-            topWebsite,
-            totalBooks,
+        let { readings, websites, loading, favorites, user, match, currentUser } = this.props;
+        let totalReadings = 0,
+            totalWebsites = 0,
+            topWebsite = 'None',
+            totalBooks = 0.0,
             totalWords = 0,
             maxReads = 0,
-            totalFavorites;
+            totalFavorites = 0;
 
         let u = {};
         if (user) u = user;
+        else u = currentUser;
+        // if (!readings) u = currentUser;
         
         if (readings && readings.length > 0) {
             readings.forEach(r => {
@@ -58,8 +60,9 @@ class UserAside extends Component {
         }
 
         if (favorites) totalFavorites = favorites.length;
+
         return (
-            <Aside match={match}>
+            <Aside readings={readings} match={match}>
                 <NavLink exact to={`/${u.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Readings' stat={totalReadings}/>
                 </NavLink>
@@ -80,7 +83,8 @@ function mapStateToProps(state, ownProps) {
         websites: getWebsites(state, ownProps.match.params.id),
         favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
         user: getUserById(state, ownProps.match.params.id),
-        loading: state.loading
+        loading: state.loading,
+        currentUser: state.currentUser.user
     }
 }
 

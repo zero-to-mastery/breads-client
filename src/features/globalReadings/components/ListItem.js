@@ -28,15 +28,18 @@ class ListItem extends Component { // change back to function component
     // if I follow someone, their readings don't get added in feed
         // add reading action - not sure if possible
         // add subscription action - CHECK
+    // if subsReads are empty, it emptys readings state -- this affects logging out too - CHECK
+        // because entities.readings is empty - CHECK
+        // give fetching to the aside instead? - CHECK
+        // aside data is coupled to reading data! - CHECK
+        // happens with subscriptions too - cannot read prop map of undefined - CHECK
+        // if user has no readings, profile doesn't display --> user state grabbed from readings - CHECK
+            // if user doesn't have subscriptions, state doesn't initiate array to add new sub to - CHECK
+            // no readings are loaded on 'subscriptions' url - CHECK
+            // get info from user or currentuser - CHECK
 
-    
-    // if subsReads are empty, it emptys readings state -- this affects logging out too
-        // because entities.readings is empty
-        // give fetching to the aside instead?
-        // aside data is coupled to reading data!
-        // happens with subscriptions too
-        // if user has no readings, profile doesn't display --> 'cannot read 'filter' of undefined
-            // no readings are loaded on 'subscriptions' url
+            // global readings doesn't reload whenever new reading is added while in user reads
+            // flash loads currentUser first on reload - not too important
     // move actiontypes into one file
     // better imports in global readings (loader and errors)
         

@@ -8,10 +8,13 @@ import UserImage from './UserImage';
 import Subscribe from './Subscribe';
 
 const Aside = (props) => {
-    const { user, friends, currentUser, title, match } = props;
+    const { readings, user, friends, currentUser, title, match } = props;
 
     let u = {};
+    // if (!readings) u = currentUser;
     if (user) u = user;
+    else u = currentUser;
+
     let image = <UserImage
                     image={u.image}
                     username={u.username}
@@ -25,18 +28,18 @@ const Aside = (props) => {
                 <div className='card-body'>
                     <div className='row pl-3 pr-3'>
                         <h5 className='card-title mr-auto'>{title || u.username}</h5>
-                        {currentUser && currentUser === u.id && 
+                        {!title && currentUser.id && currentUser.id === u.id && 
                             <NavLink exact to={`/${u.id}/edit`} className='text-warning'>
                                 <FontAwesomeIcon icon={['far', 'edit']}/>
                             </NavLink>
                         }
                         <Subscribe user={u.id} />
                     </div>
-                    {friends && 
-                        <NavLink exact to={`/${u.id}/subscriptions`} className='text-primary'>
-                            Friends: {friends.length}
+                    {!title && 
+                        <NavLink exact to={`/${u.id}/subscriptions`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                            Friends: {friends ? friends.length : 0}
                         </NavLink>
-                    }    
+                    }
                     <div>
                         {props.children}
                     </div>
@@ -49,7 +52,7 @@ const Aside = (props) => {
 function mapStateToProps(state, ownProps) {
     return {
         user: ownProps.match ? getUserById(state, ownProps.match.params.id) : null,
-        currentUser: state.currentUser.user.id,
+        currentUser: state.currentUser.user,
         friends: ownProps.match ? getSubscriptions(state, ownProps.match.params.id) : null,
     }
 }
