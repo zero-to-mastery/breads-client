@@ -1,6 +1,6 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
-import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from './actionTypes';
+import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from '../actionTypes';
 import { addLoader, removeLoader } from '../loader/actions';
 
 export const loadSearchResults = results => ({

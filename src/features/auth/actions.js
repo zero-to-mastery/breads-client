@@ -1,5 +1,5 @@
 import { apiCall, setTokenHeader } from '../../common/services/api';
-import { SET_CURRENT_USER } from './actionTypes';
+import { SET_CURRENT_USER } from '../actionTypes';
 import errors from '../errors';
 
 export function setCurrentUser(user) {

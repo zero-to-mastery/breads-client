@@ -1,4 +1,4 @@
-import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from './actionTypes';
+import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from '../actionTypes';
 
 const results = (state={users: [], readings: []}, action) => {
     switch (action.type) {

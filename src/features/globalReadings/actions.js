@@ -4,7 +4,7 @@ import { addLoader, removeLoader } from '../loader/actions';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
+import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
 
 export const toggleFavorite = (id, user_id) => ({
@@ -114,7 +114,6 @@ const shouldFetchReadings = (state, list) => {
 
 export const fetchReadingsIfNeeded = (list, id) => {
     return (dispatch, getState) => {
-        console.log(list);
         if (shouldFetchReadings(getState(), list)) {
             return dispatch(fetchReadings(list, id));
         }

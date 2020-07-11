@@ -1,6 +1,6 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
-import { LOAD_USER } from './actionTypes';
+import { LOAD_USER } from '../actionTypes';
 
 export const loadUser = user => ({
     type: LOAD_USER,

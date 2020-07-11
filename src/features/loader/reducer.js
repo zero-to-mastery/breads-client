@@ -1,4 +1,4 @@
-import { ADD_LOADER, REMOVE_LOADER } from "./actionTypes";
+import { ADD_LOADER, REMOVE_LOADER } from "../actionTypes";
 
 export default (state = { isLoading: false, id: [] }, action) => {
     switch (action.type) {

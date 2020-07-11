@@ -1,6 +1,6 @@
 import { apiCall } from '../../common/services/api';
 import { addError } from '../errors/actions';
-import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from './actionTypes';
+import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
 
 export const loadNotifications = notifications => ({
     type: LOAD_NOTIFICATIONS,

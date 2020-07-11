@@ -1,4 +1,4 @@
-import { ADD_LOADER, REMOVE_LOADER } from "./actionTypes";
+import { ADD_LOADER, REMOVE_LOADER } from "../actionTypes";
 
 export const addLoader = id => ({
     type: ADD_LOADER,

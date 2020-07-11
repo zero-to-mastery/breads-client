@@ -1,4 +1,4 @@
-import { RECEIVE_ENTITIES } from '../actions';
+import { RECEIVE_ENTITIES } from '../actionTypes';
 
 const user = (state={}, action) => {
     switch (action.type) {

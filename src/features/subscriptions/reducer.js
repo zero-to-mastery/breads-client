@@ -1,5 +1,4 @@
-import { ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from './actionTypes';
-import { RECEIVE_ENTITIES } from '../actions';
+import { RECEIVE_ENTITIES, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
 
 const getIds = (users) => {
     return Object.values(users).map(user => user.id);

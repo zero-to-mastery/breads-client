@@ -1,6 +1,4 @@
-import { RECEIVE_ENTITIES } from '../actions';
-import { ADD_READING, REMOVE_READING } from '../globalReadings/actionTypes';
-import { REMOVE_SUBSCRIPTIONS, ADD_SUBSCRIPTION } from '../subscriptions/actionTypes';
+import { RECEIVE_ENTITIES, ADD_READING, REMOVE_READING, REMOVE_SUBSCRIPTIONS, ADD_SUBSCRIPTION } from '../actionTypes';
 
 const getIds = readings => {
     return Object.values(readings).map(reading => reading.id);

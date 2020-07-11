@@ -1,6 +1,6 @@
 import { apiCall } from '../../common/services/api';
 import errors from '../errors';
-import { LOAD_SUBSCRIPTIONS, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from './actionTypes';
+import { LOAD_SUBSCRIPTIONS, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';

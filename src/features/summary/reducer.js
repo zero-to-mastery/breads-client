@@ -1,4 +1,4 @@
-import { LOAD_SUMMARY, REMOVE_SUMMARY } from './actionTypes';
+import { LOAD_SUMMARY, REMOVE_SUMMARY } from '../actionTypes';
 
 export default (state= {}, action) => {
     switch (action.type) {

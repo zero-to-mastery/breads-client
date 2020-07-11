@@ -1,4 +1,4 @@
-import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from './actionTypes';
+import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
 
 const notification = (state=[], action) => {
     switch (action.type) {

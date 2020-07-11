@@ -1,4 +1,4 @@
-export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES';
+import { RECEIVE_ENTITIES } from './actionTypes';
 
 export const receiveEntities = (entities, list, id) => ({
     type: RECEIVE_ENTITIES,

@@ -1,19 +1,4 @@
-import { REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
-import { RECEIVE_ENTITIES } from '../actions';
-
-// export const getReadings = (state, list, fav) => {
-//     if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
-//         let userReadings = state.readingsByList[`${list}`].map(id => state[NAME][id]).reverse();
-//         if (fav) return userReadings.filter(reading => reading.favorite === reading.reader);
-//         return userReadings;
-//     }
-// }
-
-// export const getReadingById = (state, list, id) => {
-//     if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
-//         return state.readings[id];
-//     }
-// }
+import { RECEIVE_ENTITIES, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
 const reading = (state = {}, action) => {
     switch (action.type) {
@@ -38,7 +23,6 @@ const reading = (state = {}, action) => {
             const key = action.reading_id;
             const { [key]: value, ...other } = state;
             return other;
-            // return Object.keys(state).filter(id => id !== action.id);
         default:
             return state;
     }
