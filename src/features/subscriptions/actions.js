@@ -5,6 +5,8 @@ import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 
+const { addError } = errors.actions;
+
 export const loadSubscriptions = (users, id) => ({
     type: LOAD_SUBSCRIPTIONS,
     users,
@@ -31,7 +33,7 @@ export const fetchSubscriptions = user_id => {
                 dispatch(receiveEntities(normalize(res, [schema.user]), user_id, user_id));
             })
             .catch(err => {
-                dispatch(errors.actions.addError(err.message));
+                dispatch(addError(err.message));
             });
     }
 }
@@ -44,7 +46,7 @@ export const removeSubscription = (sub_id, pub_id) => {
                 dispatch(removeSubscriptions(pub_id, sub_id, readings))
             })
             .catch(err => {
-                dispatch(errors.actions.addError(err.message));
+                dispatch(addError(err.message));
             });
     }
 }
@@ -54,7 +56,7 @@ export const postNewSubscription = sub_id => (dispatch, getState) => {
     const user_id = currentUser.user.id;
     return apiCall('post', `/users/${user_id}/subscriptions`, { sub_id })
         .then(() => dispatch(addSubscription(sub_id, user_id)))
-        .catch(err => dispatch(errors.actions.addError(err.message)));
+        .catch(err => dispatch(addError(err.message)));
 }
 
 const shouldFetchSubscriptions = (state, id) => {

@@ -1,7 +1,10 @@
 import { apiCall } from '../../common/services/api';
-import { addError } from '../errors/actions';
+import errors from '../errors';
+import loader from '../loader';
 import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from '../actionTypes';
-import { addLoader, removeLoader } from '../loader/actions';
+
+const { addError } = errors.actions;
+const { addLoader, removeLoader } = loader.actions;
 
 export const loadSearchResults = results => ({
     type: LOAD_SEARCH_RESULTS,

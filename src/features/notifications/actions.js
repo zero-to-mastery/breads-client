@@ -1,6 +1,8 @@
 import { apiCall } from '../../common/services/api';
-import { addError } from '../errors/actions';
+import errors from '../errors';
 import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
+
+const { addError } = errors.actions
 
 export const loadNotifications = notifications => ({
     type: LOAD_NOTIFICATIONS,
@@ -12,7 +14,6 @@ export const removeNotifications = id => ({
     id
 });
 
-// display new subscriptions
 export const fetchNotifications = () => {
     return (dispatch, getState) => {
         let {currentUser} = getState();

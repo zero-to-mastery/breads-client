@@ -2,6 +2,8 @@ import { apiCall, setTokenHeader } from '../../common/services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
 import errors from '../errors';
 
+const { addError, removeError } = errors.actions;
+
 export function setCurrentUser(user) {
     return {
         type: SET_CURRENT_USER,
@@ -30,11 +32,11 @@ export function authUser(type, userData) {
                     localStorage.setItem('jwtToken', token);
                     setAuthorizationToken(token)
                     dispatch(setCurrentUser(user));
-                    dispatch(errors.actions.removeError());
+                    dispatch(removeError());
                     resolve(); // indicate that the API call succeeded
                 })
-                .catch((err) => {
-                    dispatch(errors.actions.addError(err.message));
+                .catch(err => {
+                    dispatch(addError(err.message));
                     reject(); // indicate the API call failed
                 });
         });
@@ -44,31 +46,23 @@ export function authUser(type, userData) {
 export const updateUser = (id, image, username) => {
     return dispatch => {
         return apiCall('put', `/users/${id}`, {image, username})
-            .then(user => {
-                dispatch(setCurrentUser(user));
-            })
-            .catch(err => {
-                dispatch(errors.actions.addError(err.message));
-            });
+            .then(user => dispatch(setCurrentUser(user)))
+            .catch(err => dispatch(addError(err.message)));
     }
 }
 
 export function sendResetEmail(email) {
     return dispatch => {
         return apiCall('post', '/users/reset', { email })
-            .then(res => {})
-            .catch(err => {
-                dispatch(errors.actions.addError(err.message));
-            });
+            .then(() => {})
+            .catch(err => dispatch(addError(err.message)));
     }
 }
 
 export function resetPassword(username, token, password) {
     return dispatch => {
         return apiCall('post', `/users/${username}/reset/${token}`, { password })
-            .then(res => {})
-            .catch(err => {
-                dispatch(errors.actions.addError(err.message));
-            });
+            .then(() => {})
+            .catch(err => dispatch(addError(err.message)));
     }
 }

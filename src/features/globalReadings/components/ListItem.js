@@ -38,10 +38,11 @@ class ListItem extends Component { // change back to function component
             // no readings are loaded on 'subscriptions' url - CHECK
             // get info from user or currentuser - CHECK
             // global readings doesn't reload whenever new reading is added while in user reads - CHECK
+    // move actiontypes into one file - CHECK
+    // better imports in global readings (loader and errors) - CHECK
+
 
     // flash loads currentUser first on reload - not too important
-    // move actiontypes into one file
-    // better imports in global readings (loader and errors)
         
     
     // use RESELECT
