@@ -37,9 +37,9 @@ class ListItem extends Component { // change back to function component
             // if user doesn't have subscriptions, state doesn't initiate array to add new sub to - CHECK
             // no readings are loaded on 'subscriptions' url - CHECK
             // get info from user or currentuser - CHECK
+            // global readings doesn't reload whenever new reading is added while in user reads - CHECK
 
-            // global readings doesn't reload whenever new reading is added while in user reads
-            // flash loads currentUser first on reload - not too important
+    // flash loads currentUser first on reload - not too important
     // move actiontypes into one file
     // better imports in global readings (loader and errors)
         

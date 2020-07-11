@@ -9,12 +9,10 @@ const subscriptions = (state = { upToDate: false }, action) => {
     switch (action.type) {
         case RECEIVE_ENTITIES:
             const { entities } = action.payload;
-            // if user hasn't subscribed to anyone, state doesn't initiate a list
-            // what other actions use list and id? - all actions under receive entities
+
             if (entities && entities.users && action.list === action.id) {
                 return { ...state, upToDate: true, [action.list]: getIds(entities.users)}
-            } 
-            else if (!entities.users && action.list === action.id) {
+            } else if (!entities.users && action.list === action.id) {
                 return { ...state, upToDate: true, [action.list]: []}
             }
         case ADD_SUBSCRIPTION:
@@ -22,7 +20,6 @@ const subscriptions = (state = { upToDate: false }, action) => {
                 return {
                     ...state,
                     upToDate: false,
-                    // if user hasn't subscribed to anyone, state doesn't initiate a list
                     [action.user_id]: state[action.user_id].concat(action.id)
                 }
             }

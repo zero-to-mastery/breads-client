@@ -2,7 +2,7 @@ import { NAME } from './constants';
 
 export const getReadings = (state, list, fav) => {
     if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
-        let readings = state.readingsByList[`${list}`].map(id => state[NAME][id]).reverse();
+        let readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]).reverse();
         if (fav) return readings.filter(reading => reading.favorite === reading.reader);
         return readings;
     }
@@ -18,7 +18,7 @@ export const getWebsites = (state, list) => {
     // get readings by list (wait for list to load)
     if (state.readingsByList[`${list}`]) {
         // map readings into array of domain names
-        const readings = state.readingsByList[`${list}`].map(id => state[NAME][id]);
+        const readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]);
         
         // count frequencies into object
         let websiteCount = {};

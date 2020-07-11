@@ -4,12 +4,17 @@ import { addLoader, removeLoader } from '../loader/actions';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
+import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from './actionTypes';
 
 
 export const toggleFavorite = (id, user_id) => ({
     type: TOGGLE_FAVORITE,
     id,
+    user_id
+});
+
+export const addReading = user_id => ({
+    type: ADD_READING,
     user_id
 });
 
@@ -63,7 +68,10 @@ export const postNewReading = url => (dispatch, getState) => {
     let { currentUser } = getState();
     const id = currentUser.user.id;
     return apiCall('post', `/users/${id}/readings`, { url })
-        .then(() => dispatch(removeLoader('newReading')))
+        .then(() => {
+            dispatch(addReading(id))
+            dispatch(removeLoader('newReading'))
+        })
         .catch(err => dispatch(addError(err.message)));
 }
 
@@ -97,14 +105,16 @@ export const unfavorite = id => {
 
 const shouldFetchReadings = (state, list) => {
     const readings = state.readingsByList[list];
-    const upToDateSubscriptions = state.readingsByList.upToDate;
-
     if (!readings) return true;
-    if (upToDateSubscriptions === false && list === 'subscriptions') return true;
+    
+    // only initiates if there's readings
+    const upToDate = state.readingsByList[list].upToDate;
+    if (upToDate === false) return true;
 }
 
 export const fetchReadingsIfNeeded = (list, id) => {
     return (dispatch, getState) => {
+        console.log(list);
         if (shouldFetchReadings(getState(), list)) {
             return dispatch(fetchReadings(list, id));
         }
