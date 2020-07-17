@@ -15,7 +15,7 @@ const ListItem = props => {
             <h5 className='row'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
             <div className='row reading-area'>
                 <p className='lead'>{reading.domain}</p>
-                <p className='text-muted ml-auto'>~{Number(reading.word_count).toLocaleString()} words</p>             
+                <p className='text-muted ml-auto'>{Math.round(reading.word_count / 300)} min read</p>             
             </div>
             <div className='row'>
                 <UserImage
