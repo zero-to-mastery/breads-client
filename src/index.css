@@ -63,7 +63,7 @@ input[type="text"], textarea {
 }
 
 .special {
-    background-color: rgba(245, 245, 245, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 @media (max-width: 767.98px) { 

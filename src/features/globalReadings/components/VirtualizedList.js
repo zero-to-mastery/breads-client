@@ -11,7 +11,7 @@ const VirtualizedList = props => {
 
     const cache = new CellMeasurerCache({
         fixedWidth: true,
-        defaultHeight: 187
+        defaultHeight: 403
     });
 
     const renderRow = ({ index, key, parent, style }) => {
@@ -24,15 +24,21 @@ const VirtualizedList = props => {
                 parent={parent}
                 enableMargins
             >
-                <ListItem 
-                    key={key}
-                    id={r[index].id}
-                    list={list}
-                    style={style}
-                />
+                {({ measure, registerChild }) => (
+                    <ListItem 
+                        key={key}
+                        id={r[index].id}
+                        list={list}
+                        style={style}
+                        ref={registerChild}
+                        measure={measure}
+                    />
+                )}
+                
             </CellMeasurer>
         );
     };
+    
     return (
         <div className='col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
             <WindowScroller>
