@@ -10,7 +10,8 @@ import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
-    const { id, style, users, reading, summary, measure } = props;
+    const { id, style, list, users, reading, summary, measure } = props;
+    console.log(list == 'global');
     const minutes = Math.round(reading.word_count / 300);
 
     return (
@@ -49,8 +50,13 @@ const ListItem = props => {
                     {minutes > 0 && 
                         <Summary id={id}/>
                     }
-                    <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
-                    <Delete id={id} reader={reading.reader}/>
+                    {(list !== 'global' && list !== 'subscriptions') &&
+                        <>
+                            <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
+                            <Delete id={id} reader={reading.reader}/>
+                        </>
+                    }
+                    
 
                     {summary.id == reading.id &&
                         <p className='summary-data'>{summary.data}</p>
