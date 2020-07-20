@@ -16,14 +16,14 @@ class Summary extends Component {
         return (
             <>
                 {loading.isLoading && loading.id.includes(id)
-                    ? <p className='btn text-muted m-2 ml-auto'>
+                    ? <p className='btn text-muted m-2'>
                         <FontAwesomeIcon icon='spinner' pulse/>
                     </p>
                     : [(!summary.hasOwnProperty('data') || summary.id != id
-                        ? <p key='view' onClick={this.handleClick} className='btn text-muted m-2 ml-auto'>
+                        ? <p key='view' onClick={this.handleClick} className='btn text-muted m-2'>
                             <FontAwesomeIcon icon='book-reader'/>
                         </p>
-                        : <p key='remove' onClick={removeSummary} className='btn text-muted m-2 ml-auto'>
+                        : <p key='remove' onClick={removeSummary} className='btn text-muted m-2'>
                             <FontAwesomeIcon icon='window-close'/>
                         </p>
                     )]

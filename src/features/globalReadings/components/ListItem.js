@@ -42,11 +42,13 @@ const ListItem = props => {
                             <small>{users[reading.reader].username}</small>
                         </Link>    
                     }
-                    <Moment className='text-muted mt-3 ml-2' fromNow ago>
+                    <Moment className='text-muted mt-3 ml-2 mr-auto' fromNow ago>
                         {reading.created_at}
                     </Moment> 
 
-                    <Summary id={id}/>
+                    {minutes > 0 && 
+                        <Summary id={id}/>
+                    }
                     <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
                     <Delete id={id} reader={reading.reader}/>
 
