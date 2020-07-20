@@ -47,9 +47,9 @@ const ListItem = props => {
                         {reading.created_at}
                     </Moment> 
 
-                    {minutes > 0 && 
+                    {/* {minutes > 0 && 
                         <Summary id={id}/>
-                    }
+                    } */}
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
                             <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
