@@ -11,6 +11,8 @@ import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
     const { id, style, users, reading, summary, measure } = props;
+    const minutes = Math.round(reading.word_count / 300);
+
     return (
         <li style={style} className='list-group-item p-0 overflow-hidden'>
             <img
@@ -23,7 +25,9 @@ const ListItem = props => {
                 <div className='card-text flex-row small text-truncate'>{reading.description}</div>
                 <div className='card-text row ml-1 mr-1 mt-2'>
                     <p className='lead'>{reading.domain}</p>
-                    <p className='text-muted ml-auto'>{Math.round(reading.word_count / 300)} min read</p>             
+                    {minutes > 0 &&
+                        <p className='text-muted ml-auto'>{minutes} min read</p>   
+                    }          
                 </div>
                 <div className='card-text row ml-1'>
                     <UserImage
