@@ -11,7 +11,6 @@ import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
     const { id, style, list, users, reading, summary, measure } = props;
-    console.log(list == 'global');
     const minutes = Math.round(reading.word_count / 300);
 
     return (
