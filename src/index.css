@@ -71,3 +71,7 @@ input[type="text"], textarea {
         max-width: 100%;
     }
 }
+
+.ellipsis {
+    text-overflow: ellipsis;
+}

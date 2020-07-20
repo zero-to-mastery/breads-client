@@ -11,7 +11,8 @@ const VirtualizedList = props => {
 
     const cache = new CellMeasurerCache({
         fixedWidth: true,
-        defaultHeight: 403
+        fixedHeight: true,
+        defaultHeight: 225,
     });
 
     const renderRow = ({ index, key, parent, style }) => {

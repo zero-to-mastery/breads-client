@@ -12,20 +12,20 @@ import BreadsImage from '../../../images/breads-wesual-click.jpg'
 const ListItem = props => {
     const { id, style, users, reading, summary, measure } = props;
     return (
-        <li style={style} className='list-group-item border-secondary p-0'>
+        <li style={style} className='list-group-item p-0 overflow-hidden'>
             <img
                 src={reading.reading_image || BreadsImage}
-                className='card-img'
+                className='card-img overflow-hidden'
                 onLoad={measure}
             />
-            <div className='card-img-overlay special'>
-                <h5 className='card-title row m-2'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
-                <p className='card-text small m-2'>{reading.description}</p>
-                <div className='card-text row m-2'>
+            <div className='card-img-overlay special d-flex flex-column justify-content-around m-1'>
+                <h5 className='card-title flex-row text-truncate'><a href={`${reading.url}`} target='_blank'  rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
+                <div className='card-text flex-row small text-truncate'>{reading.description}</div>
+                <div className='card-text row ml-1 mr-1 mt-2'>
                     <p className='lead'>{reading.domain}</p>
                     <p className='text-muted ml-auto'>{Math.round(reading.word_count / 300)} min read</p>             
                 </div>
-                <div className='card-text row m-2'>
+                <div className='card-text row ml-1'>
                     <UserImage
                         image={users[reading.reader].image}
                         username={users[reading.reader].username}
