@@ -1,7 +1,8 @@
 import { NAME } from './constants';
 
 export const getReadings = (state, list, fav) => {
-    if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
+    // give time for readingsByList items to load
+    if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         let readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]).reverse();
         if (fav) return readings.filter(reading => reading.favorite === reading.reader);
         return readings;
@@ -16,7 +17,7 @@ export const getReadingById = (state, list, id) => {
 
 export const getWebsites = (state, list) => {
     // get readings by list (wait for list to load)
-    if (state.readingsByList[`${list}`]) {
+    if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         // map readings into array of domain names
         const readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]);
         
