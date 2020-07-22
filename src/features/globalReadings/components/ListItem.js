@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import UserImage from '../../../common/UserImage';
-import Summary from './Summary';
+// import Summary from '../../summary/Summary';
 import Favorites from './Favorites';
 import Delete from './Delete';
 import { getReadingById } from '../selectors';
@@ -58,7 +58,7 @@ const ListItem = props => {
                         </>
                     }
 
-                    {summary.id == reading.id &&
+                    {summary.id === reading.id &&
                         <p className='summary-data'>{summary.data}</p>
                     }
                 </div>

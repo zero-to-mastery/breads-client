@@ -8,10 +8,9 @@ import UserImage from './UserImage';
 import Subscribe from './Subscribe';
 
 const Aside = (props) => {
-    const { readings, user, friends, currentUser, title, match } = props;
+    const { user, friends, currentUser, title, match } = props;
 
     let u = {};
-    // if (!readings) u = currentUser;
     if (user) u = user;
     else u = currentUser;
 

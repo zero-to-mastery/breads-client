@@ -7,6 +7,7 @@ const user = (state={}, action) => {
             if (entities && entities.users) {
                 return { ...state, ...entities.users }
             } 
+            /* falls through */
         default:
             return state;
     }

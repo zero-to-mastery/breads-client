@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import summary from '../../summary';
+import { fetchSummary, removeSummary } from './actions';
 
 
 class Summary extends Component {
@@ -12,14 +12,13 @@ class Summary extends Component {
 
     render() {
         const { loading, summary, removeSummary, id } = this.props;
-
         return (
             <>
                 {loading.isLoading && loading.id.includes(id)
                     ? <p className='btn text-muted m-2'>
                         <FontAwesomeIcon icon='spinner' pulse/>
                     </p>
-                    : [(!summary.hasOwnProperty('data') || summary.id != id
+                    : [(!summary.hasOwnProperty('data') || summary.id !== id
                         ? <p key='view' onClick={this.handleClick} className='btn text-muted m-2'>
                             <FontAwesomeIcon icon='book-reader'/>
                         </p>
@@ -40,4 +39,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { ...summary.actions })(Summary);
+export default connect(mapStateToProps, { fetchSummary, removeSummary })(Summary);

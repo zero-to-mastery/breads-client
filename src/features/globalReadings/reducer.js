@@ -7,6 +7,7 @@ const reading = (state = {}, action) => {
             if (entities && entities.readings) {
                 return { ...state, ...entities.readings }
             }
+            /* falls through */
         case TOGGLE_FAVORITE: 
             const { id, user_id } = action;
             if (id && user_id) {
@@ -19,6 +20,7 @@ const reading = (state = {}, action) => {
                     }
                 }
             }
+            /* falls through */
         case REMOVE_READING:
             const key = action.reading_id;
             const { [key]: value, ...other } = state;

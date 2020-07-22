@@ -41,9 +41,7 @@ class SearchForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         if (this.state.search !== '') {
-            // this.props.searchUsers(this.state.search);
             this.setState({ search: '' });
-            // this.props.history.push('/users');
         }
     }
 
@@ -61,17 +59,23 @@ class SearchForm extends Component {
                 const title = reactStringReplace(query.title, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
                 if (title.length > 1) {
                     return <li key={index + query.title} className='dropdown-item text-truncate'>
-                                    <a href={query.url} target='_blank'  rel='noopener noreferrer' className='text-dark'>{title}</a>
-                                </li>
-                    ;
+                                <a href={query.url} target='_blank'  rel='noopener noreferrer' className='text-dark'>{title}</a>
+                            </li>;
                 }
                 if (firstName.length > 1 || lastName.length > 1) {
                     return <li key={index + query.first_name} className='dropdown-item text-truncate'>
-                                    <Link to={`/${query.id}`}>
-                                        <span className='name'>{firstName} {lastName}</span>
-                                    </Link>
-                                </li>
-                    ;
+                                <Link to={`/${query.id}`}>
+                                    <span className='name'>{firstName} {lastName}</span>
+                                </Link>
+                            </li>;
+                } else if (!title.length || !firstName.length || !lastName.length) {
+                    return <li key={index + 'none'} className='dropdown-item text-truncate'>
+                                <span className='name'>No results</span>
+                            </li>;
+                } else {
+                    return <li key={index + 'none'} className='dropdown-item text-truncate'>
+                                <span className='name'>Better luck next time</span>
+                            </li>;
                 }
             });
         }

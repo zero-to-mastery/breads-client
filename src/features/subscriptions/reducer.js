@@ -14,6 +14,7 @@ const subscriptions = (state = { upToDate: false }, action) => {
             } else if (!entities.users && action.list === action.id) {
                 return { ...state, upToDate: true, [action.list]: []}
             }
+            /* falls through */
         case ADD_SUBSCRIPTION:
             if (action.id && action.user_id) {
                 return {
@@ -22,6 +23,7 @@ const subscriptions = (state = { upToDate: false }, action) => {
                     [action.user_id]: state[action.user_id].concat(action.id)
                 }
             }
+            /* falls through */
         case REMOVE_SUBSCRIPTIONS:
             const { id, user_id } = action;
             if (id && user_id) {
@@ -31,6 +33,7 @@ const subscriptions = (state = { upToDate: false }, action) => {
                     [user_id]: state[user_id].filter(sub => sub !== id)
                 }
             }
+            /* falls through */
         default:
             return state;
     }

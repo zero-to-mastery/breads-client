@@ -17,6 +17,7 @@ const readingsByList = (state = {}, action) => {
                     }
                 }
             }
+            /* falls through */
         case ADD_READING:
             if (action.user_id && state[action.user_id]) {
                 return {
@@ -39,6 +40,7 @@ const readingsByList = (state = {}, action) => {
                     }
                 }
             }
+            /* falls through */
         case REMOVE_READING:
             const { reading_id, user_id } = action;
             if (reading_id && user_id) {
@@ -50,14 +52,18 @@ const readingsByList = (state = {}, action) => {
                     }
                 }
             }
+            /* falls through */
         case ADD_SUBSCRIPTION:
-            if (state.subscriptions) return {
-                ...state,
-                subscriptions: {
-                    ...state.subscriptions,
-                    upToDate: false
+            if (state.subscriptions) {
+                return {
+                    ...state,
+                    subscriptions: {
+                        ...state.subscriptions,
+                        upToDate: false
+                    }
                 }
             }
+            /* falls through */
         case REMOVE_SUBSCRIPTIONS:
             if (state.subscriptions && 
                 action.id && action.user_id) {
@@ -73,6 +79,7 @@ const readingsByList = (state = {}, action) => {
                     }
                 }
             }
+            /* falls through */
         default:
             return state
    }
