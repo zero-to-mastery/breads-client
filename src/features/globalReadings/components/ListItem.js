@@ -11,7 +11,7 @@ import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
-    const { id, style, list, users, reading, summary } = props;
+    const { id, style, list, users, reading, summary, currentUser } = props;
     const minutes = Math.round(reading.word_count / 300);
 
     return (
@@ -63,7 +63,7 @@ const ListItem = props => {
                         <p className='summary-data'>{summary.data}</p>
                     }
 
-                    <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
+                    {currentUser.user.id === 1 && <Update user_id={reading.reader} reading_id={id} url={reading.url}/>}
                 </div>
             </div>
         </li>
