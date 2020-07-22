@@ -6,6 +6,7 @@ import UserImage from '../../../common/UserImage';
 // import Summary from '../../summary/Summary';
 import Favorites from './Favorites';
 import Delete from './Delete';
+import Update from './Update';
 import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
@@ -61,6 +62,8 @@ const ListItem = props => {
                     {summary.id === reading.id &&
                         <p className='summary-data'>{summary.data}</p>
                     }
+
+                    <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
                 </div>
             </div>
         </li>
