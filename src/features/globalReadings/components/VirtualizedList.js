@@ -11,7 +11,7 @@ const VirtualizedList = props => {
 
     const cache = new CellMeasurerCache({
         fixedWidth: true,
-        fixedHeight: true,
+        minHeight: 225,
         defaultHeight: 225,
     });
 
@@ -25,17 +25,12 @@ const VirtualizedList = props => {
                 parent={parent}
                 enableMargins
             >
-                {({ measure, registerChild }) => (
-                    <ListItem 
-                        key={key}
-                        id={r[index].id}
-                        list={list}
-                        style={style}
-                        ref={registerChild}
-                        measure={measure}
-                    />
-                )}
-                
+                <ListItem 
+                    key={key}
+                    id={r[index].id}
+                    list={list}
+                    style={style}
+                />
             </CellMeasurer>
         );
     };

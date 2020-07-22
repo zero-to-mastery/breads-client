@@ -75,3 +75,7 @@ input[type="text"], textarea {
 .ellipsis {
     text-overflow: ellipsis;
 }
+
+.cover {
+    background-size: cover;
+}
