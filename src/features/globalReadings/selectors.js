@@ -1,10 +1,11 @@
 import { NAME } from './constants';
 
-export const getReadings = (state, list, fav) => {
+export const getReadings = (state, list, fav, outdated) => {
     // give time for readingsByList items to load
     if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         let readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]).reverse();
         if (fav) return readings.filter(reading => reading.favorite === reading.reader);
+        if (outdated) return getUserReadingsInNeedOfUpdate(state, list);
         return readings;
     }
 }
@@ -29,5 +30,24 @@ export const getWebsites = (state, list) => {
 
         // return object of websites with # of articles read
         return websiteCount;
+    }
+}
+
+export const getUserReadingsInNeedOfUpdate = (state, list) => {
+    // get readings by list (wait for list to load)
+    if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
+        const readings = state.readingsByList[`${list}`].items.map(id => state['readings'][id]); // NAME from readings constants
+        const updateConditions = ['403 ', 'Are you a robot', 'Bloomberg', 'Unable to get title of article'];
+        
+        // if title in conditions list, return reading
+        const titleCheck = reading => updateConditions.some(r => reading.title.includes(r));
+        
+        // if description and image are blank, return reading
+        const descriptionAndImageCheck = reading => reading.description === null && reading.reading_image === null;
+
+        const outdatedReadingsFromTitle = readings.filter(reading => titleCheck(reading));
+        const outdatedReadingsFromOther = readings.filter(reading => descriptionAndImageCheck(reading));
+
+        return [...outdatedReadingsFromTitle, ...outdatedReadingsFromOther];
     }
 }

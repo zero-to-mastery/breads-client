@@ -8,7 +8,7 @@ import { getUserById } from './selectors';
 import Aside from '../../common/Aside';
 import ReadingStats from '../../common/ReadingsStats';
 
-const { getReadings, getWebsites } = globalReadings.selectors;
+const { getReadings, getWebsites, getUserReadingsInNeedOfUpdate } = globalReadings.selectors;
 
 class UserAside extends Component {
     componentDidMount() {
@@ -28,14 +28,15 @@ class UserAside extends Component {
     }
 
     render() {
-        let { readings, websites, loading, favorites, user, match, currentUser } = this.props;
+        let { readings, websites, loading, favorites, user, match, currentUser, outdated } = this.props;
         let totalReadings = 0,
             totalWebsites = 0,
             topWebsite = 'None',
             totalBooks = 0.0,
             totalWords = 0,
             maxReads = 0,
-            totalFavorites = 0;
+            totalFavorites = 0,
+            totalOutdated = 0;
 
         let u = {};
         if (user) u = user;
@@ -60,7 +61,7 @@ class UserAside extends Component {
         }
 
         if (favorites) totalFavorites = favorites.length;
-
+        if (outdated) totalOutdated = outdated.length;
         return (
             <Aside readings={readings} match={match}>
                 <NavLink exact to={`/${u.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
@@ -69,6 +70,11 @@ class UserAside extends Component {
                 <NavLink exact to={`/${u.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
                     <ReadingStats loading={loading} loading_id='FavoriteReadings' statName='Favorites' stat={totalFavorites}/>
                 </NavLink>
+                {outdated && outdated.length > 0 &&
+                    <NavLink exact to={`/${u.id}/outdated`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                        <ReadingStats loading={loading} loading_id='OutdatedReadings' statName='Outdated' stat={totalOutdated}/>
+                    </NavLink>
+                }
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/>
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/>
                 <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
@@ -83,6 +89,7 @@ function mapStateToProps(state, ownProps) {
         websites: getWebsites(state, ownProps.match.params.id),
         favorites: getReadings(state, ownProps.match.params.id, ownProps.fav),
         user: getUserById(state, ownProps.match.params.id),
+        outdated: getUserReadingsInNeedOfUpdate(state, ownProps.match.params.id),
         loading: state.loading,
         currentUser: state.currentUser.user
     }

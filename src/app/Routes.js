@@ -211,6 +211,31 @@ const Routes = props => {
                         )
                     }}
                 />
+                <Route
+                    exact
+                    path='/:id/outdated'
+                    render={props => {
+                        return (
+                            <>
+                                {errors.message && 
+                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                }
+                                <Timeline>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        : <SignUpCard />
+                                    }
+                                    <UserAside fav='true' match={props.match}/>
+                                    <GlobalReadingsList
+                                        list={props.match.params.id}
+                                        id={props.match.params.id}
+                                        outdated='true'
+                                        match={props.match}/>
+                                </Timeline>
+                            </>
+                        )
+                    }}
+                />
             </Switch>
         </div>
     );

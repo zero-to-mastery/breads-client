@@ -29,7 +29,7 @@ class ReadingsList extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getReadings(state, ownProps.list, ownProps.fav)
+        readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated)
     }
 }
 
