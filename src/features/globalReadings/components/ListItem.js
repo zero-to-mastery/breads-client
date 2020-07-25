@@ -14,10 +14,16 @@ const ListItem = props => {
     const { id, style, list, users, reading, summary, currentUser } = props;
     const minutes = Math.round(reading.word_count / 300);
 
+    // use images.webserv.nl to serve http images as https
+    let backgroundImg = '';
+    if (reading && reading.reading_image) {
+        backgroundImg = reading.reading_image.includes('http://') ? 'https://images.weserv.nl/?url=' + reading.reading_image : reading.reading_image
+    }
+    
     return (
         <li style={{
                 ...style,
-                backgroundImage: `url(${reading.reading_image || BreadsImage})`,
+                backgroundImage: `url(${backgroundImg || BreadsImage})`,
                 backgroundSize: 'cover'
             }}
             className='list-group-item p-0 overflow-hidden'
