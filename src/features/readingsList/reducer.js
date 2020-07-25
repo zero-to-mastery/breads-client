@@ -43,12 +43,12 @@ const readingsByList = (state = {}, action) => {
             /* falls through */
         case REMOVE_READING:
             const { reading_id, user_id } = action;
-            if (reading_id && user_id) {
+            if (reading_id && user_id && state[user_id]) {
                 return {
                     ...state,
                     [user_id]: {
                         upToDate: true,
-                        items: state[user_id].filter(sub => sub !== reading_id)
+                        items: state[user_id].items.filter(sub => sub !== reading_id)
                     }
                 }
             }
