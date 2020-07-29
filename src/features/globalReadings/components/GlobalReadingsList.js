@@ -16,12 +16,13 @@ class ReadingsList extends Component {
     }
 
     render() {
-        const { readings, list } = this.props;
+        const { readings, list, outdated } = this.props;
 
         return (
             <VirtualizedList 
                 readings={readings}
                 list={list}
+                outdated={outdated}
             />
         )
     }

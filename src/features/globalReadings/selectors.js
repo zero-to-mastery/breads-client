@@ -36,7 +36,7 @@ export const getWebsites = (state, list) => {
 export const getUserReadingsInNeedOfUpdate = (state, list) => {
     // get readings by list (wait for list to load)
     if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
-        const readings = state.readingsByList[`${list}`].items.map(id => state['readings'][id]); // NAME from readings constants
+        const readings = state.readingsByList[`${list}`].items.map(id => state['readings'][id]).reverse(); // NAME from readings constants
         const updateConditions = ['403 ', 'Are you a robot', 'Bloomberg', 'Unable to get title of article'];
         
         // if title in conditions list, return reading
@@ -47,7 +47,8 @@ export const getUserReadingsInNeedOfUpdate = (state, list) => {
 
         const outdatedReadingsFromTitle = readings.filter(reading => titleCheck(reading));
         const outdatedReadingsFromOther = readings.filter(reading => descriptionAndImageCheck(reading));
-
-        return [...outdatedReadingsFromTitle, ...outdatedReadingsFromOther];
+        
+        // prevent duplicates using set
+        return [...new Set([...outdatedReadingsFromTitle, ...outdatedReadingsFromOther])];
     }
 }

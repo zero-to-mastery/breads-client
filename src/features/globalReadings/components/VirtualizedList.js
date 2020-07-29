@@ -3,7 +3,7 @@ import ListItem from './ListItem';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
 
 const VirtualizedList = props => {
-    const { readings, list } = props;
+    const { readings, list, outdated } = props;
 
     // NEED TO DECOUPLE FROM STATE SHAPE - removing this from virtualized list, remember to fix rowrenderer
     let r = {};
@@ -29,6 +29,7 @@ const VirtualizedList = props => {
                     key={key}
                     id={r[index].id}
                     list={list}
+                    outdated={outdated}
                     style={style}
                 />
             </CellMeasurer>

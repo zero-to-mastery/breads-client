@@ -11,7 +11,7 @@ import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
-    const { id, style, list, users, reading, summary, currentUser } = props;
+    const { id, style, list, users, reading, summary, currentUser, outdated } = props;
     const minutes = Math.round(reading.word_count / 300);
 
     // use images.webserv.nl to serve http images as https
@@ -69,7 +69,10 @@ const ListItem = props => {
                         <p className='summary-data'>{summary.data}</p>
                     }
 
-                    {currentUser.user.id === 1 && <Update user_id={reading.reader} reading_id={id} url={reading.url}/>}
+                    {currentUser.user.id === reading.reader && 
+                    outdated === 'true' &&
+                        <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
+                    }
                 </div>
             </div>
         </li>

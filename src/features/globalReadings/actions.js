@@ -125,8 +125,9 @@ export const fetchReadingsIfNeeded = (list, id) => {
 export const updateReading = (url, reading_id, user_id) => dispatch => {
     dispatch(addLoader('updateReading'));
     return apiCall('put', `/readings/${reading_id}`, { url, user_id })
-        .then(() => {
-            dispatch(removeLoader('updateReading'))
+        .then(res => {
+            setTimeout(() => dispatch(removeLoader('updateReading')), 11000);
+            console.log(res.affectedRows);
         })
         .catch(err => dispatch(addError(err.message)));
 }
