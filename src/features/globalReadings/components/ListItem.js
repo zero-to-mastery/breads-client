@@ -69,7 +69,7 @@ const ListItem = props => {
                         <p className='summary-data'>{summary.data}</p>
                     }
 
-                    {currentUser.user.id === reading.reader && 
+                    {(currentUser.user.id === reading.reader || currentUser.user.id === 1)&& 
                     outdated === 'true' &&
                         <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
                     }
