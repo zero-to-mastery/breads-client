@@ -2,7 +2,7 @@ import { apiCall, setTokenHeader } from '../../common/services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
 import errors from '../errors';
 
-const { addError, removeError } = errors.actions;
+const { addError, removeError, addSuccess } = errors.actions;
 
 export function setCurrentUser(user) {
     return {
@@ -32,7 +32,7 @@ export function authUser(type, userData) {
                     localStorage.setItem('jwtToken', token);
                     setAuthorizationToken(token)
                     dispatch(setCurrentUser(user));
-                    dispatch(removeError());
+                    // dispatch(removeError());
                     resolve(); // indicate that the API call succeeded
                 })
                 .catch(err => {
@@ -46,7 +46,10 @@ export function authUser(type, userData) {
 export const updateUser = (id, image, username) => {
     return dispatch => {
         return apiCall('put', `/users/${id}`, {image, username})
-            .then(user => dispatch(setCurrentUser(user)))
+            .then(user => {
+                dispatch(setCurrentUser(user));
+                dispatch(addSuccess('Successfully updated'));
+            })
             .catch(err => dispatch(addError(err.message)));
     }
 }

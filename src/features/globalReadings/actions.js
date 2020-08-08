@@ -6,7 +6,7 @@ import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
-const { addError } = errors.actions;
+const { addError, addSuccess } = errors.actions;
 const { addLoader, removeLoader } = loader.actions;
 
 export const toggleFavorite = (id, user_id) => ({
@@ -71,8 +71,9 @@ export const postNewReading = url => (dispatch, getState) => {
     const id = currentUser.user.id;
     return apiCall('post', `/users/${id}/readings`, { url })
         .then(() => {
-            dispatch(addReading(id))
-            dispatch(removeLoader('newReading'))
+            dispatch(addReading(id));
+            dispatch(removeLoader('newReading'));
+            dispatch(addSuccess('Article uploaded'));
         })
         .catch(err => dispatch(addError(err.message)));
 }
@@ -80,7 +81,10 @@ export const postNewReading = url => (dispatch, getState) => {
 export const removeUserReading = (user_id, reading_id) => {
     return dispatch => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
-            .then(() => dispatch(removeReadings(reading_id, user_id)))
+            .then(() => {
+                dispatch(removeReadings(reading_id, user_id));
+                dispatch(addSuccess('Reading removed'));
+            })
             .catch(err => dispatch(addError(err.message)));
     };
 };
@@ -126,7 +130,10 @@ export const updateReading = (url, reading_id, user_id) => dispatch => {
     dispatch(addLoader('updateReading'));
     return apiCall('put', `/readings/${reading_id}`, { url, user_id })
         .then(res => {
-            setTimeout(() => dispatch(removeLoader('updateReading')), 11000);
+            setTimeout(() => {
+                dispatch(removeLoader('updateReading'));
+                dispatch(addSuccess('Updated reading successfully.'));
+            }, 11000);
             console.log(res.affectedRows);
         })
         .catch(err => dispatch(addError(err.message)));

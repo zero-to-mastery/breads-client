@@ -5,7 +5,7 @@ import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 
-const { addError } = errors.actions;
+const { addError, addSuccess } = errors.actions;
 
 export const loadSubscriptions = (users, id) => ({
     type: LOAD_SUBSCRIPTIONS,
@@ -43,7 +43,8 @@ export const removeSubscription = (sub_id, pub_id) => {
         const { readings } = getState()
         return apiCall('delete', `/users/${sub_id}/subscriptions/${pub_id}`)
             .then(() => {
-                dispatch(removeSubscriptions(pub_id, sub_id, readings))
+                dispatch(removeSubscriptions(pub_id, sub_id, readings));
+                dispatch(addSuccess('Successfully unfollowed'));
             })
             .catch(err => {
                 dispatch(addError(err.message));
@@ -55,7 +56,10 @@ export const postNewSubscription = sub_id => (dispatch, getState) => {
     let { currentUser } = getState();
     const user_id = currentUser.user.id;
     return apiCall('post', `/users/${user_id}/subscriptions`, { sub_id })
-        .then(() => dispatch(addSubscription(sub_id, user_id)))
+        .then(() => {
+            dispatch(addSubscription(sub_id, user_id));
+            dispatch(addSuccess('Successfully followed'));
+        })
         .catch(err => dispatch(addError(err.message)));
 }
 

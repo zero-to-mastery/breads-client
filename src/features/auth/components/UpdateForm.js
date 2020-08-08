@@ -22,7 +22,7 @@ class UpdateForm extends Component {
         e.preventDefault();
         this.props.updateUser(this.props.currentUser.user.id, this.state.image, this.state.username)
         .then(() => {
-            this.props.history.push('/');
+            this.props.history.push(`/${this.props.currentUser.user.id}`);
         })
         .catch(() => {
             return;
@@ -32,9 +32,9 @@ class UpdateForm extends Component {
     render() {
         const { username, image } = this.state;
         const { heading, path, buttonText, errors, history, removeError } = this.props;
-        history.listen(() => {
-            removeError();
-        });
+        // history.listen(() => {
+        //     removeError();
+        // });
 
         return (
             <div className='row justify-content-md-center text-center'>
