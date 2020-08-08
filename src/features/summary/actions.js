@@ -1,9 +1,9 @@
 import { apiCall } from '../../common/services/api';
-import errors from '../errors';
+import alerts from '../alerts';
 import loader from '../loader';
 import { LOAD_SUMMARY, REMOVE_SUMMARY } from '../actionTypes';
 
-const { addError } = errors.actions;
+const { addError } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
 export const loadSummary = summary => ({

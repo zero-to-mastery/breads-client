@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ErrorAlert from '../../errors/ErrorAlert';
+import Alert from '../../alerts/Alert';
 
 class EmailForm extends Component {
     constructor(props) {
@@ -29,11 +29,11 @@ class EmailForm extends Component {
 
     render() {
         const { email } = this.state;
-        const { heading, buttonText, errors, history, removeError } = this.props;
+        const { heading, buttonText, alerts, history, removeAlert } = this.props;
 
-        history.listen(() => {
-            removeError();
-        });
+        // history.listen(() => {
+        //     removeAlert();
+        // });
 
         return (
             <div>
@@ -41,8 +41,8 @@ class EmailForm extends Component {
                     <div className='col-md-6'>
                         <form onSubmit={this.handleSubmit}>
                             <h2>{heading}</h2>
-                            {errors.message && 
-                                <ErrorAlert errors={errors} removeError={removeError}/>
+                            {alerts.message && 
+                                <Alert alerts={alerts} removeAlert={removeAlert}/>
                             }
                             <label htmlFor='email'>Email:</label>
                             <input

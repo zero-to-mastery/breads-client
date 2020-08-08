@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../features/auth';
-import errors, { ErrorAlert } from '../features/errors';
+import alerts, { Alert } from '../features/alerts';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
 import { SubscriptionsList } from '../features/subscriptions';
 import { UserAside } from '../features/user';
@@ -11,7 +11,7 @@ import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 
 const Routes = props => {
-    const { authUser, errors, removeError, sendResetEmail, resetPassword, currentUser } = props;
+    const { authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser } = props;
     return (
         <div className='container-fluid py-5'>
             <Switch>
@@ -21,8 +21,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -44,8 +44,8 @@ const Routes = props => {
                             <AuthForm
                                 reset={sendResetEmail}
                                 onAuth={authUser}
-                                removeError={removeError}
-                                errors={errors}
+                                removeAlert={removeAlert}
+                                alerts={alerts}
                                 buttonText='Log In'
                                 heading='Welcome Back.'
                                 {...props}
@@ -60,8 +60,8 @@ const Routes = props => {
                         return (
                             <AuthForm
                                 onAuth={authUser}
-                                removeError={removeError}
-                                errors={errors}
+                                removeAlert={removeAlert}
+                                alerts={alerts}
                                 signup
                                 buttonText='Sign up'
                                 heading='Join today!'
@@ -77,8 +77,8 @@ const Routes = props => {
                         return (
                             <EmailForm
                                 reset={sendResetEmail}
-                                removeError={removeError}
-                                errors={errors}
+                                removeAlert={removeAlert}
+                                alerts={alerts}
                                 buttonText='Send reset email'
                                 heading='Enter email address'
                                 {...props}
@@ -93,8 +93,8 @@ const Routes = props => {
                         return (
                             <ResetPasswordForm 
                                 reset={resetPassword}
-                                removeError={removeError}
-                                errors={errors}
+                                removeAlert={removeAlert}
+                                alerts={alerts}
                                 buttonText='Save new password'
                                 heading='Reset your password'
                                 {...props}
@@ -109,8 +109,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -130,8 +130,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -155,8 +155,8 @@ const Routes = props => {
                         return (
                             <UpdateForm
                                 onAuth={authUser}
-                                removeError={removeError}
-                                errors={errors}
+                                removeAlert={removeAlert}
+                                alerts={alerts}
                                 buttonText='Update'
                                 heading={currentUser.user.username}
                                 path={currentUser.user.id}
@@ -171,8 +171,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -192,8 +192,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -217,8 +217,8 @@ const Routes = props => {
                     render={props => {
                         return (
                             <>
-                                {errors.message && 
-                                    <ErrorAlert errors={errors} removeError={removeError}/>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -244,10 +244,10 @@ const Routes = props => {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        errors: state.errors
+        alerts: state.alerts
     };
 }
 
 export default withRouter(
-    connect(mapStateToProps, { ...auth.actions, ...errors.actions })(Routes)
+    connect(mapStateToProps, { ...auth.actions, ...alerts.actions })(Routes)
 );

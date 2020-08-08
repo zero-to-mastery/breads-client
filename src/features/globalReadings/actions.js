@@ -1,12 +1,12 @@
 import { apiCall } from '../../common/services/api';
-import errors from '../errors';
+import alerts from '../alerts';
 import loader from '../loader';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
-const { addError, addSuccess } = errors.actions;
+const { addError, addSuccess } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
 export const toggleFavorite = (id, user_id) => ({

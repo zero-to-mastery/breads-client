@@ -1,8 +1,8 @@
 import { apiCall } from '../../common/services/api';
-import errors from '../errors';
+import alerts from '../alerts';
 import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
 
-const { addError } = errors.actions
+const { addError } = alerts.actions
 
 export const loadNotifications = notifications => ({
     type: LOAD_NOTIFICATIONS,

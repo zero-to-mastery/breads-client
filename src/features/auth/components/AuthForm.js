@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ErrorAlert from '../../errors/ErrorAlert';
+import Alert from '../../alerts/Alert';
 
 class AuthForm extends Component {
     constructor(props) {
@@ -55,15 +55,15 @@ class AuthForm extends Component {
 
     render() {
         const { first_name, last_name, email, username, password } = this.state;
-        const { heading, buttonText, signup, errors, removeError } = this.props;
+        const { heading, buttonText, signup, alerts, removeAlert } = this.props;
 
         return (
             <div className='row justify-content-md-center text-center py-5'>
                 <div className='col-md-6'>
                     <form onSubmit={this.handleSubmit}>
                         <h2>{heading}</h2>
-                        {errors.message && 
-                            <ErrorAlert errors={errors} removeError={removeError}/>
+                        {alerts.message && 
+                            <Alert alerts={alerts} removeAlert={removeAlert}/>
                         }
                         {signup && (
                             <div>

@@ -1,11 +1,11 @@
 import { apiCall } from '../../common/services/api';
-import errors from '../errors';
+import alerts from '../alerts';
 import { LOAD_SUBSCRIPTIONS, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 
-const { addError, addSuccess } = errors.actions;
+const { addError, addSuccess } = alerts.actions;
 
 export const loadSubscriptions = (users, id) => ({
     type: LOAD_SUBSCRIPTIONS,

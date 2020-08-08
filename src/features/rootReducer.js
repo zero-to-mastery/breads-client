@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
-import errors from './errors';
+import alerts from './alerts';
 import globalReadings from './globalReadings';
 import loading from './loader';
 import notifications from './notifications';
@@ -12,7 +12,7 @@ import user from './user';
 
 const rootReducer = combineReducers({
     [auth.constants.NAME]: auth.reducer,
-    [errors.constants.NAME]: errors.reducer,
+    [alerts.constants.NAME]: alerts.reducer,
     [globalReadings.constants.NAME]: globalReadings.reducer,
     [loading.constants.NAME]: loading.reducer,
     [notifications.constants.NAME]: notifications.reducer,

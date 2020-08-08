@@ -31,9 +31,9 @@ class UpdateForm extends Component {
 
     render() {
         const { username, image } = this.state;
-        const { heading, path, buttonText, errors, history, removeError } = this.props;
+        const { heading, path, buttonText, alerts, history, removeAlert } = this.props;
         // history.listen(() => {
-        //     removeError();
+        //     removeAlert();
         // });
 
         return (
@@ -41,8 +41,8 @@ class UpdateForm extends Component {
                 <div className='col-md-6'>
                     <form onSubmit={this.handleSubmit}>
                         <h2>Update {heading}</h2>
-                        {errors.message && (
-                            <div className='alert alert-danger'>{errors.message}</div>
+                        {alerts.message && (
+                            <div className='alert alert-danger'>{alerts.message}</div>
                         )}
                         <label htmlFor='image'>Image Url:</label>
                         <input
