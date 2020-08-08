@@ -6,6 +6,8 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 // errors
 export const ADD_ERROR = 'ADD_ERROR';
 export const REMOVE_ERROR = 'REMOVE_ERROR';
+export const ADD_SUCCESS = 'ADD_SUCCESS';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 // globalReadings
 export const ADD_READING = 'ADD_READING';
