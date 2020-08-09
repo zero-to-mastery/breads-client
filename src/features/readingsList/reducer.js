@@ -43,7 +43,20 @@ const readingsByList = (state = {}, action) => {
             /* falls through */
         case REMOVE_READING:
             const { reading_id, user_id } = action;
-            if (reading_id && user_id && state[user_id]) {
+            if (reading_id && user_id && state[user_id] && state['global']) {
+                return {
+                    ...state,
+                    [user_id]: {
+                        upToDate: true,
+                        items: state[user_id].items.filter(sub => sub !== reading_id)
+                    },
+                    'global': {
+                        upToDate: true,
+                        items: state['global'].items.filter(id => id !== reading_id)
+                    }
+                }
+            }
+            else if (reading_id && user_id && state[user_id] && !state['global']) {
                 return {
                     ...state,
                     [user_id]: {
