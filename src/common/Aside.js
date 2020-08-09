@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getUserById } from '../features/user/selectors';
-import { getSubscriptions, getFollowers, getFollowings } from '../features/subscriptions/selectors'
+import { getFollowers, getFollowings } from '../features/subscriptions/selectors'
 import UserImage from './UserImage';
 import Subscribe from './Subscribe';
 

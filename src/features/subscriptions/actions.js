@@ -1,9 +1,6 @@
 import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import { LOAD_SUBSCRIPTIONS, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
-import { receiveEntities } from '../actions';
-import { normalize } from 'normalizr';
-import * as schema from '../../common/services/schema';
 
 const { addError, addSuccess } = alerts.actions;
 
@@ -28,14 +25,8 @@ export const removeSubscriptions = (id, user_id) => ({
 export const fetchSubscriptions = user_id => {
     return dispatch => {
         return apiCall('get', `/users/${user_id}/subscriptions`)
-            .then(res => {
-                // action should be receiveEntities so user list is updated when subscriptions are loaded
-                // dispatch(receiveEntities(normalize(res, [schema.subscriptions]), user_id, user_id));
-                dispatch(loadSubscriptions(res, user_id))
-            })
-            .catch(err => {
-                dispatch(addError(err.message));
-            });
+            .then(res => dispatch(loadSubscriptions(res, user_id)))
+            .catch(err => dispatch(addError(err.message)));
     }
 }
 
@@ -46,9 +37,7 @@ export const removeSubscription = (sub_id, pub_id) => {
                 dispatch(removeSubscriptions(pub_id, sub_id));
                 dispatch(addSuccess('Successfully unfollowed'));
             })
-            .catch(err => {
-                dispatch(addError(err.message));
-            });
+            .catch(err => dispatch(addError(err.message)));
     }
 }
 

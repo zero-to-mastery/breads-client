@@ -31,7 +31,7 @@ class EmailForm extends Component {
 
     render() {
         const { password } = this.state;
-        const { heading, buttonText, alerts, history, removeAlert } = this.props;
+        const { heading, buttonText, alerts, removeAlert } = this.props;
 
         // history.listen(() => {
         //     removeAlert();

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { updateUser } from '../actions';
+import Alert from '../../alerts/Alert';
 
 class UpdateForm extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class UpdateForm extends Component {
 
     render() {
         const { username, image } = this.state;
-        const { heading, path, buttonText, alerts, history, removeAlert } = this.props;
+        const { heading, path, buttonText, alerts, removeAlert } = this.props;
         // history.listen(() => {
         //     removeAlert();
         // });
@@ -41,9 +42,9 @@ class UpdateForm extends Component {
                 <div className='col-md-6'>
                     <form onSubmit={this.handleSubmit}>
                         <h2>Update {heading}</h2>
-                        {alerts.message && (
-                            <div className='alert alert-danger'>{alerts.message}</div>
-                        )}
+                        {alerts.message && 
+                            <Alert alerts={alerts} removeAlert={removeAlert}/>
+                        }
                         <label htmlFor='image'>Image Url:</label>
                         <input
                             autoComplete='off'
