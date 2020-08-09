@@ -1,4 +1,4 @@
-import { RECEIVE_ENTITIES, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS, LOAD_SUBSCRIPTIONS } from '../actionTypes';
+import { ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS, LOAD_SUBSCRIPTIONS } from '../actionTypes';
 
 const getIds = users => {
     return Object.values(users).map(user => user.id);
@@ -6,21 +6,6 @@ const getIds = users => {
 
 const subscriptions = (state = { upToDate: false }, action) => {
     switch (action.type) {
-        // case RECEIVE_ENTITIES:
-        //     const { entities } = action.payload;
-
-        //     if (entities && entities.users && action.list === action.id) {
-        //         return {
-        //             ...state,
-        //             upToDate: true,
-        //             // [action.list]: {
-        //             //     getIds(entities.users)
-        //             // }
-        //         }
-        //     } else if (!entities.users && action.list === action.id) {
-        //         return { ...state, upToDate: true, [action.list]: []}
-        //     }
-        //     /* falls through */
         case LOAD_SUBSCRIPTIONS:
             if (action && action.users) {
                 return {
@@ -34,7 +19,7 @@ const subscriptions = (state = { upToDate: false }, action) => {
             }
             /* falls through */
         case ADD_SUBSCRIPTION:
-            if (action.id && action.user_id) {
+            if (action.id && action.user_id && state[action.id]) {
                 return {
                     ...state,
                     upToDate: false,
@@ -47,11 +32,20 @@ const subscriptions = (state = { upToDate: false }, action) => {
                         followers: state[action.id].followers.concat(action.user_id)
                     }
                 }
+            } else if (action.id && action.user_id && !state[action.id]) {
+                return {
+                    ...state,
+                    upToDate: false,
+                    [action.user_id]: {
+                        ...state[action.user_id],
+                        following: state[action.user_id].following.concat(action.id)
+                    }
+                }
             }
             /* falls through */
         case REMOVE_SUBSCRIPTIONS:
             const { id, user_id } = action;
-            if (id && user_id) {
+            if (id && user_id && state[id]) {
                 return {
                     ...state,
                     upToDate: true,
@@ -62,6 +56,15 @@ const subscriptions = (state = { upToDate: false }, action) => {
                     [id]: {
                         ...state[id],
                         followers: state[id].followers.filter(pub => pub !== user_id)
+                    }
+                }
+            } else if (id && user_id && !state[id]) {
+                return {
+                    ...state,
+                    upToDate: true,
+                    [user_id]: {
+                        ...state[user_id],
+                        following: state[user_id].following.filter(sub => sub !== id), 
                     }
                 }
             }
