@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getUserById } from '../features/user/selectors';
-import { getSubscriptions } from '../features/subscriptions/selectors'
+import { getSubscriptions, getFollowers, getFollowings } from '../features/subscriptions/selectors'
 import UserImage from './UserImage';
 import Subscribe from './Subscribe';
 
 const Aside = (props) => {
-    const { user, friends, currentUser, title, match } = props;
+    const { user, followings, followers, currentUser, title, match } = props;
 
     let u = {};
     if (user) u = user;
@@ -35,9 +35,14 @@ const Aside = (props) => {
                         <Subscribe user={u.id} />
                     </div>
                     {!title && 
-                        <NavLink exact to={`/${u.id}/subscriptions`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                            Friends: {friends ? friends.length : 0}
-                        </NavLink>
+                        <>
+                            <NavLink exact to={`/${u.id}/following`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                                Following: {followings ? followings.length : 0}
+                            </NavLink>
+                            <NavLink exact to={`/${u.id}/followers`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                                Followers: {followers ? followers.length : 0}
+                            </NavLink>
+                        </>
                     }
                     <div>
                         {props.children}
@@ -52,7 +57,8 @@ function mapStateToProps(state, ownProps) {
     return {
         user: ownProps.match ? getUserById(state, ownProps.match.params.id) : null,
         currentUser: state.currentUser.user,
-        friends: ownProps.match ? getSubscriptions(state, ownProps.match.params.id) : null,
+        followings: ownProps.match ? getFollowings(state, ownProps.match.params.id) : null,
+        followers: ownProps.match ? getFollowers(state, ownProps.match.params.id) : null,
     }
 }
 

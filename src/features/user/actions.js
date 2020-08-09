@@ -16,3 +16,15 @@ export const fetchUser = id => {
             .catch(err => dispatch(addError(err.message)));
     }
 }
+const shouldFetchUser = (state, id) => {
+    const user = state.user[id];
+    if (!user) return true;
+}
+
+export const fetchUserIfNeeded = id => {
+    return (dispatch, getState) => {
+        if (shouldFetchUser(getState(), id)) {
+            return dispatch(fetchUser(id));
+        }
+    }
+}

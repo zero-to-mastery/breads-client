@@ -7,16 +7,16 @@ import { getSubscriptions } from './selectors';
 
 class SubscriptionsList extends Component {
     render() {
-        const { friends, removeSubscription, currentUser, match } = this.props;
+        const { friends, removeSubscription, currentUser, match, sub_type } = this.props;
         let subscriptionsList = [];
         if (friends) {
-            subscriptionsList = friends.map(id => (  
+            subscriptionsList = friends[sub_type].map(id => (  
             <ListCard
             // refactor like listitem
                 key={id}
                 id={id}
                 removeSubscription={removeSubscription.bind(this, currentUser, id)}
-                subscribed={`${currentUser}` === match.params.id}
+                subscribed={`${currentUser}` === match.params.id && sub_type !== 'followers'}
             />
         ));
             }

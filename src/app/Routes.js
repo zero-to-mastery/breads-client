@@ -167,7 +167,7 @@ const Routes = props => {
                 />
                 <Route
                     exact
-                    path='/:id/subscriptions'
+                    path='/:id/following'
                     render={props => {
                         return (
                             <>
@@ -180,7 +180,28 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <UserAside fav='true' match={props.match}/>
-                                    <SubscriptionsList match={props.match}/>
+                                    <SubscriptionsList match={props.match} sub_type='following'/>
+                                </Timeline>
+                            </>
+                        )
+                    }}
+                />
+                <Route
+                    exact
+                    path='/:id/followers'
+                    render={props => {
+                        return (
+                            <>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                }
+                                <Timeline>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        : <SignUpCard />
+                                    }
+                                    <UserAside fav='true' match={props.match}/>
+                                    <SubscriptionsList match={props.match} sub_type='followers'/>
                                 </Timeline>
                             </>
                         )

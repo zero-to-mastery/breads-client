@@ -19,18 +19,19 @@ export const addSubscription = (id, user_id) => ({
     user_id
 });
 
-export const removeSubscriptions = (id, user_id, readings) => ({
+export const removeSubscriptions = (id, user_id) => ({
     type: REMOVE_SUBSCRIPTIONS,
     id,
-    user_id,
-    readings
+    user_id
 });
 
 export const fetchSubscriptions = user_id => {
     return dispatch => {
         return apiCall('get', `/users/${user_id}/subscriptions`)
             .then(res => {
-                dispatch(receiveEntities(normalize(res, [schema.user]), user_id, user_id));
+                // action should be receiveEntities so user list is updated when subscriptions are loaded
+                // dispatch(receiveEntities(normalize(res, [schema.subscriptions]), user_id, user_id));
+                dispatch(loadSubscriptions(res, user_id))
             })
             .catch(err => {
                 dispatch(addError(err.message));
@@ -39,11 +40,10 @@ export const fetchSubscriptions = user_id => {
 }
 
 export const removeSubscription = (sub_id, pub_id) => {
-    return (dispatch, getState) => {
-        const { readings } = getState()
+    return dispatch => {
         return apiCall('delete', `/users/${sub_id}/subscriptions/${pub_id}`)
             .then(() => {
-                dispatch(removeSubscriptions(pub_id, sub_id, readings));
+                dispatch(removeSubscriptions(pub_id, sub_id));
                 dispatch(addSuccess('Successfully unfollowed'));
             })
             .catch(err => {
