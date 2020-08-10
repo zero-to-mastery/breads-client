@@ -65,11 +65,12 @@ export const fetchReadings = (list, id) => {
 }
 
 
-export const postNewReading = url => (dispatch, getState) => {
+export const postNewReading = (url, tags) => (dispatch, getState) => {
     dispatch(addLoader('newReading'));
     let { currentUser } = getState();
     const id = currentUser.user.id;
-    return apiCall('post', `/users/${id}/readings`, { url })
+    console.log(tags);
+    return apiCall('post', `/users/${id}/readings`, { url, tags })
         .then(() => {
             dispatch(addReading(id));
             dispatch(removeLoader('newReading'));
