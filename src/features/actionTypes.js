@@ -35,5 +35,10 @@ export const REMOVE_SUBSCRIPTIONS = 'REMOVE_SUBSCRIPTIONS';
 export const LOAD_SUMMARY = 'LOAD_SUMMARY';
 export const REMOVE_SUMMARY = 'REMOVE_SUMMARY';
 
+// tags
+export const ADD_TAGS = 'ADD_TAGS';
+export const REMOVE_TAGS = 'REMOVE_TAGS';
+export const LOAD_TAGS = 'LOAD_TAGS';
+
 // user
 export const LOAD_USER = 'LOAD_USER';

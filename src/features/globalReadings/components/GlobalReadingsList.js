@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchReadingsIfNeeded } from '../actions';
 import { getReadings } from '../selectors';
+import tags from '../../tags';
 import VirtualizedList from './VirtualizedList';
 
 class ReadingsList extends Component {
     componentDidMount() {
         this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
+        this.props.fetchTags();
     }
 
     componentDidUpdate(prevProps) {
@@ -35,5 +37,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps, { 
-    fetchReadingsIfNeeded
+    fetchReadingsIfNeeded,
+    ...tags.actions
 })(ReadingsList);
