@@ -9,6 +9,13 @@ import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS } from '../actionTypes';
     // normalize tag info into
         // readings - each reading has tags key with array of tag ids
         // tags - object key is tag id, value is array of tag_name, reading_id, user_id objects
+    
+        // I'm returning tags id with readings now. 
+        // need to add user readings table - how to transfer data from one table to another?
+            // user id, reading id, created date
+            //  IS READING_TAGS ALREADY THE USER READINGS TABLE I NEED?
+                // maybe a user tags table, user readings table, and reading tags table
+                    // user -> tags, user -> readings, reading -> tags
 const tags = (state = {}, action) => {
     switch (action.type) {
         case LOAD_TAGS:
