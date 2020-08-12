@@ -8,7 +8,7 @@ import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS } from '../actionTypes';
     // return tag info in readings apicall
     // normalize tag info into
         // readings - each reading has tags key with array of tag ids
-        // tags - object key is tag id, value is array of reading_id and user_id objects
+        // tags - object key is tag id, value is array of tag_name, reading_id, user_id objects
 const tags = (state = {}, action) => {
     switch (action.type) {
         case LOAD_TAGS:
