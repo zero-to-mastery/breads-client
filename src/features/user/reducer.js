@@ -9,10 +9,13 @@ const user = (state={}, action) => {
             } 
             /* falls through */
         case LOAD_USER:
-            return { 
-                ...state,
-                [action.user[0].id]: action.user[0]
+            if (action && action.user) {
+                return { 
+                    ...state,
+                    [action.user[0].id]: action.user[0]
+                }
             }
+            /* falls through */
         case LOAD_SUBSCRIPTIONS:
             const { users } = action;
             if (users) {

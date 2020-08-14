@@ -13,7 +13,7 @@ export const fetchUser = id => {
     return dispatch => {
         return apiCall('get', `/users/${id}`)
             .then(res => dispatch(loadUser(res)))
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addError(err)));
     }
 }
 const shouldFetchUser = (state, id) => {
