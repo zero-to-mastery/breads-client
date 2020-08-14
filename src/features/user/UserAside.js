@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import subscriptions from '../subscriptions';
 import globalReadings from '../globalReadings';
+import tags from '../tags';
 import { fetchUserIfNeeded } from './actions';
 import { getUserById } from './selectors';
 import Aside from '../../common/Aside';
@@ -13,6 +14,7 @@ const { getReadings, getWebsites, getUserReadingsInNeedOfUpdate } = globalReadin
 class UserAside extends Component {
     componentDidMount() {
         if (this.props.match) {
+            this.props.fetchTags();
             this.props.fetchUserIfNeeded(this.props.match.params.id);
             this.props.fetchSubscriptionsIfNeeded(this.props.match.params.id);
             this.props.fetchReadingsIfNeeded(this.props.match.params.id, this.props.match.params.id);
@@ -97,4 +99,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { ...subscriptions.actions, ...globalReadings.actions, fetchUserIfNeeded })(UserAside);
+export default connect(mapStateToProps, { ...subscriptions.actions, ...globalReadings.actions, ...tags.actions, fetchUserIfNeeded })(UserAside);

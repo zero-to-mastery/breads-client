@@ -11,8 +11,11 @@ import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
-    const { id, style, list, users, reading, summary, currentUser, outdated } = props;
+    const { id, style, list, users, reading, summary, currentUser, outdated, tags } = props;
+    
     const minutes = Math.round(reading.word_count / 300);
+    let tag_names;
+    if (reading.tags && tags) tag_names = reading.tags.map(tag_id => `#${tags[tag_id].tag_name} `);
 
     // use images.webserv.nl to serve http images as https
     let backgroundImg = '';
@@ -57,7 +60,9 @@ const ListItem = props => {
                     {/* {minutes > 0 && 
                         <Summary id={id}/>
                     } */}
-
+                    {reading.tags && 
+                        <p className='btn text-primary m-2'><small>{tag_names}</small></p>
+                    }
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
                             <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
@@ -85,6 +90,7 @@ function mapStateToProps(state, ownProps) {
         reading: getReadingById(state, ownProps.list, ownProps.id),
         currentUser: state.currentUser,
         summary: state.summary,
+        tags: state.tags
     }
 }
 

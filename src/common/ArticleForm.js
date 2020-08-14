@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import globalReadings from '../features/globalReadings/';
+import globalReadings from '../features/globalReadings';
+import tags from '../features/tags';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ArticleForm extends Component {
@@ -25,9 +26,15 @@ class ArticleForm extends Component {
         let path = this.props.history.location.pathname;
         
         if (path === '/') {
-            setTimeout(() => this.props.fetchReadings('global'), 7500);
+            setTimeout(() => {
+                this.props.fetchTags();
+                this.props.fetchReadings('global');
+            }, 7500);
         } else if (path !== '/subscriptions') {
-            setTimeout(() => this.props.fetchReadings(this.props.currentUser, this.props.currentUser), 7500);
+            setTimeout(() => {
+                this.props.fetchTags();
+                this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
+            }, 7500);
         }
     };
 
@@ -84,4 +91,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { ...globalReadings.actions })(ArticleForm);
+export default connect(mapStateToProps, { ...globalReadings.actions, ...tags.actions })(ArticleForm);
