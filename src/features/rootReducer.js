@@ -8,6 +8,7 @@ import readingsByList from './readingsList';
 import search from './search';
 import subscriptions from './subscriptions';
 import summary from './summary';
+import tags from './tags';
 import user from './user';
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     [search.constants.NAME]: search.reducer,
     [subscriptions.constants.NAME]: subscriptions.reducer,
     [summary.constants.NAME]: summary.reducer,
+    [tags.constants.NAME]: tags.reducer,
     [user.constants.NAME]: user.reducer
 });
   

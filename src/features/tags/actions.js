@@ -16,7 +16,7 @@ export const loadTags = tags => ({
 export const fetchTags = (reading_id, user_id) => {
     return dispatch => {
         return apiCall('get', `/tags`)
-            .then(res => console.log(res))
+            .then(res => dispatch(loadTags(res)))
             .catch(err => dispatch(addError(err)));
     }
 }

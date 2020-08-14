@@ -19,7 +19,10 @@ import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS } from '../actionTypes';
 const tags = (state = {}, action) => {
     switch (action.type) {
         case LOAD_TAGS:
-            // if (action && action.users) {
+            console.log(action);
+            console.log(state);
+            if (action && action.tags) {
+                console.log(action.tags);
             //     return {
             //         ...state,
             //         upToDate: true,
@@ -28,7 +31,7 @@ const tags = (state = {}, action) => {
             //             followers: getIds(action.users.followers)
             //         }
             //     }
-            // }
+            }
             // /* falls through */
         case ADD_TAGS:
             if (action.id && action.user_id && state[action.id]) {
