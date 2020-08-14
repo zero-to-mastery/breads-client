@@ -1,6 +1,9 @@
 import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import loader from '../loader';
+import { receiveEntities } from '../actions';
+import { normalize } from 'normalizr';
+import * as schema from '../../common/services/schema';
 import { LOAD_TAGS } from '../actionTypes';
 
 const { addError, addSuccess } = alerts.actions;
@@ -16,7 +19,11 @@ export const loadTags = tags => ({
 export const fetchTags = (reading_id, user_id) => {
     return dispatch => {
         return apiCall('get', `/tags`)
-            .then(res => dispatch(loadTags(res)))
-            .catch(err => dispatch(addError(err)));
+            .then(res => dispatch(receiveEntities(normalize(res, [schema.tags]))))
+            // .then(res => dispatch(loadTags(res)))
+            .catch(err => {
+                console.log(err);
+                dispatch(addError(err));
+            });
     }
 }

@@ -1,4 +1,4 @@
-import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS } from '../actionTypes';
+import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS, RECEIVE_ENTITIES } from '../actionTypes';
 
 // const getIds = users => {
 //     return Object.values(users).map(user => user.id);
@@ -18,20 +18,16 @@ import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS } from '../actionTypes';
                     // user -> tags, user -> readings, reading -> tags
 const tags = (state = {}, action) => {
     switch (action.type) {
-        case LOAD_TAGS:
-            console.log(action);
-            console.log(state);
-            if (action && action.tags) {
-                console.log(action.tags);
-            //     return {
-            //         ...state,
-            //         upToDate: true,
-            //         [action.id]: {
-            //             following: getIds(action.users.following),
-            //             followers: getIds(action.users.followers)
-            //         }
-            //     }
+        case RECEIVE_ENTITIES:
+            const { entities } = action.payload;
+            if (entities && entities.tags) {
+                return { ...state, ...entities.tags }
             }
+        // case LOAD_TAGS:
+        //     if (action && action.tags) {
+        //         console.log(action.tags);
+        //         return { ...state, ...action.tags }
+        //     }
             // /* falls through */
         case ADD_TAGS:
             if (action.id && action.user_id && state[action.id]) {
