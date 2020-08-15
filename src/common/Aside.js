@@ -20,9 +20,16 @@ const Aside = (props) => {
                     class='card-img-top border-bottom border-secondary'
                 />;
 
+    // ASIDE SHOULD WRAP ALL CONTENT
+        // reading stats aside
+        // user aside
+        // tags aside
+        // ads
+        // etc.
+        // right now user/global aside wraps aside
     return (
         <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0 mb-2'>
-            <div className='card border-secondary'>
+            {/* <div className='card border-secondary'>
                 {match && image}
                 <div className='card-body'>
                     <div className='row pl-3 pr-3'>
@@ -48,7 +55,8 @@ const Aside = (props) => {
                         {props.children}
                     </div>
                 </div>
-            </div>
+            </div> */}
+            {props.children}
         </aside>
     )
 }

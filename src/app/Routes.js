@@ -9,6 +9,7 @@ import { UserAside } from '../features/user';
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
+import Aside from '../common/Aside';
 
 const Routes = props => {
     const { authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser } = props;
@@ -29,7 +30,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history}/>
                                         : <SignUpCard />
                                     }
-                                    <GlobalAside list='global' title='Global' match={props.match}/>
+                                    <Aside>
+                                        <GlobalAside list='global' title='Global' match={props.match}/>
+                                    </Aside>
                                     <GlobalReadingsList list='global' match={props.match}/>
                                 </Timeline>
                             </>
@@ -117,7 +120,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history}/>
                                         : <SignUpCard />
                                     }
-                                    <GlobalAside list='subscriptions' title="Friend's" match={props.match} />
+                                    <Aside>
+                                        <GlobalAside list='subscriptions' title="Friend's" match={props.match} />
+                                    </Aside>
                                     <GlobalReadingsList list='subscriptions' match={props.match}/>
                                 </Timeline>
                             </>
@@ -138,7 +143,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside fav='true' match={props.match}/>
+                                    <Aside>
+                                        <UserAside fav='true' match={props.match}/>
+                                    </Aside>
                                     <GlobalReadingsList
                                         list={props.match.params.id}
                                         id={props.match.params.id}
@@ -179,7 +186,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside fav='true' match={props.match}/>
+                                    <Aside>
+                                        <UserAside fav='true' match={props.match}/>
+                                    </Aside>
                                     <SubscriptionsList match={props.match} sub_type='following'/>
                                 </Timeline>
                             </>
@@ -200,7 +209,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside fav='true' match={props.match}/>
+                                    <Aside>
+                                        <UserAside fav='true' match={props.match}/>
+                                    </Aside>
                                     <SubscriptionsList match={props.match} sub_type='followers'/>
                                 </Timeline>
                             </>
@@ -221,7 +232,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside fav='true' match={props.match}/>
+                                    <Aside>
+                                        <UserAside fav='true' match={props.match}/>
+                                    </Aside>
                                     <GlobalReadingsList
                                         list={props.match.params.id}
                                         id={props.match.params.id}
@@ -246,7 +259,9 @@ const Routes = props => {
                                         ? <ArticleForm history={props.history} match={props.match}/>
                                         : <SignUpCard />
                                     }
-                                    <UserAside fav='true' match={props.match}/>
+                                    <Aside>
+                                        <UserAside fav='true' match={props.match}/>
+                                    </Aside>
                                     <GlobalReadingsList
                                         list={props.match.params.id}
                                         id={props.match.params.id}
