@@ -12,7 +12,7 @@ export const getReadings = (state, list, fav, outdated) => {
 
 export const getReadingById = (state, list, id) => {
     if (state.readingsByList[`${list}`]) { // give time for readingsByList to load
-        return state.readings[id];
+        return state[NAME][id];
     }
 }
 
