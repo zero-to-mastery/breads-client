@@ -4,8 +4,11 @@ import { getTagById } from '../selectors';
 
 const TagItem = ({ tag, key }) => {    
     return (
-        <li className='card-text list-group-item' key={key}>
+        <li className='list-group-item d-flex justify-content-between align-items-center' key={key}>
             #{tag.tag_name}
+            {tag.count > 1 && 
+                <span className='badge badge-primary badge-pill'>{tag.count}</span>
+            }
         </li>
     )
 }

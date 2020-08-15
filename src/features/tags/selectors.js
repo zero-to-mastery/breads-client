@@ -1,10 +1,21 @@
 import { NAME } from './constants';
 
-// need to bring created date from db. ID is not most recent
+// does created_at get updated whenever a row is updated in mysql?
 export const getMostRecentTags = (state) => {
     // give time for tags to load
     if (state && state[NAME]) {
-        let tags = Object.entries(state[NAME]).map(([key, value]) => state[NAME][key].id).reverse();
+        let tags = Object.values(state[NAME])
+                        .sort((a, b) => a.date > b.date)
+                        .map(tag => state[NAME][tag.id].id).reverse();
+        return tags;
+    }
+}
+
+export const getTopTags = (state) => {
+    if (state && state[NAME]) {
+        let tags = Object.values(state[NAME])
+                        .sort((a, b) => b.count - a.count)
+                        .map(tag => state[NAME][tag.id].id);
         return tags;
     }
 }
