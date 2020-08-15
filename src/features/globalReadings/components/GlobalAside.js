@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getReadings, getWebsites } from '../selectors';
-// import Aside from '../../../common/Aside';
 import Card from '../../../common/Card';
 import ReadingStats from '../../../common/ReadingsStats';
 
@@ -39,27 +38,6 @@ const GlobalAside = props => {
             <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/>
             <ReadingStats loading={loading} loading_id={list} statName='Loaves' stat={totalBooks}/>
         </Card>
-            /* {match && image}
-            <div className='card-body'>
-                <div className='row pl-3 pr-3'>
-                    <h4 className='card-title mr-auto'>{title || u.username}</h4>
-                    {!title && currentUser.id && currentUser.id === u.id && 
-                        <NavLink exact to={`/${u.id}/edit`} className='text-warning'>
-                            <FontAwesomeIcon icon={['far', 'edit']}/>
-                        </NavLink>
-                    }
-                    <Subscribe user={u.id} />
-                </div>
-                {!title && 
-                    <>
-                        <NavLink exact to={`/${u.id}/following`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                            Following: {followings ? followings.length : 0}
-                        </NavLink>
-                        <NavLink exact to={`/${u.id}/followers`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                            Followers: {followers ? followers.length : 0}
-                        </NavLink>
-                    </>
-                } */
     )
 }
 

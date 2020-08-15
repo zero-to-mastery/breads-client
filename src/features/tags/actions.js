@@ -18,9 +18,12 @@ export const loadTags = tags => ({
 
 export const fetchTags = (reading_id, user_id) => {
     return dispatch => {
+        dispatch(addLoader('tags'));
         return apiCall('get', `/tags`)
-            .then(res => dispatch(receiveEntities(normalize(res, [schema.tags]))))
-            // .then(res => dispatch(loadTags(res)))
+            .then(res => {
+                dispatch(receiveEntities(normalize(res, [schema.tags])));
+                dispatch(removeLoader('tags'));
+            })
             .catch(err => {
                 console.log(err);
                 dispatch(addError(err));

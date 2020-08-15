@@ -1,13 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ReadingStats = props => {
+const ReadingStats = ({ statName, stat, loading, loading_id }) => {
     return (
         <p className='card-text'>
-            {props.statName}:
-            {props.loading.isLoading && props.loading.id.includes(props.loading_id)
+            {statName}:
+            {loading.isLoading && loading.id.includes(loading_id)
                 ? <FontAwesomeIcon icon='spinner' pulse/>
-                : <strong> {props.stat}</strong>
+                : <strong> {stat}</strong>
             }
         </p>
     )
