@@ -5,12 +5,12 @@ import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../fea
 import alerts, { Alert } from '../features/alerts';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
 import { SubscriptionsList } from '../features/subscriptions';
+import { TagsAside } from '../features/tags';
 import { UserAside } from '../features/user';
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 import Aside from '../common/Aside';
-import TagsAside from '../features/tags/TagsAside';
 
 const Routes = props => {
     const { authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser } = props;

@@ -1,5 +1,6 @@
 import { NAME } from './constants';
 
+// need to bring created date from db. ID is not most recent
 export const getMostRecentTags = (state) => {
     // give time for tags to load
     if (state && state[NAME]) {

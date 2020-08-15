@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getTagById } from './selectors';
+import { getTagById } from '../selectors';
 
 const TagItem = ({ tag, key }) => {    
     return (
