@@ -8,7 +8,7 @@ const VirtualizedList = props => {
     // NEED TO DECOUPLE FROM STATE SHAPE - removing this from virtualized list, remember to fix rowrenderer
     let r = {};
     if (readings && readings.length > 0) r = readings;
-
+    console.log(r === true);
     const cache = new CellMeasurerCache({
         fixedWidth: true,
         minHeight: 225,
@@ -38,29 +38,31 @@ const VirtualizedList = props => {
     
     return (
         <div className='col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
-            <WindowScroller>
-                {({ height, isScrolling, onChildScroll, scrollTop }) => (
-                    <div className='list-group' id='list_data'>
-                        <AutoSizer disableHeight> 
-                            {({ width }) => (
-                                <List 
-                                    width={width}
-                                    height={height}
-                                    deferredMeasurementCache={cache}
-                                    rowHeight={cache.rowHeight}
-                                    rowRenderer={renderRow}
-                                    rowCount={Object.keys(r).length}
-                                    autoHeight
-                                    scrollTop={scrollTop}
-                                    isScrolling={isScrolling}
-                                    onScroll={onChildScroll}
-                                    style={{ outline: 'none' }}
-                                />
-                            )}
-                        </AutoSizer> 
-                    </div>
-                )}
-            </WindowScroller>
+            {readings && readings.length > 0 && 
+                <WindowScroller>
+                    {({ height, isScrolling, onChildScroll, scrollTop }) => (
+                        <div className='list-group' id='list_data'>
+                            <AutoSizer disableHeight> 
+                                {({ width }) => (
+                                    <List 
+                                        width={width}
+                                        height={height}
+                                        deferredMeasurementCache={cache}
+                                        rowHeight={cache.rowHeight}
+                                        rowRenderer={renderRow}
+                                        rowCount={Object.keys(r).length}
+                                        autoHeight
+                                        scrollTop={scrollTop}
+                                        isScrolling={isScrolling}
+                                        onScroll={onChildScroll}
+                                        style={{ outline: 'none' }}
+                                    />
+                                )}
+                            </AutoSizer> 
+                        </div>
+                    )}
+                </WindowScroller>
+            }
         </div>
     )
 }
