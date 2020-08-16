@@ -12,7 +12,7 @@ const GlobalAside = props => {
         totalBooks,
         totalWords = 0,
         maxReads = 0;
-        
+        console.log(readings);
     if (readings && readings.length > 0) {
         readings.forEach(r => {
             totalWords += r.word_count/100000;
@@ -43,7 +43,7 @@ const GlobalAside = props => {
 
 function mapStateToProps(state, ownProps) {
     return {
-        readings: getReadings(state, ownProps.list),
+        readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
         websites: getWebsites(state, ownProps.list),
         loading: state.loading
     }

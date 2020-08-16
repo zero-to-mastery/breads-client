@@ -1,11 +1,25 @@
 import { NAME } from './constants';
 
-export const getReadings = (state, list, fav, outdated) => {
+const getFavoriteReadings = readings => {
+    return readings.filter(reading => reading.favorite === reading.reader);
+}
+
+const getTagReadings = (readings, tag_id) => {
+    return readings.filter(reading => {
+        const notNull = reading.tags !== null;
+        const containsTagId = reading.tags === tag_id || (notNull && reading.tags.includes(tag_id));
+
+        return containsTagId;
+    });
+}
+
+export const getReadings = (state, list, fav, outdated, tag_id) => {
     // give time for readingsByList items to load
     if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         let readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]).reverse();
-        if (fav) return readings.filter(reading => reading.favorite === reading.reader);
+        if (fav) return getFavoriteReadings(readings);
         if (outdated) return getUserReadingsInNeedOfUpdate(state, list);
+        if (tag_id) return getTagReadings(readings, tag_id);
         return readings;
     }
 }

@@ -43,6 +43,34 @@ const Routes = props => {
                 />
                 <Route
                     exact
+                    path='/tag/:id'
+                    render={props => {
+                        return (
+                            <>
+                                {alerts.message && 
+                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                }
+                                <Timeline>
+                                    {currentUser.isAuthenticated
+                                        ? <ArticleForm history={props.history}/>
+                                        : <SignUpCard />
+                                    }
+                                    <Aside>
+                                        <GlobalAside
+                                            list='global'
+                                            title='Global'
+                                            tag_id={props.match.params.id}
+                                        />
+                                        <TagsAside/>
+                                    </Aside>
+                                    <GlobalReadingsList list='global' tag_id={props.match.params.id} match={props.match}/>
+                                </Timeline>
+                            </>
+                        )
+                    }}
+                />
+                <Route
+                    exact
                     path='/signin'
                     render={props => {
                         return (

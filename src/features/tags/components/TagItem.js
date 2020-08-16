@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTagById } from '../selectors';
 
-const TagItem = ({ tag, key }) => {    
-    return (
-        <li className='list-group-item d-flex justify-content-between align-items-center' key={key}>
-            #{tag.tag_name}
-            {tag.count > 1 && 
-                <span className='badge badge-primary badge-pill'>{tag.count}</span>
-            }
-        </li>
-    )
+class TagItem extends Component {
+    // handleClick = e => {
+    //     // property 'name' is not valid for li element, so I must use getAttribute()
+    //     console.log(e.target.getAttribute('name'));
+    // }
+
+    render() {
+        const { tag, key } = this.props;
+        console.log(tag.id);
+        return (
+            <NavLink exact to={`/tag/${tag.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
+                <li className='list-group-item d-flex justify-content-between align-items-center' name={tag.id} key={key}>
+                    #{tag.tag_name}
+                    {tag.count > 1 && 
+                        <span className='badge badge-primary badge-pill'>{tag.count}</span>
+                    }
+                </li>
+            </NavLink>
+            
+        )
+    }
+    
 }
 
 function mapStateToProps(state, ownProps) {
