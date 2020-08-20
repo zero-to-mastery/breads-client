@@ -17,10 +17,23 @@ export const loadTags = tags => ({
 });
 
 export const fetchTags = (list, id) => {
-    return dispatch => {
+    return (dispatch, getState) => {
         if (list === 'global') {
             dispatch(addLoader('tags'));
             return apiCall('get', `/tags`)
+                .then(res => {
+                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(removeLoader('tags'));
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch(addError(err));
+                });
+        } else if (list === 'subscriptions') {
+            dispatch(addLoader('tags'));
+            let {currentUser} = getState();
+            const id = currentUser.user.id;
+            return apiCall('get', `/tags/${id}/subscriptions`)
                 .then(res => {
                     dispatch(receiveEntities(normalize(res, [schema.tags])));
                     dispatch(removeLoader('tags'));
