@@ -16,17 +16,30 @@ export const loadTags = tags => ({
     tags
 });
 
-export const fetchTags = (reading_id, user_id) => {
+export const fetchTags = (list, id) => {
     return dispatch => {
-        dispatch(addLoader('tags'));
-        return apiCall('get', `/tags`)
-            .then(res => {
-                dispatch(receiveEntities(normalize(res, [schema.tags])));
-                dispatch(removeLoader('tags'));
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch(addError(err));
-            });
+        if (list === 'global') {
+            dispatch(addLoader('tags'));
+            return apiCall('get', `/tags`)
+                .then(res => {
+                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(removeLoader('tags'));
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch(addError(err));
+                });
+        } else if (id) {
+            dispatch(addLoader('userTags'));
+            return apiCall('get', `/tags/${id}`)
+                .then(res => {
+                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(removeLoader('userTags'));
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch(addError(err.message));
+                });
+        }
     }
 }

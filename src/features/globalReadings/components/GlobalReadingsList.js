@@ -7,13 +7,13 @@ import VirtualizedList from './VirtualizedList';
 
 class ReadingsList extends Component {
     componentDidMount() {
-        this.props.fetchTags();
+        this.props.fetchTags(this.props.list, this.props.id);
         this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.url !== prevProps.match.url) {
-            this.props.fetchTags();
+            this.props.fetchTags(this.props.list, this.props.id);
             this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
         }
     }
