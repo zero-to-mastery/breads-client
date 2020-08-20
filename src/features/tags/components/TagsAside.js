@@ -43,8 +43,8 @@ class TagsAside extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        mostRecentTags: getMostRecentTags(state),
-        topTags: getTopTags(state),
+        mostRecentTags: getMostRecentTags(state, ownProps.list, ownProps.user_id),
+        topTags: getTopTags(state, ownProps.list, ownProps.user_id),
         loading: state.loading
     }
 }
