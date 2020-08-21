@@ -11,7 +11,7 @@ class TagItem extends Component {
 
     render() {
         const { tag, key } = this.props;
-        console.log(tag.id);
+
         return (
             <NavLink exact to={`/tag/${tag.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
                 <li className='list-group-item d-flex justify-content-between align-items-center' name={tag.id} key={key}>
