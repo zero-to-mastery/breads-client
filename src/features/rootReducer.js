@@ -9,6 +9,7 @@ import search from './search';
 import subscriptions from './subscriptions';
 import summary from './summary';
 import tags from './tags';
+import tagsByList from './tagsList';
 import user from './user';
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     [subscriptions.constants.NAME]: subscriptions.reducer,
     [summary.constants.NAME]: summary.reducer,
     [tags.constants.NAME]: tags.reducer,
+    [tagsByList.constants.NAME]: tagsByList.reducer,
     [user.constants.NAME]: user.reducer
 });
   
