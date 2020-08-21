@@ -15,7 +15,13 @@ const ListItem = props => {
     
     const minutes = Math.round(reading.word_count / 300);
     let tag_names;
-    if (reading.tags && tags) tag_names = reading.tags.map(tag_id => `#${tags[tag_id].tag_name} `);
+    if (reading.tags && tags) {
+        tag_names = reading.tags.map(tag_id => {
+            return <Link to={`/tag/${tags[tag_id].id}`}>
+                        {`#${tags[tag_id].tag_name} `}
+                    </Link>
+        });
+    }
 
     // use images.webserv.nl to serve http images as https
     let backgroundImg = '';
