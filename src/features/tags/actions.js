@@ -9,8 +9,8 @@ import { LOAD_TAGS } from '../actionTypes';
 const { addError, addSuccess } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
-export const addTags = () => ({});
-export const removeTags = () => ({});
+export const addTag = () => ({});
+export const removeTag = () => ({});
 export const loadTags = tags => ({
     type: LOAD_TAGS,
     tags

@@ -1,4 +1,4 @@
-import { ADD_TAGS, REMOVE_TAGS, LOAD_TAGS, RECEIVE_ENTITIES } from '../actionTypes';
+import { ADD_TAG, REMOVE_TAG, LOAD_TAGS, RECEIVE_ENTITIES } from '../actionTypes';
 
 // const getIds = users => {
 //     return Object.values(users).map(user => user.id);
@@ -29,7 +29,7 @@ const tags = (state = {}, action) => {
         //         return { ...state, ...action.tags }
         //     }
             // /* falls through */
-        case ADD_TAGS:
+        case ADD_TAG:
             if (action.id && action.user_id && state[action.id]) {
                 return {
                     ...state,
@@ -54,7 +54,7 @@ const tags = (state = {}, action) => {
                 }
             }
             /* falls through */
-        case REMOVE_TAGS:
+        case REMOVE_TAG:
             const { id, user_id } = action;
             if (id && user_id && state[id]) {
                 return {

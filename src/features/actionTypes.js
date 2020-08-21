@@ -36,8 +36,8 @@ export const LOAD_SUMMARY = 'LOAD_SUMMARY';
 export const REMOVE_SUMMARY = 'REMOVE_SUMMARY';
 
 // tags
-export const ADD_TAGS = 'ADD_TAGS';
-export const REMOVE_TAGS = 'REMOVE_TAGS';
+export const ADD_TAG = 'ADD_TAG';
+export const REMOVE_TAG = 'REMOVE_TAG';
 export const LOAD_TAGS = 'LOAD_TAGS';
 
 // user
