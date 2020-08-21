@@ -57,19 +57,19 @@ export const fetchTags = (list, id) => {
     }
 }
 
-// const shouldFetchTags = (state, list) => {
-//     const tags = state.tagsByList[list];
-//     if (!tags) return true;
+const shouldFetchTags = (state, list) => {
+    const tags = state.tagsByList[list];
+    if (!tags) return true;
     
-//     // only initiates if there's tags
-//     const upToDate = state.tagsByList[list].upToDate;
-//     if (upToDate === false) return true;
-// }
+    // only initiates if there's tags
+    const upToDate = state.tagsByList[list].upToDate;
+    if (upToDate === false) return true;
+}
 
-// export const fetchTagsIfNeeded = (list, id) => {
-//     return (dispatch, getState) => {
-//         if (shouldFetchTags(getState(), list)) {
-//             return dispatch(fetchTags(list, id));
-//         }
-//     }
-// }
+export const fetchTagsIfNeeded = (list, id) => {
+    return (dispatch, getState) => {
+        if (shouldFetchTags(getState(), list)) {
+            return dispatch(fetchTags(list, id));
+        }
+    }
+}

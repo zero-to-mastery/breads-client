@@ -18,7 +18,7 @@ const { getFollowers, getFollowings } = subscriptions.selectors;
 class UserAside extends Component {
     componentDidMount() {
         if (this.props.match) {
-            this.props.fetchTags(this.props.match.params.id, this.props.match.params.id);
+            this.props.fetchTagsIfNeeded(this.props.match.params.id, this.props.match.params.id);
             this.props.fetchUserIfNeeded(this.props.match.params.id);
             this.props.fetchSubscriptionsIfNeeded(this.props.match.params.id);
             this.props.fetchReadingsIfNeeded(this.props.match.params.id, this.props.match.params.id);
@@ -29,7 +29,7 @@ class UserAside extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.match && prevProps.match && this.props.match.params.id !== prevProps.match.params.id) {
-            this.props.fetchTags(this.props.match.params.id, this.props.match.params.id);
+            this.props.fetchTagsIfNeeded(this.props.match.params.id, this.props.match.params.id);
             this.props.fetchUserIfNeeded(this.props.match.params.id);
             this.props.fetchSubscriptionsIfNeeded(this.props.match.params.id);
             this.props.fetchReadingsIfNeeded(this.props.match.params.id, this.props.match.params.id);
