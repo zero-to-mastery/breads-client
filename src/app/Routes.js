@@ -33,7 +33,7 @@ const Routes = props => {
                                     }
                                     <Aside>
                                         <GlobalAside list='global' title='Global' match={props.match}/>
-                                        <TagsAside/>
+                                        <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' match={props.match}/>
                                 </Timeline>
@@ -61,7 +61,7 @@ const Routes = props => {
                                             title='Global'
                                             tag_id={props.match.params.id}
                                         />
-                                        <TagsAside/>
+                                        <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' tag_id={props.match.params.id} match={props.match}/>
                                 </Timeline>
@@ -152,7 +152,7 @@ const Routes = props => {
                                     }
                                     <Aside>
                                         <GlobalAside list='subscriptions' title="Friend's" match={props.match} />
-                                        <TagsAside/>
+                                        <TagsAside list='subscriptions'/>
                                     </Aside>
                                     <GlobalReadingsList list='subscriptions' match={props.match}/>
                                 </Timeline>
@@ -176,7 +176,7 @@ const Routes = props => {
                                     }
                                     <Aside>
                                         <UserAside fav='true' match={props.match}/>
-                                        <TagsAside user_id={props.match.params.id} />
+                                        <TagsAside list={props.match.params.id} user_id={props.match.params.id} />
                                     </Aside>
                                     <GlobalReadingsList
                                         list={props.match.params.id}
@@ -268,7 +268,7 @@ const Routes = props => {
                                     }
                                     <Aside>
                                         <UserAside fav='true' match={props.match}/>
-                                        <TagsAside/>
+                                        <TagsAside list={props.match.params.id}/>
                                     </Aside>
                                     <GlobalReadingsList
                                         list={props.match.params.id}
