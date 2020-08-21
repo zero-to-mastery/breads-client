@@ -22,7 +22,7 @@ export const fetchTags = (list, id) => {
             dispatch(addLoader('tags'));
             return apiCall('get', `/tags`)
                 .then(res => {
-                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(receiveEntities(normalize(res, [schema.tags]), list));
                     dispatch(removeLoader('tags'));
                 })
                 .catch(err => {
@@ -35,7 +35,7 @@ export const fetchTags = (list, id) => {
             const id = currentUser.user.id;
             return apiCall('get', `/tags/${id}/subscriptions`)
                 .then(res => {
-                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(receiveEntities(normalize(res, [schema.tags]), list));
                     dispatch(removeLoader('tags'));
                 })
                 .catch(err => {
@@ -46,7 +46,7 @@ export const fetchTags = (list, id) => {
             dispatch(addLoader('userTags'));
             return apiCall('get', `/tags/${id}`)
                 .then(res => {
-                    dispatch(receiveEntities(normalize(res, [schema.tags])));
+                    dispatch(receiveEntities(normalize(res, [schema.tags]), list));
                     dispatch(removeLoader('userTags'));
                 })
                 .catch(err => {
