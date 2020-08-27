@@ -10,14 +10,14 @@ class Tags extends Component {
     }
 
     render() {
-        const { currentUser, reader, tag_names } = this.props;
+        const { currentUser, reading, tag_names } = this.props;
 
         return (
             <>
-                {currentUser.id === reader && 
+                {currentUser.id === reading.reader && 
                 <>
                     <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'>
-                        <FontAwesomeIcon icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
+                        <FontAwesomeIcon icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal' data-id={reading.id}/>
                         <small> {tag_names}</small>
                     </p>
                 </>

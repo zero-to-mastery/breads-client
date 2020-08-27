@@ -68,7 +68,7 @@ const ListItem = props => {
                         <Summary id={id}/>
                     } */}
                     {reading.tags &&
-                        <Tags reader={reading.reader} tag_names={tag_names} />
+                        <Tags reading={reading} tag_names={tag_names} />
                     }
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
