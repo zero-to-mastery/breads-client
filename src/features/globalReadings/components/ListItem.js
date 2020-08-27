@@ -17,7 +17,7 @@ const ListItem = props => {
     let tag_names;
     if (reading.tags && tags) {
         tag_names = reading.tags.map(tag_id => {
-            return <Link to={`/tag/${tags[tag_id].id}`}>
+            return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
                         {`#${tags[tag_id].tag_name} `}
                     </Link>
         });
