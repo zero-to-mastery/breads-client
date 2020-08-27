@@ -32,7 +32,7 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='global' title='Global' match={props.match}/>
+                                        <GlobalAside list='global' title='Global Readings' match={props.match}/>
                                         <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' match={props.match}/>
@@ -58,7 +58,6 @@ const Routes = props => {
                                     <Aside>
                                         <GlobalAside
                                             list='global'
-                                            title='Global'
                                             tag_id={props.match.params.id}
                                         />
                                         <TagsAside list='global'/>
@@ -151,7 +150,7 @@ const Routes = props => {
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='subscriptions' title="Friend's" match={props.match} />
+                                        <GlobalAside list='subscriptions' title="Friend's Readings" match={props.match} />
                                         <TagsAside list='subscriptions'/>
                                     </Aside>
                                     <GlobalReadingsList list='subscriptions' match={props.match}/>

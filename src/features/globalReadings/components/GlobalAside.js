@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { getReadings, getWebsites } from '../selectors';
 import Card from '../../../common/Card';
 import ReadingStats from '../../../common/ReadingsStats';
+import { getTagById } from '../../tags/selectors';
 
 const GlobalAside = props => {
-    let { readings, websites, loading, list, title } = props;
+    let { readings, websites, loading, list, title, tag } = props;
     let totalReadings,
-        totalWebsites, // doesn't change with tag
-        topWebsite, // doesn't change with tag
+        totalWebsites,
+        topWebsite,
         totalBooks,
         totalWords = 0,
         maxReads = 0;
@@ -30,9 +31,11 @@ const GlobalAside = props => {
         }
     }
 
+    if (!title && tag) title = `#${tag.tag_name}`;
+
     return (
         <Card>
-            <h4 className='card-title'>{title} Readings</h4>
+            <h4 className='card-title'>{title}</h4>
             <ReadingStats loading={loading} loading_id={list} statName='Readings' stat={totalReadings}/>
             <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/>
             <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/>
@@ -45,7 +48,8 @@ function mapStateToProps(state, ownProps) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
         websites: getWebsites(state, ownProps.list, ownProps.tag_id),
-        loading: state.loading
+        loading: state.loading,
+        tag: getTagById(state, ownProps.tag_id)
     }
 }
 
