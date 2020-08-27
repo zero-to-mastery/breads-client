@@ -44,7 +44,7 @@ const ListItem = props => {
                     <p className='lead'>{reading.domain}</p>
                     { minutes > 0 && <p className='text-muted ml-auto'>{minutes} min read</p> }          
                 </div>
-                <div className='card-text row ml-1'>
+                <div className='card-text row flex-nowrap ml-1'>
                     <UserImage
                         image={users[reading.reader].image}
                         username={users[reading.reader].username}
@@ -59,7 +59,7 @@ const ListItem = props => {
                         </Link>    
                     }
 
-                    <Moment className='text-muted mt-3 ml-2 mr-auto' fromNow ago>
+                    <Moment className='text-muted text-nowrap mt-3 ml-2 mr-auto' fromNow ago>
                         {reading.created_at}
                     </Moment> 
 
@@ -67,7 +67,7 @@ const ListItem = props => {
                         <Summary id={id}/>
                     } */}
                     {reading.tags && 
-                        <p className='btn text-primary m-2'><small>{tag_names}</small></p>
+                        <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'><small>{tag_names}</small></p>
                     }
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>

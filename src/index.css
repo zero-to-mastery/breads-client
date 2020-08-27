@@ -79,3 +79,8 @@ input[type="text"], textarea {
 .cover {
     background-size: cover;
 }
+
+.overflow-auto-horizontal {
+    overflow: auto;
+    overflow-y: hidden;
+}
