@@ -18,28 +18,28 @@ const tagsByList = (state = {}, action) => {
                 }
             }
             /* falls through */
-        // case ADD_TAG:
-        //     if (action.user_id && state[action.user_id]) {
-        //         return {
-        //             ...state,
-        //             global: {
-        //                 ...state.global,
-        //                 upToDate: false
-        //             },
-        //             [action.user_id]: {
-        //                 ...state[action.user_id],
-        //                 upToDate: false
-        //             }
-        //         }
-        //     } else if (action.user_id && !state[action.user_id]){
-        //         return {
-        //             ...state,
-        //             global: {
-        //                 ...state.global,
-        //                 upToDate: false
-        //             }
-        //         }
-        //     }
+        case ADD_TAG:
+            if (action.user_id && state[action.user_id]) {
+                return {
+                    ...state,
+                    global: {
+                        ...state.global,
+                        upToDate: false
+                    },
+                    [action.user_id]: {
+                        ...state[action.user_id],
+                        upToDate: false
+                    }
+                }
+            } else if (action.user_id && !state[action.user_id]){
+                return {
+                    ...state,
+                    global: {
+                        ...state.global,
+                        upToDate: false
+                    }
+                }
+            }
             /* falls through */
         // case REMOVE_TAG:
         //     const { reading_id, user_id } = action;

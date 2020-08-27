@@ -1,6 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import loader from '../loader';
+import tags from '../tags';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
@@ -8,6 +9,7 @@ import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
 const { addError, addSuccess } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
+const { addTag } = tags.actions;
 
 export const toggleFavorite = (id, user_id) => ({
     type: TOGGLE_FAVORITE,
@@ -73,6 +75,7 @@ export const postNewReading = (url, tags) => (dispatch, getState) => {
     return apiCall('post', `/users/${id}/readings`, { url, tags })
         .then(() => {
             dispatch(addReading(id));
+            dispatch(addTag(id));
             dispatch(removeLoader('newReading'));
             dispatch(addSuccess('Article uploaded'));
         })

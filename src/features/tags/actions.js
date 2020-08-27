@@ -4,12 +4,16 @@ import loader from '../loader';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
-import { LOAD_TAGS } from '../actionTypes';
+import { ADD_TAG, LOAD_TAGS } from '../actionTypes';
 
 const { addError, addSuccess } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
-export const addTag = () => ({});
+export const addTag = user_id => ({
+    type: ADD_TAG,
+    user_id
+});
+
 export const removeTag = () => ({});
 export const loadTags = tags => ({
     type: LOAD_TAGS,
@@ -56,6 +60,26 @@ export const fetchTags = (list, id) => {
         }
     }
 }
+
+export const postNewTag = tags => {
+    return (dispatch, getState) => {
+        let { currentUser } = getState();
+        const user_id = currentUser.user.id;
+        return apiCall('post', `/tags`, { tags })
+            .then(() => dispatch(addTag(user_id)))
+            .catch(err => dispatch(addError(err.message)));
+    }
+}
+
+// export const deleteTag = tag => {
+//     return (dispatch, getState) => {
+//         let { currentUser } = getState();
+//         const user_id = currentUser.user.id;
+//         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
+//             .then(() => dispatch(toggleFavorite(id, user_id))) // remove favorite from state
+//             .catch(err => dispatch(addError(err.message)));
+//     }
+// }
 
 const shouldFetchTags = (state, list) => {
     const tags = state.tagsByList[list];
