@@ -7,6 +7,7 @@ import UserImage from '../../../common/UserImage';
 import Favorites from './Favorites';
 import Delete from './Delete';
 import Update from './Update';
+import Tags from './Tags';
 import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
@@ -66,8 +67,8 @@ const ListItem = props => {
                     {/* {minutes > 0 && 
                         <Summary id={id}/>
                     } */}
-                    {reading.tags && 
-                        <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'><small>{tag_names}</small></p>
+                    {reading.tags &&
+                        <Tags reader={reading.reader} tag_names={tag_names} />
                     }
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
