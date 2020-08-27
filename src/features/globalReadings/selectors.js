@@ -30,11 +30,14 @@ export const getReadingById = (state, list, id) => {
     }
 }
 
-export const getWebsites = (state, list) => {
+export const getWebsites = (state, list, tag_id) => {
     // get readings by list (wait for list to load)
     if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         // map readings into array of domain names
-        const readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]);
+        let readings = state.readingsByList[`${list}`].items.map(id => state[NAME][id]);
+        
+        // only use tag readings if tag_id is included
+        if (tag_id) readings = getTagReadings(readings, tag_id);
         
         // count frequencies into object
         let websiteCount = {};

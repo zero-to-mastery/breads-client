@@ -7,8 +7,8 @@ import ReadingStats from '../../../common/ReadingsStats';
 const GlobalAside = props => {
     let { readings, websites, loading, list, title } = props;
     let totalReadings,
-        totalWebsites,
-        topWebsite,
+        totalWebsites, // doesn't change with tag
+        topWebsite, // doesn't change with tag
         totalBooks,
         totalWords = 0,
         maxReads = 0;
@@ -44,7 +44,7 @@ const GlobalAside = props => {
 function mapStateToProps(state, ownProps) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
-        websites: getWebsites(state, ownProps.list),
+        websites: getWebsites(state, ownProps.list, ownProps.tag_id),
         loading: state.loading
     }
 }
