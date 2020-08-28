@@ -63,26 +63,33 @@ export const fetchTags = (list, id) => {
 
 export const postNewTags = (reading_url, tags) => {
     return (dispatch, getState) => {
+        dispatch(addLoader('addTag'));
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
         return apiCall('post', `/tags/${user_id}`, { reading_url, tags })
             .then(() => {
                 dispatch(addTag(user_id));
+                dispatch(removeLoader('addTag'));
                 dispatch(addSuccess('Tags updated'));
             })
             .catch(err => dispatch(addError(err.message)));
     }
 }
 
-// export const deleteTag = tag => {
-//     return (dispatch, getState) => {
-//         let { currentUser } = getState();
-//         const user_id = currentUser.user.id;
-//         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
-//             .then(() => dispatch(toggleFavorite(id, user_id))) // remove favorite from state
-//             .catch(err => dispatch(addError(err.message)));
-//     }
-// }
+export const updateTags = (reading_url, add_tags, delete_tags) => {
+    return (dispatch, getState) => {
+        dispatch(addLoader('updateTag'));
+        let { currentUser } = getState();
+        const user_id = currentUser.user.id;
+        return apiCall('put', `/tags/${user_id}`, { reading_url, add_tags, delete_tags })
+            .then(() => {
+                dispatch(addTag(user_id));
+                dispatch(removeLoader('updateTag'));
+                dispatch(addSuccess('Tags updated'));
+            })
+            .catch(err => dispatch(addError(err.message)));
+    }
+}
 
 const shouldFetchTags = (state, list) => {
     const tags = state.tagsByList[list];

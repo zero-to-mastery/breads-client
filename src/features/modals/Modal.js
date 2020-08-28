@@ -11,14 +11,16 @@ class Modal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tags: ''
+            newTags: '',
+            oldTags: ''
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.modals.modalProps.tag_names !== prevProps.modals.modalProps.tag_names) {
             this.setState({
-                tags: this.props.modals.modalProps.tag_names ? this.props.modals.modalProps.tag_names.join(' ') : ''
+                newTags: this.props.modals.modalProps.tag_names ? this.props.modals.modalProps.tag_names.join(' ') : '',
+                oldTags: this.props.modals.modalProps.tag_names ? this.props.modals.modalProps.tag_names.join(' ') : ''
             });
         }
     }
@@ -34,20 +36,30 @@ class Modal extends Component {
     };
 
     handleNewTags = e => {
-        // e.preventDefault();
-        this.props.postNewTags(this.props.modals.modalProps.reading.url, this.state.tags, this.props.currentUser);
+        const { add_tags, delete_tags } = this.compareTagArrays(this.state.oldTags.split(' '), this.state.newTags.split(' '));
+        const tag_names = this.props.modals.modalProps.tag_names;
+
+        if (tag_names.length === 0) this.props.postNewTags(this.props.modals.modalProps.reading.url, this.state.tags, this.props.currentUser);
+        else this.props.updateTags(this.props.modals.modalProps.reading.url, add_tags, delete_tags);
+        
         this.setState({ tags: '' });
         this.props.removeModal();
-        // update local state
         setTimeout(() => {
             this.props.fetchTags(this.props.currentUser, this.props.currentUser);
             // this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
         }, 3500);
     };
 
+    compareTagArrays = (arr1, arr2) => {
+        let add_tags = arr2.filter(tag => !arr1.includes(tag)).join(' ');
+        let delete_tags = arr1.filter(tag => !arr2.includes(tag)).join(' ');
+
+        return { add_tags, delete_tags }
+    }
+
     render() {
         const { title } = this.props;
-        let { tags } = this.state;
+        let { newTags } = this.state;
 
         return (
             <div className='modal fade' id='exampleModal' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
@@ -64,9 +76,9 @@ class Modal extends Component {
                             type='text'
                             className='form-control form-control-sm'
                             id='tags-modal'
-                            name='tags'
+                            name='newTags'
                             onChange={this.handleChange}
-                            value={tags}
+                            value={newTags}
                         />
                         <small className='form-text text-muted'>
                             Add, update, and delete tags for this reading above. Separate tags with '#'. (e.g. #fun #learning)
