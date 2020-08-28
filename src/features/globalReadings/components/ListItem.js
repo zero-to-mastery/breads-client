@@ -15,14 +15,6 @@ const ListItem = props => {
     const { id, style, list, users, reading, summary, currentUser, outdated, tags } = props;
     
     const minutes = Math.round(reading.word_count / 300);
-    let tag_names;
-    if (reading.tags && tags) {
-        tag_names = reading.tags.map(tag_id => {
-            return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
-                        {`#${tags[tag_id].tag_name} `}
-                    </Link>
-        });
-    }
 
     // use images.webserv.nl to serve http images as https
     let backgroundImg = '';
@@ -70,7 +62,7 @@ const ListItem = props => {
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
                             {tags && 
-                                <Tags reading={reading} tag_names={tag_names} />
+                                <Tags reading={reading} tags={tags} />
                             }
                             <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
                             <Delete id={id} reader={reading.reader}/>

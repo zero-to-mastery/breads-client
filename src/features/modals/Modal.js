@@ -5,13 +5,21 @@ import globalReadings from '../globalReadings';
 import { removeModal } from './actions';
 
 // why is this undefined? it's not in ArticleForm
-console.log(globalReadings);
+// console.log(globalReadings);
 
 class Modal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             tags: ''
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.modals.modalProps.tag_names !== prevProps.modals.modalProps.tag_names) {
+            this.setState({
+                tags: this.props.modals.modalProps.tag_names ? this.props.modals.modalProps.tag_names.join(' ') : ''
+            });
         }
     }
 
@@ -33,39 +41,35 @@ class Modal extends Component {
         // update local state
         setTimeout(() => {
             this.props.fetchTags(this.props.currentUser, this.props.currentUser);
-            this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
+            // this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
         }, 3500);
     };
 
     render() {
-        const { title, tags } = this.props;
+        const { title } = this.props;
+        let { tags } = this.state;
+
         return (
-            <div className='modal fade' id='exampleModal' tabIndex='-1' role='dialog'
-            aria-labelledby='exampleModalLabel'
-            aria-hidden='true'
-            >
+            <div className='modal fade' id='exampleModal' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                 <div className='modal-dialog' role='document'>
                     <div className='modal-content'>
                         <div className='modal-header'>
                             <h5 className='modal-title' id='exampleModalLabel'>{title}</h5>
                             <button onClick={this.handleClose} type='button' className='close' data-dismiss='modal' aria-label='Close'>
-                                <span 
-                                aria-hidden='true'
-                                >&times;</span>
+                                <span aria-hidden='true'>&times;</span>
                             </button>
                         </div>
                         <div className='modal-body'>
                         <input
                             type='text'
                             className='form-control form-control-sm'
-                            id='tags'
+                            id='tags-modal'
                             name='tags'
                             onChange={this.handleChange}
-                            placeholder='add tags (optional)'
                             value={tags}
                         />
                         <small className='form-text text-muted'>
-                            Separate tags with '#'. (e.g. #fun #learning)
+                            Add, update, and delete tags for this reading above. Separate tags with '#'. (e.g. #fun #learning)
                         </small>
                         </div>
                         <div className='modal-footer'>
