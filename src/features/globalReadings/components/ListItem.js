@@ -67,11 +67,11 @@ const ListItem = props => {
                     {/* {minutes > 0 && 
                         <Summary id={id}/>
                     } */}
-                    {reading.tags &&
-                        <Tags reading={reading} tag_names={tag_names} />
-                    }
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <>
+                            {tags && 
+                                <Tags reading={reading} tag_names={tag_names} />
+                            }
                             <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
                             <Delete id={id} reader={reading.reader}/>
                         </>

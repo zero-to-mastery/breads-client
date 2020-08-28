@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import tags from '../../tags';
+import modals from '../../modals';
 
 class Tags extends Component {
     
     handleClick = () => {
-        alert('Heres a modal')
+        this.props.addModal('form', {'reading': this.props.reading})
     }
 
     render() {
@@ -14,14 +14,12 @@ class Tags extends Component {
 
         return (
             <>
-                {currentUser.id === reading.reader && 
-                <>
-                    <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'>
-                        <FontAwesomeIcon icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal' data-id={reading.id}/>
-                        <small> {tag_names}</small>
-                    </p>
-                </>
-                }
+                <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'>
+                    {currentUser.id === reading.reader && 
+                        <FontAwesomeIcon onClick={this.handleClick} icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
+                    }  
+                    <small> {tag_names}</small>
+                </p>
             </>
         )
     }
@@ -33,4 +31,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { ...tags.actions })(Tags);
+export default connect(mapStateToProps, { ...modals.actions })(Tags);

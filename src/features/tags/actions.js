@@ -61,12 +61,15 @@ export const fetchTags = (list, id) => {
     }
 }
 
-export const postNewTag = tags => {
+export const postNewTags = (reading_url, tags) => {
     return (dispatch, getState) => {
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
-        return apiCall('post', `/tags`, { tags })
-            .then(() => dispatch(addTag(user_id)))
+        return apiCall('post', `/tags/${user_id}`, { reading_url, tags })
+            .then(() => {
+                dispatch(addTag(user_id));
+                dispatch(addSuccess('Tags updated'));
+            })
             .catch(err => dispatch(addError(err.message)));
     }
 }
