@@ -18,6 +18,10 @@ export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 export const ADD_LOADER = 'ADD_LOADER';
 export const REMOVE_LOADER = 'REMOVE_LOADER';
 
+// modals
+export const ADD_MODAL = 'ADD_MODAL';
+export const REMOVE_MODAL = 'REMOVE_MODAL';
+
 // notifications
 export const LOAD_NOTIFICATIONS = 'LOAD_NOTIFICATIONS';
 export const REMOVE_NOTIFICATIONS = 'REMOVE_NOTIFICATIONS';

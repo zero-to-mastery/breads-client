@@ -3,6 +3,7 @@ import auth from './auth';
 import alerts from './alerts';
 import globalReadings from './globalReadings';
 import loading from './loader';
+import modals from './modals';
 import notifications from './notifications';
 import readingsByList from './readingsList';
 import search from './search';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     [alerts.constants.NAME]: alerts.reducer,
     [globalReadings.constants.NAME]: globalReadings.reducer,
     [loading.constants.NAME]: loading.reducer,
+    [modals.constants.NAME]: modals.reducer,
     [notifications.constants.NAME]: notifications.reducer,
     [readingsByList.constants.NAME]: readingsByList.reducer,
     [search.constants.NAME]: search.reducer,
