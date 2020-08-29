@@ -20,7 +20,7 @@ class TagsAside extends Component {
     }
 
     render() {
-        const { loading, mostRecentTags, topTags } = this.props;
+        const { mostRecentTags, topTags } = this.props;
         const { activeRecent } = this.state;
         
         let visibleTags = activeRecent === 'active' ? mostRecentTags : topTags;

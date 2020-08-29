@@ -1,21 +1,5 @@
-import { ADD_TAG, REMOVE_TAG, LOAD_TAGS, RECEIVE_ENTITIES } from '../actionTypes';
+import { ADD_TAG, REMOVE_TAG, RECEIVE_ENTITIES } from '../actionTypes';
 
-// const getIds = users => {
-//     return Object.values(users).map(user => user.id);
-// }
-
-// HOW TO STRUCTURE TAGS STATE?
-    // return tag info in readings apicall
-    // normalize tag info into
-        // readings - each reading has tags key with array of tag ids
-        // tags - object key is tag id, value is array of tag_name, reading_id, user_id objects
-    
-        // I'm returning tags id with readings now. 
-        // need to add user readings table - how to transfer data from one table to another?
-            // user id, reading id, created date
-            //  IS READING_TAGS ALREADY THE USER READINGS TABLE I NEED?
-                // maybe a user tags table, user readings table, and reading tags table
-                    // user -> tags, user -> readings, reading -> tags
 const tags = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_ENTITIES:
@@ -23,11 +7,6 @@ const tags = (state = {}, action) => {
             if (entities && entities.tags) {
                 return { ...state, ...entities.tags }
             }
-        // case LOAD_TAGS:
-        //     if (action && action.tags) {
-        //         console.log(action.tags);
-        //         return { ...state, ...action.tags }
-        //     }
             // /* falls through */
         case ADD_TAG:
             if (action.id && action.user_id && state[action.id]) {
