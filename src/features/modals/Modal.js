@@ -58,7 +58,7 @@ class Modal extends Component {
 
     render() {
         const { title } = this.props;
-        let { newTags } = this.state;
+        let { newTags, oldTags } = this.state;
 
         return (
             <div className='modal fade' id='exampleModal' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
@@ -85,7 +85,12 @@ class Modal extends Component {
                         </div>
                         <div className='modal-footer'>
                             <button onClick={this.handleClose} type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
-                            <button onClick={this.handleNewTags} type='button' className='btn btn-primary'>Save changes</button>
+                            {oldTags === newTags 
+                                ? <button onClick={this.handleNewTags} type='button' className='btn btn-outline-primary' data-dismiss='modal' disabled>Save changes</button>
+                                : <button onClick={this.handleNewTags} type='button' className='btn btn-primary' data-dismiss='modal'>Save changes</button>
+
+                            }
+                            
                         </div>
                     </div>
                 </div>
