@@ -39,7 +39,7 @@ class Modal extends Component {
         const { add_tags, delete_tags } = this.compareTagArrays(this.state.oldTags.split(' '), this.state.newTags.split(' '));
         const tag_names = this.props.modals.modalProps.tag_names;
 
-        if (tag_names.length === 0) this.props.postNewTags(this.props.modals.modalProps.reading.url, this.state.tags, this.props.currentUser);
+        if (tag_names.length === 0) this.props.postNewTags(this.props.modals.modalProps.reading.url, add_tags);
         else this.props.updateTags(this.props.modals.modalProps.reading.url, add_tags, delete_tags);
         
         this.setState({ tags: '' });
