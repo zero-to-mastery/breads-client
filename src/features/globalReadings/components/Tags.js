@@ -14,7 +14,7 @@ class Tags extends Component {
     }
 
     render() {
-        const { currentUser, reading, tags } = this.props;
+        const { currentUser, reading, tags, list } = this.props;
 
         let tag_links;
         if (reading.tags && tags) {
@@ -30,7 +30,7 @@ class Tags extends Component {
         return (
             <>
                 <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'>
-                    {currentUser.id === reading.reader && 
+                    {currentUser.id === reading.reader && (list !== 'global' && list !== 'subscriptions')&& 
                         <FontAwesomeIcon onClick={this.handleClick} icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
                     }  
                     <small> {tag_links}</small>
