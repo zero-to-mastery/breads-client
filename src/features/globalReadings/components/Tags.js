@@ -19,9 +19,11 @@ class Tags extends Component {
         let tag_links;
         if (reading.tags && tags) {
             tag_links = reading.tags.map(tag_id => {
-                return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
+                if (tags[tag_id]) {
+                    return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
                             {`#${tags[tag_id].tag_name} `}
                         </Link>
+                }
             });
         }
 
