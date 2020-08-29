@@ -27,12 +27,12 @@ class ArticleForm extends Component {
         
         if (path === '/') {
             setTimeout(() => {
-                this.props.fetchTags();
+                this.props.fetchTags('global');
                 this.props.fetchReadings('global');
             }, 7500);
         } else if (path !== '/subscriptions') {
             setTimeout(() => {
-                this.props.fetchTags();
+                this.props.fetchTags(this.props.currentUser, this.props.currentUser);
                 this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
             }, 7500);
         }
