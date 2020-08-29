@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import tags from '../tags';
-import globalReadings from '../globalReadings';
 import { removeModal } from './actions';
+// for whatever reason, importing from the index file returns undefined. But it doesn't in ArticleForm
+import { fetchReadings } from '../globalReadings/actions';
 
-// why is this undefined? it's not in ArticleForm
-// console.log(globalReadings);
 
 class Modal extends Component {
     constructor(props) {
@@ -46,7 +45,7 @@ class Modal extends Component {
         this.props.removeModal();
         setTimeout(() => {
             this.props.fetchTags(this.props.currentUser, this.props.currentUser);
-            // this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
+            this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
         }, 3500);
     };
 
@@ -103,4 +102,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { ...tags.actions, removeModal })(Modal);
+export default connect(mapStateToProps, { ...tags.actions, fetchReadings, removeModal })(Modal);
