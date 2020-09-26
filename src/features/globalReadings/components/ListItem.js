@@ -19,29 +19,43 @@ const ListItem = props => {
     // use images.webserv.nl to serve http images as https
     let backgroundImg = '';
     if (reading && reading.reading_image) {
-        backgroundImg = reading.reading_image.includes('http://') ? 'https://images.weserv.nl/?url=' + reading.reading_image : reading.reading_image
+        backgroundImg = `https://images.weserv.nl/?url=${reading.reading_image}&w=167&output=webp`;
+        // backgroundImg = reading.reading_image.includes('http://') ? `https://images.weserv.nl/?url=${reading.reading_image}&output=png` : reading.reading_image
     }
     
     return (
-        <li style={{
+        <li 
+            style={{
                 ...style,
-                backgroundImage: `url(${backgroundImg || BreadsImage})`,
-                backgroundSize: 'cover'
+                // backgroundImage: `url(${backgroundImg || BreadsImage})`,
+                // backgroundSize: 'cover'
             }}
-            className='list-group-item p-0 overflow-hidden'
+            className='card border-secondary'
+            id='list-item'
+            // className='list-group-item p-0 overflow-hidden'
         >
-            <div className='h-100 special d-flex flex-column justify-content-around m-1 p-2'>
-                <h5 className='card-title flex-row'><a href={`${reading.url}`} target='_blank' rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
-                <div className='card-text flex-row small'>{reading.description}</div>
-                <div className='card-text row ml-1 mr-1 mt-2'>
-                    <p className='lead'>{reading.domain}</p>
-                    { minutes > 0 && <p className='text-muted ml-auto'>{minutes} min read</p> }          
+            <div className='row'>
+                {/* <div className='h-100 special d-flex flex-column justify-content-around m-1 p-2'> */}
+                <div className='col-md-4'>
+                    <img loading='lazy' src={backgroundImg || BreadsImage} className='card-img m-3' alt='Article'></img>
                 </div>
-                <div className='card-text row flex-nowrap ml-1'>
+                <div className='col-md-8'>
+                    <div className='m-3'>
+                        <h5 className='card-title flex-row'><a href={`${reading.url}`} target='_blank' rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
+                        <div className='card-text flex-row small'>{reading.description}</div>
+                        <div className='card-text row ml-1 mr-1 mt-2'>
+                            <p className='lead'>{reading.domain}</p>
+                            { minutes > 0 && <p className='text-muted ml-auto'>{minutes} min read</p> }          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* <div className='row'> */}
+                <div className='card-text row flex-nowrap ml-3 mr-3'>
                     <UserImage
                         image={users[reading.reader].image}
                         username={users[reading.reader].username}
-                        class='timeline-image'
+                        className='timeline-image'
                         height='48'
                         width='48'
                     />
@@ -78,7 +92,7 @@ const ListItem = props => {
                         <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
                     }
                 </div>
-            </div>
+            {/* </div> */}
         </li>
     )
 }
