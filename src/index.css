@@ -54,6 +54,10 @@ input[type="text"], textarea {
     background-color: #f8f9fa;
 }
 
+#list-item:hover {
+    background-color: #f8f9fa;
+}
+
 .avoid-click {
     pointer-events: none;
 }
