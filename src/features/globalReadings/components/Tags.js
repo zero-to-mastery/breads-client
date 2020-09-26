@@ -23,13 +23,15 @@ class Tags extends Component {
                     return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
                             {`#${tags[tag_id].tag_name} `}
                         </Link>
+                } else {
+                    return '';
                 }
             });
         }
 
         return (
             <>
-                <p className='btn text-primary m-2 text-nowrap overflow-auto-horizontal'>
+                <p className='btn text-primary mt-2 ml-3 pr-0 text-nowrap overflow-auto-horizontal'>
                     {currentUser.id === reading.reader && (list !== 'global' && list !== 'subscriptions')&& 
                         <FontAwesomeIcon onClick={this.handleClick} icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
                     }  
