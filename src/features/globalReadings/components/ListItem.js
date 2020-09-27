@@ -12,8 +12,9 @@ import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 
 const ListItem = props => {
-    const { id, style, list, users, reading, summary, currentUser, outdated, tags } = props;
+    const { id, style, list, users, reading, summary, currentUser, outdated, tags, measure } = props;
     const minutes = Math.round(reading.word_count / 300);
+    let imageMargin = '';
 
     function addImageTransformation(image) {
         let imageURL = new URL(image);
@@ -29,15 +30,26 @@ const ListItem = props => {
     }
 
     function serveImageThroughCDN() {
+        let width = getImageWidth();
         if (reading && reading.reading_image) {
-            return `https://images.weserv.nl/?url=${reading.reading_image}&w=167&output=webp`;
+            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${width}&output=webp`;
+        } else {
+            return BreadsImage;
         }
     }
 
-    // let newUserImage = users[reading.reader].image;
+    function getImageWidth() {
+        if (window.innerWidth <= 767) {
+            return 575;
+        } else {
+            imageMargin = 'm-3';
+            return 167;
+        }
+    }
+
     let newUserImage = addImageTransformation(users[reading.reader].image);
-    let newReadingImage = serveImageThroughCDN() || reading.reading_image;    
-    console.log(newUserImage);
+    let newReadingImage = serveImageThroughCDN();    
+
     return (
         <li style={{ ...style }}
             className='card border-secondary'
@@ -45,7 +57,7 @@ const ListItem = props => {
         >
             <div className='row'>
                 <div className='col-md-4'>
-                    <img loading='lazy' src={newReadingImage || BreadsImage} className='card-img m-3' alt='Article'></img>
+                    <img loading='lazy' src={newReadingImage} onLoad={measure} className={`card-img ${imageMargin}`} alt='Article'></img>
                 </div>
                 <div className='col-md-8'>
                     <div className='m-3'>

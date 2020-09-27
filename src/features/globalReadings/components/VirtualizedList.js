@@ -26,13 +26,16 @@ const VirtualizedList = props => {
                 parent={parent}
                 enableMargins
             >
-                <ListItem 
-                    key={key}
-                    id={r[index].id}
-                    list={list}
-                    outdated={outdated}
-                    style={style}
-                />
+                {({ measure }) => (
+                    <ListItem 
+                        key={key}
+                        id={r[index].id}
+                        list={list}
+                        outdated={outdated}
+                        style={style}
+                        measure={measure}
+                    />
+                )}
             </CellMeasurer>
         );
     };
