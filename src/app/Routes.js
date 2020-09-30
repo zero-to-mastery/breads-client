@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import auth, { AuthForm, EmailForm, ResetPasswordForm, UpdateForm } from '../features/auth';
-import alerts, { Alert } from '../features/alerts';
+import auth from '../features/auth';
+import alerts from '../features/alerts';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
-import { SubscriptionsList } from '../features/subscriptions';
 import { TagsAside } from '../features/tags';
-import { UserAside } from '../features/user';
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 import Aside from '../common/Aside';
 
+const AuthForm = lazy(() => import('../features/auth/components/AuthForm'));
+const EmailForm = lazy(() => import('../features/auth/components/EmailForm'));
+const ResetPasswordForm = lazy(() => import('../features/auth/components/ResetPasswordForm'));
+const UpdateForm = lazy(() => import('../features/auth/components/UpdateForm'));
+const Alert = lazy(() => import('../features/alerts/Alert'));
+const SubscriptionsList = lazy(() => import('../features/subscriptions/SubscriptionsList'));
+const UserAside = lazy(() => import('../features/user/UserAside'));
+
 const Routes = props => {
     const { authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser } = props;
     return (
         <div className='container-fluid py-5'>
+            <Suspense fallback={<div></div>}>
             <Switch>
                 <Route
                     exact
@@ -308,6 +315,7 @@ const Routes = props => {
                     }}
                 />
             </Switch>
+            </Suspense>
         </div>
     );
 }
