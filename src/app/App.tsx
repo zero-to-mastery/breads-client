@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from './store';
 import auth from '../features/auth';
@@ -8,16 +8,21 @@ import jwtDecode from 'jwt-decode';
 
 const store: any = configureStore();
 
-if (localStorage.jwtToken) { 
-    auth.actions.setAuthorizationToken(localStorage.jwtToken);
-    try {
-        store.dispatch(auth.actions.setCurrentUser(jwtDecode(localStorage.jwtToken)));
-    } catch (err) {
-        store.dispatch(auth.actions.setCurrentUser({}));
+const setCurrentUser: any = (jwtToken: string) => {
+    if (jwtToken) { 
+        auth.actions.setAuthorizationToken(jwtToken);
+        try {
+            store.dispatch(auth.actions.setCurrentUser(jwtDecode(jwtToken)));
+        } catch (err) {
+            store.dispatch(auth.actions.setCurrentUser({}));
+        }
     }
 }
 
-const App = (): any => (
+setCurrentUser(localStorage.jwtToken);
+
+/**Initializes the Breads app. */
+const App: React.FC = () => (
     <Provider store={store}>
         <Navbar />
         <Routes />
