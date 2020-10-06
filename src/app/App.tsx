@@ -6,7 +6,7 @@ import { Navbar } from '../features/notifications';
 import Routes from './Routes';
 import jwtDecode from 'jwt-decode';
 
-const store = configureStore();
+const store: any = configureStore();
 
 if (localStorage.jwtToken) { 
     auth.actions.setAuthorizationToken(localStorage.jwtToken);
@@ -17,7 +17,7 @@ if (localStorage.jwtToken) {
     }
 }
 
-const App = () => (
+const App = (): any => (
     <Provider store={store}>
         <Navbar />
         <Routes />
