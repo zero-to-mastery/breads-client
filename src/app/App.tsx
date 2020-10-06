@@ -22,7 +22,7 @@ const setCurrentUser: any = (jwtToken: string) => {
 setCurrentUser(localStorage.jwtToken);
 
 /**Initializes the Breads app. */
-const App: React.FC = () => (
+const App: React.FC<{}> = () => (
     <Provider store={store}>
         <Navbar />
         <Routes />
