@@ -8,7 +8,7 @@ import jwtDecode from 'jwt-decode';
 
 const store: any = configureStore();
 
-const setCurrentUser: any = (jwtToken: string) => {
+const setCurrentUser = (jwtToken: string): void => {
     if (jwtToken) { 
         auth.actions.setAuthorizationToken(jwtToken);
         try {
