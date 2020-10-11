@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from './store';
+import store from './store';
 import auth from '../features/auth';
 import { Navbar } from '../features/notifications';
 import Routes from './Routes';
 import jwtDecode from 'jwt-decode';
-
-const store: any = configureStore();
 
 const setCurrentUser = (jwtToken: string): void => {
     if (jwtToken) { 
@@ -30,3 +28,4 @@ const App: React.FC<{}> = () => (
 );
 
 export default App;
+export type RootState = ReturnType<typeof store.getState>
