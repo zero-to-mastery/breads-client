@@ -28,5 +28,6 @@ const rootReducer = combineReducers({
     [tagsByList.constants.NAME]: tagsByList.reducer,
     [user.constants.NAME]: user.reducer
 });
-  
+
+export type RootState = ReturnType<typeof rootReducer>
 export default rootReducer;
