@@ -19,7 +19,7 @@ const Alert = lazy(() => import('../features/alerts/Alert'));
 const SubscriptionsList = lazy(() => import('../features/subscriptions/SubscriptionsList'));
 const UserAside = lazy(() => import('../features/user/UserAside'));
 
-type RouteProps = {
+type RProps = {
     authUser: any,
     alerts: any,
     removeAlert: any,
@@ -32,7 +32,12 @@ type TParams = {
     id: string
 }
 
-const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}: RouteProps): JSX.Element => {
+type ResetParams = {
+    username: string,
+    token: string
+}
+
+const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -40,7 +45,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/'
-                    render={({ match, history }: RouteComponentProps<TParams>) => {
+                    render={({ match, history }: RouteComponentProps) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -64,7 +69,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/tag/:id'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -72,17 +77,17 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
                                         <GlobalAside
                                             list='global'
-                                            tag_id={props.match.params.id}
+                                            tag_id={match.params.id}
                                         />
                                         <TagsAside list='global'/>
                                     </Aside>
-                                    <GlobalReadingsList list='global' tag_id={props.match.params.id} match={props.match}/>
+                                    <GlobalReadingsList list='global' tag_id={match.params.id} match={match}/>
                                 </Timeline>
                             </>
                         )
@@ -91,7 +96,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/signin'
-                    render={props => {
+                    render={(props: RouteComponentProps) => {
                         return (
                             <AuthForm
                                 reset={sendResetEmail}
@@ -108,7 +113,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/signup'
-                    render={props => {
+                    render={(props: RouteComponentProps) => {
                         return (
                             <AuthForm
                                 onAuth={authUser}
@@ -125,7 +130,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/reset'
-                    render={props => {
+                    render={(props: RouteComponentProps) => {
                         return (
                             <EmailForm
                                 reset={sendResetEmail}
@@ -141,7 +146,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route 
                     exact
                     path='/reset/:username/:token'
-                    render={props => {
+                    render={(props: RouteComponentProps<ResetParams>) => {
                         return (
                             <ResetPasswordForm 
                                 reset={resetPassword}
@@ -158,7 +163,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/subscriptions'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -166,14 +171,14 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='subscriptions' title="Friend's Readings" match={props.match} />
+                                        <GlobalAside list='subscriptions' title="Friend's Readings" match={match} />
                                         <TagsAside list='subscriptions'/>
                                     </Aside>
-                                    <GlobalReadingsList list='subscriptions' match={props.match}/>
+                                    <GlobalReadingsList list='subscriptions' match={match}/>
                                 </Timeline>
                             </>
                         )
@@ -182,7 +187,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -190,17 +195,17 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        ? <ArticleForm history={history} match={match}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <UserAside fav='true' match={props.match}/>
-                                        <TagsAside list={props.match.params.id} user_id={props.match.params.id} />
+                                        <UserAside fav='true' match={match}/>
+                                        <TagsAside list={match.params.id} user_id={match.params.id} />
                                     </Aside>
                                     <GlobalReadingsList
-                                        list={props.match.params.id}
-                                        id={props.match.params.id}
-                                        match={props.match}/>
+                                        list={match.params.id}
+                                        id={match.params.id}
+                                        match={match}/>
                                 </Timeline>
                             </>
                         )
@@ -209,7 +214,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id/edit'
-                    render={props => {
+                    render={(props: RouteComponentProps<TParams>) => {
                         return (
                             <UpdateForm
                                 onAuth={authUser}
@@ -226,7 +231,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id/following'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -234,14 +239,14 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        ? <ArticleForm history={history} match={match}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <UserAside fav='true' match={props.match}/>
+                                        <UserAside fav='true' match={match}/>
                                         <TagsAside/>
                                     </Aside>
-                                    <SubscriptionsList match={props.match} sub_type='following'/>
+                                    <SubscriptionsList match={match} sub_type='following'/>
                                 </Timeline>
                             </>
                         )
@@ -250,7 +255,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id/followers'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -258,14 +263,14 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        ? <ArticleForm history={history} match={match}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <UserAside fav='true' match={props.match}/>
+                                        <UserAside fav='true' match={match}/>
                                         <TagsAside/>
                                     </Aside>
-                                    <SubscriptionsList match={props.match} sub_type='followers'/>
+                                    <SubscriptionsList match={match} sub_type='followers'/>
                                 </Timeline>
                             </>
                         )
@@ -274,7 +279,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id/favorites'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -282,18 +287,18 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        ? <ArticleForm history={history} match={match}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <UserAside fav='true' match={props.match}/>
-                                        <TagsAside list={props.match.params.id}/>
+                                        <UserAside fav='true' match={match}/>
+                                        <TagsAside list={match.params.id}/>
                                     </Aside>
                                     <GlobalReadingsList
-                                        list={props.match.params.id}
-                                        id={props.match.params.id}
+                                        list={match.params.id}
+                                        id={match.params.id}
                                         fav='true'
-                                        match={props.match}/>
+                                        match={match}/>
                                 </Timeline>
                             </>
                         )
@@ -302,7 +307,7 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                 <Route
                     exact
                     path='/:id/outdated'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -310,18 +315,18 @@ const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, c
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history} match={props.match}/>
+                                        ? <ArticleForm history={history} match={match}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <UserAside fav='true' match={props.match}/>
+                                        <UserAside fav='true' match={match}/>
                                         <TagsAside/>
                                     </Aside>
                                     <GlobalReadingsList
-                                        list={props.match.params.id}
-                                        id={props.match.params.id}
+                                        list={match.params.id}
+                                        id={match.params.id}
                                         outdated='true'
-                                        match={props.match}/>
+                                        match={match}/>
                                 </Timeline>
                             </>
                         )
