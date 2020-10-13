@@ -28,4 +28,3 @@ const App: React.FC<{}> = () => (
 );
 
 export default App;
-export type RootState = ReturnType<typeof store.getState>
