@@ -20,12 +20,12 @@ const SubscriptionsList = lazy(() => import('../features/subscriptions/Subscript
 const UserAside = lazy(() => import('../features/user/UserAside'));
 
 type RProps = {
-    authUser: any,
-    alerts: any,
-    removeAlert: any,
-    sendResetEmail: any,
-    resetPassword: any,
-    currentUser: any
+    authUser: any, // typeof auth.actions.authUser -> incompatible types https://www.typescriptlang.org/docs/handbook/type-compatibility.html
+    alerts: any, // RootState['alerts'] -> update initial alerts state types
+    removeAlert: typeof alerts.actions.removeAlert,
+    sendResetEmail: any, // typeof auth.actions.sendResetEmail
+    resetPassword: any, // typeof auth.actions.resetPassword
+    currentUser: RootState['currentUser']
 }
 
 type TParams = {
