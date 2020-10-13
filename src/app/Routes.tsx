@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import auth from '../features/auth';
 import alerts from '../features/alerts';
@@ -9,6 +9,7 @@ import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 import Aside from '../common/Aside';
+import { RootState } from '../features/rootReducer';
 
 const AuthForm = lazy(() => import('../features/auth/components/AuthForm'));
 const EmailForm = lazy(() => import('../features/auth/components/EmailForm'));
@@ -18,8 +19,20 @@ const Alert = lazy(() => import('../features/alerts/Alert'));
 const SubscriptionsList = lazy(() => import('../features/subscriptions/SubscriptionsList'));
 const UserAside = lazy(() => import('../features/user/UserAside'));
 
-const Routes = props => {
-    const { authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser } = props;
+type RouteProps = {
+    authUser: any,
+    alerts: any,
+    removeAlert: any,
+    sendResetEmail: any,
+    resetPassword: any,
+    currentUser: any
+}
+
+type TParams = {
+    id: string
+}
+
+const Routes = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}: RouteProps): JSX.Element => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -27,7 +40,7 @@ const Routes = props => {
                 <Route
                     exact
                     path='/'
-                    render={props => {
+                    render={({ match, history }: RouteComponentProps<TParams>) => {
                         return (
                             <>
                                 {alerts.message && 
@@ -35,14 +48,14 @@ const Routes = props => {
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={props.history}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='global' title='Global Readings' match={props.match}/>
+                                        <GlobalAside list='global' title='Global Readings' match={match}/>
                                         <TagsAside list='global'/>
                                     </Aside>
-                                    <GlobalReadingsList list='global' match={props.match}/>
+                                    <GlobalReadingsList list='global' match={match}/>
                                 </Timeline>
                             </>
                         )
@@ -320,7 +333,7 @@ const Routes = props => {
     );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser,
         alerts: state.alerts
