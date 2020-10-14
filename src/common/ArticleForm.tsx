@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import globalReadings from '../features/globalReadings';
 import tags from '../features/tags';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RootState } from '../features/rootReducer';
 
-class ArticleForm extends Component {
-    constructor(props) {
+type IProps = PropsFromRedux & {
+    history: any
+}
+
+type IState = {
+    url: string,
+    tags: string
+}
+
+class ArticleForm extends Component<IProps, IState> {
+    constructor(props: IProps) {
         super(props);
         this.state = {
             url: '',
             tags: ''
         }
     }
-
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    /**
+     * @todo Need to update since I can't figure out computed property names in TypeScript
+     * @see {@link https://stackoverflow.com/questions/44110641/typescript-a-computed-property-name-in-a-type-literal-must-directly-refer-to-a-b}
+     */
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        const name = e.currentTarget.name;
+        
+        if (name === 'url') {
+            this.setState({
+                url: e.currentTarget.value
+            });
+        } else {
+            this.setState({
+                tags: e.currentTarget.value
+            });
+        }
     };
     
-    handleNewUrl = e => {
+    handleNewUrl = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         this.props.postNewReading(this.state.url, this.state.tags);
         this.setState({ url: '', tags: '' });
@@ -84,11 +105,15 @@ class ArticleForm extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser.user.id,
         loading: state.loading
     }
 }
 
-export default connect(mapStateToProps, { ...globalReadings.actions, ...tags.actions })(ArticleForm);
+const connector = connect(mapStateToProps, { ...globalReadings.actions, ...tags.actions });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ArticleForm);
