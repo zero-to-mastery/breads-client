@@ -195,7 +195,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history} match={match}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
@@ -239,7 +239,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history} match={match}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
@@ -263,7 +263,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history} match={match}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
@@ -287,7 +287,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history} match={match}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
@@ -315,7 +315,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history} match={match}/>
+                                        ? <ArticleForm history={history}/>
                                         : <SignUpCard />
                                     }
                                     <Aside>
