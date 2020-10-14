@@ -9,11 +9,6 @@ export const reading = new schema.Entity('readings', {
     reader: user
 });
 export const subscriptions = new schema.Entity('subscriptions', {
-    following: user,
-    // followers: new schema.Array(user)
+    following: user
 });
 export const tags = new schema.Entity('tags');
-// export const subscriptions = new schema.Object({
-//     // following: new schema.Array(user),
-//     followers: new schema.Array(followers)
-// });
