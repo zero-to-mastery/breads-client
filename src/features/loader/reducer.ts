@@ -3,7 +3,7 @@ import { ADD_LOADER, REMOVE_LOADER } from "../actionTypes";
 // TODO - move to types file
 export interface LoaderState {
     isLoading: boolean
-    id: []
+    id: any[]
 }
 
 // TODO - move to types file
