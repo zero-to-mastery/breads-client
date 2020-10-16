@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import subscriptions from '../features/subscriptions';
+import { RootState } from '../features/rootReducer';
 
 const { postNewSubscription } = subscriptions.actions;
 
-class Subscribe extends Component {
+type IProps = PropsFromRedux & {
+    user: any
+}
+
+class Subscribe extends Component<IProps> {
     
-    handleClick = () => {
+    handleClick = (): void => {
         this.props.postNewSubscription(this.props.user);
     }
 
@@ -25,10 +30,14 @@ class Subscribe extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser.user.id
     }
 }
 
-export default connect(mapStateToProps, { postNewSubscription })(Subscribe);
+const connector = connect(mapStateToProps, { postNewSubscription });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(Subscribe);
