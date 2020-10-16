@@ -1,12 +1,19 @@
 import React from 'react';
 import UserImage from './UserImage';
 
-const Card = ({image, username, children}) => {
+interface CardProps {
+    image: string,
+    username: string,
+    children: React.ReactNode
+}
 
-    function addImageTransformation(image) {
-        let imageURL = new URL(image);
-        let pathnameArray = imageURL.pathname.split('/');
-        let originalPathnameArray = pathnameArray.slice();
+const Card: React.FunctionComponent<CardProps> = ({image, username, children}) => {
+
+    function addImageTransformation(image: string): string | undefined {
+        let imageURL: URL = new URL(image);
+        let pathnameArray: string[] = imageURL.pathname.split('/');
+        let originalPathnameArray: string[] = pathnameArray.slice();
+        
         for (let i = 0; i < originalPathnameArray.length; i++) {
             if (pathnameArray[i] === 'upload') {
                 pathnameArray.splice(i + 1, 0, 'w_567,h_567,c_fill,g_face');
@@ -16,7 +23,7 @@ const Card = ({image, username, children}) => {
         }
     }
 
-    let updatedImage;
+    let updatedImage: string | undefined;
     if (image) updatedImage = addImageTransformation(image);
 
     return (
