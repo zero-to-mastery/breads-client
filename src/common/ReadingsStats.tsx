@@ -1,7 +1,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ReadingStats = ({ statName, stat, loading, loading_id }) => {
+interface ReadingStatsProps {
+    statName: any,
+    stat: any,
+    loading: any,
+    loading_id: any
+}
+
+const ReadingStats: React.FunctionComponent<ReadingStatsProps> = ({ statName, stat, loading, loading_id }) => {
     return (
         <p className='card-text'>
             {statName}:
