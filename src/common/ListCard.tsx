@@ -1,11 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RootState } from '../features/rootReducer';
 
-const ListCard = props => {
-    const { id, users, subscribed, removeSubscription } = props;
+type ListCardProps = PropsFromRedux & {
+    id: any,
+    users: any,
+    subscribed: any,
+    removeSubscription: any,
+}
+
+const ListCard: React.FunctionComponent<ListCardProps> = ({ id, users, subscribed, removeSubscription }) => {
     return (
         <div className='card border-secondary'>
             <img
@@ -30,10 +37,14 @@ const ListCard = props => {
     )
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         users: state.user
     }
 }
 
-export default connect(mapStateToProps)(ListCard);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ListCard);
