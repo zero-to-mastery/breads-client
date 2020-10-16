@@ -1,5 +1,5 @@
 import rootReducer from '../features/rootReducer';
-import { createStore, applyMiddleware, compose, Store } from 'redux';
+import { createStore, applyMiddleware, compose, Store, Action } from 'redux';
 import thunk from 'redux-thunk';
 
 /** 
@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
  * @see {@link https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript|Stack Overflow}
  * */
 const configureStore = (reducer: any, enhancer: any, middleware: any): Store<any, any> => {
-    const store = createStore(
+    const store: Store<unknown, Action<any>> = createStore(
         reducer,
         enhancer(
             applyMiddleware(middleware)
@@ -19,8 +19,8 @@ const configureStore = (reducer: any, enhancer: any, middleware: any): Store<any
     return store;
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = configureStore(rootReducer, composeEnhancers, thunk);
+const composeEnhancers: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store: Store<any, any> = configureStore(rootReducer, composeEnhancers, thunk);
 
 export type AppDispatch = typeof store.dispatch;
 export default store;
