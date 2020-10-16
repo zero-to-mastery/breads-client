@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Timeline = props => {
+const Timeline: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <div className='row'>
-            {props.children}
+            {children}
         </div>
     )
 }
