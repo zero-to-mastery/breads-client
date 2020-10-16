@@ -1,11 +1,16 @@
 import React from 'react';
 
-const List = (props) => {
+interface ListProps {
+    list_data: any,
+    display: any
+}
+
+const List: React.FunctionComponent<ListProps> = ({list_data, display}) => {
     return (
         <div className='col-lg-6 col-sm-10 offset-sm-1 offset-lg-0'>
-            {props.list_data ? (//.length
-                <div className={props.display} id='list_data'>
-                    {props.list_data}
+            {list_data ? (//.length
+                <div className={display} id='list_data'>
+                    {list_data}
                 </div>
             ) : (
                 <div className='d-flex justify-content-center'>
