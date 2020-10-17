@@ -19,7 +19,7 @@ const Alert = lazy(() => import('../features/alerts/Alert'));
 const SubscriptionsList = lazy(() => import('../features/subscriptions/SubscriptionsList'));
 const UserAside = lazy(() => import('../features/user/UserAside'));
 
-type RProps = {
+type RouteProps = {
     authUser: any, // typeof auth.actions.authUser -> incompatible types https://www.typescriptlang.org/docs/handbook/type-compatibility.html
     alerts: any, // RootState['alerts'] -> update initial alerts state types
     removeAlert: typeof alerts.actions.removeAlert,
@@ -37,7 +37,7 @@ type ResetParams = {
     token: string
 }
 
-const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
+const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -49,7 +49,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -73,7 +73,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -167,7 +167,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -191,7 +191,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -235,7 +235,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -259,7 +259,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -283,7 +283,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
@@ -311,7 +311,7 @@ const Routes: React.FC<RProps> = ({authUser, alerts, removeAlert, sendResetEmail
                         return (
                             <>
                                 {alerts.message && 
-                                    <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                    <Alert />
                                 }
                                 <Timeline>
                                     {currentUser.isAuthenticated
