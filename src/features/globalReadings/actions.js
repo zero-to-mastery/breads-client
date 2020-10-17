@@ -7,7 +7,7 @@ import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
 
-const { addError, addSuccess } = alerts.actions;
+const { addAlert } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 const { addTag } = tags.actions;
 
@@ -38,7 +38,7 @@ export const fetchReadings = (list, id) => {
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
-                    dispatch(addError(err.message));
+                    dispatch(addAlert(err.message, 'danger'));
                 });
         } else if (list === 'subscriptions') {
             dispatch(addLoader(list));
@@ -50,7 +50,7 @@ export const fetchReadings = (list, id) => {
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
-                    dispatch(addError(err.message));
+                    dispatch(addAlert(err.message, 'danger'));
                 });
         } else if (id) {
             dispatch(addLoader(list));
@@ -60,7 +60,7 @@ export const fetchReadings = (list, id) => {
                     dispatch(removeLoader(list));
                 })
                 .catch(err => {
-                    dispatch(addError(err.message));
+                    dispatch(addAlert(err.message, 'danger'));
                 });
         }
     }
@@ -77,9 +77,9 @@ export const postNewReading = (url, tags) => (dispatch, getState) => {
             dispatch(addReading(id));
             dispatch(addTag(id));
             dispatch(removeLoader('newReading'));
-            dispatch(addSuccess('Article uploaded'));
+            dispatch(addAlert('Article uploaded', 'success'));
         })
-        .catch(err => dispatch(addError(err.message)));
+        .catch(err => dispatch(addAlert(err.message, 'danger')));
 }
 
 export const removeUserReading = (user_id, reading_id) => {
@@ -87,9 +87,9 @@ export const removeUserReading = (user_id, reading_id) => {
         return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
             .then(() => {
                 dispatch(removeReadings(reading_id, user_id));
-                dispatch(addSuccess('Reading removed'));
+                dispatch(addAlert('Reading removed', 'success'));
             })
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert(err.message, 'danger')));
     };
 };
 
@@ -99,7 +99,7 @@ export const markFavorite = id => {
         const user_id = currentUser.user.id;
         return apiCall('post', `/readings/${id}/favorite/${user_id}`)
             .then(() => dispatch(toggleFavorite(id, user_id))) // add favorite to state
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert(err.message, 'danger')));
     }
 }
 
@@ -109,7 +109,7 @@ export const unfavorite = id => {
         const user_id = currentUser.user.id;
         return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
             .then(() => dispatch(toggleFavorite(id, user_id))) // remove favorite from state
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert(err.message, 'danger')));
     }
 }
 
@@ -136,9 +136,9 @@ export const updateReading = (url, reading_id, user_id) => dispatch => {
         .then(res => {
             setTimeout(() => {
                 dispatch(removeLoader('updateReading'));
-                dispatch(addSuccess('Updated reading successfully.'));
+                dispatch(addAlert('Updated reading successfully.', 'success'));
             }, 11000);
             console.log(res.affectedRows);
         })
-        .catch(err => dispatch(addError(err.message)));
+        .catch(err => dispatch(addAlert(err.message, 'danger')));
 }
