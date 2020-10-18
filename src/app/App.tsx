@@ -12,7 +12,10 @@ const setCurrentUser = (jwtToken: string): void => {
         try {
             store.dispatch(auth.actions.setCurrentUser(jwtDecode(jwtToken)));
         } catch (err) {
-            store.dispatch(auth.actions.setCurrentUser({}));
+            store.dispatch(auth.actions.setCurrentUser({
+                isAuthenticated: false,
+                user: {}
+            }));
         }
     }
 }
