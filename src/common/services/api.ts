@@ -3,7 +3,7 @@ import axios, { AxiosPromise, Method } from 'axios';
 axios.defaults.baseURL = process.env.REACT_APP_AXIOS_URL;
 // axios.defaults.baseURL = 'https://breads-server.herokuapp.com/api';
 
-export function setTokenHeader(token: string): void {
+export function setTokenHeader(token: string | boolean): void {
     if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
