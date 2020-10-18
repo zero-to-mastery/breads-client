@@ -1,11 +1,11 @@
 import { apiCall, setTokenHeader } from '../../common/services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
 import alerts from '../alerts';
-import { AuthActionTypes, AuthState } from './types';
+import { AuthActionTypes, User } from './types';
 
 const { addAlert } = alerts.actions;
 
-export const setCurrentUser = (user: AuthState): AuthActionTypes => ({
+export const setCurrentUser = (user: User): AuthActionTypes => ({
     type: SET_CURRENT_USER,
     payload: user
 })
@@ -18,8 +18,9 @@ export const logout = () => (dispatch: any): void => {
     localStorage.clear();
     setAuthorizationToken(false);
     dispatch(setCurrentUser({
-        isAuthenticated: false,
-        user: {}
+        id: null,
+        username: null,
+        image: null
     }));
 }
 

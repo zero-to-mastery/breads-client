@@ -13,8 +13,9 @@ const setCurrentUser = (jwtToken: string): void => {
             store.dispatch(auth.actions.setCurrentUser(jwtDecode(jwtToken)));
         } catch (err) {
             store.dispatch(auth.actions.setCurrentUser({
-                isAuthenticated: false,
-                user: {}
+                id: null,
+                username: null,
+                image: null
             }));
         }
     }
