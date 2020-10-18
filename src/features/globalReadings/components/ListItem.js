@@ -102,11 +102,11 @@ const ListItem = props => {
                     </>
                 }
 
-                {summary.id === reading.id &&
+                {summary?.id === reading?.id &&
                     <p className='summary-data'>{summary.data}</p>
                 }
 
-                {(currentUser.user.id === reading.reader || currentUser.user.id === 1)&& 
+                {(currentUser.user?.id === reading.reader || currentUser.user?.id === 1)&& 
                 outdated === 'true' &&
                     <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
                 }

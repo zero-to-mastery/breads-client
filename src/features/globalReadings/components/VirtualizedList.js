@@ -29,7 +29,7 @@ const VirtualizedList = props => {
                 {({ measure }) => (
                     <ListItem 
                         key={key}
-                        id={r[index].id}
+                        id={r[index]?.id}
                         list={list}
                         outdated={outdated}
                         style={style}

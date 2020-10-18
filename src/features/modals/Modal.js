@@ -44,8 +44,8 @@ class Modal extends Component {
         this.setState({ tags: '' });
         this.props.removeModal();
         setTimeout(() => {
-            this.props.fetchTags(this.props.currentUser, this.props.currentUser);
-            this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
+            this.props.fetchTags(this.props.currentUser.user.id, this.props.currentUser.user.id);
+            this.props.fetchReadings(this.props.currentUser.user.id, this.props.currentUser.user.id);
         }, 3500);
     };
 
@@ -101,7 +101,7 @@ class Modal extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentUser: state.currentUser.user.id,
+        currentUser: state.currentUser,
         loading: state.loading,
         modals: state.modals
     }

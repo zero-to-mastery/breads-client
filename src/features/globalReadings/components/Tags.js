@@ -32,7 +32,7 @@ class Tags extends Component {
         return (
             <>
                 <p className='btn text-primary mt-2 ml-3 pr-0 text-nowrap overflow-auto-horizontal'>
-                    {currentUser.id === reading.reader && (list !== 'global' && list !== 'subscriptions')&& 
+                    {currentUser?.id === reading.reader && (list !== 'global' && list !== 'subscriptions')&& 
                         <FontAwesomeIcon onClick={this.handleClick} icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
                     }  
                     <small> {tag_links}</small>
