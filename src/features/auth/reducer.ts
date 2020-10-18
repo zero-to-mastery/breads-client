@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER } from '../actionTypes';
-import { AuthActionTypes, AuthState } from './actions';
+import { AuthActionTypes, AuthState } from './types';
 
 const initialState: AuthState = {
   isAuthenticated: false, // hopefully be true, when logged in
