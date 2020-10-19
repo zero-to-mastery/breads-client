@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import Alert from '../../alerts/Alert';
 import { RootState } from '../../rootReducer';
+import { sendResetEmail } from '../actions';
 
-interface EmailFormProps {
+type EmailFormProps = PropsFromRedux & {
     heading: any
     buttonText: any
     alerts: RootState['alerts']
-    reset: any
     history: any
 }
 
@@ -31,9 +32,9 @@ class EmailForm extends Component<EmailFormProps, EmailFormState> {
     handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         const { email } = this.state;
-        this.props.reset(email)
-        .then(() => this.props.history.push('/'))
-        .catch(() => {return});
+        this.props.sendResetEmail(email)
+            .then(() => this.props.history.push('/'))
+            .catch(() => {return});
     }
 
     render() {
@@ -70,4 +71,8 @@ class EmailForm extends Component<EmailFormProps, EmailFormState> {
     }
 }
 
-export default EmailForm;
+const connector = connect(null, { sendResetEmail });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(EmailForm);
