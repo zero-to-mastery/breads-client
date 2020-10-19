@@ -2,8 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Alert from '../../alerts/Alert';
 
-class AuthForm extends Component {
-    constructor(props) {
+interface AuthFormProps {
+    onAuth: any
+    heading: any 
+    buttonText: any
+    signup: any
+    alerts: any
+    history: any
+}
+
+interface AuthFormState {
+    first_name: string
+    last_name: string
+    email: string
+    username: string
+    password: string
+    image: any
+    [k: string]: string | null
+}
+
+class AuthForm extends Component<AuthFormProps, AuthFormState> {
+    constructor(props: AuthFormProps) {
         super(props);
         this.state = {
             first_name: '',
@@ -15,22 +34,22 @@ class AuthForm extends Component {
         }
     }
 
-    handleChange = e => {
-        if (e.target.name === 'image') {
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        if (e.currentTarget.name === 'image' && e.currentTarget.files !== null) {
             this.setState({
-                [e.target.name]: e.target.files[0]
-            })
+                [e.currentTarget.name]: e.currentTarget.files[0]
+            });
         } else { 
             this.setState({
-                [e.target.name]: e.target.value
+                [e.currentTarget.name]: e.currentTarget.value
             });
         }
     };
 
-    handleSubmit = e => {
+    handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         const authType = this.props.signup ? 'signup' : 'signin';
-        let formData;
+        let formData: FormData | AuthFormState;
         if (authType === 'signup') {
             formData = new FormData();
             formData.append('first_name', this.state.first_name);
@@ -43,19 +62,14 @@ class AuthForm extends Component {
             formData = this.state;
         }
         
-        this.props
-        .onAuth(authType, formData)
-        .then(() => {
-            this.props.history.push('/');
-        })
-        .catch(() => {
-            return;
-        });
+        this.props.onAuth(authType, formData)
+            .then(() => this.props.history.push('/'))
+            .catch(() => {return});
     }
 
     render() {
         const { first_name, last_name, email, username, password } = this.state;
-        const { heading, buttonText, signup, alerts, removeAlert } = this.props;
+        const { heading, buttonText, signup, alerts } = this.props;
 
         return (
             <div className='row justify-content-md-center text-center py-5'>
@@ -63,7 +77,7 @@ class AuthForm extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <h2>{heading}</h2>
                         {alerts.message && 
-                            <Alert alerts={alerts} removeAlert={removeAlert}/>
+                            <Alert />
                         }
                         {signup && (
                             <div>
