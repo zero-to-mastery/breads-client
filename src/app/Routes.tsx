@@ -20,11 +20,10 @@ const SubscriptionsList = lazy(() => import('../features/subscriptions/Subscript
 const UserAside = lazy(() => import('../features/user/UserAside'));
 
 type RouteProps = {
-    authUser: any, // typeof auth.actions.authUser -> incompatible types https://www.typescriptlang.org/docs/handbook/type-compatibility.html
-    alerts: any, // RootState['alerts'] -> update initial alerts state types
-    removeAlert: typeof alerts.actions.removeAlert,
-    sendResetEmail: any, // typeof auth.actions.sendResetEmail
-    resetPassword: any, // typeof auth.actions.resetPassword
+    alerts: RootState['alerts']
+    removeAlert: typeof alerts.actions.removeAlert
+    sendResetEmail: any // typeof auth.actions.sendResetEmail
+    resetPassword: any // typeof auth.actions.resetPassword
     currentUser: RootState['currentUser']
 }
 
@@ -37,7 +36,7 @@ type ResetParams = {
     token: string
 }
 
-const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
+const Routes: React.FC<RouteProps> = ({alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -99,7 +98,6 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                     render={(props: RouteComponentProps) => {
                         return (
                             <AuthForm
-                                onAuth={authUser}
                                 alerts={alerts}
                                 signup={false}
                                 buttonText='Log In'
@@ -115,7 +113,6 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                     render={(props: RouteComponentProps) => {
                         return (
                             <AuthForm
-                                onAuth={authUser}
                                 alerts={alerts}
                                 signup= {true}
                                 buttonText='Sign up'
@@ -214,7 +211,7 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                     render={(props: RouteComponentProps<TParams>) => {
                         return (
                             <UpdateForm
-                                onAuth={authUser}
+                                // onAuth={authUser}
                                 removeAlert={removeAlert}
                                 alerts={alerts}
                                 buttonText='Update'
