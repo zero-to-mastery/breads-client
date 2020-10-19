@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Alert from '../../alerts/Alert';
+import { authUser } from '../actions';
 
-interface AuthFormProps {
-    onAuth: any
+type AuthFormProps = PropsFromRedux & {
     heading: any 
     buttonText: any
     signup: any
@@ -62,7 +63,7 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
             formData = this.state;
         }
         
-        this.props.onAuth(authType, formData)
+        this.props.authUser(authType, formData)
             .then(() => this.props.history.push('/'))
             .catch(() => {return});
     }
@@ -183,4 +184,8 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
     }
 }
 
-export default AuthForm;
+const connector = connect(null, { authUser });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(AuthForm);
