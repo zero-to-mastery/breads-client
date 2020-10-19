@@ -1,41 +1,52 @@
 import React, { Component } from 'react';
-import Alert from '../../alerts/Alert';
+import { connect, ConnectedProps } from 'react-redux';
+import { match } from 'react-router-dom';
+import { History } from 'history';
+import { ResetParams } from '../../../app/Routes';
+import { RootState } from '../../rootReducer';
 
-class EmailForm extends Component {
-    constructor(props) {
+import Alert from '../../alerts/Alert';
+import { resetPassword } from '../actions';
+
+type ResetPasswordFormProps = PropsFromRedux & {
+    heading: string
+    buttonText: string
+    alerts: RootState['alerts']
+    match: match<ResetParams>
+    history: History
+}
+
+interface ResetPasswordFormState {
+    password: string
+}
+
+class ResetPasswordForm extends Component<ResetPasswordFormProps, ResetPasswordFormState> {
+    constructor(props: ResetPasswordFormProps) {
         super(props);
         this.state = {
             password: ''
         }
     }
 
-    handleChange = e => {
+    handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({
-            [e.target.name]: e.target.value
+            password: e.currentTarget.value
         });
     };
 
-    handleSubmit = e => {
+    handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { password } = this.state;
         const { username, token } = this.props.match.params;
 
-        this.props.reset(username, token, password)
-        .then(() => {
-            this.props.history.push('/');
-        })
-        .catch(() => {
-            return; // ???
-        });
+        this.props.resetPassword(username, token, password)
+            .then(() => this.props.history.push('/'))
+            .catch(() => {return});
     }
 
     render() {
         const { password } = this.state;
-        const { heading, buttonText, alerts, removeAlert } = this.props;
-
-        // history.listen(() => {
-        //     removeAlert();
-        // });
+        const { heading, buttonText, alerts } = this.props;
 
         return (
             <div>
@@ -44,7 +55,7 @@ class EmailForm extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <h2>{heading}</h2>
                             {alerts.message && 
-                                <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                <Alert />
                             }
                             <label htmlFor='password'>Password:</label>
                             <input
@@ -67,4 +78,8 @@ class EmailForm extends Component {
     }
 }
 
-export default EmailForm;
+const connector = connect(null, { resetPassword });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ResetPasswordForm);
