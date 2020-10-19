@@ -21,7 +21,6 @@ const UserAside = lazy(() => import('../features/user/UserAside'));
 
 type RouteProps = {
     alerts: RootState['alerts']
-    removeAlert: typeof alerts.actions.removeAlert
     currentUser: RootState['currentUser']
 }
 
@@ -34,7 +33,7 @@ export interface ResetParams {
     token: string
 }
 
-const Routes: React.FC<RouteProps> = ({alerts, removeAlert, currentUser}) => {
+const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -204,16 +203,14 @@ const Routes: React.FC<RouteProps> = ({alerts, removeAlert, currentUser}) => {
                 <Route
                     exact
                     path='/:id/edit'
-                    render={(props: RouteComponentProps<TParams>) => {
+                    render={({ history }: RouteComponentProps<TParams>) => {
                         return (
                             <UpdateForm
-                                // onAuth={authUser}
-                                removeAlert={removeAlert}
                                 alerts={alerts}
                                 buttonText='Update'
                                 heading={currentUser.user.username}
-                                path={currentUser.user.id}
-                                {...props}
+                                returnPath={currentUser.user.id}
+                                history={history}
                             />
                         )
                     }}
