@@ -22,7 +22,6 @@ const UserAside = lazy(() => import('../features/user/UserAside'));
 type RouteProps = {
     alerts: RootState['alerts']
     removeAlert: typeof alerts.actions.removeAlert
-    sendResetEmail: any // typeof auth.actions.sendResetEmail
     resetPassword: any // typeof auth.actions.resetPassword
     currentUser: RootState['currentUser']
 }
@@ -36,7 +35,7 @@ type ResetParams = {
     token: string
 }
 
-const Routes: React.FC<RouteProps> = ({alerts, removeAlert, sendResetEmail, resetPassword, currentUser}) => {
+const Routes: React.FC<RouteProps> = ({alerts, removeAlert, resetPassword, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -128,7 +127,6 @@ const Routes: React.FC<RouteProps> = ({alerts, removeAlert, sendResetEmail, rese
                     render={(props: RouteComponentProps) => {
                         return (
                             <EmailForm
-                                reset={sendResetEmail}
                                 alerts={alerts}
                                 buttonText='Send reset email'
                                 heading='Enter email address'
