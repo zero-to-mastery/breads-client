@@ -29,11 +29,7 @@ class EmailForm extends Component {
 
     render() {
         const { email } = this.state;
-        const { heading, buttonText, alerts, removeAlert } = this.props;
-
-        // history.listen(() => {
-        //     removeAlert();
-        // });
+        const { heading, buttonText, alerts } = this.props;
 
         return (
             <div>
@@ -42,7 +38,7 @@ class EmailForm extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <h2>{heading}</h2>
                             {alerts.message && 
-                                <Alert alerts={alerts} removeAlert={removeAlert}/>
+                                <Alert />
                             }
                             <label htmlFor='email'>Email:</label>
                             <input
