@@ -132,7 +132,6 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                         return (
                             <EmailForm
                                 reset={sendResetEmail}
-                                removeAlert={removeAlert}
                                 alerts={alerts}
                                 buttonText='Send reset email'
                                 heading='Enter email address'
