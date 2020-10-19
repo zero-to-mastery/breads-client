@@ -22,7 +22,6 @@ const UserAside = lazy(() => import('../features/user/UserAside'));
 type RouteProps = {
     alerts: RootState['alerts']
     removeAlert: typeof alerts.actions.removeAlert
-    resetPassword: any // typeof auth.actions.resetPassword
     currentUser: RootState['currentUser']
 }
 
@@ -30,12 +29,12 @@ type TParams = {
     id: string
 }
 
-type ResetParams = {
-    username: string,
+export interface ResetParams {
+    username: string
     token: string
 }
 
-const Routes: React.FC<RouteProps> = ({alerts, removeAlert, resetPassword, currentUser}) => {
+const Routes: React.FC<RouteProps> = ({alerts, removeAlert, currentUser}) => {
     return (
         <div className='container-fluid py-5'>
             <Suspense fallback={<div></div>}>
@@ -138,15 +137,14 @@ const Routes: React.FC<RouteProps> = ({alerts, removeAlert, resetPassword, curre
                 <Route 
                     exact
                     path='/reset/:username/:token'
-                    render={(props: RouteComponentProps<ResetParams>) => {
+                    render={({match, history}: RouteComponentProps<ResetParams>) => {
                         return (
                             <ResetPasswordForm 
-                                reset={resetPassword}
-                                removeAlert={removeAlert}
                                 alerts={alerts}
                                 buttonText='Save new password'
                                 heading='Reset your password'
-                                {...props}
+                                match={match}
+                                history={history}
                             />
                         )
                     }}
