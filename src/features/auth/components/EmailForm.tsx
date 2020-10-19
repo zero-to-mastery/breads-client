@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
 import Alert from '../../alerts/Alert';
+import { RootState } from '../../rootReducer';
 
-class EmailForm extends Component {
-    constructor(props) {
+interface EmailFormProps {
+    heading: any
+    buttonText: any
+    alerts: RootState['alerts']
+    reset: any
+    history: any
+}
+
+interface EmailFormState {
+    email: string
+}
+
+class EmailForm extends Component<EmailFormProps, EmailFormState> {
+    constructor(props: EmailFormProps) {
         super(props);
         this.state = {
             email: ''
         }
     }
 
-    handleChange = e => {
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
         this.setState({
-            [e.target.name]: e.target.value
+            email: e.currentTarget.value
         });
     };
 
-    handleSubmit = e => {
+    handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         const { email } = this.state;
         this.props.reset(email)
-        .then(() => {
-            this.props.history.push('/');
-        })
-        .catch(() => {
-            return; // ???
-        });
+        .then(() => this.props.history.push('/'))
+        .catch(() => {return});
     }
 
     render() {
