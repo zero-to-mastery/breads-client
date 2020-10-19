@@ -99,10 +99,9 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                     render={(props: RouteComponentProps) => {
                         return (
                             <AuthForm
-                                reset={sendResetEmail}
                                 onAuth={authUser}
-                                removeAlert={removeAlert}
                                 alerts={alerts}
+                                signup={false}
                                 buttonText='Log In'
                                 heading='Welcome Back.'
                                 {...props}
@@ -117,9 +116,8 @@ const Routes: React.FC<RouteProps> = ({authUser, alerts, removeAlert, sendResetE
                         return (
                             <AuthForm
                                 onAuth={authUser}
-                                removeAlert={removeAlert}
                                 alerts={alerts}
-                                signup
+                                signup= {true}
                                 buttonText='Sign up'
                                 heading='Join today!'
                                 {...props}
