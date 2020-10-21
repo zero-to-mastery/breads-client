@@ -54,7 +54,7 @@ class ArticleForm extends Component<IProps, IState> {
         } else if (path !== '/subscriptions') {
             setTimeout(() => {
                 this.props.fetchTags(this.props.currentUser, this.props.currentUser);
-                this.props.fetchReadings(this.props.currentUser, this.props.currentUser);
+                this.props.fetchReadings(null, this.props.currentUser);
             }, 7500);
         }
     };
