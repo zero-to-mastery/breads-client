@@ -1,18 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { getReadings, getWebsites } from '../selectors';
 import Card from '../../../common/Card';
 import ReadingStats from '../../../common/ReadingsStats';
 import { getTagById } from '../../tags/selectors';
 import { RootState } from '../../rootReducer';
 
-interface GlobalAsideProps {
-    readings: any
-    websites: any
-    loading: any
+type GlobalAsideProps = PropsFromRedux & {
     list: string
     title: any
-    tag: any
     fav: any
     outdated: any
     tag_id: any
@@ -56,7 +52,7 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, webs
     )
 }
 
-function mapStateToProps(state: RootState, ownProps: GlobalAsideProps) {
+function mapStateToProps(state: RootState, ownProps: any) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
         websites: getWebsites(state, ownProps.list, ownProps.tag_id),
@@ -65,4 +61,8 @@ function mapStateToProps(state: RootState, ownProps: GlobalAsideProps) {
     }
 }
 
-export default connect(mapStateToProps)(GlobalAside);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(GlobalAside);
