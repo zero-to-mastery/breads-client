@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { fetchReadingsIfNeeded } from '../actions';
 import { getReadings } from '../selectors';
 import tags from '../../tags';
 import VirtualizedList from './VirtualizedList';
+import { RootState } from '../../rootReducer';
+import { match } from 'react-router-dom';
 
-class ReadingsList extends Component {
+type OwnProps = {
+    list: any
+    id?: any
+    outdated?: any
+    fav?: any
+    tag_id?: any
+    match: match
+}
+
+type ReadingsListProps = PropsFromRedux & OwnProps
+
+class ReadingsList extends Component<ReadingsListProps> {
     componentDidMount() {
         this.props.fetchTagsIfNeeded(this.props.list, this.props.id);
         this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: OwnProps) {
         if (this.props.match.url !== prevProps.match.url) {
             this.props.fetchTagsIfNeeded(this.props.list, this.props.id);
             this.props.fetchReadingsIfNeeded(this.props.list, this.props.id);
@@ -31,13 +44,14 @@ class ReadingsList extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id)
     }
 }
 
-export default connect(mapStateToProps, { 
-    fetchReadingsIfNeeded,
-    ...tags.actions
-})(ReadingsList);
+const connector = connect(mapStateToProps, { fetchReadingsIfNeeded, ...tags.actions });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ReadingsList);
