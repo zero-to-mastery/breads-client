@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { markFavorite, unfavorite } from '../actions';
+import { RootState } from '../../rootReducer';
 
+type FavoritesProps = PropsFromRedux & {
+    favorite: any
+    reader: any
+    id: any
+}
 
-class Favorites extends Component {
+class Favorites extends Component<FavoritesProps> {
     
     handleClick = () => {
         this.props.favorite === null ? this.props.markFavorite(this.props.id) : this.props.unfavorite(this.props.id);
@@ -29,10 +35,14 @@ class Favorites extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser.user
     }
 }
 
-export default connect(mapStateToProps, { markFavorite, unfavorite })(Favorites);
+const connector = connect(mapStateToProps, { markFavorite, unfavorite });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Favorites);
