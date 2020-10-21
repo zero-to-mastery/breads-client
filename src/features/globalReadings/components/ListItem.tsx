@@ -18,7 +18,7 @@ type OwnProps = {
     list: any
     outdated: any
     measure: any
-    isCorrectUser: any
+    isCorrectUser?: any
 }
 
 type ListItemProps = PropsFromRedux & OwnProps
