@@ -1,13 +1,17 @@
 import React from 'react';
-import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller } from 'react-virtualized';
+import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller, ListRowRenderer } from 'react-virtualized';
 import ListItem from './ListItem';
 import Modal from '../../modals/Modal';
 
-const VirtualizedList = props => {
-    const { readings, list, outdated } = props;
+type VirtualizedListProps = {
+    readings: any
+    list: any
+    outdated: any
+}
 
+const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readings, list, outdated }) => {
     // NEED TO DECOUPLE FROM STATE SHAPE - removing this from virtualized list, remember to fix rowrenderer
-    let r = {};
+    let r: {[k: string]: any} = {};
     if (readings && readings.length > 0) r = readings;
 
     const cache = new CellMeasurerCache({
@@ -16,7 +20,7 @@ const VirtualizedList = props => {
         defaultHeight: 225,
     });
 
-    const renderRow = ({ index, key, parent, style }) => {
+    const renderRow: ListRowRenderer = ({ index, key, parent, style }) => {
         return (
             <CellMeasurer
                 rowIndex={index}
@@ -29,7 +33,7 @@ const VirtualizedList = props => {
                 {({ measure }) => (
                     <ListItem 
                         key={key}
-                        id={r[index]?.id}
+                        id={r[index].id}
                         list={list}
                         outdated={outdated}
                         style={style}
