@@ -40,7 +40,9 @@ export const getReadingById = (state: any, list: string, id: number): any => {
 /**
  * @todo update prop types once readingsByList state is type checked
  */
-export const getWebsites = (state: any, list: string, tag_id: number): {[k: string]: any} | void => {
+export const getWebsites = (state: any, list: string, tag_id: number): {[k: string]: any} => {
+    let websiteCount: {[k: string]: any} = {};
+    
     // get readings by list (wait for list to load)
     if (state.readingsByList[`${list}`] && state.readingsByList[`${list}`].items) {
         // map readings into array of domain names
@@ -50,14 +52,11 @@ export const getWebsites = (state: any, list: string, tag_id: number): {[k: stri
         if (tag_id) readings = getTagReadings(readings, tag_id);
         
         // count frequencies into object
-        let websiteCount: {[k: string]: any} = {};
         for(let reading of readings){
             websiteCount[reading.domain] = (websiteCount[reading.domain] || 0) + 1;
-        }
-
-        // return object of websites with # of articles read
-        return websiteCount;
+        }        
     }
+    return websiteCount;
 }
 
 /**
