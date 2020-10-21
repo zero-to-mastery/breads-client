@@ -53,7 +53,7 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='global' title='Global Readings' match={match}/>
+                                        <GlobalAside list='global' title='Global Readings'/>
                                         <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' match={match}/>
@@ -77,10 +77,7 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside
-                                            list='global'
-                                            tag_id={match.params.id}
-                                        />
+                                        <GlobalAside list='global' tag_id={match.params.id}/>
                                         <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' tag_id={match.params.id} match={match}/>
@@ -164,7 +161,7 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                         : <SignUpCard />
                                     }
                                     <Aside>
-                                        <GlobalAside list='subscriptions' title="Friend's Readings" match={match} />
+                                        <GlobalAside list='subscriptions' title="Friend's Readings"/>
                                         <TagsAside list='subscriptions'/>
                                     </Aside>
                                     <GlobalReadingsList list='subscriptions' match={match}/>
