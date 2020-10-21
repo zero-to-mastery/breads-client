@@ -2,8 +2,8 @@ import React from 'react';
 import UserImage from './UserImage';
 
 interface CardProps {
-    image: string,
-    username: string,
+    image?: string,
+    username?: string,
     children: React.ReactNode
 }
 

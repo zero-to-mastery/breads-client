@@ -2,10 +2,10 @@ import React from 'react';
 import DefaultImage from '../images/white-background.png';
 
 interface UserImageProps {
-    image: string | undefined,
-    username: string,
-    className: string,
-    height?: string,
+    image?: string
+    username?: string
+    className: string
+    height?: string
     width?: string
 }
 
