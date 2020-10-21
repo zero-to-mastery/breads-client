@@ -6,13 +6,15 @@ import ReadingStats from '../../../common/ReadingsStats';
 import { getTagById } from '../../tags/selectors';
 import { RootState } from '../../rootReducer';
 
-type GlobalAsideProps = PropsFromRedux & {
+type OwnProps = {
     list: string
-    title: any
-    fav: any
-    outdated: any
-    tag_id: any
+    title?: any
+    fav?: any
+    outdated?: any
+    tag_id?: any
 }
+
+type GlobalAsideProps = PropsFromRedux & OwnProps
 
 const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, websites, loading, list, title, tag }) => {
     let totalReadings,
@@ -52,7 +54,7 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, webs
     )
 }
 
-function mapStateToProps(state: RootState, ownProps: any) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
         websites: getWebsites(state, ownProps.list, ownProps.tag_id),
