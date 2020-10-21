@@ -4,9 +4,21 @@ import { getReadings, getWebsites } from '../selectors';
 import Card from '../../../common/Card';
 import ReadingStats from '../../../common/ReadingsStats';
 import { getTagById } from '../../tags/selectors';
+import { RootState } from '../../rootReducer';
 
-const GlobalAside = props => {
-    let { readings, websites, loading, list, title, tag } = props;
+interface GlobalAsideProps {
+    readings: any
+    websites: any
+    loading: any
+    list: string
+    title: any
+    tag: any
+    fav: any
+    outdated: any
+    tag_id: any
+}
+
+const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, websites, loading, list, title, tag }) => {
     let totalReadings,
         totalWebsites,
         topWebsite,
@@ -15,9 +27,9 @@ const GlobalAside = props => {
         maxReads = 0;
     
     if (readings && readings.length > 0) {
-        readings.forEach(r => {
+        readings.forEach((r: any): void => {
             totalWords += r.word_count/100000;
-        }); 
+        });
         
         totalReadings = readings.length;
         totalWebsites = Object.keys(websites).length;
@@ -44,7 +56,7 @@ const GlobalAside = props => {
     )
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: GlobalAsideProps) {
     return {
         readings: getReadings(state, ownProps.list, ownProps.fav, ownProps.outdated, ownProps.tag_id),
         websites: getWebsites(state, ownProps.list, ownProps.tag_id),
