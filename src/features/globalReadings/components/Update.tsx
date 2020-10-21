@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from '../../rootReducer';
 import { updateReading } from '../actions';
 
+type UpdateProps = PropsFromRedux & {
+    url: any
+    reading_id: any
+    user_id: any
+}
 
-class Update extends Component {
+class Update extends Component<UpdateProps> {
     
-    handleClick = () => {
-        // console.log(this.props.url, this.props.id)
+    handleClick = (): void => {
         this.props.updateReading(this.props.url, this.props.reading_id, this.props.user_id);
     }
 
@@ -25,11 +30,14 @@ class Update extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
-        currentUser: state.currentUser.user,
         loader: state.loading
     }
 }
 
-export default connect(mapStateToProps, { updateReading })(Update);
+const connector = connect(mapStateToProps, { updateReading });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Update);
