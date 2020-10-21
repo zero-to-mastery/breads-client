@@ -40,7 +40,7 @@ export const removeReadings = ({reading_id, user_id}: ReadingState): ReadingActi
     }
 });
 
-export const fetchReadings = (list: string, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const fetchReadings = (list: string | null, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
     if (list === 'global') {
         dispatch(addLoader(list));
         return apiCall('get', '/readings')
