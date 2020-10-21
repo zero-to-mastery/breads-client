@@ -17,7 +17,7 @@ export function setTokenHeader(token: string | boolean): void {
  * @param {string} path - the route path/endpoint
  * @param {object} data - (optional) data in JSON form for POST requests
  */
-export const apiCall = (method: Method, url: string, data: any): AxiosPromise<unknown> => {
+export const apiCall = (method: Method, url: string, data?: any): AxiosPromise<unknown> => {
     return new Promise((resolve, reject) => {
         return axios.request({method, url, data})
             .then((res: any) => {
