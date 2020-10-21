@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import UserImage from '../../../common/UserImage';
@@ -10,13 +10,36 @@ import Update from './Update';
 import Tags from './Tags';
 import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
+import { RootState } from '../../rootReducer';
 
-const ListItem = props => {
-    const { id, style, list, users, reading, summary, currentUser, outdated, tags, measure } = props;
+type OwnProps = {
+    id: any
+    style: any
+    list: any
+    outdated: any
+    measure: any
+    isCorrectUser: any
+}
+
+type ListItemProps = PropsFromRedux & OwnProps
+
+const ListItem: React.FunctionComponent<ListItemProps> = ({
+    id,
+    style,
+    isCorrectUser,
+    list,
+    users,
+    reading,
+    summary,
+    currentUser,
+    outdated,
+    tags,
+    measure
+}) => {
     const minutes = Math.round(reading.word_count / 300);
     let imageMargin = '';
 
-    function addImageTransformation(image) {
+    function addImageTransformation(image: any): string | undefined {
         let imageURL = new URL(image);
         let pathnameArray = imageURL.pathname.split('/');
         let originalPathnameArray = pathnameArray.slice();
@@ -29,7 +52,7 @@ const ListItem = props => {
         }
     }
 
-    function serveImageThroughCDN() {
+    function serveImageThroughCDN(): string {
         let width = getImageWidth();
         if (reading && reading.reading_image) {
             return `https://images.weserv.nl/?url=${reading.reading_image}&w=${width}&output=webp`;
@@ -38,7 +61,7 @@ const ListItem = props => {
         }
     }
 
-    function getImageWidth() {
+    function getImageWidth(): number {
         if (window.innerWidth <= 767) {
             return 575;
         } else {
@@ -79,7 +102,7 @@ const ListItem = props => {
                     width='48'
                 />
 
-                {!props.isCorrectUser && 
+                {!isCorrectUser && 
                     <Link to={`/${users[reading.reader].id}`} className='btn text-primary m-2'>
                         <small>{users[reading.reader].username}</small>
                     </Link>
@@ -115,7 +138,7 @@ const ListItem = props => {
     )
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
     return {
         users: state.user,
         reading: getReadingById(state, ownProps.list, ownProps.id),
@@ -125,4 +148,8 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(ListItem);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ListItem);
