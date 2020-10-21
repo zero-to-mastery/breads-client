@@ -40,7 +40,7 @@ export const removeReadings = ({reading_id, user_id}: ReadingState): ReadingActi
     }
 });
 
-export const fetchReadings = (list: any, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const fetchReadings = (list: string, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
     if (list === 'global') {
         dispatch(addLoader(list));
         return apiCall('get', '/readings')
@@ -77,7 +77,7 @@ export const fetchReadings = (list: any, id?: any): ThunkAction<Promise<void>, R
 }
 
 
-export const postNewReading = (url: any, tags: any): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const postNewReading = (url: string, tags: string): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
     dispatch(addLoader('newReading'));
     let { currentUser } = getState();
     const id = currentUser.user.id;
@@ -121,7 +121,7 @@ export const unfavorite = (id: any): ThunkAction<Promise<void | AlertActionTypes
  * 
  * @todo update prop types once readingsByList state is type checked
  */
-const shouldFetchReadings = (state: any, list: any): true | void => {
+const shouldFetchReadings = (state: any, list: string): true | void => {
     const readings = state.readingsByList[list];
     if (!readings) return true;
     
@@ -131,13 +131,13 @@ const shouldFetchReadings = (state: any, list: any): true | void => {
     return;
 }
 
-export const fetchReadingsIfNeeded = (list: any, id: any): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const fetchReadingsIfNeeded = (list: string, id: any): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
     if (shouldFetchReadings(getState(), list)) {
         return dispatch(fetchReadings(list, id));
     }
 }
 
-export const updateReading = (url: any, reading_id: any, user_id: any): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch) => {
+export const updateReading = (url: string, reading_id: any, user_id: any): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch) => {
     dispatch(addLoader('updateReading'));
     return apiCall('put', `/readings/${reading_id}`, { url, user_id })
         .then((res: any) => {
