@@ -11,19 +11,22 @@ interface ToggleFavoriteAction {
     payload: FavoriteState
 }
 
-export interface ReadingState {
-    reading_id?: string
+export interface AddReadingState {
     user_id: any
+}
+
+export type RemoveReadingState = AddReadingState & {
+    reading_id: string
 }
 
 interface AddReadingAction {
     type: typeof ADD_READING
-    payload: ReadingState
+    payload: AddReadingState
 }
 
 interface RemoveReadingAction {
     type: typeof REMOVE_READING
-    payload: ReadingState
+    payload: RemoveReadingState
 }
 
 export type ReadingActionTypes = ReceiveEntitiesAction | ToggleFavoriteAction | AddReadingAction | RemoveReadingAction;

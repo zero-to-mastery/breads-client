@@ -6,7 +6,7 @@ import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
-import { FavoriteState, ReadingState, ReadingActionTypes } from "./types";
+import { FavoriteState, ReadingActionTypes, AddReadingState, RemoveReadingState } from "./types";
 import { AppDispatch } from '../../app/store';
 import { RootState } from '../rootReducer';
 import { ThunkAction } from 'redux-thunk';
@@ -25,14 +25,14 @@ export const toggleFavorite = ({id, user_id}: FavoriteState): ReadingActionTypes
     }
 });
 
-export const addReading = (user_id: ReadingState): ReadingActionTypes => ({
+export const addReading = (user_id: AddReadingState): ReadingActionTypes => ({
     type: ADD_READING,
     payload: {
         user_id
     }
 });
 
-export const removeReadings = ({reading_id, user_id}: ReadingState): ReadingActionTypes => ({
+export const removeReadings = ({reading_id, user_id}: RemoveReadingState): ReadingActionTypes => ({
     type: REMOVE_READING,
     payload: {
         reading_id,
