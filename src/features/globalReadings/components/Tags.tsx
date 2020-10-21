@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import modals from '../../modals';
+import { RootState } from '../../rootReducer';
 
-class Tags extends Component {
+type TagsProps = PropsFromRedux & {
+    reading: any
+    tags: any
+    list: any
+}
+
+class Tags extends Component<TagsProps> {
     
     handleClick = () => {
         let tag_names = this.props.reading.tags
-                        ? this.props.reading.tags.map(tag_id => `#${this.props.tags[tag_id].tag_name}`)
+                        ? this.props.reading.tags.map((tag_id: number): string => `#${this.props.tags[tag_id].tag_name}`)
                         : []
         this.props.addModal('form', {'reading': this.props.reading, 'tag_names': tag_names})
     }
@@ -18,7 +25,7 @@ class Tags extends Component {
 
         let tag_links;
         if (reading.tags && tags) {
-            tag_links = reading.tags.map(tag_id => {
+            tag_links = reading.tags.map((tag_id: number): React.ReactNode | string => {
                 if (tags[tag_id]) {
                     return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
                             {`#${tags[tag_id].tag_name} `}
@@ -42,10 +49,14 @@ class Tags extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser.user
     }
 }
 
-export default connect(mapStateToProps, { ...modals.actions })(Tags);
+const connector = connect(mapStateToProps, { ...modals.actions });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Tags);
