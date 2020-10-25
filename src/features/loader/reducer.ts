@@ -1,26 +1,12 @@
 import { ADD_LOADER, REMOVE_LOADER } from "../actionTypes";
+import { LoaderState, LoaderActionTypes } from './types';
 
-// TODO - move to types file
-export interface LoaderState {
-    isLoading: boolean
-    id: any[]
+const initialState: LoaderState = { 
+    isLoading: false,
+    id: []
 }
 
-// TODO - move to types file
-interface AddLoaderAction {
-    type: typeof ADD_LOADER
-    id: any
-}
-
-interface RemoveLoaderAction {
-    type: typeof REMOVE_LOADER
-    id: any
-}
-
-export type LoaderActionTypes = AddLoaderAction | RemoveLoaderAction;
-
-
-export default (state: LoaderState = { isLoading: false, id: [] }, action: LoaderActionTypes) => {
+export default (state: LoaderState = initialState, action: LoaderActionTypes): LoaderState => {
     switch (action.type) {
         case ADD_LOADER:
             return { 
