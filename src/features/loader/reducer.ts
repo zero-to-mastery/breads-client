@@ -6,6 +6,7 @@ const initialState: LoaderState = {
     id: []
 }
 
+// TODO - reducer isn't pure. isLoading state changes inside the reducer
 export default (state: LoaderState = initialState, action: LoaderActionTypes): LoaderState => {
     switch (action.type) {
         case ADD_LOADER:
