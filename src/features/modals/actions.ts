@@ -1,7 +1,7 @@
 import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
-import { ModalActionTypes, ModalProps, ModalType } from './types';
+import { ModalActionTypes, ModalProperties, ModalType } from './types';
 
-export const addModal = (modalType: ModalType, modalProps: ModalProps): ModalActionTypes => ({
+export const addModal = (modalType: ModalType, modalProps: ModalProperties): ModalActionTypes => ({
     type: ADD_MODAL,
     payload: {
         modalType,
