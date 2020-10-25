@@ -1,10 +1,14 @@
 import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
 
+export type ModalType = string | null;
+
+export type ModalProps = {
+    open: boolean
+}
+
 export interface ModalState { 
-    modalType: string | null,
-    modalProps: { 
-        open: boolean
-    }
+    modalType: ModalType
+    modalProps: ModalProps
 }
 
 interface AddModalAction {
