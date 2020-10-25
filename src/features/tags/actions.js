@@ -6,7 +6,7 @@ import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
 import { ADD_TAG, LOAD_TAGS } from '../actionTypes';
 
-const { addError, addSuccess } = alerts.actions;
+const { addAlert } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
 export const addTag = user_id => ({
@@ -31,7 +31,7 @@ export const fetchTags = (list, id) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    dispatch(addError(err));
+                    dispatch(addAlert({message: err.message, type: 'danger'}));
                 });
         } else if (list === 'subscriptions') {
             dispatch(addLoader('tags'));
@@ -44,7 +44,7 @@ export const fetchTags = (list, id) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    dispatch(addError(err));
+                    dispatch(addAlert({message: err.message, type: 'danger'}));
                 });
         } else if (id) {
             dispatch(addLoader('userTags'));
@@ -55,7 +55,7 @@ export const fetchTags = (list, id) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    dispatch(addError(err.message));
+                    dispatch(addAlert({message: err.message, type: 'danger'}));
                 });
         }
     }
@@ -70,9 +70,9 @@ export const postNewTags = (reading_url, tags) => {
             .then(() => {
                 dispatch(addTag(user_id));
                 dispatch(removeLoader('addTag'));
-                dispatch(addSuccess('Tags updated'));
+                dispatch(addAlert({message: 'Tags updated', type: 'success'}));
             })
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
     }
 }
 
@@ -85,9 +85,9 @@ export const updateTags = (reading_url, add_tags, delete_tags) => {
             .then(() => {
                 dispatch(addTag(user_id));
                 dispatch(removeLoader('updateTag'));
-                dispatch(addSuccess('Tags updated'));
+                dispatch(addAlert({message: 'Tags updated', type: 'success'}));
             })
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
     }
 }
 
