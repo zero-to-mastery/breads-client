@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import tags from '../tags';
 import { removeModal } from './actions';
 // for whatever reason, importing from the index file returns undefined. But it doesn't in ArticleForm
 import { fetchReadings } from '../globalReadings/actions';
+import { RootState } from '../rootReducer';
 
+type ModalProps = PropsFromRedux & {
+    title: string
+}
 
-class Modal extends Component {
-    constructor(props) {
+type ModalState = {
+    newTags: string
+    oldTags: string
+    [k: string]: string
+}
+
+class Modal extends Component<ModalProps, ModalState> {
+    constructor(props: ModalProps) {
         super(props);
         this.state = {
             newTags: '',
@@ -15,7 +25,7 @@ class Modal extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ModalProps) {
         if (this.props.modals.modalProps.tag_names !== prevProps.modals.modalProps.tag_names) {
             this.setState({
                 newTags: this.props.modals.modalProps.tag_names ? this.props.modals.modalProps.tag_names.join(' ') : '',
@@ -24,17 +34,17 @@ class Modal extends Component {
         }
     }
 
-    handleClose = e => {
+    handleClose = (e: React.PointerEvent<HTMLButtonElement>): void => {
         this.props.removeModal();
     }
 
-    handleChange = e => {
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.currentTarget.name]: e.currentTarget.value
         });
     };
 
-    handleNewTags = e => {
+    handleNewTags = (e: React.PointerEvent<HTMLButtonElement>): void => {
         const { add_tags, delete_tags } = this.compareTagArrays(this.state.oldTags.split(' '), this.state.newTags.split(' '));
         const tag_names = this.props.modals.modalProps.tag_names;
 
@@ -45,11 +55,11 @@ class Modal extends Component {
         this.props.removeModal();
         setTimeout(() => {
             this.props.fetchTags(this.props.currentUser.user.id, this.props.currentUser.user.id);
-            this.props.fetchReadings(this.props.currentUser.user.id, this.props.currentUser.user.id);
+            this.props.fetchReadings(null, this.props.currentUser.user.id);
         }, 3500);
     };
 
-    compareTagArrays = (arr1, arr2) => {
+    compareTagArrays = (arr1: string[], arr2: string[]) => {
         let add_tags = arr2.filter(tag => !arr1.includes(tag)).join(' ');
         let delete_tags = arr1.filter(tag => !arr2.includes(tag)).join(' ');
 
@@ -61,7 +71,7 @@ class Modal extends Component {
         let { newTags, oldTags } = this.state;
 
         return (
-            <div className='modal fade' id='exampleModal' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div className='modal fade' id='exampleModal' tabIndex={-1} role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                 <div className='modal-dialog' role='document'>
                     <div className='modal-content'>
                         <div className='modal-header'>
@@ -99,7 +109,7 @@ class Modal extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser,
         loading: state.loading,
@@ -107,4 +117,8 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { ...tags.actions, fetchReadings, removeModal })(Modal);
+const connector = connect(mapStateToProps, { ...tags.actions, fetchReadings, removeModal });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Modal);
