@@ -1,17 +1,18 @@
 import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
+import { AlertActionTypes } from '../alerts/types';
 
-export interface NotificationsState { 
-    notifications: any[]
-}
+export type NotificationState = any;
 
-interface LoadNotificationsAction {
+interface LoadNotificationAction {
     type: typeof LOAD_NOTIFICATIONS
-    payload: NotificationsState
+    payload: NotificationState
 }
 
-interface RemoveNotificationsAction {
+interface RemoveNotificationAction {
     type: typeof REMOVE_NOTIFICATIONS
     id: any
 }
 
-export type ModalActionTypes = LoadNotificationsAction | RemoveNotificationsAction;
+export type NotificationActionTypes = LoadNotificationAction | RemoveNotificationAction;
+
+export type PromiseReturnTypes = NotificationActionTypes | AlertActionTypes | void;
