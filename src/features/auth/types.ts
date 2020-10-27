@@ -1,4 +1,5 @@
 import { SET_CURRENT_USER } from '../actionTypes';
+import { AlertActionTypes } from '../alerts/types';
 
 export interface User {
     id: number | null
@@ -17,3 +18,5 @@ interface SetCurrentUserAction {
 }
 
 export type AuthActionTypes = SetCurrentUserAction;
+
+export type PromiseReturnTypes = AuthActionTypes | AlertActionTypes | void;
