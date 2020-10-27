@@ -4,7 +4,6 @@ import { AppDispatch } from '../../app/store';
 import { apiCall, setTokenHeader } from '../../common/services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
 import alerts from '../alerts';
-import { AlertActionTypes } from '../alerts/types';
 import { RootState } from '../rootReducer';
 import { AuthActionTypes, PromiseReturnTypes, User } from './types';
 
