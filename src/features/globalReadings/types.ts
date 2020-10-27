@@ -1,5 +1,6 @@
 import { ReceiveEntitiesAction } from '../actions';
 import { ADD_READING, REMOVE_READING, TOGGLE_FAVORITE } from '../actionTypes';
+import { AlertActionTypes } from '../alerts/types';
 
 export interface FavoriteState {
     id: any
@@ -30,3 +31,5 @@ interface RemoveReadingAction {
 }
 
 export type ReadingActionTypes = ReceiveEntitiesAction | ToggleFavoriteAction | AddReadingAction | RemoveReadingAction;
+
+export type PromiseReturnTypes = ReadingActionTypes | AlertActionTypes | void;

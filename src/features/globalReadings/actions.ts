@@ -12,6 +12,7 @@ import { RootState } from '../rootReducer';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from 'redux';
 import { AlertActionTypes } from '../alerts/types';
+import { PromiseReturnTypes } from './types';
 
 const { addAlert } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
@@ -40,7 +41,7 @@ export const removeReadings = ({reading_id, user_id}: RemoveReadingState): Readi
     }
 });
 
-export const fetchReadings = (list: string | null, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const fetchReadings = (list: string | null, id?: any): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<void> => {
     if (list === 'global') {
         dispatch(addLoader(list));
         return apiCall('get', '/readings')
@@ -77,7 +78,7 @@ export const fetchReadings = (list: string | null, id?: any): ThunkAction<Promis
 }
 
 
-export const postNewReading = (url: string, tags: string): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const postNewReading = (url: string, tags: string): ThunkAction<Promise<AlertActionTypes | void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<AlertActionTypes | void> => {
     dispatch(addLoader('newReading'));
     let { currentUser } = getState();
     const id = currentUser.user.id;
@@ -92,7 +93,7 @@ export const postNewReading = (url: string, tags: string): ThunkAction<Promise<v
         .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
-export const removeUserReading = (user_id: any, reading_id: any): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch) => {
+export const removeUserReading = (user_id: any, reading_id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     return apiCall('delete', `/users/${user_id}/readings/${reading_id}`)
         .then(() => {
             dispatch(removeReadings({reading_id, user_id}));
@@ -101,7 +102,7 @@ export const removeUserReading = (user_id: any, reading_id: any): ThunkAction<Pr
         .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
 };
 
-export const markFavorite = (id: any): ThunkAction<Promise<void | AlertActionTypes | ReadingActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const markFavorite = (id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<PromiseReturnTypes> => {
     let { currentUser } = getState();
     const user_id = currentUser.user.id;
     return apiCall('post', `/readings/${id}/favorite/${user_id}`)
@@ -109,7 +110,7 @@ export const markFavorite = (id: any): ThunkAction<Promise<void | AlertActionTyp
         .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
-export const unfavorite = (id: any): ThunkAction<Promise<void | AlertActionTypes | ReadingActionTypes>, RootState, unknown, Action<string>> => (dispatch: AppDispatch, getState: any) => {
+export const unfavorite = (id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => (dispatch: AppDispatch, getState: any): Promise<PromiseReturnTypes> => {
     let { currentUser } = getState();
     const user_id = currentUser.user.id;
     return apiCall('delete', `/readings/${id}/favorite/${user_id}`)
@@ -118,7 +119,6 @@ export const unfavorite = (id: any): ThunkAction<Promise<void | AlertActionTypes
 }
 
 /**
- * 
  * @todo update prop types once readingsByList state is type checked
  */
 const shouldFetchReadings = (state: any, list: string): true | void => {
@@ -137,7 +137,7 @@ export const fetchReadingsIfNeeded = (list: string, id: any): ThunkAction<void, 
     }
 }
 
-export const updateReading = (url: string, reading_id: any, user_id: any): ThunkAction<Promise<void | AlertActionTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch) => {
+export const updateReading = (url: string, reading_id: any, user_id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     dispatch(addLoader('updateReading'));
     return apiCall('put', `/readings/${reading_id}`, { url, user_id })
         .then((res: any) => {
