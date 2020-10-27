@@ -2,7 +2,7 @@ import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
 
-const { addError } = alerts.actions
+const { addAlert } = alerts.actions
 
 export const loadNotifications = notifications => ({
     type: LOAD_NOTIFICATIONS,
@@ -23,7 +23,7 @@ export const fetchNotifications = () => {
                 dispatch(loadNotifications(res));
             })
             .catch(err => {
-                dispatch(addError(err.message));
+                dispatch(addAlert({message: err.message, type: 'danger'}));
             });
     }
 }
@@ -35,7 +35,7 @@ export const updateNotifications = sub_id => {
         return apiCall('put', `/users/${id}/notifications`)
             .then(() => dispatch(removeNotifications(sub_id)))
             .catch(err => {
-                dispatch(addError(err.message));
+                dispatch(addAlert({message: err.message, type: 'danger'}));
             });
     }
 }

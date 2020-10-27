@@ -3,7 +3,7 @@ import alerts from '../alerts';
 import loader from '../loader';
 import { LOAD_SEARCH_RESULTS, REMOVE_SEARCH_RESULTS } from '../actionTypes';
 
-const { addError } = alerts.actions;
+const { addAlert } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
 export const loadSearchResults = results => ({
@@ -24,7 +24,7 @@ export const searchAll = () => {
                 dispatch(removeLoader('search'));
             })
             .catch(err => {
-                dispatch(addError(err.message));
+                dispatch(addAlert({message: err.message, type: 'danger'}));
             });
     }
 }
@@ -38,7 +38,7 @@ export const searchUsers = search => {
                 dispatch(removeLoader('search'));
             })
             .catch(err => {
-                dispatch(addError(err.message));
+                dispatch(addAlert({message: err.message, type: 'danger'}));
             });
     }
 }
