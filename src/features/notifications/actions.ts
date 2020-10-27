@@ -1,7 +1,7 @@
 import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import { LOAD_NOTIFICATIONS, REMOVE_NOTIFICATIONS } from '../actionTypes';
-import { NotificationState, NotificationActionTypes, PromiseReturnTypes } from './types';
+import { NotificationActionTypes, PromiseReturnTypes, NotificationType } from './types';
 import { AppDispatch } from '../../app/store';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../rootReducer';
@@ -9,7 +9,7 @@ import { Action } from 'redux';
 
 const { addAlert } = alerts.actions
 
-export const loadNotifications = (notifications: NotificationState): NotificationActionTypes => ({
+export const loadNotifications = (notifications: NotificationType): NotificationActionTypes => ({
     type: LOAD_NOTIFICATIONS,
     payload: {
         notifications
