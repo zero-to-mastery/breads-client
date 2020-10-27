@@ -34,7 +34,7 @@ class Modal extends Component<ModalProps, ModalState> {
         }
     }
 
-    handleClose = (e: React.PointerEvent<HTMLButtonElement>): void => {
+    handleClose = (e: React.MouseEvent<HTMLButtonElement>): void => {
         this.props.removeModal();
     }
 
@@ -44,7 +44,7 @@ class Modal extends Component<ModalProps, ModalState> {
         });
     };
 
-    handleNewTags = (e: React.PointerEvent<HTMLButtonElement>): void => {
+    handleNewTags = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const { add_tags, delete_tags } = this.compareTagArrays(this.state.oldTags.split(' '), this.state.newTags.split(' '));
         const tag_names = this.props.modals.modalProps.tag_names;
 
