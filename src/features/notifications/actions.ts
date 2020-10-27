@@ -21,7 +21,7 @@ export const removeNotifications = (id: any): NotificationActionTypes => ({
     id
 });
 
-export const fetchNotifications = (): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const fetchNotifications = (): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<PromiseReturnTypes> => {
     let {currentUser} = getState();
     const id = currentUser.user.id;
     return apiCall('get', `/users/${id}/notifications`)
@@ -33,7 +33,7 @@ export const fetchNotifications = (): ThunkAction<Promise<PromiseReturnTypes>, R
         });
 }
 
-export const updateNotifications = (sub_id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any) => {
+export const updateNotifications = (sub_id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<PromiseReturnTypes> => {
     let {currentUser} = getState();
     const id = currentUser.user.id;
     return apiCall('put', `/users/${id}/notifications`)
