@@ -3,7 +3,7 @@ import { AlertActionTypes } from '../alerts/types';
 
 export type NotificationType = any;
 
-export type NotificationState = any[];
+export type NotificationState = NotificationType[];
 
 interface LoadNotificationAction {
     type: typeof LOAD_NOTIFICATIONS
