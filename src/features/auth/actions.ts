@@ -54,13 +54,13 @@ export const updateUser = (id: any, image: any, username: any): ThunkAction<Prom
         .catch((err: any) => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
-export const sendResetEmail = (email: any): ThunkAction<Promise<AlertActionTypes | void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<AlertActionTypes | void> => {
+export const sendResetEmail = (email: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     return apiCall('post', '/users/reset', { email })
         .then(() => {})
         .catch((err: any) => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
-export const resetPassword = (username: any, token: any, password: any): ThunkAction<Promise<AlertActionTypes | void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<AlertActionTypes | void> => {
+export const resetPassword = (username: any, token: any, password: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     return apiCall('post', `/users/${username}/reset/${token}`, { password })
         .then(() => {})
         .catch((err: any) => dispatch(addAlert({message: err.message, type: 'danger'})));
