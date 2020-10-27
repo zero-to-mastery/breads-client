@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
 import { NavLink, Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import auth from '../auth';
 import { SearchForm } from '../search';
 import { fetchNotifications, updateNotifications } from './actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RootState } from '../rootReducer';
+import { History } from 'history';
+import { NotificationType } from './types';
 
-class Navbar extends Component {
+type NotificationProps = PropsFromRedux & {
+    history: History
+}
+
+class Navbar extends Component<NotificationProps> {
     componentDidMount() {
         if (this.props.currentUser.isAuthenticated) {
             this.props.fetchNotifications();
         }
     }
 
-    logout = e => {
+    logout = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         this.props.logout();
         this.props.history.push('/');
     }
 
-    handleClick = (index, e) => {
+    handleClick = (index: number, e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         this.props.updateNotifications(this.props.notifications[index].subscriber_id);
     }
 
     render() {
         const { notifications } = this.props;
-        let notificationsList = notifications.map((n, index) => (
+        let notificationsList = notifications.map((n: NotificationType, index: number) => (
             <button onClick={(e) => this.handleClick(index, e)} key={n.subscriber_id} className='dropdown-item'>
                 <span key={n.subscriber_id} className='text-primary'>
                 {n.username}</span> started following you!
@@ -100,11 +107,15 @@ class Navbar extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         currentUser: state.currentUser,
         notifications: state.notifications
     };
 }
 
-export default withRouter(connect(mapStateToProps, { ...auth.actions, fetchNotifications, updateNotifications })(Navbar));
+const connector = connect(mapStateToProps, { ...auth.actions, fetchNotifications, updateNotifications });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default withRouter(connector(Navbar));
