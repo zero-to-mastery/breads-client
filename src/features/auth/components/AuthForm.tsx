@@ -3,13 +3,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Alert from '../../alerts/Alert';
 import { authUser } from '../actions';
+import { History } from 'history';
 
 type AuthFormProps = PropsFromRedux & {
     heading: any 
     buttonText: any
     signup: any
     alerts: any
-    history: any
+    history: History
 }
 
 interface AuthFormState {

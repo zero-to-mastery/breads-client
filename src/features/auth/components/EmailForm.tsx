@@ -3,12 +3,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import Alert from '../../alerts/Alert';
 import { RootState } from '../../rootReducer';
 import { sendResetEmail } from '../actions';
+import { History } from 'history';
 
 type EmailFormProps = PropsFromRedux & {
     heading: any
     buttonText: any
     alerts: RootState['alerts']
-    history: any
+    history: History
 }
 
 interface EmailFormState {
