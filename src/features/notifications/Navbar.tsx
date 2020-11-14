@@ -9,98 +9,138 @@ import { RootState } from '../rootReducer';
 import { History } from 'history';
 import { NotificationType } from './types';
 
+type NotificationState = {
+    activeHamburger: string
+}
+
 type NotificationProps = PropsFromRedux & {
     history: History
 }
 
-class Navbar extends Component<NotificationProps> {
+class Navbar extends Component<NotificationProps, NotificationState> {
+    constructor(props: NotificationProps) {
+        super(props);
+        this.state = {
+            activeHamburger: ''
+        }
+    }
+
     componentDidMount() {
         if (this.props.currentUser.isAuthenticated) {
             this.props.fetchNotifications();
         }
     }
 
-    logout = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    logout = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.preventDefault();
         this.props.logout();
         this.props.history.push('/');
     }
 
-    handleClick = (index: number, e: React.MouseEvent<HTMLButtonElement>): void => {
+    handleHamburgerClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        this.setState(prevState => ({
+            activeHamburger: prevState.activeHamburger === '' ? 'navbar-sidebar--show' : ''
+        }));
+    }
+
+    handleNotificationClick = (index: number, e: React.MouseEvent<HTMLDivElement>): void => {
         e.preventDefault();
         this.props.updateNotifications(this.props.notifications[index].subscriber_id);
     }
 
     render() {
         const { notifications } = this.props;
+        const { activeHamburger } = this.state;
+
         let notificationsList = notifications.map((n: NotificationType, index: number) => (
-            <button onClick={(e) => this.handleClick(index, e)} key={n.subscriber_id} className='dropdown-item'>
-                <span key={n.subscriber_id} className='text-primary'>
+            <div onClick={(e) => this.handleNotificationClick(index, e)} key={n.subscriber_id} className='dropdown__link'>
+                <span key={n.subscriber_id}>
                 {n.username}</span> started following you!
-            </button>
+            </div>
         ));
 
         return (
-            <nav className='navbar fixed-top navbar-expand-md navbar-primary bg-white border-bottom border-secondary'>
-                <div className='container-fluid'>
-                    <Link className='navbar-brand' to='/'>
-                        <span role='img' aria-label='breads'>🍞</span>
-                    </Link>
-                    <button className='btn navbar-toggler text-primary ml-auto' type='button' data-toggle='collapse' data-target='.collapsable' aria-controls='collapsable' aria-expanded='false' aria-label='Toggle navigation'>
-                        <FontAwesomeIcon icon='bars' size='2x'/>
-                    </button>
+            <nav className={`navbar navbar--light navbar--fixed-top ${activeHamburger}`}>
+                <div className='navbar__inner'>
+                    <div className='navbar__items'>
+                        <div onClick={this.handleHamburgerClick} aria-label='Navigation bar toggle' className='navbar__toggle' role='button' tabIndex={0}>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' role='img' focusable='false'>
+                                <title>Menu</title>
+                                <path stroke='currentColor' strokeLinecap='round' strokeMiterlimit='10' strokeWidth='2' d='M4 7h22M4 15h22M4 23h22'></path>
+                            </svg>
+                        </div>
+                        <Link className='navbar__brand' to='/'>
+                            <span role='img' className='navbar__logo' aria-label='bread'>🍞</span>
+                        </Link>
+                        <SearchForm className='navbar__item' history={this.props.history}/>
+                    </div>
                     {this.props.currentUser.isAuthenticated ? (
-                        <div className='collapse navbar-collapse collapsable' id='collapsable'>
-                            <SearchForm history={this.props.history}/>
-                            <ul className='nav ml-auto justify-content-end'>
-                                <div className='mr-auto'>
-                                    <NavLink exact to='/' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        Global
-                                    </NavLink>
-                                    <NavLink exact to={`/${this.props.currentUser.user.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        Your Reads
-                                    </NavLink>
-                                    <NavLink exact to='/subscriptions' activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm'>
-                                        Friends
-                                    </NavLink>
-                                </div>
-                                <button className='btn text-primary btn-sm' type='button' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                        <div className='navbar__items navbar__items--right'>
+                            <NavLink exact to='/' activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
+                                Global
+                            </NavLink>
+                            <NavLink exact to={`/${this.props.currentUser.user.id}`} activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
+                                Your Reads
+                            </NavLink>
+                            <NavLink exact to='/subscriptions' activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
+                                Friends
+                            </NavLink>
+                            <div className='navbar__item dropdown dropdown--hoverable'>
+                                <div className='navbar__item'>
                                     {!notificationsList.length ? (
                                         <FontAwesomeIcon icon={['far', 'bell']} />
                                     ) : (
                                         <FontAwesomeIcon icon='bell' spin />
                                     )}
-                                </button>
-                                <div className='dropdown-menu dropdown-menu-right border-secondary' aria-labelledby='navbarDropdown'>
+                                </div>
+                                <ul className='dropdown--right dropdown__menu'>
                                     {!notificationsList.length ? (
-                                        <button className='dropdown-item'>
+                                        <li className='dropdown__link'>
                                             No new subscribers!
-                                        </button>
+                                        </li>
                                     ) : ( 
                                         notificationsList
                                     )}
-                                </div>
-                                <button onClick={this.logout} className='btn text-primary btn-sm'>
-                                    <FontAwesomeIcon icon='sign-out-alt' />
-                                </button>
-                            </ul>
+                                </ul>
+                            </div>
+                            <div onClick={this.logout} className='navbar__item'>
+                                <FontAwesomeIcon icon='sign-out-alt' />
+                            </div>
                         </div>
                     ) : (
-                        <div className='collapse navbar-collapse collapsable' id='collapsable'>
-                            <ul className='nav navbar-nav ml-auto'>
-                                <li>
-                                    <NavLink exact to='/signup' activeClassName='bg-light btn-outline-primary' className='btn text-primary btn-sm'>
-                                        Sign up
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to='/signin' activeClassName='bg-light btn-outline-primary' className='btn text-primary btn-sm'>
-                                        Log in
-                                    </NavLink>
-                                </li>
-                            </ul>
+                        <div className='navbar__items navbar__items--right'>
+                            <NavLink exact to='/signup' activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
+                                Sign up
+                            </NavLink>
+                            <NavLink exact to='/signin' activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
+                                Log in
+                            </NavLink>
                         </div>
                     )}
+                </div>
+                <div role='presentation' className='navbar-sidebar__backdrop'></div>
+                <div onClick={this.handleHamburgerClick} className='navbar-sidebar'>
+                    <div className='navbar-sidebar__brand'>
+                        <Link className='navbar__brand' to='/'>
+                            <span role='img' className='navbar__logo' aria-label='bread'>🍞</span>
+                        </Link>
+                    </div>
+                    <div className='navbar-sidebar__items'>
+                        <div className='menu'>
+                            <ul className='menu__list'>
+                                <NavLink exact to='/' className='menu__list-item menu__link'>
+                                    Global
+                                </NavLink>
+                                <NavLink exact to={`/${this.props.currentUser.user.id}`} className='menu__list-item menu__link'>
+                                    Your Reads
+                                </NavLink>
+                                <NavLink exact to='/subscriptions' className='menu__list-item menu__link'>
+                                    Friends
+                                </NavLink>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </nav>
         )

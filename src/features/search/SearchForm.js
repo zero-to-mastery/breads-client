@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import reactStringReplace from 'react-string-replace';
 import { searchAll, searchUsers } from './actions';
 
@@ -9,7 +8,8 @@ class SearchForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: ''
+            search: '',
+            activeDropdown: ''
         }
     }
 
@@ -35,6 +35,15 @@ class SearchForm extends Component {
         this.setState({
             search: e.target.value
         });
+        if (e.target.value.length > 0) {
+            this.setState({
+                activeDropdown: 'dropdown--show'
+            });
+        } else {
+            this.setState({
+                activeDropdown: ''
+            });
+        }
         this.findMatches(e.target.value);
     }
 
@@ -46,8 +55,7 @@ class SearchForm extends Component {
     }
 
     render() {
-        const { search } = this.state;
-        const { loading } = this.props;
+        const { search, activeDropdown } = this.state;
         let searchResults = [];
 
         if (search !== '') {
@@ -58,22 +66,22 @@ class SearchForm extends Component {
                 const lastName = reactStringReplace(query.last_name, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
                 const title = reactStringReplace(query.title, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
                 if (title.length > 1) {
-                    return <li key={index + query.title} className='dropdown-item text-truncate'>
+                    return <li key={index + query.title} className='dropdown__link text-truncate'>
                                 <a href={query.url} target='_blank'  rel='noopener noreferrer' className='text-dark'>{title}</a>
                             </li>;
                 }
                 if (firstName.length > 1 || lastName.length > 1) {
-                    return <li key={index + query.first_name} className='dropdown-item text-truncate'>
+                    return <li key={index + query.first_name} className='dropdown__link text-truncate'>
                                 <Link to={`/${query.id}`}>
                                     <span className='name'>{firstName} {lastName}</span>
                                 </Link>
                             </li>;
                 } else if (!title.length || !firstName.length || !lastName.length) {
-                    return <li key={index + 'none'} className='dropdown-item text-truncate'>
+                    return <li key={index + 'none'} className='dropdown__link text-truncate'>
                                 <span className='name'>No results</span>
                             </li>;
                 } else {
-                    return <li key={index + 'none'} className='dropdown-item text-truncate'>
+                    return <li key={index + 'none'} className='dropdown__link text-truncate'>
                                 <span className='name'>Better luck next time</span>
                             </li>;
                 }
@@ -81,35 +89,29 @@ class SearchForm extends Component {
         }
 
         return (
-            <form onSubmit={this.handleSubmit} className='form-inline dropdown' autoComplete='off'>
+            <form onSubmit={this.handleSubmit} autoComplete='off'>
                 <label htmlFor='search'></label>
-                <div className='input-group' id='navbarDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                    <div className='input-group-prepend'>
-                        <button type='submit' className='btn btn-outline-secondary text-primary btn-sm bg-white'>
-                            {loading.isLoading && loading.id.includes('search')
-                                ? <FontAwesomeIcon icon='spinner' pulse/>
-                                : <FontAwesomeIcon icon='search'/>
-                            }
-                        </button>
+                <div className={`dropdown ${activeDropdown}`} data-toggle='dropdown'>
+                    <div className='navbar__search'>
+                        <input
+                            type='text'
+                            className='navbar__search-input'
+                            id='search'
+                            name='search'
+                            onChange={this.handleChange}
+                            placeholder='Search Breads'
+                            value={search}
+                        />
                     </div>
-                    <input
-                        type='text'
-                        className='form-control form-control-sm'
-                        id='search'
-                        name='search'
-                        onChange={this.handleChange}
-                        placeholder='Search Breads'
-                        value={search}
-                    />
+                    <ul className='dropdown__menu'>
+                        {searchResults.length >= 1
+                            ? searchResults
+                            : <span className='dropdown__link'>
+                                ...
+                            </span>
+                        }
+                    </ul>
                 </div>
-                <ul className='dropdown-menu border-secondary search-results overflow-auto' role='menu' aria-labelledby='navbarDropdown'>
-                    {searchResults.length >= 1
-                        ? searchResults
-                        : <button className='dropdown-item avoid-click'>
-                            ...
-                        </button>
-                    }
-                </ul>
             </form>
         )
     }
@@ -119,7 +121,6 @@ function mapStateToProps(state) {
     return {
         readings: state.readings,
         search: state.search,
-        loading: state.loading
     }
 }
 
