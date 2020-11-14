@@ -64,7 +64,7 @@ class ArticleForm extends Component<IProps, IState> {
         const { loading } = this.props;
 
         return (
-            <aside className='col-xl-3 col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0 order-xl-1 mb-2'>
+            <aside className='col col--3 order-lg-1'>
                 <form onSubmit={this.handleNewUrl} autoComplete='off'>
                     {/* <label htmlFor='url'></label> */}
                     {/* <div className='input-group'> */}

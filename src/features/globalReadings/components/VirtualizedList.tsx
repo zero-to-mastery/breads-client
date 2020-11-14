@@ -45,7 +45,7 @@ const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readin
     };
     
     return (
-        <div className='col-lg-6 col-md-8 col-sm-10 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-0'>
+        <div className='col col--6'>
             {readings && readings.length > 0 && 
                 <WindowScroller>
                     {({ height, isScrolling, onChildScroll, scrollTop }) => (
