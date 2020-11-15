@@ -9,6 +9,7 @@ import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';
 import Aside from '../common/Aside';
+import LeftAside from '../common/LeftAside';
 import { RootState } from '../features/rootReducer';
 
 const AuthForm = lazy(() => import('../features/auth/components/AuthForm'));
@@ -35,7 +36,7 @@ export interface ResetParams {
 
 const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
     return (
-        <div className='container py-5'>
+        <div className='container py-4'>
             <Suspense fallback={<div></div>}>
             <Switch>
                 <Route
@@ -48,10 +49,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <GlobalAside list='global' title='Global Readings'/>
                                         <TagsAside list='global'/>
@@ -72,10 +75,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <GlobalAside list='global' tag_id={match.params.id}/>
                                         <TagsAside list='global'/>
@@ -156,10 +161,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <GlobalAside list='subscriptions' title="Friend's Readings"/>
                                         <TagsAside list='subscriptions'/>
@@ -180,10 +187,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
                                         <TagsAside list={match.params.id} user_id={match.params.id} />
@@ -222,10 +231,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
                                         <TagsAside/>
@@ -246,10 +257,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
                                         <TagsAside/>
@@ -270,10 +283,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
                                         <TagsAside list={match.params.id}/>
@@ -298,10 +313,12 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     <Alert />
                                 }
                                 <Timeline>
-                                    {currentUser.isAuthenticated
-                                        ? <ArticleForm history={history}/>
-                                        : <SignUpCard />
-                                    }
+                                    <LeftAside>
+                                        {currentUser.isAuthenticated
+                                            ? <ArticleForm history={history}/>
+                                            : <SignUpCard />
+                                        }
+                                    </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
                                         <TagsAside/>
