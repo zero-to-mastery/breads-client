@@ -1782,6 +1782,72 @@
     padding: 0;
   }
   :root {
+    --ifm-form-background-color: var(--ifm-background-surface-color);
+    --ifm-form-shadow: var(--ifm-global-shadow-lw);
+    --ifm-form-input-background-color: var(--ifm-color-emphasis-200);
+    --ifm-form-input-color: var(--ifm-color-emphasis-800);
+    --ifm-form-input-placeholder-color: var(--ifm-color-emphasis-500);
+  }
+  .form--dark {
+    --ifm-form-background-color: #303846;
+    --ifm-form-input-background-color: hsla(0, 0%, 100%, 0.1);
+    --ifm-form-input-color: var(--ifm-color-white);
+    --ifm-form-input-placeholder-color: hsla(0, 0%, 100%, 0.5);
+  }
+  .form--primary {
+    --ifm-form-background-color: var(--ifm-color-primary);
+    --ifm-form-input-background-color: hsla(0, 0%, 100%, 0.1);
+    --ifm-form-input-color: var(--ifm-color-emphasis-500);
+    --ifm-form-input-placeholder-color: hsla(0, 0%, 100%, 0.5);
+  }
+  .form-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #ebedf0;
+    background-color: var(--ifm-form-input-background-color);
+    background-position-x: 0.75rem;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+    border-radius: 2rem;
+    border-width: 0;
+    cursor: text;
+    color: #444950;
+    color: var(--ifm-form-input-color);
+    display: inline-block;
+    font-size: 0.9rem;
+    line-height: 2rem;
+    outline: none;
+    padding: 0 0.5rem 0 2.25rem;
+    /* width: 12.5rem; */
+  }
+  .form-input::-webkit-input-placeholder {
+    color: #bec3c9;
+    color: var(--ifm-form-input-placeholder-color);
+  }
+  .form-input::-moz-placeholder {
+    color: #bec3c9;
+    color: var(--ifm-form-input-placeholder-color);
+  }
+  .form-input:-ms-input-placeholder {
+    color: #bec3c9;
+    color: var(--ifm-form-input-placeholder-color);
+  }
+  .form-input::-ms-input-placeholder {
+    color: #bec3c9;
+    color: var(--ifm-form-input-placeholder-color);
+  }
+  .form-input::placeholder {
+    color: #bec3c9;
+    color: var(--ifm-form-input-placeholder-color);
+  }
+  /* @media (max-width: 996px) {
+    .form-input {
+      width: 9rem;
+    }
+  } */
+  :root {
     --ifm-hero-background-color: var(--ifm-background-surface-color);
     --ifm-hero-text-color: var(--ifm-color-emphasis-800);
   }
