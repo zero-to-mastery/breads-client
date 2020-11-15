@@ -10,9 +10,9 @@ const TagsList = ({tags}) => {
     }
     
     return (
-        <ul className='list-group list-group-flush'>
+        <div className='menu__list'>
             {tagsList}
-        </ul>
+        </div>
     )
 }
 

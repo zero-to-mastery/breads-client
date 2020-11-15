@@ -9,33 +9,26 @@ class TagsAside extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeRecent: ''
+            active: 'secondary'
         }
     }
 
     handleClick = e => {
         this.setState({
-            [e.target.name]: this.state[e.target.name] === 'active' ? '' : 'active'
+            [e.target.name]: this.state[e.target.name] === 'secondary' ? 'primary' : 'secondary'
         });
     }
 
     render() {
         const { mostRecentTags, topTags } = this.props;
-        const { activeRecent } = this.state;
+        const { active } = this.state;
         
-        let visibleTags = activeRecent === 'active' ? mostRecentTags : topTags;
+        let visibleTags = active === 'primary' ? mostRecentTags : topTags;
 
         return (
-            <Card>
-                <div className='row pl-3 pr-3'>
-                    <h4 className='card-title mr-auto'>Top Tags</h4>
-                    <button onClick={this.handleClick} className={`btn btn-outline-primary btn-sm ${activeRecent}`} name='activeRecent'>Most Recent</button>
-                </div>
-                {/* {loading.isLoading && loading.id.includes('tags')
-                    ? <FontAwesomeIcon icon='spinner' pulse/>
-                    : {tagsList}
-                } */}
-                <TagsList tags={visibleTags}/>
+            <Card username={'Top Tags'}>
+                <button onClick={this.handleClick} className={`button button--${active}`} name='active'>Most Recent</button>
+                <TagsList tags={visibleTags} />
             </Card>
         )
     }
