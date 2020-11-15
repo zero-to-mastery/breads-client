@@ -44,12 +44,14 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, webs
     if (!title && tag) title = `#${tag.tag_name}`;
 
     return (
-        <Card>
-            <h4 className='card-title'>{title}</h4>
+        <Card username={title}>
             <ReadingStats loading={loading} loading_id={list} statName='Readings' stat={totalReadings}/>
             <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/>
             <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/>
             <ReadingStats loading={loading} loading_id={list} statName='Loaves' stat={totalBooks}/>
+            <button className='button button--block button--primary'>
+                See Reading Tags
+            </button>
         </Card>
     )
 }

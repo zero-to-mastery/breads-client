@@ -4,20 +4,19 @@ import DefaultImage from '../images/white-background.png';
 interface UserImageProps {
     image?: string
     username?: string
-    className: string
-    height?: string
-    width?: string
+    imageSize: string
 }
 
-const UserImage: React.FunctionComponent<UserImageProps> = ({image, username, className, height, width}) => {
+const UserImage: React.FunctionComponent<UserImageProps> = ({ image, username, imageSize, children }) => {
     return (
-        <img
-            src={image || DefaultImage}
-            alt={username}
-            className={className}
-            height={height ? height : undefined}
-            width={width ? width : undefined}
-        />
+        <div className='avatar'>
+            <img
+                src={image || DefaultImage}
+                alt={username}
+                className={`avatar__photo-link avatar__photo avatar__photo--${imageSize}`}
+            />
+            {children}
+        </div>
     )
 }
 

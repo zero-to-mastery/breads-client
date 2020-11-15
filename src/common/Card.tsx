@@ -1,5 +1,6 @@
 import React from 'react';
 import UserImage from './UserImage';
+import UserIntro from './UserIntro';
 
 interface CardProps {
     image?: string,
@@ -27,10 +28,19 @@ const Card: React.FunctionComponent<CardProps> = ({image, username, children}) =
     if (image) updatedImage = addImageTransformation(image);
 
     return (
-        <div className='card border-secondary mb-2'>
-            {image && <UserImage image={updatedImage} username={username} className='card-img-top border-bottom border-secondary'/>}
-            <div className='card-body'>
-                {children}
+        <div className='card-demo'>
+            <div className='card'>
+                <div className='card__header'>
+                    {image 
+                     ? <UserImage image={updatedImage} username={username} imageSize='xl'>
+                            <UserIntro username='test'/>
+                        </UserImage>
+                     : <h3>{username}</h3>
+                    }
+                </div>
+                <div className='card__footer'>
+                    {children}
+                </div>
             </div>
         </div>
     )

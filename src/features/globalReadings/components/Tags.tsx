@@ -28,7 +28,7 @@ class Tags extends Component<TagsProps> {
             tag_links = reading.tags.map((tag_id: number): React.ReactNode | string => {
                 if (tags[tag_id]) {
                     return <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
-                            {`#${tags[tag_id].tag_name} `}
+                            {` #${tags[tag_id].tag_name}`}
                         </Link>
                 } else {
                     return '';
@@ -37,14 +37,12 @@ class Tags extends Component<TagsProps> {
         }
 
         return (
-            <>
-                <p className='btn text-primary mt-2 ml-3 pr-0 text-nowrap overflow-auto-horizontal'>
-                    {currentUser?.id === reading.reader && (list !== 'global' && list !== 'subscriptions')&& 
+                <span>
+                    {currentUser?.id === reading.reader && (list !== 'global' && list !== 'subscriptions') && 
                         <FontAwesomeIcon onClick={this.handleClick} icon='plus' size='sm' data-toggle='modal' data-target='#exampleModal'/>
                     }  
-                    <small> {tag_links}</small>
-                </p>
-            </>
+                    {tag_links}
+                </span>
         )
     }
 }

@@ -23,12 +23,12 @@ class Favorites extends Component<FavoritesProps> {
             <>
                 {currentUser.id === reader && (
                     favorite
-                        ? <p onClick={this.handleClick} className='btn text-muted m-2'>
+                        ? <button onClick={this.handleClick} className='button button--primary'>
                             <FontAwesomeIcon icon='bookmark'/>
-                        </p>
-                        : <p onClick={this.handleClick} className='btn text-muted m-2'>
+                        </button>
+                        : <button onClick={this.handleClick} className='button button--secondary'>
                             <FontAwesomeIcon icon={['far', 'bookmark']}/>
-                        </p>
+                        </button>
                 )}
             </>
         )

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import UserImage from '../../../common/UserImage';
 // import Summary from '../../summary/Summary';
 import Favorites from './Favorites';
@@ -11,6 +11,7 @@ import Tags from './Tags';
 import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 import { RootState } from '../../rootReducer';
+import UserIntro from '../../../common/UserIntro';
 
 type OwnProps = {
     id: any
@@ -37,7 +38,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     measure
 }) => {
     const minutes = Math.round(reading.word_count / 300);
-    let imageMargin = '';
+    // let imageMargin = '';
 
     function addImageTransformation(image: any): string | undefined {
         let imageURL = new URL(image);
@@ -53,88 +54,84 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     }
 
     function serveImageThroughCDN(): string {
-        let width = getImageWidth();
+        // let width = getImageWidth();
+        let cardWidth = 320;
         if (reading && reading.reading_image) {
-            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${width}&output=webp`;
+            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${cardWidth}&output=webp`;
         } else {
             return BreadsImage;
         }
     }
 
-    function getImageWidth(): number {
-        if (window.innerWidth <= 767) {
-            return 575;
-        } else {
-            imageMargin = 'm-3';
-            return 167;
-        }
-    }
+    // function getImageWidth(): number {
+    //     if (window.innerWidth <= 767) {
+    //         return 575;
+    //     } else {
+    //         imageMargin = 'm-3';
+    //         return 167;
+    //     }
+    // }
 
     let newUserImage = addImageTransformation(users[reading.reader].image);
     let newReadingImage = serveImageThroughCDN();    
 
     return (
-        <li style={{ ...style }}
-            className='card border-secondary'
-            id='list-item'
-        >
-            <div className='row'>
-                <div className='col-md-4'>
-                    <img loading='lazy' src={newReadingImage} onLoad={measure} className={`card-img ${imageMargin}`} alt='Article'></img>
+        <div style={{ ...style }} id='list-item'>
+            <div className='card'>
+                <div className='card__image'>
+                    <img loading='lazy' src={newReadingImage} onLoad={measure} alt='Article'></img>
                 </div>
-                <div className='col-md-8'>
-                    <div className='m-3'>
-                        <h5 className='card-title flex-row'><a href={`${reading.url}`} target='_blank' rel='noopener noreferrer' className='text-primary'><strong>{reading.title}</strong></a></h5>
-                        <div className='card-text flex-row small'>{reading.description}</div>
-                        <div className='card-text row ml-1 mr-1 mt-2'>
-                            <p className='lead'>{reading.domain}</p>
-                            { minutes > 0 && <p className='text-muted ml-auto'>{minutes} min read</p> }          
-                        </div>
-                    </div>
+                <div className='card__header'>
+                    <a href={`${reading.url}`} target='_blank' rel='noopener noreferrer'>
+                        <h3>{reading.title}</h3>
+                    </a>
                 </div>
-            </div>
-            <div className='card-text row flex-nowrap ml-3 mr-3'>
-                <UserImage
-                    image={newUserImage}
-                    username={users[reading.reader].username}
-                    className='timeline-image'
-                    height='48'
-                    width='48'
-                />
-
+                <div className='card__body'>
+                    <p>{reading.description}</p>
+                    <br></br>
+                    <p className=''>
+                        {reading.domain}
+                        { minutes > 0 && `${minutes} min read` }          
+                        </p>
+                </div>
+            <div className='card__footer'>
                 {!isCorrectUser && 
-                    <Link to={`/${users[reading.reader].id}`} className='btn text-primary m-2'>
-                        <small>{users[reading.reader].username}</small>
-                    </Link>
-                }
-
-                <Moment className='text-muted text-nowrap mt-3 ml-2 mr-auto' fromNow ago>
-                    {reading.created_at}
-                </Moment> 
-
-                {/* {minutes > 0 && 
-                    <Summary id={id}/>
-                } */}
-                {tags && 
-                    <Tags reading={reading} tags={tags} list={list}/>
-                }
+                    // <Link to={`/${users[reading.reader].id}`}>
+                        <UserImage
+                            image={newUserImage}
+                            username={users[reading.reader].username}
+                            imageSize=''
+                        >
+                    {/* </Link> */}
+                            <UserIntro username={users[reading.reader].username}>
+                                <Moment fromNow ago>
+                                    {reading.created_at}
+                                </Moment>
+                                <span> </span>
+                                {tags && 
+                                    <Tags reading={reading} tags={tags} list={list}/>
+                                }
+                            </UserIntro>
+                        </UserImage>
+                    }  
                 {(list !== 'global' && list !== 'subscriptions') &&
-                    <>
+                    <div className='button-group button-group--block'>
+                        {(currentUser.user?.id === reading.reader || currentUser.user?.id === 1) 
+                        && outdated === 'true' &&
+                            <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
+                        }
                         <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
                         <Delete id={id} reader={reading.reader}/>
-                    </>
+                    </div>
                 }
 
-                {summary?.id === reading?.id &&
+                {/* {summary?.id === reading?.id &&
                     <p className='summary-data'>{summary.data}</p>
-                }
+                } */}
 
-                {(currentUser.user?.id === reading.reader || currentUser.user?.id === 1)&& 
-                outdated === 'true' &&
-                    <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
-                }
             </div>
-        </li>
+            </div>
+        </div>
     )
 }
 

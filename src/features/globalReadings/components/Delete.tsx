@@ -21,9 +21,9 @@ class Delete extends Component<DeleteProps> {
         return (
             <>
                 {currentUser.id === reader && 
-                    <p onClick={this.handleClick} className='btn text-danger m-2 delete'>
+                    <button onClick={this.handleClick} className='button button--outline button--danger'>
                         <FontAwesomeIcon icon={['far', 'trash-alt']}/>
-                    </p>
+                    </button>
                 }
             </>
         )
