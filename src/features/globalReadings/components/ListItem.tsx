@@ -38,7 +38,6 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     measure
 }) => {
     const minutes = Math.round(reading.word_count / 300);
-    // let imageMargin = '';
 
     function addImageTransformation(image: any): string | undefined {
         let imageURL = new URL(image);
@@ -54,54 +53,38 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     }
 
     function serveImageThroughCDN(): string {
-        // let width = getImageWidth();
-        let cardWidth = 320;
+        let width = getImageWidth();
         if (reading && reading.reading_image) {
-            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${cardWidth}&output=webp`;
+            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${width}&output=webp`;
         } else {
             return BreadsImage;
         }
     }
 
-    // function getImageWidth(): number {
-    //     if (window.innerWidth <= 767) {
-    //         return 575;
-    //     } else {
-    //         imageMargin = 'm-3';
-    //         return 167;
-    //     }
-    // }
+    function getImageWidth(): number {
+        if (window.innerWidth >= 997) {
+            return 536;
+        } else {
+            return 320;
+        }
+    }
 
     let newUserImage = addImageTransformation(users[reading.reader].image);
     let newReadingImage = serveImageThroughCDN();    
 
     return (
-        <div style={{ ...style }} id='list-item'>
+        // <div  id='list-item'>
+            <div className='card-demo-md' style={{ ...style }}>
+
             <div className='card'>
-                <div className='card__image'>
-                    <img loading='lazy' src={newReadingImage} onLoad={measure} alt='Article'></img>
-                </div>
                 <div className='card__header'>
-                    <a href={`${reading.url}`} target='_blank' rel='noopener noreferrer'>
-                        <h3>{reading.title}</h3>
-                    </a>
-                </div>
-                <div className='card__body'>
-                    <p>{reading.description}</p>
-                    <br></br>
-                    <p className=''>
-                        {reading.domain}
-                        { minutes > 0 && `${minutes} min read` }          
-                        </p>
-                </div>
-            <div className='card__footer'>
-                {!isCorrectUser && 
+                    {!isCorrectUser && 
                     // <Link to={`/${users[reading.reader].id}`}>
-                        <UserImage
-                            image={newUserImage}
-                            username={users[reading.reader].username}
-                            imageSize=''
-                        >
+                    <UserImage
+                    image={newUserImage}
+                    username={users[reading.reader].username}
+                    imageSize=''
+                    >
                     {/* </Link> */}
                             <UserIntro username={users[reading.reader].username}>
                                 <Moment fromNow ago>
@@ -114,24 +97,38 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                             </UserIntro>
                         </UserImage>
                     }  
-                {(list !== 'global' && list !== 'subscriptions') &&
-                    <div className='button-group button-group--block'>
-                        {(currentUser.user?.id === reading.reader || currentUser.user?.id === 1) 
-                        && outdated === 'true' &&
+                </div>
+                <div className='card__image'>
+                    <img loading='lazy' src={newReadingImage} onLoad={measure} alt='Article'></img>
+                </div>
+                <div className='card__body'>
+                    <a href={`${reading.url}`} target='_blank' rel='noopener noreferrer'>
+                        <h3>{reading.title}</h3>
+                    </a>
+                    <p>{reading.description}</p>
+                </div>
+                <div className='card__footer'>
+                    <p className=''>
+                        {reading.domain}
+                        { minutes > 0 && `${minutes} min read` }          
+                    </p>
+                    {(list !== 'global' && list !== 'subscriptions') &&
+                        <div className='button-group button-group--block'>
+                            {(currentUser.user?.id === reading.reader || currentUser.user?.id === 1) 
+                            && outdated === 'true' &&
                             <Update user_id={reading.reader} reading_id={id} url={reading.url}/>
                         }
-                        <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
-                        <Delete id={id} reader={reading.reader}/>
+                            <Favorites id={id} reader={reading.reader} favorite={reading.favorite}/>
+                            <Delete id={id} reader={reading.reader}/>
+                        </div>
+                    }
+                    {/* {summary?.id === reading?.id &&
+                        <p className='summary-data'>{summary.data}</p>
+                    } */}
+                </div>
+            </div>
                     </div>
-                }
-
-                {/* {summary?.id === reading?.id &&
-                    <p className='summary-data'>{summary.data}</p>
-                } */}
-
-            </div>
-            </div>
-        </div>
+        // </div>
     )
 }
 

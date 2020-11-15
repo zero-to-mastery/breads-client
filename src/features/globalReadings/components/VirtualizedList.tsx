@@ -45,11 +45,11 @@ const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readin
     };
     
     return (
-        <div className='col col--6'>
+        <div className='col col--6-lg col--4-md'>
             {readings && readings.length > 0 && 
                 <WindowScroller>
                     {({ height, isScrolling, onChildScroll, scrollTop }) => (
-                        <div className='list-group' id='list_data'>
+                        // <div className='list-group' id='list_data'>
                             <AutoSizer disableHeight> 
                                 {({ width }) => (
                                     <List 
@@ -67,7 +67,7 @@ const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readin
                                     />
                                 )}
                             </AutoSizer> 
-                        </div>
+                        // </div>
                     )}
                 </WindowScroller>
             }

@@ -6,7 +6,7 @@ interface LeftAsideProps  {
 
 const LeftAside: React.FunctionComponent<LeftAsideProps> = ({ children }) => {
     return (
-        <aside className='col col--3 order-lg-1'>
+        <aside className='col col--3-lg col--4-md order order--1-md'>
             {children}
         </aside>
     )
