@@ -2,7 +2,7 @@ import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import { LOAD_SUBSCRIPTIONS, ADD_SUBSCRIPTION, REMOVE_SUBSCRIPTIONS } from '../actionTypes';
 
-const { addError, addSuccess } = alerts.actions;
+const { addAlert } = alerts.actions;
 
 export const loadSubscriptions = (users, id) => ({
     type: LOAD_SUBSCRIPTIONS,
@@ -26,7 +26,7 @@ export const fetchSubscriptions = user_id => {
     return dispatch => {
         return apiCall('get', `/users/${user_id}/subscriptions`)
             .then(res => dispatch(loadSubscriptions(res, user_id)))
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
     }
 }
 
@@ -35,9 +35,9 @@ export const removeSubscription = (sub_id, pub_id) => {
         return apiCall('delete', `/users/${sub_id}/subscriptions/${pub_id}`)
             .then(() => {
                 dispatch(removeSubscriptions(pub_id, sub_id));
-                dispatch(addSuccess('Successfully unfollowed'));
+                dispatch(addAlert({message: 'Successfully unfollowed', type: 'success'}));
             })
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
     }
 }
 
@@ -47,9 +47,9 @@ export const postNewSubscription = sub_id => (dispatch, getState) => {
     return apiCall('post', `/users/${user_id}/subscriptions`, { sub_id })
         .then(() => {
             dispatch(addSubscription(sub_id, user_id));
-            dispatch(addSuccess('Successfully followed'));
+            dispatch(addAlert({message: 'Successfully followed', type: 'success'}));
         })
-        .catch(err => dispatch(addError(err.message)));
+        .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
 const shouldFetchSubscriptions = (state, id) => {
