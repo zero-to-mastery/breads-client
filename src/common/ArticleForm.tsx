@@ -64,43 +64,43 @@ class ArticleForm extends Component<IProps, IState> {
         const { loading } = this.props;
 
         return (
-            <aside className='col col--3 order-lg-1'>
-                <form onSubmit={this.handleNewUrl} autoComplete='off'>
-                    {/* <label htmlFor='url'></label> */}
-                    {/* <div className='input-group'> */}
-                        <input
-                            type='text'
-                            className='form-control form-control-sm mb-2'
-                            id='url'
-                            name='url'
-                            onChange={this.handleChange}
-                            placeholder='Paste article url here'
-                            value={url}
-                        />
-                        <input
-                            type='text'
-                            className='form-control form-control-sm'
-                            id='tags'
-                            name='tags'
-                            onChange={this.handleChange}
-                            placeholder='add tags (optional)'
-                            value={tags}
-                        />
-                        <small className='form-text text-muted'>
-                            Separate tags with '#'. (e.g. #fun #learning)
-                        </small>
-                        {/* <div className='input-group-append'> */}
-                            <button type='submit' className='btn btn-outline-secondary text-primary btn-sm btn-block bg-white mt-1'>
+            <div className='card-demo'>
+                <div className='card'>
+                    <form onSubmit={this.handleNewUrl} autoComplete='off'>
+                        <div className='card__body'>
+                            <input
+                                type='text'
+                                className='form-input'
+                                id='url'
+                                name='url'
+                                onChange={this.handleChange}
+                                placeholder='Paste article url here'
+                                value={url}
+                            />
+                            <input
+                                type='text'
+                                className='form-input'
+                                id='tags'
+                                name='tags'
+                                onChange={this.handleChange}
+                                placeholder='add tags (optional)'
+                                value={tags}
+                            />
+                        </div>
+                        <div className='card__footer'>
+                            <small>
+                                Separate tags with '#'. (e.g. #fun #learning)
+                            </small>
+                            <button type='submit' className='button button--block button--secondary'>
                                 {loading.isLoading 
-                                // && loading.id.includes('newReading')
                                     ? <FontAwesomeIcon icon='spinner' pulse/>
                                     : <FontAwesomeIcon icon='plus'/>
                                 }
                             </button>
-                        {/* </div> */}
-                    {/* </div> */}
-                </form>
-            </aside>
+                        </div>
+                    </form>
+                </div>
+            </div>
         )
     }
 }
