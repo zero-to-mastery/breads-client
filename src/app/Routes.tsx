@@ -207,13 +207,20 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                     path='/:id/edit'
                     render={({ history }: RouteComponentProps<TParams>) => {
                         return (
-                            <UpdateForm
-                                alerts={alerts}
-                                buttonText='Update'
-                                heading={currentUser.user.username}
-                                returnPath={currentUser.user.id}
-                                history={history}
-                            />
+                            <>
+                                {alerts.message && 
+                                    <Alert />
+                                }
+                                <Timeline>
+                                    <UpdateForm
+                                        alerts={alerts}
+                                        buttonText='Update'
+                                        heading={currentUser.user.username}
+                                        returnPath={currentUser.user.id}
+                                        history={history}
+                                    />
+                                </Timeline>
+                            </>
                         )
                     }}
                 />
