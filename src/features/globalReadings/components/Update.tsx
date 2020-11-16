@@ -22,7 +22,7 @@ class Update extends Component<UpdateProps> {
             {/* loader goes for 11 seconds, then user can update next reading */}
             {/* need to have visual prompt to show user reading has been updated */}
                 {loader.isLoading && loader.id.includes('updateReading')
-                    ? <button className='button button--secodary' disabled>Updating...</button>
+                    ? <button className='button button--secondary' disabled>Updating...</button>
                     : <button onClick={this.handleClick} className='button button--warning'>Update</button>
                 }
             </>
