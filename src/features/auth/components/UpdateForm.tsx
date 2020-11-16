@@ -48,40 +48,46 @@ class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
         const { heading, returnPath, buttonText, alerts } = this.props;
 
         return (
-            <div className='row justify-content-md-center text-center'>
-                <div className='col-md-6'>
+            <div className='card-demo'>
+                <div className='card'>
                     <form onSubmit={this.handleSubmit}>
-                        <h2>Update {heading}</h2>
+                        <div className='card__header'>
+                            <h2>Update {heading}</h2>
+                        </div>
                         {alerts.message && 
                             <Alert />
                         }
-                        <label htmlFor='image'>Image Url:</label>
-                        <input
-                            autoComplete='off'
-                            className='form-control'
-                            id='image'
-                            name='image'
-                            onChange={this.handleChange}
-                            type='text'
-                            value={image}
-                        />
-                        <label htmlFor='username'>Username:</label>
-                        <input
-                            autoComplete='off'
-                            className='form-control'
-                            id='username'
-                            name='username'
-                            onChange={this.handleChange}
-                            type='text'
-                            value={username}
-                        />
-                        <button type='submit' className='btn btn-primary btn-block btn-lg mt-2'>
-                            {buttonText}
-                        </button>
+                        <div className='card__body'>
+                            <label htmlFor='image'>Image Url: </label>
+                            <input
+                                autoComplete='off'
+                                className='form-input'
+                                id='image'
+                                name='image'
+                                onChange={this.handleChange}
+                                type='text'
+                                value={image}
+                            />
+                            <label htmlFor='username'>Username: </label>
+                            <input
+                                autoComplete='off'
+                                className='form-input margin-top--md'
+                                id='username'
+                                name='username'
+                                onChange={this.handleChange}
+                                type='text'
+                                value={username}
+                            />
+                        </div>
+                        <div className='card__footer'>
+                            <button type='submit' className='button button--block button--primary'>
+                                {buttonText}
+                            </button>
+                            <NavLink exact to={`/${returnPath}`} className='button button--sm button--block button--outline button--warning margin-top--md'>
+                                Return
+                            </NavLink>
+                        </div>
                     </form>
-                    <NavLink exact to={`/${returnPath}`} className='btn btn-warning btn-block mt-2'>
-                        Return
-                    </NavLink>
                 </div>
             </div>
         )

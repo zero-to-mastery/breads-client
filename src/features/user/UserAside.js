@@ -91,10 +91,8 @@ class UserAside extends Component {
                 <Subscribe user={u.id} />
                 <TagsAside list={match.params.id} />
                 {currentUser.id && currentUser.id === u.id && 
-                    <NavLink exact to={`/${u.id}/edit`}>
-                        <button className='button button--sm button--block button--outline button--warning margin-top--md'>
-                            Update Account
-                        </button>
+                    <NavLink exact to={`/${u.id}/edit`} className='button button--sm button--block button--outline button--warning margin-top--md'>
+                        Update Account
                     </NavLink>
                 }
             </Card>
