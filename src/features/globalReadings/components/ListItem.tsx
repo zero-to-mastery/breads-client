@@ -63,7 +63,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
 
     function getImageWidth(): number {
         if (window.innerWidth >= 997) {
-            return 536;
+            return 550;
         } else {
             return 320;
         }

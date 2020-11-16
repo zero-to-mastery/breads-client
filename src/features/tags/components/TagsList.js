@@ -1,7 +1,7 @@
 import React from 'react';
 import TagItem from './TagItem';
 
-const TagsList = ({tags}) => {
+const TagsList = ({ tags, isHidden}) => {
     let tagsList;
     if (tags) {
         tagsList = tags.map((id) => {
@@ -10,7 +10,7 @@ const TagsList = ({tags}) => {
     }
     
     return (
-        <div className='menu__list'>
+        <div className={`menu__list ${isHidden}`}>
             {tagsList}
         </div>
     )

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card from '../../../common/Card';
 import TagsList from './TagsList';
 import { getMostRecentTags, getTopTags } from '../selectors';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,27 +8,34 @@ class TagsAside extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: 'secondary'
+            activeTags: ''
         }
     }
 
     handleClick = e => {
-        this.setState({
-            [e.target.name]: this.state[e.target.name] === 'secondary' ? 'primary' : 'secondary'
-        });
+        let name = e.currentTarget.name;
+        this.setState(prevState => ({
+            activeTags: prevState.activeTags !== name ? name : ''
+        }));
     }
 
     render() {
         const { mostRecentTags, topTags } = this.props;
-        const { active } = this.state;
-        
-        let visibleTags = active === 'primary' ? mostRecentTags : topTags;
+        const { activeTags } = this.state;
+
+        let visibleTags = activeTags === 'new' ? mostRecentTags : topTags;
+        let isHidden = activeTags === '' ? 'hidden' : '';
+        let activeTop = activeTags === 'top' ? 'primary' : 'secondary';
+        let activeNew = activeTags === 'new' ? 'primary' : 'secondary';
 
         return (
-            <Card username={'Top Tags'}>
-                <button onClick={this.handleClick} className={`button button--${active}`} name='active'>Most Recent</button>
-                <TagsList tags={visibleTags} />
-            </Card>
+            <>
+                <div className='button-group button-group--block'>
+                    <button onClick={this.handleClick} className={`button button--${activeTop}`} name='top'>Top Tags</button>
+                    <button onClick={this.handleClick} className={`button button--${activeNew}`} name='new'>New Tags</button>
+                </div>
+                <TagsList tags={visibleTags} isHidden={isHidden} />
+            </>
         )
     }
 }

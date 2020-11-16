@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { getReadings, getWebsites } from '../selectors';
 import Card from '../../../common/Card';
 import ReadingStats from '../../../common/ReadingsStats';
+import { TagsAside } from '../../tags';
 import { getTagById } from '../../tags/selectors';
 import { RootState } from '../../rootReducer';
 
@@ -49,9 +50,7 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({ readings, webs
             <ReadingStats loading={loading} loading_id={list} statName='Websites Read From' stat={totalWebsites}/>
             <ReadingStats loading={loading} loading_id={list} statName='Most Read Website' stat={topWebsite}/>
             <ReadingStats loading={loading} loading_id={list} statName='Loaves' stat={totalBooks}/>
-            <button className='button button--block button--primary'>
-                See Reading Tags
-            </button>
+            <TagsAside list={list}/>
         </Card>
     )
 }

@@ -57,7 +57,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <GlobalAside list='global' title='Global Readings'/>
-                                        <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' match={match}/>
                                 </Timeline>
@@ -83,7 +82,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <GlobalAside list='global' tag_id={match.params.id}/>
-                                        <TagsAside list='global'/>
                                     </Aside>
                                     <GlobalReadingsList list='global' tag_id={match.params.id} match={match}/>
                                 </Timeline>
@@ -169,7 +167,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <GlobalAside list='subscriptions' title="Friend's Readings"/>
-                                        <TagsAside list='subscriptions'/>
                                     </Aside>
                                     <GlobalReadingsList list='subscriptions' match={match}/>
                                 </Timeline>
