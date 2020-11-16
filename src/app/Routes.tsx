@@ -192,7 +192,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
-                                        <TagsAside list={match.params.id} user_id={match.params.id} />
                                     </Aside>
                                     <GlobalReadingsList
                                         list={match.params.id}
@@ -236,7 +235,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
-                                        <TagsAside/>
                                     </Aside>
                                     <SubscriptionsList match={match} sub_type='following'/>
                                 </Timeline>
@@ -262,7 +260,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
-                                        <TagsAside/>
                                     </Aside>
                                     <SubscriptionsList match={match} sub_type='followers'/>
                                 </Timeline>
@@ -288,7 +285,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
-                                        <TagsAside list={match.params.id}/>
                                     </Aside>
                                     <GlobalReadingsList
                                         list={match.params.id}
@@ -318,7 +314,6 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                                     </LeftAside>
                                     <Aside>
                                         <UserAside fav='true' match={match}/>
-                                        <TagsAside/>
                                     </Aside>
                                     <GlobalReadingsList
                                         list={match.params.id}

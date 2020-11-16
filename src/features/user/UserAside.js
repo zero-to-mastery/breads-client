@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import subscriptions from '../subscriptions';
 import globalReadings from '../globalReadings';
-import tags from '../tags';
+import tags, { TagsAside } from '../tags';
 import { fetchUserIfNeeded } from './actions';
 import { getUserById } from './selectors';
 import Card from '../../common/Card';
@@ -37,7 +37,7 @@ class UserAside extends Component {
     }
 
     render() {
-        let { readings, websites, loading, favorites, user, currentUser, outdated, followers, followings } = this.props;
+        let { readings, websites, loading, favorites, user, currentUser, outdated, followers, followings, match } = this.props;
         let totalReadings = 0,
             totalWebsites = 0,
             topWebsite = 'None',
@@ -108,6 +108,7 @@ class UserAside extends Component {
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/>
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
                 </>
+                <TagsAside list={match.params.id} />
             </Card>
         )
     }
