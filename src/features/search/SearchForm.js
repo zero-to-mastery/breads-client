@@ -62,26 +62,26 @@ class SearchForm extends Component {
             searchResults = this.findMatches(search)
             .map((query, index) => {
                 const regex = new RegExp(`(${search})`, 'gi');
-                const firstName = reactStringReplace(query.first_name, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
-                const lastName = reactStringReplace(query.last_name, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
-                const title = reactStringReplace(query.title, regex, (match, i) => <span key={i} className='bg-warning'>{match}</span>);
+                const firstName = reactStringReplace(query.first_name, regex, (match, i) => <span key={i} className='background background--warning'>{match}</span>);
+                const lastName = reactStringReplace(query.last_name, regex, (match, i) => <span key={i} className='background background--warning'>{match}</span>);
+                const title = reactStringReplace(query.title, regex, (match, i) => <span key={i} className='background background--warning'>{match}</span>);
                 if (title.length > 1) {
-                    return <li key={index + query.title} className='dropdown__link text-truncate'>
+                    return <li key={index + query.title} className='dropdown__link text--truncate'>
                                 <a href={query.url} target='_blank'  rel='noopener noreferrer' className='text-dark'>{title}</a>
                             </li>;
                 }
                 if (firstName.length > 1 || lastName.length > 1) {
-                    return <li key={index + query.first_name} className='dropdown__link text-truncate'>
+                    return <li key={index + query.first_name} className='dropdown__link text--truncate'>
                                 <Link to={`/${query.id}`}>
                                     <span className='name'>{firstName} {lastName}</span>
                                 </Link>
                             </li>;
                 } else if (!title.length || !firstName.length || !lastName.length) {
-                    return <li key={index + 'none'} className='dropdown__link text-truncate'>
+                    return <li key={index + 'none'} className='dropdown__link text--truncate'>
                                 <span className='name'>No results</span>
                             </li>;
                 } else {
-                    return <li key={index + 'none'} className='dropdown__link text-truncate'>
+                    return <li key={index + 'none'} className='dropdown__link text--truncate'>
                                 <span className='name'>Better luck next time</span>
                             </li>;
                 }
@@ -103,7 +103,7 @@ class SearchForm extends Component {
                             value={search}
                         />
                     </div>
-                    <ul className='dropdown__menu'>
+                    <ul className='dropdown__menu search-results text--truncate'>
                         {searchResults.length >= 1
                             ? searchResults
                             : <span className='dropdown__link'>

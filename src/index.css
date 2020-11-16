@@ -62,17 +62,20 @@ input[type="text"], textarea {
     pointer-events: none;
 }
 
-.search-results {
-    max-height: 90vh;
-}
 
 .special {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-@media (max-width: 767.98px) { 
+.search-results {
+    max-height: 90vh;
+    overflow-y: scroll;
+}
+
+@media (max-width: 768px) { 
     .search-results {
         max-width: 100%;
+        overflow-y: scroll;
     }
 }
 
