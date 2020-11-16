@@ -9,7 +9,6 @@ import { getUserById } from './selectors';
 import Card from '../../common/Card';
 import Subscribe from '../../common/Subscribe';
 import ReadingStats from '../../common/ReadingsStats';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const { getReadings, getWebsites, getUserReadingsInNeedOfUpdate } = globalReadings.selectors;
@@ -72,43 +71,32 @@ class UserAside extends Component {
         if (favorites) totalFavorites = favorites.length;
         if (outdated) totalOutdated = outdated.length;
         return (
-            <Card image={u.image} username={u.username}>
-                <div className='row pl-3 pr-3'>
-                    <h4 className='card-title mr-auto'>{u.username}</h4>
-                    {currentUser.id && currentUser.id === u.id && 
-                        <NavLink exact to={`/${u.id}/edit`} className='text-warning'>
-                            <FontAwesomeIcon icon={['far', 'edit']}/>
-                        </NavLink>
-                    }
-                    <Subscribe user={u.id} />
-                </div>
-                <>
-                    <NavLink exact to={`/${u.id}/following`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                        Following: {followings ? followings.length : 0}
-                    </NavLink>
-                    <NavLink exact to={`/${u.id}/followers`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
-                        Followers: {followers ? followers.length : 0}
-                    </NavLink>
-                </>
-                <>
-                    <NavLink exact to={`/${u.id}`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+            <Card id={u.id} image={u.image} username={u.username} followings={followings} followers={followers}>
+                <div className='menu__list'>
+                    <NavLink exact to={`/${u.id}`} activeClassName='menu__link menu__link--active active' className='menu__link readings-sum'>
                         <ReadingStats loading={loading} loading_id='userReadings' statName='Readings' stat={totalReadings}/>
                     </NavLink>
-                    <NavLink exact to={`/${u.id}/favorites`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                    <NavLink exact to={`/${u.id}/favorites`} activeClassName='menu__link menu__link--active active' className='menu__link favorites-sum'>
                         <ReadingStats loading={loading} loading_id='FavoriteReadings' statName='Favorites' stat={totalFavorites}/>
                     </NavLink>
                     {outdated && outdated.length > 0 &&
-                        <NavLink exact to={`/${u.id}/outdated`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm favorites-sum'>
+                        <NavLink exact to={`/${u.id}/outdated`} activeClassName='menu__link menu__link--active active' className='menu__link favorites-sum'>
                             <ReadingStats loading={loading} loading_id='OutdatedReadings' statName='Outdated' stat={totalOutdated}/>
                         </NavLink>
                     }
-                </>
-                <>
-                    <ReadingStats loading={loading} loading_id='userReadings' statName='Websites Read From' stat={totalWebsites}/>
-                    <ReadingStats loading={loading} loading_id='userReadings' statName='Most Read Website' stat={topWebsite}/>
+                    <ReadingStats loading={loading} loading_id='userReadings' statName='Total Sites' stat={totalWebsites}/>
+                    <ReadingStats loading={loading} loading_id='userReadings' statName='Top Site' stat={topWebsite}/>
                     <ReadingStats loading={loading} loading_id='userReadings' statName='Loaves' stat={totalBooks}/>
-                </>
+                </div>
+                <Subscribe user={u.id} />
                 <TagsAside list={match.params.id} />
+                {currentUser.id && currentUser.id === u.id && 
+                    <NavLink exact to={`/${u.id}/edit`}>
+                        <button className='button button--sm button--block button--outline button--warning margin-top--md'>
+                            Update Account
+                        </button>
+                    </NavLink>
+                }
             </Card>
         )
     }
