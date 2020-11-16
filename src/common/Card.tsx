@@ -1,14 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import UserImage from './UserImage';
-import UserIntro from './UserIntro';
 
 interface CardProps {
+    id?: string,
     image?: string,
     username?: string,
+    followings?: string,
+    followers?: string,
     children: React.ReactNode
 }
 
-const Card: React.FunctionComponent<CardProps> = ({image, username, children}) => {
+const Card: React.FunctionComponent<CardProps> = ({ id, image, username, followings, followers, children }) => {
 
     function addImageTransformation(image: string): string | undefined {
         let imageURL: URL = new URL(image);
@@ -33,7 +36,16 @@ const Card: React.FunctionComponent<CardProps> = ({image, username, children}) =
                 <div className='card__header'>
                     {image 
                      ? <UserImage image={updatedImage} username={username} imageSize='xl'>
-                            <UserIntro username='test'/>
+                            <div className='avatar__intro'>
+                                <h4 className='avatar__name'>{username}</h4>
+                                <NavLink exact to={`/${id}/following`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                                    Following: {followings ? followings.length : 0}
+                                </NavLink>
+                                <span> </span>
+                                <NavLink exact to={`/${id}/followers`} activeClassName='bg-light btn-outline-secondary' className='btn text-primary btn-sm readings-sum'>
+                                    Followers: {followers ? followers.length : 0}
+                                </NavLink>
+                            </div>
                         </UserImage>
                      : <h3>{username}</h3>
                     }

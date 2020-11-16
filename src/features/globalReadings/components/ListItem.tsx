@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Moment from 'react-moment';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserImage from '../../../common/UserImage';
 // import Summary from '../../summary/Summary';
 import Favorites from './Favorites';
@@ -11,7 +11,6 @@ import Tags from './Tags';
 import { getReadingById } from '../selectors';
 import BreadsImage from '../../../images/breads-wesual-click.jpg'
 import { RootState } from '../../rootReducer';
-import UserIntro from '../../../common/UserIntro';
 
 type OwnProps = {
     id: any
@@ -73,28 +72,25 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     let newReadingImage = serveImageThroughCDN();    
 
     return (
-        // <div  id='list-item'>
-            <div className='card-demo-md' style={{ ...style }}>
-
+        <div className='card-demo-md' style={{ ...style }}>
             <div className='card'>
                 <div className='card__header'>
                     {!isCorrectUser && 
-                    // <Link to={`/${users[reading.reader].id}`}>
-                    <UserImage
-                    image={newUserImage}
-                    username={users[reading.reader].username}
-                    imageSize=''
-                    >
-                    {/* </Link> */}
-                            <UserIntro username={users[reading.reader].username}>
-                                <Moment fromNow ago>
-                                    {reading.created_at}
-                                </Moment>
-                                <span> </span>
-                                {tags && 
-                                    <Tags reading={reading} tags={tags} list={list}/>
-                                }
-                            </UserIntro>
+                        <UserImage image={newUserImage} username={users[reading.reader].username} imageSize=''>
+                            <div className='avatar__intro'>
+                                <Link to={`/${users[reading.reader].id}`}>
+                                    <h4 className='avatar__name'>{users[reading.reader].username}</h4>
+                                </Link>
+                                <small className='avatar__subtitle overflow-auto-horizontal'>
+                                    <Moment fromNow ago>
+                                        {reading.created_at}
+                                    </Moment>
+                                    <span> </span>
+                                    {tags && 
+                                        <Tags reading={reading} tags={tags} list={list}/>
+                                    }
+                                </small>
+                            </div>
                         </UserImage>
                     }  
                 </div>
@@ -127,8 +123,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                     } */}
                 </div>
             </div>
-                    </div>
-        // </div>
+        </div>
     )
 }
 
