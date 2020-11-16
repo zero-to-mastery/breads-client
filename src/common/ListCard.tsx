@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DefaultImage from '../images/default-profile-image.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootState } from '../features/rootReducer';
+import UserImage from './UserImage';
 
 type ListCardProps = PropsFromRedux & {
     id: any,
@@ -14,24 +15,27 @@ type ListCardProps = PropsFromRedux & {
 
 const ListCard: React.FunctionComponent<ListCardProps> = ({ id, users, subscribed, removeSubscription }) => {
     return (
-        <div className='card border-secondary'>
-            <img
-                src={users[id].image || DefaultImage}
-                alt={users[id].username}
-                className='card-img-top border-bottom border-secondary'
-            />
-            <div className='card-body'>
-                <div className='row pl-3 pr-3'>
-                    <Link to={`/${id}`} className='card-title mr-auto'>
-                        <h5>{users[id].username}</h5>
-                    </Link>
-                    {subscribed && (
-                        <small onClick={removeSubscription} className='text-danger unsubscribe'>
-                            <FontAwesomeIcon icon='user-times'/>
-                        </small>
-                    )}
+        <div className='card-demo-md'>
+            <div className='card'>
+                <div className='card__header'>
+                        <UserImage image={users[id].image} username={users[id].username} imageSize='xl'>
+                            <div className='avatar__intro'>
+                                <Link to={`/${id}`}>
+                                    <h4 className='avatar__name'>{users[id].username}</h4>
+                                </Link>
+                                <small className='avatar__subtitle overflow-auto-horizontal'>
+                                    {subscribed && (
+                                        <small onClick={removeSubscription} className='text-danger unsubscribe'>
+                                            Unsubscribe
+                                        </small>
+                                    )}
+                                </small>
+                            </div>
+                        </UserImage>
                 </div>
-                {users[id].first} {users[id].last}
+                <div className='card__body'>
+                    More info about the user will appear here.
+                </div>
             </div>
         </div>
     )

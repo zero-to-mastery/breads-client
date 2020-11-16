@@ -7,7 +7,7 @@ interface ListProps {
 
 const List: React.FunctionComponent<ListProps> = ({list_data, display}) => {
     return (
-        <div className='col-lg-6 col-sm-10 offset-sm-1 offset-lg-0'>
+        <div className='col col--6-lg col--4-md'>
             {list_data ? (//.length
                 <div className={display} id='list_data'>
                     {list_data}
