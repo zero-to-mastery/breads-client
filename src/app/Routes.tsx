@@ -94,13 +94,20 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                     path='/signin'
                     render={(props: RouteComponentProps) => {
                         return (
-                            <AuthForm
-                                alerts={alerts}
-                                signup={false}
-                                buttonText='Log In'
-                                heading='Welcome Back.'
-                                {...props}
-                            />
+                            <>
+                                {alerts.message && 
+                                    <Alert />
+                                }
+                                <Timeline>
+                                    <AuthForm
+                                        alerts={alerts}
+                                        signup={false}
+                                        buttonText='Log In'
+                                        heading='Welcome Back.'
+                                        {...props}
+                                    />
+                                </Timeline>
+                            </>
                         )
                     }}
                 />
@@ -109,13 +116,20 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                     path='/signup'
                     render={(props: RouteComponentProps) => {
                         return (
-                            <AuthForm
-                                alerts={alerts}
-                                signup= {true}
-                                buttonText='Sign up'
-                                heading='Join today!'
-                                {...props}
-                            />
+                            <>
+                                {alerts.message && 
+                                    <Alert />
+                                }
+                                <Timeline>
+                                    <AuthForm
+                                        alerts={alerts}
+                                        signup= {true}
+                                        buttonText='Sign up'
+                                        heading='Join today!'
+                                        {...props}
+                                    />
+                                </Timeline>
+                            </>
                         )
                     }}
                 />
