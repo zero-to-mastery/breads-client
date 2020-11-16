@@ -1403,6 +1403,16 @@
     color: var(--ifm-color-black);
   }
   :root {
+    --ifm-background-background-color: inherit;
+  }
+  .background {
+    background-color: inherit;
+    background-color: var(--ifm-background-background-color);
+  }
+  .background--warning {
+    --ifm-background-background-color: var(--ifm-color-warning);
+  }
+  :root {
     --ifm-breadcrumb-border-radius: 1.5rem;
     --ifm-breadcrumb-spacing: 0.0625rem;
     --ifm-breadcrumb-color-active: var(--ifm-color-primary);
