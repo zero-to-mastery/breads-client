@@ -74,111 +74,94 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
         const { heading, buttonText, signup, alerts } = this.props;
 
         return (
-            <div className='row justify-content-md-center text-center py-5'>
-                <div className='col-md-6'>
+            <div className='card-demo'>
+                <div className='card'>
                     <form onSubmit={this.handleSubmit}>
-                        <h2>{heading}</h2>
-                        {alerts.message && 
-                            <Alert />
-                        }
+                        <div className='card__header'>
+                            <h2>{heading}</h2>
+                        </div>
+                        <div className='card__body'>
                         {signup && (
-                            <div>
-                                <div className='form-row'>
-                                    <div className='form-group col-md-6'>
-                                        <label htmlFor='first_name'>First Name:</label>
-                                        <input
-                                            autoComplete='off'
-                                            className='form-control'
-                                            id='first_name'
-                                            name='first_name'
-                                            onChange={this.handleChange}
-                                            type='text'
-                                            value={first_name}
-                                            required
-                                        />
-                                    </div>
-                                    <div className='form-group col-md-6'>
-                                        <label htmlFor='last_name'>Last Name:</label>
-                                        <input
-                                            autoComplete='off'
-                                            className='form-control'
-                                            id='last_name'
-                                            name='last_name'
-                                            onChange={this.handleChange}
-                                            type='text'
-                                            value={last_name}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className='form-row'>
-                                    <div className='form-group col-md-6'>
-                                        <label htmlFor='email'>E-mail:</label>
-                                        <input
-                                            autoComplete='off'
-                                            className='form-control'
-                                            id='email'
-                                            name='email'
-                                            onChange={this.handleChange}
-                                            type='text'
-                                            value={email}
-                                            required
-                                        />
-                                    </div>
-                                    <div className='form-group col-md-6'>
-                                        <label htmlFor='image'>Image Url:</label>
-                                        <input
-                                            className='form-control-file'
-                                            id='image'
-                                            name='image'
-                                            onChange={this.handleChange}
-                                            type='file'
-                                            accept='image/*'
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        <div className='form-row'>
-                            <div className='form-group col-md-6'>
-                                <label htmlFor='username'>Username:</label>
+                            <>
+                                <label htmlFor='first_name'>First Name: </label>
                                 <input
                                     autoComplete='off'
-                                    className='form-control'
-                                    id='username'
-                                    name='username'
+                                    className='form-input'
+                                    id='first_name'
+                                    name='first_name'
                                     onChange={this.handleChange}
                                     type='text'
-                                    value={username}
+                                    value={first_name}
                                     required
                                 />
-                            </div>
-                            <div className='form-group col-md-6'>
-                                <label htmlFor='password'>Password:</label>
+                                <label htmlFor='last_name'>Last Name: </label>
                                 <input
                                     autoComplete='off'
-                                    className='form-control'
-                                    id='password'
-                                    name='password'
+                                    className='form-input margin-top--md'
+                                    id='last_name'
+                                    name='last_name'
                                     onChange={this.handleChange}
-                                    type='password'
-                                    value={password}
+                                    type='text'
+                                    value={last_name}
                                     required
                                 />
-                            </div>
+                                <label htmlFor='email'>E-mail: </label>
+                                <input
+                                    autoComplete='off'
+                                    className='form-input margin-top--md'
+                                    id='email'
+                                    name='email'
+                                    onChange={this.handleChange}
+                                    type='text'
+                                    value={email}
+                                    required
+                                />
+                                <label htmlFor='image'>Image: </label>
+                                <input
+                                    className='form-control-file'
+                                    id='image'
+                                    name='image'
+                                    onChange={this.handleChange}
+                                    type='file'
+                                    accept='image/*'
+                                    required
+                                />
+                            </>
+                        )}
+                            <label htmlFor='username'>Username: </label>
+                            <input
+                                autoComplete='off'
+                                className='form-input margin-top--md'
+                                id='username'
+                                name='username'
+                                onChange={this.handleChange}
+                                type='text'
+                                value={username}
+                                required
+                            />
+                            <label htmlFor='password'>Password: </label>
+                            <input
+                                autoComplete='off'
+                                className='form-input margin-top--md'
+                                id='password'
+                                name='password'
+                                onChange={this.handleChange}
+                                type='password'
+                                value={password}
+                                required
+                            />
                         </div>
-                        <button type='submit' className='btn btn-primary btn-block btn-lg'>
-                            {buttonText}
-                        </button>
-                    </form>
-                    {!signup && 
-                        <Link to='/reset'>
-                            <button className='btn btn-warning btn-block mt-1'>
-                                Forgot Password?
+                        <div className='card__footer'>
+                            <button type='submit' className='button button--sm button--block button--primary margin-top--md'>
+                                {buttonText}
                             </button>
-                        </Link>
-                    }
+                            {!signup && 
+                                <Link to='/reset' className='button button--sm button--block button--outline button--warning margin-top--md'>
+                                    Forgot Password?
+                                </Link>
+                            }
+                        </div>
+                    </form>
                 </div>
             </div>
         )

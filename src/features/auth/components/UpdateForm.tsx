@@ -54,9 +54,6 @@ class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
                         <div className='card__header'>
                             <h2>Update {heading}</h2>
                         </div>
-                        {alerts.message && 
-                            <Alert />
-                        }
                         <div className='card__body'>
                             <label htmlFor='image'>Image Url: </label>
                             <input
