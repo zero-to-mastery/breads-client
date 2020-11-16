@@ -7,7 +7,7 @@ type AlertProps = PropsFromRedux;
 
 const Alert: React.FunctionComponent<AlertProps> = ({ alerts, removeAlert }) => {
     return (
-        <div className={`alert alert--${alerts.type}`} role='alert'>
+        <div className={`alert alert--${alerts.type} margin-bottom--md`} role='alert'>
             <button onClick={removeAlert} aria-label='Close' className='close' type='button'>
                 <span aria-hidden="true">×</span>
             </button>

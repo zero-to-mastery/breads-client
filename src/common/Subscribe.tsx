@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import subscriptions from '../features/subscriptions';
 import { RootState } from '../features/rootReducer';
 
@@ -21,9 +20,9 @@ class Subscribe extends Component<IProps> {
         return (
             <>
                 {currentUser && user && currentUser !== user && 
-                    <p onClick={this.handleClick} className='btn text-primary m-0 p-0'>
-                        <FontAwesomeIcon icon='user-plus'/>
-                    </p>
+                    <button onClick={this.handleClick} className='button button--block button--outline button--info margin-bottom--md'>
+                        Subscribe
+                    </button>
                 }
             </>
         )

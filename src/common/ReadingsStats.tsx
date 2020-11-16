@@ -10,7 +10,7 @@ interface ReadingStatsProps {
 
 const ReadingStats: React.FunctionComponent<ReadingStatsProps> = ({ statName, stat, loading, loading_id }) => {
     return (
-        <p className='card__text'>
+        <p className='menu__list-item'>
             {statName}: <span> </span>
             {loading.isLoading && loading.id.includes(loading_id)
                 ? <FontAwesomeIcon icon='spinner' pulse/>
