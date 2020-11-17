@@ -50,21 +50,24 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        const authType = this.props.signup ? 'signup' : 'signin';
-        let formData: FormData | AuthFormState;
-        if (authType === 'signup') {
-            formData = new FormData();
-            formData.append('first_name', this.state.first_name);
-            formData.append('last_name', this.state.last_name);
-            formData.append('email', this.state.email);
-            formData.append('username', this.state.username);
-            formData.append('password', this.state.password);
-            formData.append('image', this.state.image);
-        } else {
-            formData = this.state;
-        }
-        
-        this.props.authUser(authType, formData)
+            const authType = this.props.signup ? 'signup' : 'signin';
+            let formData: FormData | AuthFormState;
+            if (authType === 'signup') {
+                formData = new FormData();
+                formData.append('first_name', this.state.first_name);
+                formData.append('last_name', this.state.last_name);
+                formData.append('email', this.state.email);
+                formData.append('username', this.state.username);
+                formData.append('password', this.state.password);
+                formData.append('image', this.state.image);
+            } else {
+                formData = this.state;
+            }
+            
+            this.props.authUser(authType, formData)
+            .then(() => {
+                if (this.props.alerts.message) throw new Error();
+            })
             .then(() => this.props.history.push('/'))
             .catch(() => {return});
     }
@@ -152,7 +155,7 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                             />
                         </div>
                         <div className='card__footer'>
-                            <button type='submit' className='button button--sm button--block button--primary margin-top--md'>
+                            <button type='submit' className='button button--block button--primary margin-top--md'>
                                 {buttonText}
                             </button>
                             {!signup && 
