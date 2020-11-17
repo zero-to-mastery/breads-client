@@ -1,20 +1,32 @@
 import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
-import { ModalActionTypes, ModalProperties, ModalType } from './types';
+import { ModalReading, ModalTags, ModalActionTypes } from './types';
+import alerts from '../alerts';
+import { AppDispatch } from '../../app/store';
 
-export const addModal = (modalType: ModalType, modalProps: ModalProperties): ModalActionTypes => ({
+const { removeAlert, addAlert } = alerts.actions;
+
+const addModal = (reading_url: ModalReading, tag_names: ModalTags): ModalActionTypes => ({
     type: ADD_MODAL,
     payload: {
-        modalType,
-        modalProps
+        reading_url,
+        tag_names
     }
 });
 
-export const removeModal = (): ModalActionTypes => ({
+const removeModal = (): ModalActionTypes => ({
     type: REMOVE_MODAL,
     payload: { 
-        modalType: null,
-        modalProps: {
-            open: false
-        }
+        reading_url: '',
+        tag_names: []
     }
 });
+
+export const addModalAlert = (modal: any, reading_url: ModalReading, tag_names: ModalTags) => (dispatch: AppDispatch): void => {
+    dispatch(addAlert({message: modal, type: 'info'}));
+    dispatch(addModal(reading_url, tag_names));
+};
+
+export const removeModalAlert = () => (dispatch: AppDispatch): void => {
+    dispatch(removeAlert());
+    dispatch(removeModal());
+};

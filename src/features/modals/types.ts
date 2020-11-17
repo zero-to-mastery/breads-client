@@ -1,15 +1,12 @@
 import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
 
-export type ModalType = string | null;
+export type ModalReading = string;
 
-export type ModalProperties = {
-    [k: string]: any
-    open?: boolean
-}
+export type ModalTags = any[];
 
 export interface ModalState { 
-    modalType: ModalType
-    modalProps: ModalProperties
+    reading_url: ModalReading
+    tag_names: ModalTags[]
 }
 
 interface AddModalAction {

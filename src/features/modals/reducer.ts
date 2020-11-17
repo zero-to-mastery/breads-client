@@ -2,8 +2,8 @@ import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
 import { ModalActionTypes, ModalState } from './types';
 
 const initialState: ModalState = {
-    modalType: null,
-    modalProps: { open: false }
+    reading_url: '',
+    tag_names: []
 }
 
 export default (state: ModalState = initialState, action: ModalActionTypes): ModalState => {

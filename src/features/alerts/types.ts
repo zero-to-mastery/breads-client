@@ -1,8 +1,8 @@
 import { ADD_ALERT , REMOVE_ALERT } from "../actionTypes";
 
 export interface AlertState {
-    message: string | null,
-    type: 'danger' | 'success' | null
+    message: string | React.ReactNode | null,
+    type: 'danger' | 'success' | 'info' | null
 }
 
 interface AddAlertAction {

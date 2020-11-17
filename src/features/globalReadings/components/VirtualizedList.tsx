@@ -73,7 +73,7 @@ const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readin
             }
             {/* Modal placed here for visibility. It doesn't display properly when placed inside Listitem */}
             {/* need modal container and presentational modal */}
-            <Modal title='Update tags'/>
+            {/* <Modal title='Update tags'/> */}
         </div>
     )
 }

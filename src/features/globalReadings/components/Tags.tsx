@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import modals from '../../modals';
+import { Modal } from '../../modals';
 import { RootState } from '../../rootReducer';
 
 type TagsProps = PropsFromRedux & {
@@ -14,10 +15,10 @@ type TagsProps = PropsFromRedux & {
 class Tags extends Component<TagsProps> {
     
     handleClick = () => {
-        let tag_names = this.props.reading.tags
+        let tag_names: any[] = this.props.reading.tags
                         ? this.props.reading.tags.map((tag_id: number): string => `#${this.props.tags[tag_id].tag_name}`)
                         : []
-        this.props.addModal('form', {'reading': this.props.reading, 'tag_names': tag_names})
+        this.props.addModalAlert(<Modal />, this.props.reading.url, tag_names);
     }
 
     render() {
