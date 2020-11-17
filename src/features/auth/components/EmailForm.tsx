@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import Alert from '../../alerts/Alert';
+import { NavLink } from 'react-router-dom';
 import { RootState } from '../../rootReducer';
 import { sendResetEmail } from '../actions';
 import { History } from 'history';
@@ -43,29 +43,33 @@ class EmailForm extends Component<EmailFormProps, EmailFormState> {
         const { heading, buttonText, alerts } = this.props;
 
         return (
-            <div>
-                <div className='row justify-content-md-center text-center'>
-                    <div className='col-md-6'>
-                        <form onSubmit={this.handleSubmit}>
-                            <h2>{heading}</h2>
-                            {alerts.message && 
-                                <Alert />
-                            }
-                            <label htmlFor='email'>Email:</label>
+            <div className='card-demo'>
+                <div className='card'>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className='card__header'>
+                            <h2>Update {heading}</h2>
+                        </div>
+                        <div className='card__body'>
+                            <label htmlFor='email'>Email: </label>
                             <input
                                 autoComplete='off'
-                                className='form-control'
+                                className='form-input'
                                 id='email'
                                 name='email'
                                 onChange={this.handleChange}
                                 type='email'
                                 value={email}
                             />
-                            <button type='submit' className='btn btn-primary btn-block btn-lg'>
+                        </div>
+                        <div className='card__footer'>
+                            <button type='submit' className='button button--block button--primary'>
                                 {buttonText}
                             </button>
-                        </form>
-                    </div>
+                            <NavLink exact to='/signin' className='button button--sm button--block button--outline button--warning margin-top--md'>
+                                Return
+                            </NavLink>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

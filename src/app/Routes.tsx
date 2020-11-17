@@ -138,12 +138,19 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                     path='/reset'
                     render={(props: RouteComponentProps) => {
                         return (
-                            <EmailForm
-                                alerts={alerts}
-                                buttonText='Send reset email'
-                                heading='Enter email address'
-                                {...props}
-                            />
+                            <>
+                                {alerts.message && 
+                                    <Alert />
+                                }
+                                <Timeline>
+                                    <EmailForm
+                                        alerts={alerts}
+                                        buttonText='Send reset email'
+                                        heading='Enter email address'
+                                        {...props}
+                                    />
+                                </Timeline>
+                            </>
                         )
                     }}
                 />
