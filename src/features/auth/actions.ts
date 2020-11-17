@@ -55,12 +55,12 @@ export const updateUser = (id: any, image: any, username: any): ThunkAction<Prom
 
 export const sendResetEmail = (email: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     return apiCall('post', '/users/reset', { email })
-        .then(() => {})
+        .then((res: any) => dispatch(addAlert({message: res.message, type: 'success'})))
         .catch((err: any) => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
 
 export const resetPassword = (username: any, token: any, password: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
     return apiCall('post', `/users/${username}/reset/${token}`, { password })
-        .then(() => {})
+        .then((res: any) => dispatch(addAlert({message: res.message, type: 'success'})))
         .catch((err: any) => dispatch(addAlert({message: err.message, type: 'danger'})));
 }
