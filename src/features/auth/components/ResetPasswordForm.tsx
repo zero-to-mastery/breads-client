@@ -40,7 +40,10 @@ class ResetPasswordForm extends Component<ResetPasswordFormProps, ResetPasswordF
         const { username, token } = this.props.match.params;
 
         this.props.resetPassword(username, token, password)
-            .then(() => this.props.history.push('/'))
+            .then(() => {
+                if (this.props.alerts.type === 'danger') throw new Error();
+            })
+            .then(() => this.props.history.push('/signin'))
             .catch(() => {return});
     }
 
@@ -49,29 +52,30 @@ class ResetPasswordForm extends Component<ResetPasswordFormProps, ResetPasswordF
         const { heading, buttonText, alerts } = this.props;
 
         return (
-            <div>
-                <div className='row justify-content-md-center text-center'>
-                    <div className='col-md-6'>
-                        <form onSubmit={this.handleSubmit}>
+            <div className='card-demo'>
+                <div className='card'>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className='card__header'>
                             <h2>{heading}</h2>
-                            {alerts.message && 
-                                <Alert />
-                            }
+                        </div>
+                        <div className='card__body'>
                             <label htmlFor='password'>Password:</label>
                             <input
                                 autoComplete='off'
-                                className='form-control'
+                                className='form-input'
                                 id='password'
                                 name='password'
                                 onChange={this.handleChange}
                                 type='password'
                                 value={password}
                             />
-                            <button type='submit' className='btn btn-primary btn-block btn-lg'>
+                        </div>
+                        <div className='card__footer'>
+                            <button type='submit' className='button button--block button--primary'>
                                 {buttonText}
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

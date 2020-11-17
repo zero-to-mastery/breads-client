@@ -159,13 +159,20 @@ const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
                     path='/reset/:username/:token'
                     render={({match, history}: RouteComponentProps<ResetParams>) => {
                         return (
-                            <ResetPasswordForm 
-                                alerts={alerts}
-                                buttonText='Save new password'
-                                heading='Reset your password'
-                                match={match}
-                                history={history}
-                            />
+                            <>
+                                {alerts.message && 
+                                    <Alert />
+                                }
+                                <Timeline>
+                                    <ResetPasswordForm 
+                                        alerts={alerts}
+                                        buttonText='Save new password'
+                                        heading='Reset your password'
+                                        match={match}
+                                        history={history}
+                                    />
+                                </Timeline>
+                            </>
                         )
                     }}
                 
