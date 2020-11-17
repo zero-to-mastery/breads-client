@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
-import DefaultImage from '../images/default-profile-image.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootState } from '../features/rootReducer';
 import UserImage from './UserImage';
 

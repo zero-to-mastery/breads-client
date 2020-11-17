@@ -43,7 +43,7 @@ class EmailForm extends Component<EmailFormProps, EmailFormState> {
 
     render() {
         const { email } = this.state;
-        const { heading, buttonText, alerts } = this.props;
+        const { heading, buttonText } = this.props;
 
         return (
             <div className='card-demo'>

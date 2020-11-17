@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Alert from '../../alerts/Alert';
 import { authUser } from '../actions';
 import { History } from 'history';
+import { RootState } from '../../rootReducer';
 
 type AuthFormProps = PropsFromRedux & {
     heading: any 
     buttonText: any
     signup: any
-    alerts: any
+    alerts: RootState['alerts']
     history: History
 }
 
@@ -65,16 +65,16 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
             }
             
             this.props.authUser(authType, formData)
-            .then(() => {
-                if (this.props.alerts.message) throw new Error();
-            })
-            .then(() => this.props.history.push('/'))
-            .catch(() => {return});
+                .then(() => {
+                    if (this.props.alerts.message) throw new Error();
+                })
+                .then(() => this.props.history.push('/'))
+                .catch(() => {return});
     }
 
     render() {
         const { first_name, last_name, email, username, password } = this.state;
-        const { heading, buttonText, signup, alerts } = this.props;
+        const { heading, buttonText, signup } = this.props;
 
         return (
             <div className='card-demo'>

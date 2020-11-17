@@ -5,7 +5,6 @@ import { History } from 'history';
 import { ResetParams } from '../../../app/Routes';
 import { RootState } from '../../rootReducer';
 
-import Alert from '../../alerts/Alert';
 import { resetPassword } from '../actions';
 
 type ResetPasswordFormProps = PropsFromRedux & {
@@ -49,7 +48,7 @@ class ResetPasswordForm extends Component<ResetPasswordFormProps, ResetPasswordF
 
     render() {
         const { password } = this.state;
-        const { heading, buttonText, alerts } = this.props;
+        const { heading, buttonText } = this.props;
 
         return (
             <div className='card-demo'>

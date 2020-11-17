@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import auth from '../features/auth';
 import alerts from '../features/alerts';
 import { GlobalReadingsList, GlobalAside } from '../features/globalReadings';
-import { TagsAside } from '../features/tags';
 import Timeline from '../common/Timeline';
 import ArticleForm from '../common/ArticleForm';
 import SignUpCard from '../common/SignUpCard';

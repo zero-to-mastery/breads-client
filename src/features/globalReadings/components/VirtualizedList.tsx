@@ -1,7 +1,6 @@
 import React from 'react';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller, ListRowRenderer } from 'react-virtualized';
 import ListItem from './ListItem';
-import Modal from '../../modals/Modal';
 
 type VirtualizedListProps = {
     readings: any
@@ -49,31 +48,26 @@ const VirtualizedList: React.FunctionComponent<VirtualizedListProps> = ({ readin
             {readings && readings.length > 0 && 
                 <WindowScroller>
                     {({ height, isScrolling, onChildScroll, scrollTop }) => (
-                        // <div className='list-group' id='list_data'>
-                            <AutoSizer disableHeight> 
-                                {({ width }) => (
-                                    <List 
-                                        width={width}
-                                        height={height}
-                                        deferredMeasurementCache={cache}
-                                        rowHeight={cache.rowHeight}
-                                        rowRenderer={renderRow}
-                                        rowCount={Object.keys(r).length}
-                                        autoHeight
-                                        scrollTop={scrollTop}
-                                        isScrolling={isScrolling}
-                                        onScroll={onChildScroll}
-                                        style={{ outline: 'none' }}
-                                    />
-                                )}
-                            </AutoSizer> 
-                        // </div>
+                        <AutoSizer disableHeight> 
+                            {({ width }) => (
+                                <List 
+                                    width={width}
+                                    height={height}
+                                    deferredMeasurementCache={cache}
+                                    rowHeight={cache.rowHeight}
+                                    rowRenderer={renderRow}
+                                    rowCount={Object.keys(r).length}
+                                    autoHeight
+                                    scrollTop={scrollTop}
+                                    isScrolling={isScrolling}
+                                    onScroll={onChildScroll}
+                                    style={{ outline: 'none' }}
+                                />
+                            )}
+                        </AutoSizer> 
                     )}
                 </WindowScroller>
             }
-            {/* Modal placed here for visibility. It doesn't display properly when placed inside Listitem */}
-            {/* need modal container and presentational modal */}
-            {/* <Modal title='Update tags'/> */}
         </div>
     )
 }

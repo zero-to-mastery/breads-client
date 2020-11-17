@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { History } from 'history';
 import { RootState } from '../../rootReducer';
 
-import Alert from '../../alerts/Alert';
 import { updateUser } from '../actions';
 
 type UpdateFormProps = PropsFromRedux & {
@@ -45,7 +44,7 @@ class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
 
     render() {
         const { username, image } = this.state;
-        const { heading, returnPath, buttonText, alerts } = this.props;
+        const { heading, returnPath, buttonText } = this.props;
 
         return (
             <div className='card-demo'>
