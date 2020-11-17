@@ -34,7 +34,10 @@ class EmailForm extends Component<EmailFormProps, EmailFormState> {
         e.preventDefault();
         const { email } = this.state;
         this.props.sendResetEmail(email)
-            .then(() => this.props.history.push('/'))
+            .then(() => {
+                if (this.props.alerts.type === 'danger') throw new Error();
+            })
+            .then(() => this.props.history.push('/signin'))
             .catch(() => {return});
     }
 
