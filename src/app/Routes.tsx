@@ -35,7 +35,7 @@ export interface ResetParams {
 
 const Routes: React.FC<RouteProps> = ({alerts, currentUser}) => {
     return (
-        <div className='container-sm container-md container py-5'>
+        <div className='container-sm container-md container py-2'>
             <Suspense fallback={<div></div>}>
             <Switch>
                 <Route
