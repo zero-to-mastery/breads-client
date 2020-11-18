@@ -129,15 +129,31 @@ class Navbar extends Component<NotificationProps, NotificationState> {
                     <div className='navbar-sidebar__items'>
                         <div className='menu'>
                             <ul className='menu__list'>
-                                <NavLink exact to='/' className='menu__list-item menu__link'>
-                                    Global
-                                </NavLink>
-                                <NavLink exact to={`/${this.props.currentUser.user.id}`} className='menu__list-item menu__link'>
-                                    Your Reads
-                                </NavLink>
-                                <NavLink exact to='/subscriptions' className='menu__list-item menu__link'>
-                                    Friends
-                                </NavLink>
+                                {this.props.currentUser.isAuthenticated ? (
+                                    <>
+                                        <NavLink exact to='/' className='menu__list-item menu__link'>
+                                            Global
+                                        </NavLink>
+                                        <NavLink exact to={`/${this.props.currentUser.user.id}`} className='menu__list-item menu__link'>
+                                            Your Reads
+                                        </NavLink>
+                                        <NavLink exact to='/subscriptions' className='menu__list-item menu__link'>
+                                            Friends
+                                        </NavLink>
+                                        <div onClick={this.logout} className='menu__list-item menu__link'>
+                                            <small>Sign out</small>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <NavLink exact to='/signup' className='menu__list-item menu__link'>
+                                            Sign up
+                                        </NavLink>
+                                        <NavLink exact to='/signin' className='menu__list-item menu__link'>
+                                            Log in
+                                        </NavLink>
+                                    </>
+                                )}
                             </ul>
                         </div>
                     </div>
