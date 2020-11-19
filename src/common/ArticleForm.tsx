@@ -64,7 +64,7 @@ class ArticleForm extends Component<IProps, IState> {
         const { loading } = this.props;
 
         return (
-            <div className='card-demo'>
+            <div className='card-demo pb-1'>
                 <div className='card'>
                     <form onSubmit={this.handleNewUrl} autoComplete='off'>
                         <div className='card__body'>

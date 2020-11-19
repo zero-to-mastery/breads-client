@@ -72,7 +72,8 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     let newReadingImage = serveImageThroughCDN();    
 
     return (
-        <div className='card-demo-md' style={{ ...style }}>
+        <div className='pb-1'  style={{ ...style }}>
+        <div className='card-demo-md'>
             <div className='card'>
                 <div className='card__header'>
                     {!isCorrectUser && 
@@ -123,6 +124,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                     } */}
                 </div>
             </div>
+        </div>
         </div>
     )
 }

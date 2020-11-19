@@ -2,7 +2,7 @@ import React from 'react';
 
 const SignUpCard: React.FunctionComponent = () => {
     return (
-        <div className='card-demo'>
+        <div className='card-demo pb-1'>
             <div className='card'>
                 <div className='card__header'>
                     <span role='img' aria-label='bread'>🍞 </span>

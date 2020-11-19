@@ -31,7 +31,7 @@ const Card: React.FunctionComponent<CardProps> = ({ id, image, username, followi
     if (image) updatedImage = addImageTransformation(image);
 
     return (
-        <div className='card-demo'>
+        <div className='card-demo pb-1'>
             <div className='card'>
                 <div className='card__header'>
                     {image 
