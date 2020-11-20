@@ -86,7 +86,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
                             <NavLink exact to='/subscriptions' activeClassName='navbar__item--active navbar__link' className='navbar__item navbar__link'>
                                 Friends
                             </NavLink>
-                            <div className='navbar__item dropdown dropdown--hoverable'>
+                            <div className='navbar__item dropdown dropdown--hoverable dropdown--right'>
                                 <div className='navbar__item'>
                                     {!notificationsList.length ? (
                                         <FontAwesomeIcon icon={['far', 'bell']} />
@@ -94,7 +94,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
                                         <FontAwesomeIcon icon='bell' spin />
                                     )}
                                 </div>
-                                <ul className='dropdown--right dropdown__menu'>
+                                <ul className='dropdown__menu'>
                                     {!notificationsList.length ? (
                                         <li className='dropdown__link'>
                                             No new subscribers!
