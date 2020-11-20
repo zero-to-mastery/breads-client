@@ -105,9 +105,9 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                     <p>{reading.description}</p>
                 </div>
                 <div className='card__footer'>
-                    <p className=''>
-                        {reading.domain}
-                        { minutes > 0 && `${minutes} min read` }          
+                    <p className='row row--justify-between px-1'>
+                        <span>{reading.domain}</span>
+                        <span>{ minutes > 0 && `${minutes} min read` }</span>
                     </p>
                     {(list !== 'global' && list !== 'subscriptions') &&
                         <div className='button-group button-group--block'>
