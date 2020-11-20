@@ -52,19 +52,25 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     }
 
     function serveImageThroughCDN(): string {
-        let width = getImageWidth();
+        let image = getImageDimensions();
         if (reading && reading.reading_image) {
-            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${width}&output=webp`;
+            return `https://images.weserv.nl/?url=${reading.reading_image}&w=${image.width}&h=${image.height}&fit=cover&output=webp`;
         } else {
             return BreadsImage;
         }
     }
 
-    function getImageWidth(): number {
+    function getImageDimensions(): { width: number, height: number } {
         if (window.innerWidth >= 997) {
-            return 550;
+            return {
+                width: 550,
+                height: 300
+            };
         } else {
-            return 320;
+            return {
+                width: 320,
+                height: 175
+            };
         }
     }
 
