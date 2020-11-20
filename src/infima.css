@@ -280,6 +280,9 @@
   .row--justify-center {
     justify-content: center;
   }
+  .row--justify-between {
+    justify-content: space-between;
+  }
   .row .col {
     --ifm-col-width: 100%;
     display: block;
