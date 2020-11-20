@@ -15,6 +15,11 @@ code {
     padding-bottom: 1rem!important;
 }
 
+.px-1 {
+    padding-left: 1rem!important;
+    padding-right: 1rem!important;
+}
+
 .home-hero {
     width: 100vw;
     height: 100vh;
