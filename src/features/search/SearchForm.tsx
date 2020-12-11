@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import reactStringReplace from 'react-string-replace';
+import { History } from 'history';
+import { RootState } from '../rootReducer';
 import { searchAll, searchUsers } from './actions';
 
-class SearchForm extends Component {
-    constructor(props) {
+type SearchFormProps = PropsFromRedux & {
+    history: History
+}
+
+interface SearchFormState {
+    search: string
+    activeDropdown: 'dropdown--show' | ''
+}
+
+class SearchForm extends Component<SearchFormProps, SearchFormState> {
+    constructor(props: SearchFormProps) {
         super(props);
         this.state = {
             search: '',
@@ -17,25 +28,26 @@ class SearchForm extends Component {
         this.props.searchAll();
     }
 
-    findMatches(wordToMatch) {
+    findMatches(wordToMatch: string): any[] {
         if (wordToMatch !== '') {
-            let users = this.props.search.users.filter(query => {
+            let users = this.props.search.users.filter((query: any) => {
                 const regex = new RegExp(wordToMatch, 'gi');
                 return query.first_name.match(regex) || query.last_name.match(regex);
             });
-            let readings = this.props.search.readings.filter(query => {
+            let readings = this.props.search.readings.filter((query: any) => {
                 const regex = new RegExp(wordToMatch, 'gi');
                 return query.title.match(regex);
             });
             return [...users, ...readings];
         }
+        return [];
     }
 
-    handleChange = e => {
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
         this.setState({
-            search: e.target.value
+            search: e.currentTarget.value
         });
-        if (e.target.value.length > 0) {
+        if (e.currentTarget.value.length > 0) {
             this.setState({
                 activeDropdown: 'dropdown--show'
             });
@@ -44,10 +56,10 @@ class SearchForm extends Component {
                 activeDropdown: ''
             });
         }
-        this.findMatches(e.target.value);
+        this.findMatches(e.currentTarget.value);
     }
 
-    handleSubmit = e => {
+    handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         if (this.state.search !== '') {
             this.setState({ search: '' });
@@ -56,7 +68,7 @@ class SearchForm extends Component {
 
     render() {
         const { search, activeDropdown } = this.state;
-        let searchResults = [];
+        let searchResults: any[] = [];
 
         if (search !== '') {
             searchResults = this.findMatches(search)
@@ -117,11 +129,15 @@ class SearchForm extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
     return {
         readings: state.readings,
         search: state.search,
     }
 }
 
-export default connect(mapStateToProps, { searchAll, searchUsers })(SearchForm);
+const connector = connect(mapStateToProps, { searchAll, searchUsers });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SearchForm);
