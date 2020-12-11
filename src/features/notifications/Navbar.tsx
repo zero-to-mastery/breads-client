@@ -73,7 +73,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
                         <Link className='navbar__brand' to='/'>
                             <span role='img' className='navbar__logo' aria-label='bread'>🍞</span>
                         </Link>
-                        <SearchForm className='navbar__item' history={this.props.history}/>
+                        <SearchForm history={this.props.history}/>
                     </div>
                     {this.props.currentUser.isAuthenticated ? (
                         <div className='navbar__items navbar__items--right'>
