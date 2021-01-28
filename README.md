@@ -23,7 +23,6 @@ Keep track of what you read online, and see what your friends are reading. See [
 
 ## Table of Contents
 * [Contributing](https://github.com/aTmb405/breads-client/blob/master/README.md#Contributing)
-  * [Style Guide](https://github.com/aTmb405/breads-client/blob/master/README.md#Style-Guide)
 * [Installing](https://github.com/aTmb405/breads-client/blob/master/README.md#Installing)
 * [Running](https://github.com/aTmb405/breads-client/blob/master/README.md#Running)
 * [Testing](https://github.com/aTmb405/breads-client/blob/master/README.md#Testing)
@@ -64,7 +63,7 @@ After confirming the tests have passed, create a pull request on the development
 
 ## Technologies
 
-* [React](https://reactjs.org/) (with [Create React App](https://create-react-app.dev/))
+* [React](https://reactjs.org/) ([Create React App](https://create-react-app.dev/))
 * [TypeScript](https://www.typescriptlang.org/)
 * [Jest](https://jestjs.io/)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
