@@ -22,16 +22,11 @@ Keep track of what you read online, and see what your friends are reading. See [
 * Newsletter that summarizes trends, your friend's readings, etc.
 
 ## Table of Contents
-* [Contributing](https://github.com/aTmb405/breads-client/blob/master/README.md#Contributing)
 * [Installing](https://github.com/aTmb405/breads-client/blob/master/README.md#Installing)
 * [Running](https://github.com/aTmb405/breads-client/blob/master/README.md#Running)
 * [Testing](https://github.com/aTmb405/breads-client/blob/master/README.md#Testing)
 * [Deploying](https://github.com/aTmb405/breads-client/blob/master/README.md#Deploying)
 * [Technologies](https://github.com/aTmb405/breads-client/blob/master/README.md#Technologies)
-
-## Contributing
-
-Before you contribute, there are some things you need to know: what to do first, where to find tasks, any additional questions, and notes provided for contributors. You can begin **here**
 
 ## Installing
 
