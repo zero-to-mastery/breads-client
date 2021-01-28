@@ -34,8 +34,6 @@ Keep track of what you read online, and see what your friends are reading. See [
 
 Before you contribute, there are some things you need to know: what to do first, where to find tasks, any additional questions, and notes provided for contributors. You can begin **here**
 
-### Style Guide
-
 ## Installing
 
 After you have forked the project and downloaded the code, install the necessary dependencies using [npm](https://docs.npmjs.com/about-npm/) or [yarn](https://yarnpkg.com/getting-started).
@@ -58,11 +56,21 @@ Before committing your changes, run the command `npm test`
 
 ## Deploying
 
-After confirming the tests have passed, create a pull request on the development branch - `git push origin development`. CircleCI will run a test suite and deploy the changes to a Heroku site for staging. If everything passed, your changes will be merged into main.
+After confirming the tests have passed, create a pull request on the development branch 
+
+`git push origin development`
+
+(Eventually) CircleCI will run a test suite and deploy the changes to a Heroku site for staging. If everything passed, your changes will be merged into main.
 
 ## Technologies
 
-* [React](https://reactjs.org/)
+* [React](https://reactjs.org/) (with [Create React App](https://create-react-app.dev/))
 * [TypeScript](https://www.typescriptlang.org/)
 * [Jest](https://jestjs.io/)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+## Near Future
+
+* [CircleCI](https://circleci.com/)
+* [Prettier](https://prettier.io/)
+* [ESLint](https://eslint.org/)
