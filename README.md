@@ -1,6 +1,6 @@
-# [Breads](https://www.breads.io/)
+# [Breads](https://www.breads.io)
 
-Keep track of what you read online, and see what your friends are reading. See [Breads API](https://github.com/aTmb405/breads-server) for back end.
+Keep track of what you read online, and see what your friends are reading. See [breads-server](https://github.com/aTmb405/breads-server) for back end code.
 
 ![Breads User Profile](https://i.ibb.co/bL4cDmt/Screen-Shot-2020-11-17-at-7-31-56-PM.png)
 
@@ -63,7 +63,7 @@ After confirming the tests have passed, create a pull request on the development
 * [Jest](https://jestjs.io/)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-## Near Future
+### Near Future
 
 * [CircleCI](https://circleci.com/)
 * [Prettier](https://prettier.io/)
