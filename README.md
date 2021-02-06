@@ -42,9 +42,12 @@ NOTE: In the rest of the documentation, you will come across npm being used for 
 
 NOTE: The backend code should be running in order for the front end to behave correctly. See [Breads API](https://github.com/aTmb405/breads-server).
 
-Add an environment variable `REACT_APP_AXIOS_URL` for `src/common/services/api`, that follows the pattern 'http://localhost:XXXX/api'. The default port number is 8080.
+Make sure the necessary dependencies are installed, add environment variables, and type the command `npm start`
 
-Make sure the necessary dependencies are installed and type the command `npm start`
+### Environment Variables
+  
+  **Axios**  
+  `REACT_APP_AXIOS_URL` - backend url (i.e. - 'http://localhost:8080/api')
 
 ## Testing
 
