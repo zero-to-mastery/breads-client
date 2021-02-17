@@ -19,7 +19,6 @@ interface AuthFormState {
     email: string
     username: string
     password: string
-    image: any
     [k: string]: string | null
 }
 
@@ -32,20 +31,13 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
             email: '',
             username: '',
             password: '',
-            image: null
         }
     }
 
     handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-        if (e.currentTarget.name === 'image' && e.currentTarget.files !== null) {
-            this.setState({
-                [e.currentTarget.name]: e.currentTarget.files[0]
-            });
-        } else { 
-            this.setState({
-                [e.currentTarget.name]: e.currentTarget.value
-            });
-        }
+        this.setState({
+            [e.currentTarget.name]: e.currentTarget.value
+        });
     };
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -59,7 +51,6 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                 formData.append('email', this.state.email);
                 formData.append('username', this.state.username);
                 formData.append('password', this.state.password);
-                formData.append('image', this.state.image);
             } else {
                 formData = this.state;
             }
@@ -117,16 +108,6 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                                     onChange={this.handleChange}
                                     type='text'
                                     value={email}
-                                    required
-                                />
-                                <label htmlFor='image'>Image: </label>
-                                <input
-                                    className='form-control-file'
-                                    id='image'
-                                    name='image'
-                                    onChange={this.handleChange}
-                                    type='file'
-                                    accept='image/*'
                                     required
                                 />
                             </>
