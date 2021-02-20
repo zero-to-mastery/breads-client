@@ -5,7 +5,7 @@ export type ModalReading = string;
 export type ModalTags = any[];
 
 export interface ModalState { 
-    reading_url: ModalReading
+    reading_id: ModalReading
     tag_names: ModalTags[]
 }
 

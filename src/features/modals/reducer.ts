@@ -2,7 +2,7 @@ import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
 import { ModalActionTypes, ModalState } from './types';
 
 const initialState: ModalState = {
-    reading_url: '',
+    reading_id: '',
     tag_names: []
 }
 

@@ -46,8 +46,8 @@ class Modal extends Component<ModalProps, ModalState> {
         const { add_tags, delete_tags } = this.compareTagArrays(this.state.oldTags.split(' '), this.state.newTags.split(' '));
         const tag_names = this.props.modals.tag_names;
 
-        if (tag_names.length === 0) this.props.postNewTags(this.props.modals.reading_url, add_tags);
-        else this.props.updateTags(this.props.modals.reading_url, add_tags, delete_tags);
+        if (tag_names.length === 0) this.props.postNewTags(this.props.modals.reading_id, add_tags);
+        else this.props.updateTags(this.props.modals.reading_id, add_tags, delete_tags);
         
         this.setState({ tags: '' });
         this.props.removeModalAlert();

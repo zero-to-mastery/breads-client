@@ -5,10 +5,10 @@ import { AppDispatch } from '../../app/store';
 
 const { removeAlert, addAlert } = alerts.actions;
 
-const addModal = (reading_url: ModalReading, tag_names: ModalTags): ModalActionTypes => ({
+const addModal = (reading_id: ModalReading, tag_names: ModalTags): ModalActionTypes => ({
     type: ADD_MODAL,
     payload: {
-        reading_url,
+        reading_id,
         tag_names
     }
 });
@@ -16,14 +16,14 @@ const addModal = (reading_url: ModalReading, tag_names: ModalTags): ModalActionT
 const removeModal = (): ModalActionTypes => ({
     type: REMOVE_MODAL,
     payload: { 
-        reading_url: '',
+        reading_id: '',
         tag_names: []
     }
 });
 
-export const addModalAlert = (modal: any, reading_url: ModalReading, tag_names: ModalTags) => (dispatch: AppDispatch): void => {
+export const addModalAlert = (modal: any, reading_id: ModalReading, tag_names: ModalTags) => (dispatch: AppDispatch): void => {
     dispatch(addAlert({message: modal, type: 'info'}));
-    dispatch(addModal(reading_url, tag_names));
+    dispatch(addModal(reading_id, tag_names));
 };
 
 export const removeModalAlert = () => (dispatch: AppDispatch): void => {
