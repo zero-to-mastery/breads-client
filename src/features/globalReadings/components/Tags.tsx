@@ -17,8 +17,8 @@ class Tags extends Component<TagsProps> {
     handleClick = () => {
         let tag_names: any[] = this.props.reading.tags
                         ? this.props.reading.tags.map((tag_id: number): string => `#${this.props.tags[tag_id].tag_name}`)
-                        : []
-        this.props.addModalAlert(<Modal />, this.props.reading.url, tag_names);
+                        : [];
+        this.props.addModalAlert(<Modal />, this.props.reading.id, tag_names);
     }
 
     render() {

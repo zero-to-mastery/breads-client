@@ -61,12 +61,12 @@ export const fetchTags = (list, id) => {
     }
 }
 
-export const postNewTags = (reading_url, tags) => {
+export const postNewTags = (reading_id, tags) => {
     return (dispatch, getState) => {
         dispatch(addLoader('addTag'));
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
-        return apiCall('post', `/tags/${user_id}`, { reading_url, tags })
+        return apiCall('post', `/tags/${user_id}`, { reading_id, tags })
             .then(() => {
                 dispatch(addTag(user_id));
                 dispatch(removeLoader('addTag'));
@@ -76,12 +76,12 @@ export const postNewTags = (reading_url, tags) => {
     }
 }
 
-export const updateTags = (reading_url, add_tags, delete_tags) => {
+export const updateTags = (reading_id, add_tags, delete_tags) => {
     return (dispatch, getState) => {
         dispatch(addLoader('updateTag'));
         let { currentUser } = getState();
         const user_id = currentUser.user.id;
-        return apiCall('put', `/tags/${user_id}`, { reading_url, add_tags, delete_tags })
+        return apiCall('put', `/tags/${user_id}`, { reading_id, add_tags, delete_tags })
             .then(() => {
                 dispatch(addTag(user_id));
                 dispatch(removeLoader('updateTag'));
