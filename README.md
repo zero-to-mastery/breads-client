@@ -90,4 +90,3 @@ git merge upstream/master
 
 * [CircleCI](https://circleci.com/)
 * [Prettier](https://prettier.io/)
-* [ESLint](https://eslint.org/)
