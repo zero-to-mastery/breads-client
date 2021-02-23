@@ -51,15 +51,33 @@ Make sure the necessary dependencies are installed, add environment variables, a
 
 ## Testing
 
-Before committing your changes, run the command `npm test`
+~~Before committing your changes, run the command `npm test`~~
+
+Tests are not up to date. (This would be a great way to contribute!)
 
 ## Deploying
 
-After confirming the tests have passed, create a pull request on the development branch 
+~~After confirming the tests have passed~~ - see above
 
-`git push origin development`
+1. [Keep your fork in sync](https://www.freecodecamp.org/news/how-to-sync-your-fork-with-the-original-git-repository/) with this repository ([how to merge conflicts](https://opensource.com/article/20/4/git-merge-conflict)):
 
-(Eventually) CircleCI will run a test suite and deploy the changes to a Heroku site for staging. If everything passed, your changes will be merged into main.
+```
+# Add a new remote upstream repository
+git remote add upstream https://github.com/zero-to-mastery/breads-client.git
+
+# Sync your fork
+git fetch upstream
+git checkout master
+git merge upstream/master
+```
+
+2. Push changes to your repo:
+
+`git push origin master`
+
+3. In your repo GitHub page, create a pull request to the `development` branch. This will allow us to see changes in a staging environment before merging to `master`.
+
+4. If everything runs correctly, your pull request will be merged into `master`.
 
 ## Technologies
 
