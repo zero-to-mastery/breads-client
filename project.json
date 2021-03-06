@@ -1,42 +1,42 @@
 {
-  "repoName": "breads-client",
-  "tagline": "Keep track of what you and your friends read online.",
-  "color": "#8244BC",
-  "logo": "https://media.discordapp.net/attachments/743608750635483297/817733812883947551/download-removebg-preview.png",
-  "channelName": "breads-client",
-  "desc": [
-    "Keep track of what you and your friends read online",
-    "__**Features:**__ \n• Save articles you've read online \n• See a summary and simple stats of your reading activity \n• Tag and favorite articles \n• Follow friends to see what they've read, favorited, and tagged \n• Global feed to see what is being read by everyone on Breads \n• Search for articles and user",
-    "__**Future Features:**__ \n• Save other media content like videos, PDFs, and podcasts \n• Browser extension \n• RSS Feed \n• Pocket-like read later feature \n• Newsletter that summarizes trends, your friend's readings, etc.",
-    "__**Front End Tech:**__ \n• JavaScript \n• React \n• Redux \n• TypeScript",
-    "__**Back End Tech:**__ \n• JavaScript \n• Python \n• Express"
-  ],
-  "team": [
-    ["aTmb405", "Project Lead"],
-  ],
-  "links": [
-    [
-      "README.md",
-      "https://github.com/zero-to-mastery/breads-client/blob/master/README.md"
-    ],
-    [
-      "Website",
-      "https://breads.io"
-    ]
-  ],
-  "poi": [
-    [
-      "README.md",
-      "https://github.com/zero-to-mastery/breads-client/blob/master/README.md"
-    ],
-    [
-      "Website",
-      "https://breads.io"
-    ]
-  ],
-  "tasks": {
-    "title": "Trello Tasks",
-    "desc": "We use Trello to manage the tasks within this project. Further information on how to access Trello and how claim a task can be found in the pinned messages"
-  },
-  "welcomeMsg":"Please take a moment to read through the pinned messages. Here you will find important notes and how to get stated with the project!"
+	"repoName": "breads-client",
+	"tagline": "Keep track of what you and your friends read online.",
+	"color": "#8244BC",
+	"logo": "https://media.discordapp.net/attachments/743608750635483297/817733812883947551/download-removebg-preview.png",
+	"channelName": "breads-client",
+	"desc": [
+		"Keep track of what you and your friends read online",
+		"__**Features:**__ \n• Save articles you've read online \n• See a summary and simple stats of your reading activity \n• Tag and favorite articles \n• Follow friends to see what they've read, favorited, and tagged \n• Global feed to see what is being read by everyone on Breads \n• Search for articles and user",
+		"__**Future Features:**__ \n• Save other media content like videos, PDFs, and podcasts \n• Browser extension \n• RSS Feed \n• Pocket-like read later feature \n• Newsletter that summarizes trends, your friend's readings, etc.",
+		"__**Front End Tech:**__ \n• JavaScript \n• React \n• Redux \n• TypeScript",
+		"__**Back End Tech:**__ \n• JavaScript \n• Python \n• Express"
+	],
+	"team": [
+		["aTmb405", "Project Lead"]
+	],
+	"links": [
+		[
+			"README.md",
+			"https://github.com/zero-to-mastery/breads-client/blob/master/README.md"
+		],
+		[
+			"Website",
+			"https://breads.io"
+		]
+	],
+	"poi": [
+		[
+			"README.md",
+			"https://github.com/zero-to-mastery/breads-client/blob/master/README.md"
+		],
+		[
+			"Website",
+			"https://breads.io"
+		]
+	],
+	"tasks": {
+		"title": "Trello Tasks",
+		"desc": "We use Trello to manage the tasks within this project. Further information on how to access Trello and how claim a task can be found in the pinned messages"
+	},
+	"welcomeMsg": "Please take a moment to read through the pinned messages. Here you will find important notes and how to get stated with the project!"
 }
