@@ -85,9 +85,10 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                     {!isCorrectUser && 
                         <UserImage image={newUserImage} username={users[reading.reader].username} imageSize=''>
                             <div className='avatar__intro'>
+                            <h4 className='avatar__name'>
                                 <Link to={`/${users[reading.reader].id}`}>
-                                    <h4 className='avatar__name'>{users[reading.reader].username}</h4>
-                                </Link>
+                                    {users[reading.reader].username}
+                                </Link></h4>
                                 <small className='avatar__subtitle overflow-auto-horizontal'>
                                     <Moment fromNow ago>
                                         {reading.created_at}
