@@ -1,23 +1,23 @@
 ![](https://media.discordapp.net/attachments/635782799017771008/708029710814412871/ZTMCC.png)
 
 ## Introduction
-The Zero To Mastery Community is dedicated to providing a safe, inclusive, welcoming, and harassment-free space and experience for all community participants, regardless of gender identity and expression, sexual orientation, disability, physical appearance, socioeconomic status, body size, ethnicity, nationality, level of experience, age, religion (or lack thereof), or other identity markers. Our Code of Conduct exists because of that dedication, and we do not tolerate harassment in any form. 
+The Zero To Mastery Community is dedicated to providing a safe, inclusive, welcoming, and harassment-free space and experience for all community participants, regardless of gender identity and expression, sexual orientation, disability, physical appearance, socioeconomic status, body size, ethnicity, nationality, level of experience, age, religion (or lack thereof), or other identity markers. Our Code of Conduct exists because of that dedication, and we do not tolerate harassment in any form.
 
-If you cannot be bothered to read this whole thing, here is a nice and short summary: **Be a good human, be nice, and help those that need help. This group is about learning and for improving our skills as a community in order to better ourselves. If that does not fit into what you want to talk about, there are better places on the internet for you to have those discussions.**
+If you cannot take the time to read this whole document, then here is a summary: **Be a good human, be nice, and help those that need help. This group is about learning and improving our skills as a community. If that doesn't fit with your point of view, there are places on the internet where you might be a better fit.**
 
 This Code of Conduct applies to __**EVERYONE**__ in **ALL** ZTM Community spaces, including:
  - ZTM Discord Server
- - ZTM open source repositories
+ - ZTM open-source repositories
  - ZTM Community events and meetups, online and offline
- - one-on-one communications pertaining to ZTM Community business. 
- 
+ - one-on-one communications about ZTM Community business.
+
  Participants violating our Code of Conduct may be penalized or expelled at the discretion of community management.
 
 Some ZTM Community spaces may have additional rules in place, which are posted publicly for participants. Participants are responsible for knowing and abiding by these rules. We invite all those who participate in the ZTM Community to help us create safe and positive community experiences.
 
 Consequences for noncompliance with the Code of Conduct may include a discussion with moderators, mediation with the participant you may have harassed, or as an absolute last resort, a ban from the community.
 
-## Behaviour
+## Behavior
 #### Appropriate behavior contributes to the health, safety, and longevity of the ZTM Community and includes:
  - Participating in an authentic and empathetic way.
  - Representing the ZTM Community in a positive, professional way.
@@ -52,33 +52,33 @@ Consequences for noncompliance with the Code of Conduct may include a discussion
  - Threatening to post or posting other people’s personally identifiable information without consent.
  - Publication of non-harassing private communication without consent.
  - Blogging, tweeting, or otherwise communicating with intent to harm someone’s reputation, i.e., “making an example” of a community participant.
- - Intimidation, stalking, or following.
+ - Intimidation, stalking or following.
  - Harassing or unwanted photography or recording, including logging online activity for harassment purposes.
  - Other conduct which could reasonably be considered inappropriate in a professional setting.
  - Advocating for, or encouraging, any of the above behavior.
- 
+
  ## Reporting Procedure
- If you experience or witness (or have experienced or have witnessed) violations of the Code of Conduct or have any other concerns, please notify a member of the `Management Team` or `Star Mentors` on Discord, Reports of Code of Conduct violations should include as many details as possible, for example:
+ If you experience or witness (or have experienced or have witnessed) violations of the Code of Conduct or have any other concerns, please notify a member of the `Management Team` or `Star Mentors` on Discord. Reports of Code of Conduct violations should include as many details as possible, for example:
  - Discord handles of people involved
  - When and which channel(s) it happened
- - Detailed summary of what happened
+ - A detailed summary of what happened
  - Additional context / screenshots
 
 ## Enforcement
- - Participants will be asked to stop any harassing behavior are expected to comply immediately, even if participants do not agree with or fully acknowledge the behavior being reported.
+ - Participants will be asked to stop any harassing behavior, and they are expected to comply immediately, even if participants do not agree with or fully acknowledge the behavior being reported.
 
- - If a participant violates the Code of Conduct, community moderators may take any action they deem appropriate to maintaining a welcoming environment for all participants, up to and including removing the participants messages, permissions or membership from the community. 
- 
+ - If a participant violates the Code of Conduct, community moderators may take any action they deem appropriate to maintaining a welcoming environment for all participants, up to and including removing the messages, permissions, or membership of the participant from the community.
+
 ## Moderators
 Code of Conduct moderators will:
- - Behind the scenes there will always be at least two people working together to resolve violations.
+ - Behind the scenes, there will always be at least two people working together to resolve violations.
  - Respond as promptly as possible to reports of violations.
  - Make an effort to understand both sides of the situation.
  - Keep each other accountable.
  - Recuse themselves or be excused from handling an incident if they are listed as a possible Code of Conduct violator.
- 
- 
- 
+
+
+
  ## Sources
  This code of conduct was adapted from [here](https://github.com/keen/community-code-of-conduct/blob/master/long-form-code-of-conduct.md)
- 
+
