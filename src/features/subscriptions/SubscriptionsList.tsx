@@ -19,7 +19,7 @@ class SubscriptionsList extends Component<SubscriptionProps> {
         const { friends, removeSubscription, currentUser, match, sub_type } = this.props;
         let subscriptionsList: JSX.Element[] = [];
         if (friends) {
-            subscriptionsList = friends[sub_type].map((id: any) => (
+            subscriptionsList = friends[sub_type].map((id: number) => (
                 <ListCard
                     // refactor like listitem
                     key={id}
