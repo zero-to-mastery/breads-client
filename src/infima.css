@@ -1781,6 +1781,10 @@
   .card__header > :last-child {
     margin-bottom: 0;
   }
+  .card__body {
+    display: flex;
+    flex-direction: column;
+  }
   .card__footer {
     margin-top: auto;
   }
