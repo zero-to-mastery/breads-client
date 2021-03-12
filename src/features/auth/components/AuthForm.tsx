@@ -77,7 +77,7 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                         <div className='card__body'>
                         {signup && (
                             <>
-                                <label htmlFor='first_name'>First Name: </label>
+                                <label htmlFor='first_name' className='margin-top--md'>First Name: </label>
                                 <input
                                     autoComplete='off'
                                     className='form-input'
@@ -88,10 +88,10 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                                     value={first_name}
                                     required
                                 />
-                                <label htmlFor='last_name'>Last Name: </label>
+                                <label htmlFor='last_name' className='margin-top--md'>Last Name: </label>
                                 <input
                                     autoComplete='off'
-                                    className='form-input margin-top--md'
+                                    className='form-input'
                                     id='last_name'
                                     name='last_name'
                                     onChange={this.handleChange}
@@ -99,10 +99,10 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                                     value={last_name}
                                     required
                                 />
-                                <label htmlFor='email'>E-mail: </label>
+                                <label htmlFor='email' className='margin-top--md'>E-mail: </label>
                                 <input
                                     autoComplete='off'
-                                    className='form-input margin-top--md'
+                                    className='form-input'
                                     id='email'
                                     name='email'
                                     onChange={this.handleChange}
@@ -112,10 +112,10 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                                 />
                             </>
                         )}
-                            <label htmlFor='username'>Username: </label>
+                            <label htmlFor='username' className='margin-top--md'>Username: </label>
                             <input
                                 autoComplete='off'
-                                className='form-input margin-top--md'
+                                className='form-input'
                                 id='username'
                                 name='username'
                                 onChange={this.handleChange}
@@ -123,10 +123,10 @@ class AuthForm extends Component<AuthFormProps, AuthFormState> {
                                 value={username}
                                 required
                             />
-                            <label htmlFor='password'>Password: </label>
+                            <label htmlFor='password' className='margin-top--md'>Password: </label>
                             <input
                                 autoComplete='off'
-                                className='form-input margin-top--md'
+                                className='form-input'
                                 id='password'
                                 name='password'
                                 onChange={this.handleChange}
