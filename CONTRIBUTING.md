@@ -27,9 +27,11 @@ git pull upstream master
 
 The above 2 commands will synchronize your forked version of the project with the actual repository.
 
+([for more info](https://www.freecodecamp.org/news/how-to-sync-your-fork-with-the-original-git-repository/))
+
 4. Create a branch `git checkout -b <your_branch_name>`
 
-5. Create a file .env in the root directory:
+5. Create a file `.env` in the root directory:
 
 - `REACT_APP_AXIOS_URL` - backend url (i.e. - 'http://localhost:8080/api')
 
@@ -41,19 +43,19 @@ To install the packages through yarn, run the command `yarn add`
 
 NOTE: In the rest of the documentation, you will come across npm being used for running commands. To use yarn in place of npm for the commands, simply substitute npm for yarn. Example, npm start as yarn start. For more help, checkout [migrating from npm](https://classic.yarnpkg.com/en/docs/migrating-from-npm/).
 
-7. Run `npm install`
+7. Run `npm start` and start making your changes.
 
-8. Run `npm start` and start making your changes.
+8. Get a screenshot of your finished work! (if there are any UI changes) Try to crop it so that it looks good as a smallish (preferably squarish) image.
 
-9. Get a screenshot of your finished work! (if there are any UI changes) Try to crop it so that it looks good as a smallish (preferably squarish) image.
+9. ~~Run `npm test`~~ Tests are not up to date. (This would be a great way to contribute!)
 
 10. Pull from the upstream again before you commit your changes, like you did in step 3. This is to ensure your still have the latest code.
 
-If you see a error like
+If you see a error similar to
 
 `Your local changes to the following files would be overwritten by merge. Please commit your changes or stash them before you merge`
 
-on using git pull upstream main use:
+on using `git pull upstream master` use:
 
 ```
 git stash
@@ -61,28 +63,46 @@ git pull upstream master
 git stash pop
 ```
 
-[(for more info)](https://bluecast.tech/blog/git-stash/)
+([for more info](https://bluecast.tech/blog/git-stash/))
 
-11. Commit and push the code to your fork
+12. Commit and push the code to your fork
 
-12.  In your repo GitHub page, create a pull request to the `development` branch. This will allow us to see changes in a staging environment before merging to `master`. If everything runs correctly, your pull request will be merged into `master`.
+13. In your repo GitHub page, create a pull request to the `development` branch. This will allow us to see changes in a staging environment before merging to `master`. If everything runs correctly, your pull request will be merged into `master`.
+
+([for more info](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow))
 
 ## Folder Structure
 
-### We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
+```
+├── ...                 
+├── /src
+│ ├── ...
+│ ├── /app
+│ │ ├── App.tsx                   # top-level component
+│ │ ├── Routes.tsx                # houses the routes of the application
+│ │ ├── store.ts                  # creates the Redux store instance
+│ ├── /common                     # components used throughout codebase
+│ │ ├── /services                 # Axios fetch wrapper and normalizr schemas
+│ │ ├── ...
+│ ├── /features                   # UI and logic grouped by features
+│ │ ├── /exampleFeature
+│ │ │ ├── /components             # contains relevant components for this feature
+│ │ │ ├── actions.ts              # user "events" that trigger state updates
+│ │ │ ├── constants.ts            # used in root reducer and selectors
+│ │ │ ├── index.ts                # public feature API
+│ │ │ ├── reducer.ts              # "event listeners" that handle state updates
+│ │ │ ├── selectors.ts            # functions that extract specific info from state values
+│ │ │ ├── types.ts                # action and reducer types
+│ │ ├── ...
+├── fontawesome.js                # imports icons
+├── index.js                      # application starting point
+├── infima.css                    # app styles
+└── ...
+```
 
-Pull requests are the best way to propose changes to the codebase (we use Github Flow). We actively welcome your pull requests:
+## Any contributions you make will be under the Creative Commons Attribution 4.0 International License
 
-1. Fork the repo and create your branch from main.
-2. If you've added code that should be tested, add tests.
-3. If your change needs an explaination to the user, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
-
-## Any contributions you make will be under the MIT Software License
-
-In short, when you submit code changes, your submissions are understood to be under the same MIT License that covers the project. Feel free to contact the maintainers if that's a concern.
+In short, when you submit code changes, your submissions are understood to be under the same CC License that covers the project. Feel free to contact the maintainers if that's a concern.
 
 ## Report bugs using Github's issues
 
@@ -97,12 +117,13 @@ Great Bug Reports tend to have:
   - Be specific!
   - Give sample code if you can.
 - What you expected would happen
-- What actually happens
+- What actually happened
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+
 People love thorough bug reports. I'm not even kidding.
 
 ## Use a Consistent Coding Style
 Observe the coding style of the project and add your code also in the same style. Don't make major changes (Like changing the complete folder structure)
 
 ## License
-By contributing, you agree that your contributions will be licensed under its MIT License.
+By contributing, you agree that your contributions will be licensed under its Creative Commons Attribution 4.0 International License
