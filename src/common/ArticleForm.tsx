@@ -4,6 +4,7 @@ import globalReadings from '../features/globalReadings';
 import tags from '../features/tags';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootState } from '../features/rootReducer';
+import validator from 'validator';
 
 type IProps = PropsFromRedux & {
     history: any
@@ -11,7 +12,8 @@ type IProps = PropsFromRedux & {
 
 type IState = {
     url: string,
-    tags: string
+    tags: string,
+    errors: string
 }
 
 class ArticleForm extends Component<IProps, IState> {
@@ -19,14 +21,19 @@ class ArticleForm extends Component<IProps, IState> {
         super(props);
         this.state = {
             url: '',
-            tags: ''
+            tags: '',
+            errors: ''
+
         }
     }
     /**
      * @todo Need to update since I can't figure out computed property names in TypeScript
      * @see {@link https://stackoverflow.com/questions/44110641/typescript-a-computed-property-name-in-a-type-literal-must-directly-refer-to-a-b}
      */
+     
+    
     handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({errors: ''})
         const name = e.currentTarget.name;
         
         if (name === 'url') {
@@ -40,8 +47,18 @@ class ArticleForm extends Component<IProps, IState> {
         }
     };
     
+    
     handleNewUrl = (e: React.FormEvent<HTMLFormElement>): void => {
+      
+   
         e.preventDefault();
+        if (validator.isURL(this.state.url)) { 
+            this.setState({errors: ''})
+        }else {
+            this.setState({ errors: 'Try again with a valid URL' });
+            return ;
+        }
+        
         this.props.postNewReading(this.state.url, this.state.tags);
         this.setState({ url: '', tags: '' });
         let path = this.props.history.location.pathname;
@@ -60,7 +77,7 @@ class ArticleForm extends Component<IProps, IState> {
     };
 
     render() {
-        const { url, tags } = this.state;
+        const { url, tags, errors } = this.state;
         const { loading } = this.props;
 
         return (
@@ -76,7 +93,10 @@ class ArticleForm extends Component<IProps, IState> {
                                 onChange={this.handleChange}
                                 placeholder='Paste article url here'
                                 value={url}
+                                required
                             />
+                            {errors !== '' && <span style={{color: "red"}}>{this.state.errors}</span>}
+
                             <input
                                 type='text'
                                 className='form-input'
