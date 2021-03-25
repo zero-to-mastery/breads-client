@@ -4,7 +4,6 @@ import globalReadings from '../features/globalReadings';
 import tags from '../features/tags';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootState } from '../features/rootReducer';
-import validator from 'validator';
 
 type IProps = PropsFromRedux & {
     history: any
@@ -12,8 +11,7 @@ type IProps = PropsFromRedux & {
 
 type IState = {
     url: string,
-    tags: string,
-    errors: string
+    tags: string
 }
 
 class ArticleForm extends Component<IProps, IState> {
@@ -21,8 +19,7 @@ class ArticleForm extends Component<IProps, IState> {
         super(props);
         this.state = {
             url: '',
-            tags: '',
-            errors: ''
+            tags: ''
 
         }
     }
@@ -33,7 +30,6 @@ class ArticleForm extends Component<IProps, IState> {
      
     
     handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-        this.setState({errors: ''})
         const name = e.currentTarget.name;
         
         if (name === 'url') {
@@ -52,13 +48,7 @@ class ArticleForm extends Component<IProps, IState> {
       
    
         e.preventDefault();
-        if (validator.isURL(this.state.url)) { 
-            this.setState({errors: ''})
-        }else {
-            this.setState({ errors: 'Try again with a valid URL' });
-            return ;
-        }
-        
+     
         this.props.postNewReading(this.state.url, this.state.tags);
         this.setState({ url: '', tags: '' });
         let path = this.props.history.location.pathname;
@@ -77,7 +67,7 @@ class ArticleForm extends Component<IProps, IState> {
     };
 
     render() {
-        const { url, tags, errors } = this.state;
+        const { url, tags } = this.state;
         const { loading } = this.props;
 
         return (
@@ -95,7 +85,6 @@ class ArticleForm extends Component<IProps, IState> {
                                 value={url}
                                 required
                             />
-                            {errors !== '' && <span style={{color: "red"}}>{this.state.errors}</span>}
 
                             <input
                                 type='text'

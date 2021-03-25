@@ -2,6 +2,7 @@ import { apiCall } from '../../common/services/api';
 import alerts from '../alerts';
 import loader from '../loader';
 import tags from '../tags';
+import validator from 'validator';
 import { receiveEntities } from '../actions';
 import { normalize } from 'normalizr';
 import * as schema from '../../common/services/schema';
@@ -79,18 +80,23 @@ export const fetchReadings = (list: string | null, id?: any): ThunkAction<Promis
 
 
 export const postNewReading = (url: string, tags: string): ThunkAction<Promise<AlertActionTypes | void>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch, getState: any): Promise<AlertActionTypes | void> => {
-    dispatch(addLoader('newReading'));
-    let { currentUser } = getState();
-    const id = currentUser.user.id;
-    console.log(tags);
-    return apiCall('post', `/users/${id}/readings`, { url, tags })
-        .then(() => {
-            dispatch(addReading(id));
-            dispatch(addTag(id));
-            dispatch(removeLoader('newReading'));
-            dispatch(addAlert({message: 'Article uploaded', type: 'success'}));
-        })
-        .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
+    if (validator.isURL(url)) {
+        dispatch(addLoader('newReading'));
+        let { currentUser } = getState();
+        const id = currentUser.user.id;
+        console.log(tags);
+        
+        return apiCall('post', `/users/${id}/readings`, { url, tags })
+            .then(() => {
+                dispatch(addReading(id));
+                dispatch(addTag(id));
+                dispatch(removeLoader('newReading'));
+                dispatch(addAlert({message: 'Article uploaded', type: 'success'}));
+            })
+            .catch(err => dispatch(addAlert({message: err.message, type: 'danger'})));
+    } else {
+        dispatch(addAlert({message: 'Try again with a valid URL', type: 'danger'}))
+    }
 }
 
 export const removeUserReading = (user_id: any, reading_id: any): ThunkAction<Promise<PromiseReturnTypes>, RootState, unknown, Action<string>> => async (dispatch: AppDispatch): Promise<PromiseReturnTypes> => {
