@@ -61,7 +61,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
         ));
 
         return (
-            <nav className={`navbar navbar--light navbar--fixed-top ${activeHamburger}`}>
+            <nav className={`navbar navbar--light navbar--fixed-top navbar--dark${activeHamburger}`}>
                 <div className='navbar__inner'>
                     <div className='navbar__items'>
                         <div onClick={this.handleHamburgerClick} aria-label='Navigation bar toggle' className='navbar__toggle' role='button' tabIndex={0}>

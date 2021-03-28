@@ -2352,14 +2352,7 @@
     color: #1c1e21;
     color: var(--ifm-navbar-link-color);
   }
-  .navbar--dark {
-    --ifm-navbar-background-color: #303846;
-    --ifm-navbar-link-color: var(--ifm-color-white);
-    --ifm-navbar-link-hover-color: var(--ifm-color-primary);
-    --ifm-navbar-search-input-background-color: hsla(0, 0%, 100%, 0.1);
-    --ifm-navbar-search-input-color: var(--ifm-color-white);
-    --ifm-navbar-search-input-placeholder-color: hsla(0, 0%, 100%, 0.5);
-  }
+  
   .navbar--primary {
     --ifm-navbar-background-color: var(--ifm-color-primary);
     --ifm-navbar-link-hover-color: var(--ifm-color-white);
@@ -3418,3 +3411,24 @@
     display: none;
     visibility: hidden;
   }
+
+  /* --- Dark Mode --- */
+
+.darkmode--activated .navbar--dark {
+  transition: background 0.5s ease-in-out;
+  --ifm-navbar-background-color: #303846;
+  --ifm-navbar-link-color: var(--ifm-color-white);
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
+  --ifm-navbar-search-input-background-color: hsla(0, 0%, 100%, 0.1);
+  --ifm-navbar-search-input-color: var(--ifm-color-white);
+  --ifm-navbar-search-input-placeholder-color: hsla(0, 0%, 100%, 0.5);
+}
+.darkmode--activated .card-demo-md p,
+.darkmode--activated .card-demo-md time {
+  transition: background 0.5s ease-in-out;
+  color: var(--ifm-color-white);
+}
+.darkmode--activated .card-demo-md .card {
+  transition: background 0.5s ease-in-out;
+  background-color: #303846;
+}
