@@ -25,6 +25,14 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Breads</title>
+    <!-- Below JSDelivr CDN and Widget script for DarkMode -->
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js" defer></script>
+    <script defer>
+      function addDarkmodeWidget() {
+        new Darkmode().showWidget();
+      }
+      window.addEventListener('load', addDarkmodeWidget);
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -20,12 +20,15 @@ class ArticleForm extends Component<IProps, IState> {
         this.state = {
             url: '',
             tags: ''
+
         }
     }
     /**
      * @todo Need to update since I can't figure out computed property names in TypeScript
      * @see {@link https://stackoverflow.com/questions/44110641/typescript-a-computed-property-name-in-a-type-literal-must-directly-refer-to-a-b}
      */
+     
+    
     handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
         const name = e.currentTarget.name;
         
@@ -40,8 +43,12 @@ class ArticleForm extends Component<IProps, IState> {
         }
     };
     
+    
     handleNewUrl = (e: React.FormEvent<HTMLFormElement>): void => {
+      
+   
         e.preventDefault();
+     
         this.props.postNewReading(this.state.url, this.state.tags);
         this.setState({ url: '', tags: '' });
         let path = this.props.history.location.pathname;
@@ -76,7 +83,9 @@ class ArticleForm extends Component<IProps, IState> {
                                 onChange={this.handleChange}
                                 placeholder='Paste article url here'
                                 value={url}
+                                required
                             />
+
                             <input
                                 type='text'
                                 className='form-input'
