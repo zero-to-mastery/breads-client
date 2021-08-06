@@ -14,59 +14,62 @@ Our aim is to keep it simple for the developers to contribute to this project. S
 
 ## How to contribute
 
-1. Fork (make a copy of) this repo to your Github account
+1. First, fork (make a copy of) this repo to your Github account
 
 2. Clone (download) your fork to your computer
 
 3. Keep your clone in sync with the original repo (get the latest updates)
 
-```
-git remote add upstream https://github.com/zero-to-mastery/breads-client.git
-git pull upstream master
-```
-([for more info](https://www.freecodecamp.org/news/how-to-sync-your-fork-with-the-original-git-repository/))
+  HTTPS
+  ```
+  git remote add upstream https://github.com/zero-to-mastery/breads-client.git
+  git pull upstream master
+  ```
 
-4. Create a working branch `git checkout -b <your_branch_name>`
+  SSH
+  ```
+  git remote add upstream git@github.com:zero-to-mastery/breads-client.git
+  git pull upstream master
+  ```
+  ([For more info](https://www.freecodecamp.org/news/how-to-sync-your-fork-with-the-original-git-repository/))
 
-5. Create `.env` file  in the root directory and add environment variables:
+4. Install packages
 
-- `REACT_APP_AXIOS_URL` - backend url (i.e. - 'http://localhost:8080/api')
+  - Run `npm install`
 
-6. Install the necessary dependencies using `npm` or `yarn`
+5. Set up your local environment variables
 
-To install the packages through npm, run the command `npm install`
+  Create a `.env` file  in the root directory:
 
-To install the packages through yarn, run the command `yarn add`
+  - `REACT_APP_AXIOS_URL` - backend url (i.e. - 'http://localhost:8080/api')
 
-NOTE: In the rest of the documentation, you will come across npm being used for running commands. To use yarn in place of npm for the commands, simply substitute npm for yarn. Example, npm start as yarn start. For more help, checkout [migrating from npm](https://classic.yarnpkg.com/en/docs/migrating-from-npm/)
+  **To run the frontend without setting up a local backend, set `REACT_APP_AXIOS_URL=https://staging-breads-server.herokuapp.com/api`
 
-7. Run `npm start` and start making your changes
+6. Run `npm start` and confirm the app is running 
 
-8. Get a screenshot of your finished work! (if there are any UI changes) Try to crop it so that it looks good as a smallish (preferably squarish) image
+7. Create a new branch `git checkout -b <your_branch_name>`
 
-9. ~~Run `npm test`~~ Tests are not up to date. (This would be a great way to contribute!)
+8. Start making your changes.
+
+9. Get a screenshot/gif of your finished work (if there are any UI changes). Try to crop it so that it looks good as a smallish (preferably squarish) image
 
 10. Pull from the upstream again (step 3) before you commit your changes to ensure your still have the latest code
 
-If you see a error similar to
+If you see an error similar to `Your local changes to the following files would be overwritten by merge. Please commit your changes or stash them before you merge` on using `git pull upstream master` use:
 
-`Your local changes to the following files would be overwritten by merge. Please commit your changes or stash them before you merge`
+  ```
+  git stash
+  git pull upstream master
+  git stash pop
+  ```
 
-on using `git pull upstream master` use:
+([For more info](https://bluecast.tech/blog/git-stash/))
 
-```
-git stash
-git pull upstream master
-git stash pop
-```
+11. Commit and push the code to your fork
 
-([for more info](https://bluecast.tech/blog/git-stash/))
+12. In your repo GitHub page, create a pull request to the `development` branch. This will allow us to see changes in a staging environment before merging to `master`. If everything runs correctly, your pull request will be merged into `master`.
 
-12. Commit and push the code to your fork
-
-13. In your repo GitHub page, create a pull request to the `development` branch. This will allow us to see changes in a staging environment before merging to `master`. If everything runs correctly, your pull request will be merged into `master`.
-
-([for more info](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow))
+([For more info](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow))
 
 ## Folder Structure
 
