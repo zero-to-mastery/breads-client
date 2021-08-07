@@ -1,141 +1,146 @@
 body {
-    margin: 0;
-    background-color: #f8f9fa !important;
+  margin: 0;
+  background-color: #f8f9fa !important;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
-.pt-2, .py-2 {
-    padding-top: 2rem!important;
+.pt-2,
+.py-2 {
+  padding-top: 2rem !important;
 }
 
 .pb-1 {
-    padding-bottom: 1rem!important;
+  padding-bottom: 1rem !important;
 }
 
 .px-1 {
-    padding-left: 1rem!important;
-    padding-right: 1rem!important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 
 .home-hero {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: -1;
-    text-align: center;
-    padding: 1rem;
-    background-position: center center;
-    background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+  text-align: center;
+  padding: 1rem;
+  background-position: center center;
+  background-size: cover;
 }
 
 .timeline {
-    max-width: 1200px;
+  max-width: 1200px;
 }
 
 .timeline-image {
-    object-fit: scale-down;
+  object-fit: scale-down;
 }
 
-.btn:hover, .badge, .unsubscribe, .dropdown-item {
-    cursor: pointer;
+.btn:hover,
+.badge,
+.unsubscribe,
+.dropdown-item {
+  cursor: pointer;
 }
 
-input[type="text"], textarea {
-    outline: none;
-    box-shadow:none !important;
+input[type="text"],
+textarea {
+  outline: none;
+  box-shadow: none !important;
 }
 
 .btn:focus {
-    outline: none;
-    box-shadow:none !important;
+  outline: none;
+  box-shadow: none !important;
 }
 
 .list-group-item:hover {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 #list-item:hover {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .avoid-click {
-    pointer-events: none;
+  pointer-events: none;
 }
 
-
 .special {
-    background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .search-results {
-    max-height: 90vh;
-    overflow-y: scroll;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .floating-button {
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    position:fixed;
-    width:60px;
-    height:60px;
-    bottom:25px;
-    right:25px;
-    background-color:#3578e5;
-    color:#FFF;
-    border-radius:50px;
-    text-align:center;
-    box-shadow: 2px 2px 3px #999;
-    z-index: 1;
-    display: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 25px;
+  right: 25px;
+  background-color: #3578e5;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 1;
+  display: none;
 }
 
-.my-float{
-    margin-top:22px;
+.my-float {
+  margin-top: 22px;
 }
 
 @media (max-width: 768px) {
-    .search-results {
-        max-width: 100%;
-        overflow-y: scroll;
-    }
+  .search-results {
+    max-width: 100%;
+    overflow-y: scroll;
+  }
 
-    .floating-button {
-        display: unset;
-    }
+  .floating-button {
+    display: unset;
+  }
 
-    .pb-1 .card {
-        opacity: 1;
-        transition: all 0.5s ease-in-out;
-    }
+  .pb-1 .card {
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+  }
 
-    .pb-1 .form-hidden {
-        opacity: 0;
-        margin-top: -100%;
-    }
+  .pb-1 .form-hidden {
+    opacity: 0;
+    margin-top: -100%;
+  }
 }
 
 .ellipsis {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .cover {
-    background-size: cover;
+  background-size: cover;
 }
 
 .overflow-auto-horizontal {
-    overflow: auto;
-    overflow-y: hidden;
+  overflow: auto;
+  overflow-y: hidden;
 }

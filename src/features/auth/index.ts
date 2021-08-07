@@ -1,7 +1,7 @@
-import * as actions from './actions';
-import * as constants from './constants';
-import reducer from './reducer';
-import * as types from './types'
+import * as actions from "./actions";
+import * as constants from "./constants";
+import reducer from "./reducer";
+import * as types from "./types";
 
 // export { default as AuthForm } from './components/AuthForm';
 // export { default as EmailForm } from './components/EmailForm';

@@ -1,22 +1,22 @@
-import { ADD_MODAL, REMOVE_MODAL } from '../actionTypes';
+import { ADD_MODAL, REMOVE_MODAL } from "../actionTypes";
 
 export type ModalReading = string;
 
 export type ModalTags = any[];
 
-export interface ModalState { 
-    reading_id: ModalReading
-    tag_names: ModalTags[]
+export interface ModalState {
+  reading_id: ModalReading;
+  tag_names: ModalTags[];
 }
 
 interface AddModalAction {
-    type: typeof ADD_MODAL
-    payload: ModalState
+  type: typeof ADD_MODAL;
+  payload: ModalState;
 }
 
 interface RemoveModalAction {
-    type: typeof REMOVE_MODAL
-    payload: ModalState
+  type: typeof REMOVE_MODAL;
+  payload: ModalState;
 }
 
 export type ModalActionTypes = AddModalAction | RemoveModalAction;

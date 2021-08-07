@@ -1,12 +1,12 @@
-import { ReadingActionTypes } from '../globalReadings/types';
+import { ReadingActionTypes } from "../globalReadings/types";
 
 export type ReadingListType = {
-    upToDate: boolean
-    items: number[]
+  upToDate: boolean;
+  items: number[];
 };
 
 export type ReadingListState = {
-    [k: string]: ReadingListType
+  [k: string]: ReadingListType;
 };
 
 export type ReadingListActionTypes = ReadingActionTypes | any;

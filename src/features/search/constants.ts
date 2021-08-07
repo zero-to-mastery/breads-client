@@ -1,1 +1,1 @@
-export const NAME = 'search';
+export const NAME = "search";
