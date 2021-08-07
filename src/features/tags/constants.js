@@ -1,1 +1,1 @@
-export const NAME = 'tags';
+export const NAME = "tags";

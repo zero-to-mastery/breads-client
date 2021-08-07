@@ -1,34 +1,36 @@
-import * as React from 'react';
-import { Provider } from 'react-redux';
-import store from './store';
-import auth from '../features/auth';
-import { Navbar } from '../features/notifications';
-import Routes from './Routes';
-import jwtDecode from 'jwt-decode';
+import * as React from "react";
+import { Provider } from "react-redux";
+import store from "./store";
+import auth from "../features/auth";
+import { Navbar } from "../features/notifications";
+import Routes from "./Routes";
+import jwtDecode from "jwt-decode";
 
 const setCurrentUser = (jwtToken: string): void => {
-    if (jwtToken) { 
-        auth.actions.setAuthorizationToken(jwtToken);
-        try {
-            store.dispatch(auth.actions.setCurrentUser(jwtDecode(jwtToken)));
-        } catch (err) {
-            store.dispatch(auth.actions.setCurrentUser({
-                id: null,
-                username: null,
-                image: null
-            }));
-        }
+  if (jwtToken) {
+    auth.actions.setAuthorizationToken(jwtToken);
+    try {
+      store.dispatch(auth.actions.setCurrentUser(jwtDecode(jwtToken)));
+    } catch (err) {
+      store.dispatch(
+        auth.actions.setCurrentUser({
+          id: null,
+          username: null,
+          image: null,
+        })
+      );
     }
-}
+  }
+};
 
 setCurrentUser(localStorage.jwtToken);
 
 /**Initializes the Breads app. */
 const App: React.FC<{}> = () => (
-    <Provider store={store}>
-        <Navbar />
-        <Routes />
-    </Provider>
+  <Provider store={store}>
+    <Navbar />
+    <Routes />
+  </Provider>
 );
 
 export default App;

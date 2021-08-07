@@ -1,1 +1,1 @@
-export const NAME = 'currentUser';
+export const NAME = "currentUser";

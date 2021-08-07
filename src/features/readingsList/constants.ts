@@ -1,1 +1,1 @@
-export const NAME = 'readingsByList';
+export const NAME = "readingsByList";

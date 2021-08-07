@@ -1,1 +1,1 @@
-export const NAME = 'subscriptions';
+export const NAME = "subscriptions";

@@ -1,1 +1,1 @@
-export const NAME = 'alerts';
+export const NAME = "alerts";

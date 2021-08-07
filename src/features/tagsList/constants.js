@@ -1,1 +1,1 @@
-export const NAME = 'tagsByList';
+export const NAME = "tagsByList";

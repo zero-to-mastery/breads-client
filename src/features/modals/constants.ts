@@ -1,1 +1,1 @@
-export const NAME = 'modals';
+export const NAME = "modals";

@@ -1,1 +1,1 @@
-export const NAME = 'notifications';
+export const NAME = "notifications";
