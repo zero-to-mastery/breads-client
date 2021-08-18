@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import ArticleForm from "../containers/ArticleForm";
+import ArticleForm from "../common/ArticleForm";
 
 const mockStore = configureMockStore();
 const store = mockStore({});
