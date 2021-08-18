@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import Routes from "../containers/Routes";
+import Routes from "../app/Routes";
 
 const mockStore = configureMockStore();
 const store = mockStore({});
