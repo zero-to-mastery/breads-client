@@ -1,11 +1,9 @@
-import React, { lazy } from "react";
-import { MemoryRouter, Route } from "react-router";
+import React from "react";
+import { setupServer } from "msw/node";
+import { rest } from "msw";
 import { shallow } from "enzyme";
 import { render, screen } from "@testing-library/react";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-import { LocalStorageMock } from "@react-mock/localstorage";
-import userEvent from "@testing-library/user-event";
+import { MemoryRouter, Route } from "react-router";
 import { Provider } from "react-redux";
 import store from "../app/store";
 import Timeline from "../common/Timeline";
@@ -13,33 +11,10 @@ import LeftAside from "../common/LeftAside";
 import ArticleForm from "../common/ArticleForm";
 import SignUpCard from "../common/SignUpCard";
 import Aside from "../common/Aside";
-import { GlobalReadingsList, GlobalAside } from "../features/globalReadings";
-import alerts from "../features/alerts";
 import auth from "../features/auth";
-const Alert = lazy(() => import("../features/alerts/Alert"));
-const currentUser = auth.reducer;
-// global aside
-// url upload
-// click on user
-// click on reading title
-// notification message
-
-// signup
-// signin
-// user search
-// user aside
-// followers
-// following
-// follow new user
-// unfollow user
-// followers list
-// update user info
-// favorite an article
-// add a tag
-// remove a tag
-// update an article
-// notifications
-// signout
+import alerts from "../features/alerts";
+import Alert from "../features/alerts/Alert";
+import { GlobalReadingsList, GlobalAside } from "../features/globalReadings";
 
 const server = setupServer(
   rest.options("http://localhost:8080/api/readings", (req, res, ctx) => {
@@ -176,42 +151,37 @@ describe("Reading List", () => {
   });
 
   test("renders with reading list", async () => {
+    const currentUser = auth.reducer;
+
     render(
-      <LocalStorageMock
-        items={{
-          jwtToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJmaXJzdFVzZXIiLCJpbWFnZSI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2JyZWFkcy9pbWFnZS91cGxvYWQvdjE2MTM1Mzk3NzYvbmFhbl9tend6emUuanBnIiwiaWF0IjoxNjI4MjE1Mzk2fQ.CFJQjPp0aIfm10qAgFlfdeg_KJ5VCaQO2dnnatz45Yk",
-        }}
-      >
-        <MemoryRouter initialEntries={["/"]}>
-          <Provider store={store}>
-            <Route
-              exact
-              path="/"
-              render={({ match, history }) => {
-                return (
-                  <>
-                    {alerts.message && <Alert />}
-                    <Timeline>
-                      <LeftAside>
-                        {currentUser.isAuthenticated ? (
-                          <ArticleForm history={history} />
-                        ) : (
-                          <SignUpCard />
-                        )}
-                      </LeftAside>
-                      <Aside>
-                        <GlobalAside list="global" title="Global Readings" />
-                      </Aside>
-                      <GlobalReadingsList list="global" match={match} />
-                    </Timeline>
-                  </>
-                );
-              }}
-            />
-          </Provider>
-        </MemoryRouter>
-      </LocalStorageMock>
+      <MemoryRouter initialEntries={["/"]}>
+        <Provider store={store}>
+          <Route
+            exact
+            path="/"
+            render={({ match, history }) => {
+              return (
+                <>
+                  {alerts.message && <Alert />}
+                  <Timeline>
+                    <LeftAside>
+                      {currentUser.isAuthenticated ? (
+                        <ArticleForm history={history} />
+                      ) : (
+                        <SignUpCard />
+                      )}
+                    </LeftAside>
+                    <Aside>
+                      <GlobalAside list="global" title="Global Readings" />
+                    </Aside>
+                    <GlobalReadingsList list="global" match={match} />
+                  </Timeline>
+                </>
+              );
+            }}
+          />
+        </Provider>
+      </MemoryRouter>
     );
 
     const firstTitleElement = await screen.findByRole("heading", {
@@ -264,42 +234,37 @@ describe("Reading List", () => {
   });
 
   test("renders with asides", async () => {
+    const currentUser = auth.reducer;
+
     render(
-      <LocalStorageMock
-        items={{
-          jwtToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJmaXJzdFVzZXIiLCJpbWFnZSI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2JyZWFkcy9pbWFnZS91cGxvYWQvdjE2MTM1Mzk3NzYvbmFhbl9tend6emUuanBnIiwiaWF0IjoxNjI4MjE1Mzk2fQ.CFJQjPp0aIfm10qAgFlfdeg_KJ5VCaQO2dnnatz45Yk",
-        }}
-      >
-        <MemoryRouter initialEntries={["/"]}>
-          <Provider store={store}>
-            <Route
-              exact
-              path="/"
-              render={({ match, history }) => {
-                return (
-                  <>
-                    {alerts.message && <Alert />}
-                    <Timeline>
-                      <LeftAside>
-                        {currentUser.isAuthenticated ? (
-                          <ArticleForm history={history} />
-                        ) : (
-                          <SignUpCard />
-                        )}
-                      </LeftAside>
-                      <Aside>
-                        <GlobalAside list="global" title="Global Readings" />
-                      </Aside>
-                      <GlobalReadingsList list="global" match={match} />
-                    </Timeline>
-                  </>
-                );
-              }}
-            />
-          </Provider>
-        </MemoryRouter>
-      </LocalStorageMock>
+      <MemoryRouter initialEntries={["/"]}>
+        <Provider store={store}>
+          <Route
+            exact
+            path="/"
+            render={({ match, history }) => {
+              return (
+                <>
+                  {alerts.message && <Alert />}
+                  <Timeline>
+                    <LeftAside>
+                      {currentUser.isAuthenticated ? (
+                        <ArticleForm history={history} />
+                      ) : (
+                        <SignUpCard />
+                      )}
+                    </LeftAside>
+                    <Aside>
+                      <GlobalAside list="global" title="Global Readings" />
+                    </Aside>
+                    <GlobalReadingsList list="global" match={match} />
+                  </Timeline>
+                </>
+              );
+            }}
+          />
+        </Provider>
+      </MemoryRouter>
     );
 
     const globalAsideElement = await screen.findByRole("heading", {
