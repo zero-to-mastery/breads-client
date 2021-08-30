@@ -29,7 +29,18 @@
     <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js" defer></script>
     <script defer>
       function addDarkmodeWidget() {
-        new Darkmode().showWidget();
+        const iconStyle = `
+          button.darkmode-toggle:before {
+            content: '🌙';
+          }
+          body.darkmode--activated button.darkmode-toggle:before {
+            content: '☀️';
+            font-size: 120%;
+          }
+        `;
+        const darkmode = new Darkmode();
+        darkmode.showWidget();
+        darkmode.addStyle(iconStyle);
       }
       window.addEventListener('load', addDarkmodeWidget);
     </script>
