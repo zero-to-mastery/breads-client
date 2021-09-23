@@ -17,13 +17,16 @@ import Alert from "../features/alerts/Alert";
 import { GlobalReadingsList, GlobalAside } from "../features/globalReadings";
 
 const server = setupServer(
-  rest.options("http://localhost:8080/api/readings", (req, res, ctx) => {
+  rest.options(
+    `${process.env.REACT_APP_AXIOS_URL}/readings`,
+    (req, res, ctx) => {
+      return res(ctx.status(204));
+    }
+  ),
+  rest.options(`${process.env.REACT_APP_AXIOS_URL}/tags`, (req, res, ctx) => {
     return res(ctx.status(204));
   }),
-  rest.options("http://localhost:8080/api/tags", (req, res, ctx) => {
-    return res(ctx.status(204));
-  }),
-  rest.get("http://localhost:8080/api/readings", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_AXIOS_URL}/readings`, (req, res, ctx) => {
     const readings = [
       {
         created_at: "2020-03-21T23:42:33.000Z",
@@ -76,7 +79,7 @@ const server = setupServer(
       ctx.json(readings)
     );
   }),
-  rest.get("http://localhost:8080/api/tags", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_AXIOS_URL}/tags`, (req, res, ctx) => {
     const tags = [
       {
         count: 1,
