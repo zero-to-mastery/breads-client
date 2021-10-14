@@ -8,7 +8,7 @@ class TagsAside extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTags: "",
+      activeTags: "top",
     };
   }
 

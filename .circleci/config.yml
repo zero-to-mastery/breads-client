@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+jobs:
+  install_and_test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: node --version
+      - run:
+          name: Run tests
+          command: npm test
+
+workflows:
+  test_app:
+    jobs:
+      - install_and_test
