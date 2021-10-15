@@ -109,8 +109,15 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
             <img
               loading="lazy"
               src={newReadingImage}
+              onError={(e) => {
+                let source = e.target as HTMLImageElement;
+                source.onerror = null;
+                source.src = "";
+                source.remove();
+              }}
+              //onError={imageOnErrorHandler}
               onLoad={measure}
-              alt="Article"
+              // alt='Article'
             ></img>
           </div>
           <div className="card__body">
@@ -168,6 +175,13 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
 }
 
 const connector = connect(mapStateToProps);
+
+//if image link is broken during loading the component do not show broken link or placeholder.
+const imageOnErrorHandler = (
+  event: React.SyntheticEvent<HTMLImageElement, Event>
+) => {
+  event.currentTarget.src = "";
+};
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
