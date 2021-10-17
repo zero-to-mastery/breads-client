@@ -1,16 +1,32 @@
 import React, { Component } from "react";
-import { NavLink, Link, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { connect, ConnectedProps } from "react-redux";
 import auth from "../auth";
 import { SearchForm } from "../search";
 import { fetchNotifications, updateNotifications } from "./actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RootState } from "../rootReducer";
 import { History } from "history";
 import { NotificationType } from "./types";
 
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Link from "@mui/material/Link";
+import BreakfastDiningIcon from "@mui/icons-material/BreakfastDining";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import MenuIcon from "@mui/icons-material/Menu";
+import { alpha } from "@mui/material/styles";
+
 type NotificationState = {
-  activeHamburger: string;
+  anchorEl: null | HTMLElement;
+  mobileMoreAnchorEl: null | HTMLElement;
 };
 
 type NotificationProps = PropsFromRedux & {
@@ -21,7 +37,8 @@ class Navbar extends Component<NotificationProps, NotificationState> {
   constructor(props: NotificationProps) {
     super(props);
     this.state = {
-      activeHamburger: "",
+      anchorEl: null,
+      mobileMoreAnchorEl: null,
     };
   }
 
@@ -31,23 +48,15 @@ class Navbar extends Component<NotificationProps, NotificationState> {
     }
   }
 
-  logout = (e: React.MouseEvent<HTMLDivElement>): void => {
+  logout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     this.props.logout();
     this.props.history.push("/");
   };
 
-  handleHamburgerClick = (e: React.MouseEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    this.setState((prevState) => ({
-      activeHamburger:
-        prevState.activeHamburger === "" ? "navbar-sidebar--show" : "",
-    }));
-  };
-
   handleNotificationClick = (
     index: number,
-    e: React.MouseEvent<HTMLDivElement>
+    e: React.MouseEvent<HTMLLIElement, MouseEvent>
   ): void => {
     e.preventDefault();
     this.props.updateNotifications(
@@ -55,192 +64,225 @@ class Navbar extends Component<NotificationProps, NotificationState> {
     );
   };
 
-  render() {
-    const { notifications } = this.props;
-    const { activeHamburger } = this.state;
+  handleMenu = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    this.setState({
+      anchorEl: e.currentTarget,
+    });
+  };
 
-    let notificationsList = notifications.map(
-      (n: NotificationType, index: number) => (
-        <div
-          onClick={(e) => this.handleNotificationClick(index, e)}
-          key={n.subscriber_id}
-          className="dropdown__link"
-        >
-          <span key={n.subscriber_id}>{n.username}</span> started following you!
-        </div>
-      )
-    );
+  handleClose = (): void => {
+    this.setState({
+      anchorEl: null,
+    });
+  };
 
-    return (
-      <nav
-        className={`navbar navbar--light navbar--fixed-top navbar--dark${activeHamburger}`}
+  handleMobileMenuClose = (): void => {
+    this.setState({
+      mobileMoreAnchorEl: null,
+    });
+  };
+
+  handleMobileMenuOpen = (e: React.MouseEvent<HTMLElement>): void => {
+    this.setState({
+      mobileMoreAnchorEl: e.currentTarget,
+    });
+  };
+
+  mobileMenuId = "navbar-menu-mobile";
+  notificationsList: JSX.Element[] = this.props.notifications.map(
+    (n: NotificationType, index: number) => (
+      <MenuItem
+        onClick={(e) => this.handleNotificationClick(index, e)}
+        key={n.subscriber_id}
       >
-        <div className="navbar__inner">
-          <div className="navbar__items">
-            <div
-              onClick={this.handleHamburgerClick}
-              aria-label="Navigation bar toggle"
-              className="navbar__toggle"
-              role="button"
-              tabIndex={0}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                role="img"
-                focusable="false"
-              >
-                <title>Menu</title>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeMiterlimit="10"
-                  strokeWidth="2"
-                  d="M4 7h22M4 15h22M4 23h22"
-                ></path>
-              </svg>
-            </div>
-            <Link className="navbar__brand" to="/">
-              <span role="img" className="navbar__logo" aria-label="bread">
-                🍞
-              </span>
+        <span key={n.subscriber_id}>{n.username}</span> started following you!
+      </MenuItem>
+    )
+  );
+
+  render() {
+    return (
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          sx={{
+            backgroundColor: (theme) =>
+              alpha(theme.palette.primary.contrastText, 1),
+          }}
+          position="fixed"
+        >
+          <Toolbar>
+            <Link component={NavLink} underline="none" to="/">
+              <BreakfastDiningIcon />
             </Link>
             <SearchForm history={this.props.history} />
-          </div>
-          {this.props.currentUser.isAuthenticated ? (
-            <div className="navbar__items navbar__items--right">
-              <NavLink
-                exact
-                to="/"
-                activeClassName="navbar__item--active navbar__link"
-                className="navbar__item navbar__link"
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {this.props.currentUser.isAuthenticated ? (
+                <>
+                  <Button color="primary" component={NavLink} to="/">
+                    Global
+                  </Button>
+                  <Button
+                    color="primary"
+                    component={NavLink}
+                    to={`/${this.props.currentUser.user.id}`}
+                  >
+                    Your Reads
+                  </Button>
+                  <Button
+                    color="primary"
+                    component={NavLink}
+                    to="/subscriptions"
+                  >
+                    Friends
+                  </Button>
+                  <IconButton
+                    size="large"
+                    aria-label="notifications"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="primary"
+                  >
+                    <Badge
+                      badgeContent={this.notificationsList.length}
+                      color="error"
+                    >
+                      <NotificationsNoneIcon />
+                    </Badge>
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(this.state.anchorEl)}
+                    onClose={this.handleClose}
+                  >
+                    {!this.notificationsList.length ? (
+                      <Typography color="primary">
+                        No new subscribers!
+                      </Typography>
+                    ) : (
+                      this.notificationsList
+                    )}
+                  </Menu>
+                  <IconButton
+                    size="large"
+                    aria-label="sign out"
+                    onClick={this.logout}
+                    color="primary"
+                  >
+                    <ExitToAppIcon />
+                  </IconButton>
+                </>
+              ) : (
+                <>
+                  <Button color="primary" component={NavLink} to="/signup">
+                    Sign up
+                  </Button>
+                  <Button color="primary" component={NavLink} to="/signin">
+                    Log in
+                  </Button>
+                </>
+              )}
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={this.mobileMenuId}
+                aria-haspopup="true"
+                onClick={this.handleMobileMenuOpen}
+                color="inherit"
               >
-                Global
-              </NavLink>
-              <NavLink
-                exact
-                to={`/${this.props.currentUser.user.id}`}
-                activeClassName="navbar__item--active navbar__link"
-                className="navbar__item navbar__link"
-              >
-                Your Reads
-              </NavLink>
-              <NavLink
-                exact
-                to="/subscriptions"
-                activeClassName="navbar__item--active navbar__link"
-                className="navbar__item navbar__link"
-              >
-                Friends
-              </NavLink>
-              <div className="navbar__item dropdown dropdown--hoverable dropdown--right navbar__link">
-                <div className="navbar__item">
-                  {!notificationsList.length ? (
-                    <FontAwesomeIcon icon={["far", "bell"]} />
-                  ) : (
-                    <FontAwesomeIcon icon="bell" spin />
-                  )}
-                </div>
-                <ul className="dropdown__menu">
-                  {!notificationsList.length ? (
-                    <li className="dropdown__link">No new subscribers!</li>
-                  ) : (
-                    notificationsList
-                  )}
-                </ul>
-              </div>
-              <div onClick={this.logout} className="navbar__item navbar__link">
-                <FontAwesomeIcon icon="sign-out-alt" />
-              </div>
-            </div>
-          ) : (
-            <div className="navbar__items navbar__items--right">
-              <NavLink
-                exact
-                to="/signup"
-                activeClassName="navbar__item--active navbar__link"
-                className="navbar__item navbar__link"
-              >
-                Sign up
-              </NavLink>
-              <NavLink
-                exact
-                to="/signin"
-                activeClassName="navbar__item--active navbar__link"
-                className="navbar__item navbar__link"
-              >
-                Log in
-              </NavLink>
-            </div>
-          )}
-        </div>
-        <div role="presentation" className="navbar-sidebar__backdrop"></div>
-        <div onClick={this.handleHamburgerClick} className="navbar-sidebar">
-          <div className="navbar-sidebar__brand">
-            <Link className="navbar__brand" to="/">
-              <span role="img" className="navbar__logo" aria-label="bread">
-                🍞
-              </span>
-            </Link>
-          </div>
-          <div className="navbar-sidebar__items">
-            <div className="menu">
-              <ul className="menu__list">
-                {this.props.currentUser.isAuthenticated ? (
-                  <>
-                    <NavLink
-                      exact
-                      to="/"
-                      className="menu__list-item menu__link"
-                    >
-                      Global
-                    </NavLink>
-                    <NavLink
-                      exact
-                      to={`/${this.props.currentUser.user.id}`}
-                      className="menu__list-item menu__link"
-                    >
-                      Your Reads
-                    </NavLink>
-                    <NavLink
-                      exact
-                      to="/subscriptions"
-                      className="menu__list-item menu__link"
-                    >
-                      Friends
-                    </NavLink>
-                    <div
-                      onClick={this.logout}
-                      className="menu__list-item menu__link"
-                    >
-                      <small>Sign out</small>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <NavLink
-                      exact
-                      to="/signup"
-                      className="menu__list-item menu__link"
-                    >
-                      Sign up
-                    </NavLink>
-                    <NavLink
-                      exact
-                      to="/signin"
-                      className="menu__list-item menu__link"
-                    >
-                      Log in
-                    </NavLink>
-                  </>
-                )}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Menu
+          anchorEl={this.state.mobileMoreAnchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          id={this.mobileMenuId}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(this.state.mobileMoreAnchorEl)}
+          onClose={this.handleMobileMenuClose}
+        >
+          <MenuItem>
+            <Button color="primary" component={NavLink} to="/">
+              Global
+            </Button>
+          </MenuItem>
+          <MenuItem>
+            <Button
+              color="primary"
+              component={NavLink}
+              to={`/${this.props.currentUser.user.id}`}
+            >
+              Your Reads
+            </Button>
+          </MenuItem>
+          <MenuItem>
+            <Button color="primary" component={NavLink} to="/subscriptions">
+              Friends
+            </Button>
+          </MenuItem>
+          <MenuItem>
+            <Button
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={this.handleMenu}
+              color="primary"
+            >
+              <Badge badgeContent={this.notificationsList.length} color="error">
+                Notifications
+              </Badge>
+            </Button>
+            <Menu
+              id="menu-appbar"
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(this.state.anchorEl)}
+              onClose={this.handleClose}
+            >
+              {!this.notificationsList.length ? (
+                <Typography color="primary">No new subscribers!</Typography>
+              ) : (
+                this.notificationsList
+              )}
+            </Menu>
+          </MenuItem>
+          <MenuItem>
+            <Button onClick={this.logout} color="primary">
+              Log out
+            </Button>
+          </MenuItem>
+        </Menu>
+      </Box>
     );
   }
 }
