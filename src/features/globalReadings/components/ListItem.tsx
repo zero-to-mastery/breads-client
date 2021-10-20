@@ -74,6 +74,14 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
     }
   }
 
+  const imageOnErrorHandler = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    let source = event.target as HTMLImageElement;
+    source.onerror = null;
+    source.remove();
+  };
+
   let newUserImage = addImageTransformation(users[reading.reader].image);
   let newReadingImage = serveImageThroughCDN();
 
@@ -109,8 +117,8 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
             <img
               loading="lazy"
               src={newReadingImage}
+              onError={imageOnErrorHandler}
               onLoad={measure}
-              alt="Article"
             ></img>
           </div>
           <div className="card__body">
