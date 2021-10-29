@@ -4,6 +4,8 @@ import TagsList from "./TagsList";
 import { getMostRecentTags, getTopTags } from "../selectors";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Button } from "@mui/material";
+
 class TagsAside extends Component {
   constructor(props) {
     super(props);
@@ -25,27 +27,25 @@ class TagsAside extends Component {
 
     let visibleTags = activeTags === "new" ? mostRecentTags : topTags;
     let isHidden = activeTags === "" ? "hidden" : "";
-    let activeTop = activeTags === "top" ? "primary" : "secondary";
-    let activeNew = activeTags === "new" ? "primary" : "secondary";
+    let activeTop = activeTags === "top" ? "contained" : "text";
+    let activeNew = activeTags === "new" ? "contained" : "text";
 
     return (
       <>
-        <div className="button-group button-group--block">
-          <button
+          <Button 
+            variant={activeTop}
             onClick={this.handleClick}
-            className={`button button--${activeTop}`}
             name="top"
           >
             Top Tags
-          </button>
-          <button
+          </Button>
+          <Button
+            variant={activeNew}
             onClick={this.handleClick}
-            className={`button button--${activeNew}`}
             name="new"
           >
             New Tags
-          </button>
-        </div>
+          </Button>
         <TagsList tags={visibleTags} isHidden={isHidden} />
       </>
     );

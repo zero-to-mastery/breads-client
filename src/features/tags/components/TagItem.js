@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTagById } from "../selectors";
+import { Link } from "@mui/material";
 
 class TagItem extends Component {
   render() {
@@ -9,15 +9,13 @@ class TagItem extends Component {
 
     return (
       <li className="menu__list-item" name={tag.id} key={key}>
-        <NavLink
-          exact
-          to={`/tag/${tag.id}`}
-          activeClassName="menu__link menu__link--active active"
-          className="menu__link"
+        <Link 
+          href={`/tag/${tag.id}`}
+          name={tag.id}
+          key={key}
         >
           #{tag.tag_name}
-          {tag.count > 1 && <span>{tag.count}</span>}
-        </NavLink>
+        </Link>
       </li>
     );
   }

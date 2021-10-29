@@ -13,6 +13,11 @@ code {
   padding-top: 2rem !important;
 }
 
+.pt-5,
+.py-5 {
+  padding-top: 5rem !important;
+}
+
 .pb-1 {
   padding-bottom: 1rem !important;
 }
