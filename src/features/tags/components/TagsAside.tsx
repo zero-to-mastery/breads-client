@@ -1,18 +1,29 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import TagsList from "./TagsList";
 import { getMostRecentTags, getTopTags } from "../selectors";
+import { RootState } from "../../rootReducer";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class TagsAside extends Component {
-  constructor(props) {
+type TagsAsideState = {
+  activeTags: string;
+};
+
+type TagsAsideProps = PropsFromRedux & OwnProps;
+
+interface OwnProps {
+  list: string;
+}
+
+class TagsAside extends Component<TagsAsideProps, TagsAsideState> {
+  constructor(props: TagsAsideProps) {
     super(props);
     this.state = {
       activeTags: "top",
     };
   }
 
-  handleClick = (e) => {
+  handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     let name = e.currentTarget.name;
     this.setState((prevState) => ({
       activeTags: prevState.activeTags !== name ? name : "",
@@ -52,12 +63,16 @@ class TagsAside extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
-    mostRecentTags: getMostRecentTags(state, ownProps.list, ownProps.user_id),
-    topTags: getTopTags(state, ownProps.list, ownProps.user_id),
+    mostRecentTags: getMostRecentTags(state, ownProps.list),
+    topTags: getTopTags(state, ownProps.list),
     loading: state.loading,
   };
 }
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default connect(mapStateToProps)(TagsAside);
