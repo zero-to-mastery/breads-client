@@ -1,3 +1,6 @@
+import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
+import { RootState } from "../rootReducer";
 import { ADD_TAG, REMOVE_TAG, RECEIVE_ENTITIES } from "../actionTypes";
 import { ReceiveEntitiesAction } from "./../actions";
 
@@ -21,10 +24,41 @@ interface RemoveTagAction {
 }
 
 export interface Tags {
-  [k: string]: {
-    id: number;
-    tag_name: string;
-    date: string;
-    count: number;
-  };
+  [k: string]: Tag;
 }
+
+export interface Tag {
+  id: number;
+  tag_name: string;
+  date: string;
+  count: number;
+  user_id: string;
+}
+
+export type fetchingTags = ThunkAction<
+  Promise<any> | undefined,
+  RootState,
+  unknown,
+  Action
+>;
+
+export type postingNewTags = ThunkAction<
+  Promise<any>,
+  RootState,
+  unknown,
+  Action
+>;
+
+export type updatingTags = ThunkAction<
+  Promise<any>,
+  RootState,
+  unknown,
+  Action
+>;
+
+export type fetchingTagsIfNeeded = ThunkAction<
+  Promise<any> | undefined,
+  RootState,
+  unknown,
+  Action
+>;
