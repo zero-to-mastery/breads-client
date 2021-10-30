@@ -1,6 +1,7 @@
 import { ADD_TAG, REMOVE_TAG, RECEIVE_ENTITIES } from "../actionTypes";
+import { TagsActionTypes, TagsState } from "./types";
 
-const tags = (state = {}, action) => {
+const tags = (state: TagsState = {}, action: TagsActionTypes) => {
   switch (action.type) {
     case RECEIVE_ENTITIES:
       const { entities } = action.payload;
@@ -41,11 +42,15 @@ const tags = (state = {}, action) => {
           upToDate: true,
           [user_id]: {
             ...state[user_id],
-            following: state[user_id].following.filter((sub) => sub !== id),
+            following: state[user_id].following.filter(
+              (sub: number) => sub !== id
+            ),
           },
           [id]: {
             ...state[id],
-            followers: state[id].followers.filter((pub) => pub !== user_id),
+            followers: state[id].followers.filter(
+              (pub: number) => pub !== user_id
+            ),
           },
         };
       } else if (id && user_id && !state[id]) {
@@ -54,7 +59,9 @@ const tags = (state = {}, action) => {
           upToDate: true,
           [user_id]: {
             ...state[user_id],
-            following: state[user_id].following.filter((sub) => sub !== id),
+            following: state[user_id].following.filter(
+              (sub: number) => sub !== id
+            ),
           },
         };
       }
