@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import TagsList from "./TagsList";
-import { getMostRecentTags, getTopTags } from "../selectors";
+import { getMostRecentTagIds, getTopTagsIds } from "../selectors";
 import { RootState } from "../../rootReducer";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -65,8 +65,8 @@ class TagsAside extends Component<TagsAsideProps, TagsAsideState> {
 
 function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
-    mostRecentTags: getMostRecentTags(state, ownProps.list),
-    topTags: getTopTags(state, ownProps.list),
+    mostRecentTags: getMostRecentTagIds(state, ownProps.list),
+    topTags: getTopTagsIds(state, ownProps.list),
     loading: state.loading,
   };
 }
