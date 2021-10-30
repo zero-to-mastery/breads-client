@@ -1,14 +1,22 @@
 import React, { Component } from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
 import { getTagById } from "../selectors";
+import { RootState } from "../../rootReducer";
 
-class TagItem extends Component {
+type TagItemProps = PropsFromRedux & OwnProps;
+
+interface OwnProps {
+  key: number;
+  id: number;
+}
+
+class TagItem extends Component<TagItemProps> {
   render() {
     const { tag, key } = this.props;
 
     return (
-      <li className="menu__list-item" name={tag.id} key={key}>
+      <li className="menu__list-item" key={key}>
         <NavLink
           exact
           to={`/tag/${tag.id}`}
@@ -23,10 +31,14 @@ class TagItem extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
     tag: getTagById(state, ownProps.id),
   };
 }
 
-export default connect(mapStateToProps)(TagItem);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(TagItem);

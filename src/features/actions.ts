@@ -1,4 +1,5 @@
 import { RECEIVE_ENTITIES } from "./actionTypes";
+import { Tags } from "./tags/types";
 
 export interface Users {
   id: number;
@@ -20,15 +21,6 @@ export interface Readings {
   tags: string[] | null;
 }
 
-export interface Tags {
-  [k: string]: {
-    id: number;
-    tag_name: string;
-    date: string;
-    count: number;
-  };
-}
-
 export interface Entities {
   user?: Users;
   readings?: Readings;
@@ -42,6 +34,7 @@ export interface ReceiveEntitiesAction {
   };
   list: any;
   id?: any;
+  user_id?: number | null;
 }
 
 export const receiveEntities = (

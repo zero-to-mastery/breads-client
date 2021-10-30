@@ -5,22 +5,29 @@ import { receiveEntities } from "../actions";
 import { normalize } from "normalizr";
 import * as schema from "../../common/services/schema";
 import { ADD_TAG, LOAD_TAGS } from "../actionTypes";
+import { Tags } from "./types";
+import {
+  fetchingTags,
+  postingNewTags,
+  updatingTags,
+  fetchingTagsIfNeeded,
+} from "./types";
 
 const { addAlert } = alerts.actions;
 const { addLoader, removeLoader } = loader.actions;
 
-export const addTag = (user_id) => ({
+export const addTag = (user_id: number | null) => ({
   type: ADD_TAG,
   user_id,
 });
 
 export const removeTag = () => ({});
-export const loadTags = (tags) => ({
+export const loadTags = (tags: Tags) => ({
   type: LOAD_TAGS,
   tags,
 });
 
-export const fetchTags = (list, id) => {
+export const fetchTags = (list: string, id: number): fetchingTags => {
   return (dispatch, getState) => {
     if (list === "global") {
       dispatch(addLoader("tags"));
@@ -61,7 +68,7 @@ export const fetchTags = (list, id) => {
   };
 };
 
-export const postNewTags = (reading_id, tags) => {
+export const postNewTags = (reading_id: string, tags: Tags): postingNewTags => {
   return (dispatch, getState) => {
     dispatch(addLoader("addTag"));
     let { currentUser } = getState();
@@ -78,7 +85,11 @@ export const postNewTags = (reading_id, tags) => {
   };
 };
 
-export const updateTags = (reading_id, add_tags, delete_tags) => {
+export const updateTags = (
+  reading_id: number,
+  add_tags: number,
+  delete_tags: number
+): updatingTags => {
   return (dispatch, getState) => {
     dispatch(addLoader("updateTag"));
     let { currentUser } = getState();
@@ -99,7 +110,7 @@ export const updateTags = (reading_id, add_tags, delete_tags) => {
   };
 };
 
-const shouldFetchTags = (state, list) => {
+const shouldFetchTags = (state: any, list: string) => {
   const tags = state.tagsByList[list];
   if (!tags) return true;
 
@@ -108,7 +119,10 @@ const shouldFetchTags = (state, list) => {
   if (upToDate === false) return true;
 };
 
-export const fetchTagsIfNeeded = (list, id) => {
+export const fetchTagsIfNeeded = (
+  list: string,
+  id: number
+): fetchingTagsIfNeeded => {
   return (dispatch, getState) => {
     if (shouldFetchTags(getState(), list)) {
       return dispatch(fetchTags(list, id));
