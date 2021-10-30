@@ -2,17 +2,17 @@ import { NAME } from "./constants";
 import { Tag } from "./types";
 
 // does created_at get updated whenever a row is updated in mysql?
-export const getMostRecentTags = (
+export const getMostRecentTagIds = (
   state: any,
   list: string
-): Tag[] | undefined => {
+): number[] | undefined => {
   // give time for tags to load
   if (state.tagsByList[`${list}`] && state.tagsByList[`${list}`].items) {
-    let tagsArray = state.tagsByList[`${list}`].items.map(
+    let tagIdArray = state.tagsByList[`${list}`].items.map(
       (id: number) => state[NAME][id]
     );
 
-    let tags = tagsArray
+    let tagIds = tagIdArray
       .sort((a: Tag, b: Tag) => {
         if (a.date > b.date) return 1;
         else return -1;
@@ -21,23 +21,26 @@ export const getMostRecentTags = (
       .reverse()
       .slice(0, 10);
 
-    return tags;
+    return tagIds;
   }
 };
 
-export const getTopTags = (state: any, list: string): Tag[] | undefined => {
+export const getTopTagsIds = (
+  state: any,
+  list: string
+): number[] | undefined => {
   // give time for tags to load
   if (state.tagsByList[`${list}`] && state.tagsByList[`${list}`].items) {
-    let tagsArray = state.tagsByList[`${list}`].items.map(
+    let tagIdArray = state.tagsByList[`${list}`].items.map(
       (id: number) => state[NAME][id]
     );
 
-    let tags = tagsArray
+    let tagIds = tagIdArray
       .sort((a: Tag, b: Tag) => b.count - a.count)
       .map((tag: Tag) => state[NAME][tag.id].id)
       .slice(0, 10);
 
-    return tags;
+    return tagIds;
   }
 };
 
@@ -45,13 +48,13 @@ export const getTagById = (state: any, id: number): Tag => {
   return state[NAME][id];
 };
 
-export const getUserMostRecentTags = (
+export const getUserMostRecentTagIds = (
   state: any,
   user_id: string
-): Tag[] | undefined => {
+): number[] | undefined => {
   // give time for tags to load
   if (state && state[NAME]) {
-    let tags = Object.values<Tag>(state[NAME])
+    let tagIds = Object.values<Tag>(state[NAME])
       .filter((tag) => tag.user_id.includes(user_id))
       .sort((a, b) => {
         if (a.date > b.date) return 1;
@@ -60,20 +63,20 @@ export const getUserMostRecentTags = (
       .map((tag: Tag) => state[NAME][tag.id].id);
     // .reverse()
     // .slice(0, 10);
-    return tags;
+    return tagIds;
   }
 };
 
 export const getUserTopTags = (
   state: any,
   user_id: string
-): Tag[] | undefined => {
+): number[] | undefined => {
   if (state[NAME]) {
-    let tags = Object.values<Tag>(state[NAME])
+    let tagIds = Object.values<Tag>(state[NAME])
       .filter((tag) => tag.user_id.includes(user_id))
       .sort((a, b) => b.count - a.count)
       .map((tag) => state[NAME][tag.id].id)
       .slice(0, 10);
-    return tags;
+    return tagIds;
   }
 };
