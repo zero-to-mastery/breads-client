@@ -11,7 +11,7 @@ export type TagsActionTypes =
   | AddTagAction
   | RemoveTagAction;
 
-interface AddTagAction {
+export interface AddTagAction {
   type: typeof ADD_TAG;
   id: number;
   user_id: number | null;
