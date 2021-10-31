@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TagsList from "./TagsList";
 import { getMostRecentTags, getTopTags } from "../selectors";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { Button } from "@mui/material";
+import { List, Tab, Tabs } from "@mui/material";
 
 class TagsAside extends Component {
   constructor(props) {
@@ -14,8 +12,7 @@ class TagsAside extends Component {
     };
   }
 
-  handleClick = (e) => {
-    let name = e.currentTarget.name;
+  handleClick = (_, name) => {
     this.setState((prevState) => ({
       activeTags: prevState.activeTags !== name ? name : "",
     }));
@@ -27,25 +24,35 @@ class TagsAside extends Component {
 
     let visibleTags = activeTags === "new" ? mostRecentTags : topTags;
     let isHidden = activeTags === "" ? "hidden" : "";
-    let activeTop = activeTags === "top" ? "contained" : "text";
-    let activeNew = activeTags === "new" ? "contained" : "text";
 
     return (
       <>
-          <Button 
-            variant={activeTop}
-            onClick={this.handleClick}
-            name="top"
+        <List>
+          <Tabs
+            value={activeTags}
+            onChange={this.handleClick}
+            textColor="primary"
+            indicatorColor="primary" 
+            style={{
+              width: "100%"
+            }}
           >
-            Top Tags
-          </Button>
-          <Button
-            variant={activeNew}
-            onClick={this.handleClick}
-            name="new"
-          >
-            New Tags
-          </Button>
+            <Tab 
+              label="Top" 
+              value="top" 
+              style={{
+                width: "50%"
+              }}
+            />
+            <Tab 
+              label="New" 
+              value="new" 
+              style={{
+                width: "50%"
+              }}
+            />
+          </Tabs>
+        </List>
         <TagsList tags={visibleTags} isHidden={isHidden} />
       </>
     );
