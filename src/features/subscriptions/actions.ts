@@ -18,7 +18,7 @@ const { addAlert } = alerts.actions;
 
 export const loadSubscriptions = (
   userFollowers: AxiosResponse<UserFollowers>,
-  id: number
+  id: string | number
 ) => ({
   type: LOAD_SUBSCRIPTIONS,
   userFollowers,
@@ -38,7 +38,7 @@ export const removeSubscriptions = (id: number, user_id: number | null) => ({
 });
 
 export const fetchSubscriptions =
-  (user_id: number): fetchingSubscriptions =>
+  (user_id: string | number): fetchingSubscriptions =>
   async (dispatch) => {
     return apiCall<UserFollowers>("get", `/users/${user_id}/subscriptions`)
       .then((res) => dispatch(loadSubscriptions(res, user_id)))
@@ -84,7 +84,7 @@ export const postNewSubscription =
 
 const shouldFetchSubscriptions = (
   state: any,
-  id: number
+  id: string | number
 ): boolean | undefined => {
   const subscriptions = state.subscriptions[id];
   const upToDate = state.subscriptions.upToDate;
@@ -94,7 +94,7 @@ const shouldFetchSubscriptions = (
 };
 
 export const fetchSubscriptionsIfNeeded = (
-  id: number
+  id: string | number
 ): fetchingSubscriptionsIfNeeded => {
   return (dispatch, getState) => {
     if (shouldFetchSubscriptions(getState(), id)) {

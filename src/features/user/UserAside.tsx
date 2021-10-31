@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
+import { NavLink, RouteComponentProps } from "react-router-dom";
+import { connect, ConnectedProps } from "react-redux";
 import subscriptions from "../subscriptions";
 import globalReadings from "../globalReadings";
 import tags, { TagsAside } from "../tags";
@@ -9,12 +9,25 @@ import { getUserById } from "./selectors";
 import Card from "../../common/Card";
 import Subscribe from "../../common/Subscribe";
 import ReadingStats from "../../common/ReadingsStats";
+import { RootState } from "../rootReducer";
 
 const { getReadings, getWebsites, getUserReadingsInNeedOfUpdate } =
   globalReadings.selectors;
 const { getFollowers, getFollowings } = subscriptions.selectors;
 
-class UserAside extends Component {
+type UserAsideProps = PropsFromRedux & OwnProps;
+
+interface matchProps {
+  id: string;
+}
+
+interface OwnProps extends RouteComponentProps<matchProps> {
+  key: number;
+  id: number;
+  fav: any;
+}
+
+class UserAside extends Component<UserAsideProps> {
   componentDidMount() {
     if (this.props.match) {
       this.props.fetchTagsIfNeeded(
@@ -32,7 +45,7 @@ class UserAside extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: UserAsideProps) {
     if (
       this.props.match &&
       prevProps.match &&
@@ -73,7 +86,7 @@ class UserAside extends Component {
       totalFavorites = 0,
       totalOutdated = 0;
 
-    let u = {};
+    let u: any = {};
     if (user) u = user;
     else u = currentUser;
     // if (!readings) u = currentUser;
@@ -85,7 +98,9 @@ class UserAside extends Component {
 
       totalReadings = readings.length;
       totalWebsites = Object.keys(websites).length;
-      totalBooks = totalWords.toFixed(2);
+      // totalWords.toFixed(2); returns string
+      // Math.round(totalWords * 1e2) / 1e2; returns number
+      totalBooks = Math.round(totalWords * 1e2) / 1e2;
 
       for (const prop in websites) {
         if (websites[prop] > maxReads) {
@@ -182,7 +197,7 @@ class UserAside extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
     readings: getReadings(state, ownProps.match.params.id),
     websites: getWebsites(state, ownProps.match.params.id),
@@ -200,9 +215,13 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, {
+const connector = connect(mapStateToProps, {
   ...subscriptions.actions,
   ...globalReadings.actions,
   ...tags.actions,
   fetchUserIfNeeded,
-})(UserAside);
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(UserAside);

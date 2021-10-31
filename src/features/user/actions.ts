@@ -11,7 +11,7 @@ export const loadUser = (users: AxiosResponse<User[]>) => ({
   users,
 });
 
-export const fetchUser = (id: number): fetchingUser => {
+export const fetchUser = (id: string | number): fetchingUser => {
   return (dispatch) => {
     return apiCall<User[]>("get", `/users/${id}`)
       .then((res) => dispatch(loadUser(res)))
@@ -20,12 +20,14 @@ export const fetchUser = (id: number): fetchingUser => {
       );
   };
 };
-const shouldFetchUser = (state: any, id: number) => {
+const shouldFetchUser = (state: any, id: string | number) => {
   const user = state.user[id];
   if (!user) return true;
 };
 
-export const fetchUserIfNeeded = (id: number): fetchingUserIfNeeded => {
+export const fetchUserIfNeeded = (
+  id: string | number
+): fetchingUserIfNeeded => {
   return (dispatch, getState) => {
     if (shouldFetchUser(getState(), id)) {
       return dispatch(fetchUser(id));
