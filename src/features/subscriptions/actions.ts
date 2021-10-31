@@ -11,12 +11,17 @@ import {
   postingNewSubscription,
   fetchingSubscriptionsIfNeeded,
 } from "./types";
+import { UserFollowers } from "../user/types";
+import { AxiosResponse } from "axios";
 
 const { addAlert } = alerts.actions;
 
-export const loadSubscriptions = (users: any, id: number) => ({
+export const loadSubscriptions = (
+  userFollowers: AxiosResponse<UserFollowers>,
+  id: number
+) => ({
   type: LOAD_SUBSCRIPTIONS,
-  users,
+  userFollowers,
   id,
 });
 
@@ -35,7 +40,7 @@ export const removeSubscriptions = (id: number, user_id: number | null) => ({
 export const fetchSubscriptions =
   (user_id: number): fetchingSubscriptions =>
   async (dispatch) => {
-    return apiCall("get", `/users/${user_id}/subscriptions`)
+    return apiCall<UserFollowers>("get", `/users/${user_id}/subscriptions`)
       .then((res) => dispatch(loadSubscriptions(res, user_id)))
       .catch((err) =>
         dispatch(addAlert({ message: err.message, type: "danger" }))

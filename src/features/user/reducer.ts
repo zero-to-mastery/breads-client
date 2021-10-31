@@ -3,8 +3,9 @@ import {
   LOAD_USER,
   LOAD_SUBSCRIPTIONS,
 } from "../actionTypes";
+import { UserActionTypes } from "./types";
 
-const user = (state = {}, action) => {
+const user = (state = {}, action: UserActionTypes) => {
   switch (action.type) {
     case RECEIVE_ENTITIES:
       const { entities } = action.payload;
@@ -13,17 +14,20 @@ const user = (state = {}, action) => {
       }
     /* falls through */
     case LOAD_USER:
-      if (action && action.user) {
+      if (action && action.users) {
         return {
           ...state,
-          [action.user[0].id]: action.user[0],
+          [action.users[0].id]: action.users[0],
         };
       }
     /* falls through */
     case LOAD_SUBSCRIPTIONS:
-      const { users } = action;
-      if (users) {
-        const allSubscriptions = [...users.following, ...users.followers];
+      const { userFollowers } = action;
+      if (userFollowers) {
+        const allSubscriptions = [
+          ...userFollowers.following,
+          ...userFollowers.followers,
+        ];
         const uniqueSubscriptions = allSubscriptions.reduce((object, user) => {
           return {
             ...object,

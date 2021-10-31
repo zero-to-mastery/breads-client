@@ -1,4 +1,4 @@
-import { User } from "./user/types";
+import { User, UserFollowers } from "./user/types";
 import { RECEIVE_ENTITIES } from "./actionTypes";
 import { Tags } from "./tags/types";
 
@@ -31,6 +31,7 @@ export interface ReceiveEntitiesAction {
   id?: any;
   user_id?: number | null;
   users?: User[];
+  userFollowers?: UserFollowers;
 }
 
 export const receiveEntities = (

@@ -9,6 +9,11 @@ export interface User {
   image: string;
 }
 
+export interface UserFollowers {
+  followers: any[];
+  following: any[];
+}
+
 export type UserActionTypes =
   | ReceiveEntitiesAction
   | LoadUserAction
@@ -17,4 +22,5 @@ export type UserActionTypes =
 export interface LoadUserAction {
   type: typeof LOAD_USER;
   users: User[];
+  userFollowers?: UserFollowers;
 }

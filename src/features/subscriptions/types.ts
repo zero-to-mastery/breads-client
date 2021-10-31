@@ -6,14 +6,15 @@ import {
   REMOVE_SUBSCRIPTIONS,
 } from "../actionTypes";
 import { RootState } from "../rootReducer";
+import { UserFollowers } from "../user/types";
 
 export type SubscriptionState = any;
 
 export interface LoadSubscriptionAction {
   type: typeof LOAD_SUBSCRIPTIONS;
-  users: any;
   id: number;
   user_id: never;
+  userFollowers: UserFollowers;
 }
 
 interface AddSubscriptionAction {
