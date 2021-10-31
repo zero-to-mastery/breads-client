@@ -1,11 +1,6 @@
 import { SET_CURRENT_USER } from "../actionTypes";
 import { AlertActionTypes } from "../alerts/types";
-
-export interface User {
-  id: number | null;
-  username: string | null;
-  image: string | null;
-}
+import { User } from "../user/types";
 
 export interface AuthState {
   isAuthenticated: boolean;

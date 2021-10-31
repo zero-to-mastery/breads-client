@@ -9,7 +9,7 @@ import { RootState } from "../rootReducer";
 
 export type SubscriptionState = any;
 
-interface LoadSubscriptionAction {
+export interface LoadSubscriptionAction {
   type: typeof LOAD_SUBSCRIPTIONS;
   users: any;
   id: number;
