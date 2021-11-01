@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { arrayOfIds } from "../features/subscriptions/types";
 import UserImage from "./UserImage";
 
 interface CardProps {
   id?: string;
   image?: string;
   username?: string;
-  followings?: string;
-  followers?: string;
+  followings?: arrayOfIds | null;
+  followers?: arrayOfIds | null;
   children: React.ReactNode;
 }
 
