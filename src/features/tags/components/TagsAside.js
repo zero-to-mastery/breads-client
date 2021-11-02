@@ -27,33 +27,33 @@ class TagsAside extends Component {
 
     return (
       <>
-        <List>
-          <Tabs
-            value={activeTags}
-            onChange={this.handleClick}
-            textColor="primary"
-            indicatorColor="primary" 
+        <Tabs
+          value={activeTags}
+          onChange={this.handleClick}
+          textColor="primary"
+          indicatorColor="primary" 
+          style={{
+            width: "100%"
+          }}
+        >
+          <Tab 
+            label="Top" 
+            value="top" 
             style={{
-              width: "100%"
+              width: "50%"
             }}
-          >
-            <Tab 
-              label="Top" 
-              value="top" 
-              style={{
-                width: "50%"
-              }}
-            />
-            <Tab 
-              label="New" 
-              value="new" 
-              style={{
-                width: "50%"
-              }}
-            />
-          </Tabs>
+          />
+          <Tab 
+            label="New" 
+            value="new" 
+            style={{
+              width: "50%"
+            }}
+          />
+        </Tabs>
+        <List>
+          <TagsList tags={visibleTags} isHidden={isHidden} />
         </List>
-        <TagsList tags={visibleTags} isHidden={isHidden} />
       </>
     );
   }
