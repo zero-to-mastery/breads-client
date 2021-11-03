@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { arrayOfIds } from "../features/subscriptions/types";
+import { Card as CardMUI, CardContent } from "@mui/material";
 import UserImage from "./UserImage";
+import { arrayOfIds } from "../features/subscriptions/types";
 
 interface CardProps {
   id?: string;
@@ -38,39 +39,37 @@ const Card: React.FunctionComponent<CardProps> = ({
   if (image) updatedImage = addImageTransformation(image);
 
   return (
-    <div className="card-demo pb-1">
-      <div className="card">
-        <div className="card__header">
-          {image ? (
-            <UserImage image={updatedImage} username={username} imageSize="xl">
-              <div className="avatar__intro">
-                <h4 className="avatar__name">{username}</h4>
-                <NavLink
-                  exact
-                  to={`/${id}/following`}
-                  activeClassName="bg-light btn-outline-secondary"
-                  className="btn text-primary btn-sm readings-sum"
-                >
-                  Following: {followings ? followings.length : 0}
-                </NavLink>
-                <span> </span>
-                <NavLink
-                  exact
-                  to={`/${id}/followers`}
-                  activeClassName="bg-light btn-outline-secondary"
-                  className="btn text-primary btn-sm readings-sum"
-                >
-                  Followers: {followers ? followers.length : 0}
-                </NavLink>
-              </div>
-            </UserImage>
-          ) : (
-            <h3>{username}</h3>
-          )}
-        </div>
-        <div className="card__footer">{children}</div>
-      </div>
-    </div>
+    <CardMUI>
+      <CardContent>
+        {image ? (
+          <UserImage image={updatedImage} username={username} imageSize="xl">
+            <div className="avatar__intro">
+              <h4 className="avatar__name">{username}</h4>
+              <NavLink
+                exact
+                to={`/${id}/following`}
+                activeClassName="bg-light btn-outline-secondary"
+                className="btn text-primary btn-sm readings-sum"
+              >
+                Following: {followings ? followings.length : 0}
+              </NavLink>
+              <span> </span>
+              <NavLink
+                exact
+                to={`/${id}/followers`}
+                activeClassName="bg-light btn-outline-secondary"
+                className="btn text-primary btn-sm readings-sum"
+              >
+                Followers: {followers ? followers.length : 0}
+              </NavLink>
+            </div>
+          </UserImage>
+        ) : (
+          <h3>{username}</h3>
+        )}
+        {children}
+      </CardContent>
+    </CardMUI>
   );
 };
 
