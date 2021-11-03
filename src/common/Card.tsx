@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import {
   Card as CardMUI,
   CardContent,
@@ -57,11 +58,21 @@ const Card: React.FunctionComponent<CardProps> = ({
           title={<Typography sx={{ fontWeight: 700 }}>{username}</Typography>}
           subheader={
             <div>
-              <Link href={`/${id}/following`} underline="hover">
+              <Link
+                component={NavLink}
+                underline="hover"
+                exact
+                to={`/${id}/following`}
+              >
                 Following: {followings ? followings.length : 0}
               </Link>
               <br />
-              <Link href={`/${id}/followers`} underline="hover">
+              <Link
+                component={NavLink}
+                underline="hover"
+                exact
+                to={`/${id}/followers`}
+              >
                 Followers: {followers ? followers.length : 0}
               </Link>
             </div>
