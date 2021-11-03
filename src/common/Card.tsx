@@ -1,7 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Card as CardMUI, CardContent } from "@mui/material";
-import UserImage from "./UserImage";
+import {
+  Card as CardMUI,
+  CardContent,
+  CardHeader,
+  Avatar,
+  Link,
+  Typography,
+} from "@mui/material";
 import { arrayOfIds } from "../features/subscriptions/types";
 
 interface CardProps {
@@ -40,35 +45,39 @@ const Card: React.FunctionComponent<CardProps> = ({
 
   return (
     <CardMUI>
-      <CardContent>
-        {image ? (
-          <UserImage image={updatedImage} username={username} imageSize="xl">
-            <div className="avatar__intro">
-              <h4 className="avatar__name">{username}</h4>
-              <NavLink
-                exact
-                to={`/${id}/following`}
-                activeClassName="bg-light btn-outline-secondary"
-                className="btn text-primary btn-sm readings-sum"
-              >
+      {image ? (
+        <CardHeader
+          avatar={
+            <Avatar
+              alt={username}
+              src={updatedImage}
+              sx={{ width: "6rem", height: "6rem" }}
+            />
+          }
+          title={<Typography sx={{ fontWeight: 700 }}>{username}</Typography>}
+          subheader={
+            <div>
+              <Link href={`/${id}/following`} underline="hover">
                 Following: {followings ? followings.length : 0}
-              </NavLink>
-              <span> </span>
-              <NavLink
-                exact
-                to={`/${id}/followers`}
-                activeClassName="bg-light btn-outline-secondary"
-                className="btn text-primary btn-sm readings-sum"
-              >
+              </Link>
+              <br />
+              <Link href={`/${id}/followers`} underline="hover">
                 Followers: {followers ? followers.length : 0}
-              </NavLink>
+              </Link>
             </div>
-          </UserImage>
-        ) : (
-          <h3>{username}</h3>
-        )}
-        {children}
-      </CardContent>
+          }
+        />
+      ) : (
+        <CardHeader
+          disableTypography
+          title={
+            <Typography variant="h5" sx={{ fontWeight: 700 }}>
+              {username}
+            </Typography>
+          }
+        />
+      )}
+      <CardContent sx={{ paddingTop: "0px" }}>{children}</CardContent>
     </CardMUI>
   );
 };
