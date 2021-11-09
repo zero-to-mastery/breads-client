@@ -1,4 +1,4 @@
-import { Users } from "../actions";
+import { UserFollowers } from "./../user/types";
 import {
   ADD_SUBSCRIPTION,
   REMOVE_SUBSCRIPTIONS,
@@ -6,7 +6,7 @@ import {
 } from "../actionTypes";
 import { SubscriptionActionTypes, SubscriptionState } from "./types";
 
-const getIds = (users: Users[]) => {
+const getIds = (users: any[]) => {
   return Object.values(users).map((user) => user.id);
 };
 
@@ -16,13 +16,13 @@ const subscriptions = (
 ) => {
   switch (action.type) {
     case LOAD_SUBSCRIPTIONS:
-      if (action && action.users) {
+      if (action && action.userFollowers) {
         return {
           ...state,
           upToDate: true,
           [action.id]: {
-            following: getIds(action.users.following),
-            followers: getIds(action.users.followers),
+            following: getIds(action.userFollowers.following),
+            followers: getIds(action.userFollowers.followers),
           },
         };
       }

@@ -98,9 +98,7 @@ class UserAside extends Component<UserAsideProps> {
 
       totalReadings = readings.length;
       totalWebsites = Object.keys(websites).length;
-      // totalWords.toFixed(2); returns string
-      // Math.round(totalWords * 1e2) / 1e2; returns number
-      totalBooks = Math.round(totalWords * 1e2) / 1e2;
+      totalBooks = Number(totalWords.toFixed(2));
 
       for (const prop in websites) {
         if (websites[prop] > maxReads) {
