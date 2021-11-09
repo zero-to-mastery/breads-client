@@ -1,18 +1,29 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import TagsList from "./TagsList";
-import { getMostRecentTags, getTopTags } from "../selectors";
+import { getMostRecentTagIds, getTopTagsIds } from "../selectors";
 import { List, Tab, Tabs } from "@mui/material";
+import { RootState } from "../../rootReducer";
 
-class TagsAside extends Component {
-  constructor(props) {
+type TagsAsideState = {
+  activeTags: string;
+};
+
+type TagsAsideProps = PropsFromRedux & OwnProps;
+
+interface OwnProps {
+  list: string;
+}
+
+class TagsAside extends Component<TagsAsideProps, TagsAsideState> {
+  constructor(props: TagsAsideProps) {
     super(props);
     this.state = {
       activeTags: "top",
     };
   }
 
-  handleClick = (_, name) => {
+  handleClick = (e: React.SyntheticEvent, name: string) => {
     this.setState((prevState) => ({
       activeTags: prevState.activeTags !== name ? name : "",
     }));
@@ -31,23 +42,23 @@ class TagsAside extends Component {
           value={activeTags}
           onChange={this.handleClick}
           textColor="primary"
-          indicatorColor="primary" 
+          indicatorColor="primary"
           style={{
-            width: "100%"
+            width: "100%",
           }}
         >
-          <Tab 
-            label="Top" 
-            value="top" 
+          <Tab
+            label="Top"
+            value="top"
             style={{
-              width: "50%"
+              width: "50%",
             }}
           />
-          <Tab 
-            label="New" 
-            value="new" 
+          <Tab
+            label="New"
+            value="new"
             style={{
-              width: "50%"
+              width: "50%",
             }}
           />
         </Tabs>
@@ -59,12 +70,16 @@ class TagsAside extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
-    mostRecentTags: getMostRecentTags(state, ownProps.list, ownProps.user_id),
-    topTags: getTopTags(state, ownProps.list, ownProps.user_id),
+    mostRecentTags: getMostRecentTagIds(state, ownProps.list),
+    topTags: getTopTagsIds(state, ownProps.list),
     loading: state.loading,
   };
 }
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default connect(mapStateToProps)(TagsAside);

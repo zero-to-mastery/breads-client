@@ -273,11 +273,11 @@ describe("Reading List", () => {
     const globalAsideElement = await screen.findByRole("heading", {
       name: /Global Readings/i,
     });
-    const topTagsButtonElement = screen.getByRole("button", {
-      name: /Top Tags/i,
+    const topTagsTabsElement = screen.getByRole("tab", {
+      name: /Top/i,
     });
-    const newTagsButtonElement = screen.getByRole("button", {
-      name: /New Tags/i,
+    const newTagsTabsElement = screen.getByRole("tab", {
+      name: /New/i,
     });
     const firstTagLinkElement = screen.getByRole("link", { name: /#test/i });
     const secondTagLinkElement = screen.getByRole("link", { name: /#:LJKDF/i });
@@ -290,8 +290,8 @@ describe("Reading List", () => {
     const signupTextElement = screen.getByText(/Sign up above/i);
 
     expect(globalAsideElement).toBeInTheDocument();
-    expect(topTagsButtonElement).toBeInTheDocument();
-    expect(newTagsButtonElement).toBeInTheDocument();
+    expect(topTagsTabsElement).toBeInTheDocument();
+    expect(newTagsTabsElement).toBeInTheDocument();
     expect(firstTagLinkElement).toBeInTheDocument();
     expect(secondTagLinkElement).toBeInTheDocument();
     expect(totalReadingsTextElement).toBeInTheDocument();

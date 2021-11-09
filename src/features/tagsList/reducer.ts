@@ -1,10 +1,14 @@
+import { ReceiveEntitiesAction } from "./../actions";
 import { RECEIVE_ENTITIES, ADD_TAG } from "../actionTypes";
+import { Tags, AddTagAction } from "./../tags/types";
 
-const getIds = (tags) => {
+const getIds = (tags: Tags): number[] => {
   return Object.values(tags).map((tag) => tag.id);
 };
 
-const tagsByList = (state = {}, action) => {
+export type TagsByListActionTypes = ReceiveEntitiesAction | AddTagAction;
+
+const tagsByList = (state: any = {}, action: TagsByListActionTypes) => {
   switch (action.type) {
     case RECEIVE_ENTITIES:
       const { entities } = action.payload;
