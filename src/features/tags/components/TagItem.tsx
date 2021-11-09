@@ -3,6 +3,13 @@ import { connect, ConnectedProps } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getTagById } from "../selectors";
 import { RootState } from "../../rootReducer";
+import {
+  Link,
+  ListItem,
+  ListItemIcon,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 
 type TagItemProps = PropsFromRedux & OwnProps;
 
@@ -16,17 +23,32 @@ class TagItem extends Component<TagItemProps> {
     const { tag, key } = this.props;
 
     return (
-      <li className="menu__list-item" key={key}>
-        <NavLink
-          exact
-          to={`/tag/${tag.id}`}
-          activeClassName="menu__link menu__link--active active"
-          className="menu__link"
-        >
-          #{tag.tag_name}
-          {tag.count > 1 && <span>{tag.count}</span>}
-        </NavLink>
-      </li>
+      <ListItem
+        key={key}
+        style={{
+          width: "100%",
+        }}
+        disablePadding
+      >
+        <ListItemButton>
+          <Link
+            key={key}
+            component={NavLink}
+            to={`/tag/${tag.id}`}
+            underline="none"
+            style={{
+              display: "flex",
+              color: "grey",
+              width: "100%",
+              justifyContent: "space-between",
+              textDecoration: "none",
+            }}
+          >
+            #{tag.tag_name}
+            {tag.count > 1 && <span>{tag.count}</span>}
+          </Link>
+        </ListItemButton>
+      </ListItem>
     );
   }
 }
