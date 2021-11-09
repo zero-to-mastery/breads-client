@@ -18,11 +18,10 @@ describe("App", () => {
 
     const signupElement = screen.getAllByRole("link", { name: /sign/i });
     const loginElement = screen.getAllByRole("link", { name: /log/i });
-    const breadElement = screen.getAllByRole("link", { name: /bread/i });
     const imgElement = screen.getByRole("img", { name: /up-arrow/i });
     const headingElement = screen.getByRole("heading", { name: /global/i });
-    const newTagsElement = screen.getByRole("button", { name: /New/i });
-    const topTagsElement = screen.getByRole("button", { name: /Top/i });
+    const newTagsElement = screen.getByRole("tab", { name: /New/i });
+    const topTagsElement = screen.getByRole("tab", { name: /Top/i });
     const searchElement = screen.getByRole("textbox");
     const readingsTextElement = screen.getByText(/readings:/i);
     const websitesReadTextElement = screen.getByText(/websites/i);
@@ -33,7 +32,6 @@ describe("App", () => {
     expect(searchElement).toBeInTheDocument();
     expect(signupElement[0]).toBeInTheDocument();
     expect(loginElement[0]).toBeInTheDocument();
-    expect(breadElement[0]).toBeInTheDocument();
 
     // signup aside
     expect(imgElement).toBeInTheDocument();
