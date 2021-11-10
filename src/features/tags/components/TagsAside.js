@@ -4,6 +4,15 @@ import TagsList from "./TagsList";
 import { getMostRecentTags, getTopTags } from "../selectors";
 import { List, Tab, Tabs } from "@mui/material";
 
+const styles = {
+  tabsContainer: {
+    width: "100%",
+  },
+  tabs: {
+    width: "50%",
+  },
+};
+
 class TagsAside extends Component {
   constructor(props) {
     super(props);
@@ -31,27 +40,13 @@ class TagsAside extends Component {
           value={activeTags}
           onChange={this.handleClick}
           textColor="primary"
-          indicatorColor="primary" 
-          style={{
-            width: "100%"
-          }}
+          indicatorColor="primary"
+          style={styles.tabsContainer}
         >
-          <Tab 
-            label="Top" 
-            value="top" 
-            style={{
-              width: "50%"
-            }}
-          />
-          <Tab 
-            label="New" 
-            value="new" 
-            style={{
-              width: "50%"
-            }}
-          />
+          <Tab label="Top" value="top" style={styles.tabs} />
+          <Tab label="New" value="new" style={styles.tabs} />
         </Tabs>
-        <List>
+        <List dense={true}>
           <TagsList tags={visibleTags} isHidden={isHidden} />
         </List>
       </>
