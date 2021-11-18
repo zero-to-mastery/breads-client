@@ -40,7 +40,7 @@ type TParams = {
 export interface ResetParams {
   username: string;
   token: string;
-}
+};
 
 const Routes: React.FC<RouteProps> = ({ alerts, currentUser }) => {
   return (
@@ -370,7 +370,7 @@ function mapStateToProps(state: RootState) {
     currentUser: state.currentUser,
     alerts: state.alerts,
   };
-}
+};
 
 export default withRouter(
   connect(mapStateToProps, { ...auth.actions, ...alerts.actions })(Routes)
