@@ -12,6 +12,7 @@ import { GlobalReadingsList, GlobalAside } from "../features/globalReadings";
 import Timeline from "../common/Timeline";
 import ArticleForm from "../common/ArticleForm";
 import SignUpCard from "../common/SignUpCard";
+import InitializationCard from "../common/InitializationCard";
 import Aside from "../common/Aside";
 import LeftAside from "../common/LeftAside";
 import { RootState } from "../features/rootReducer";
@@ -223,6 +224,11 @@ const Routes: React.FC<RouteProps> = ({ alerts, currentUser }) => {
                     <Aside>
                       <UserAside fav="true" match={match} />
                     </Aside>
+                    <InitializationCard
+                      list={match.params.id}
+                      id={match.params.id}
+                      match={match}
+                    />
                     <GlobalReadingsList
                       list={match.params.id}
                       id={match.params.id}

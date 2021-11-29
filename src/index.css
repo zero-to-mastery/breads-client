@@ -144,3 +144,20 @@ textarea {
   overflow: auto;
   overflow-y: hidden;
 }
+
+.menu__list {
+  margin: 1px;
+}
+
+.newCard {
+  width: 2px;
+}
+
+.card_body {
+  width: 200px;
+  margin: 0px;
+}
+
+.card-demo-pb-1 {
+  margin-left: -75px;
+}

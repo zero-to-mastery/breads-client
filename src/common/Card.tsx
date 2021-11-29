@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { arrayOfIds } from "../features/subscriptions/types";
 import UserImage from "./UserImage";
+import "../index.css";
 
 interface CardProps {
   id?: string;
@@ -38,7 +39,7 @@ const Card: React.FunctionComponent<CardProps> = ({
   if (image) updatedImage = addImageTransformation(image);
 
   return (
-    <div className="card-demo pb-1">
+    <div className="card-demo-pb-1">
       <div className="card">
         <div className="card__header">
           {image ? (

@@ -5,7 +5,7 @@ interface AsideProps {
 }
 
 const Aside: React.FunctionComponent<AsideProps> = ({ children }) => {
-  return <aside className="col col--3-lg col--4-md">{children}</aside>;
+  return <aside className="col col--2-lg col--1-md">{children}</aside>;
 };
 
 export default Aside;
