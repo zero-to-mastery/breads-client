@@ -4,6 +4,7 @@ import { fetchReadingsIfNeeded } from "../actions";
 import { getReadings } from "../selectors";
 import tags from "../../tags";
 import VirtualizedList from "./VirtualizedList";
+import InitializationCard from "../../../common/InitializationCard";
 import { RootState } from "../../rootReducer";
 import { match } from "react-router-dom";
 
@@ -33,10 +34,19 @@ class ReadingsList extends Component<ReadingsListProps> {
 
   render() {
     const { readings, list, outdated } = this.props;
-
-    return (
-      <VirtualizedList readings={readings} list={list} outdated={outdated} />
-    );
+    if (list === "global") {
+      return (
+        <VirtualizedList readings={readings} list={list} outdated={outdated} />
+      );
+    } else if (list === "subscriptions") {
+      return (
+        <InitializationCard readings={readings} list={list} match={outdated} />
+      );
+    } else {
+      return (
+        <InitializationCard readings={readings} list={list} match={outdated} />
+      );
+    }
   }
 }
 
