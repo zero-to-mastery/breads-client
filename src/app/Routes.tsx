@@ -63,9 +63,69 @@ const Routes: React.FC<RouteProps> = ({ alerts, currentUser }) => {
                       )}
                     </LeftAside>
                     <Aside>
+                      <GlobalAside
+                        list="subscriptions"
+                        title="Friend's Readings"
+                      />
+                    </Aside>
+                    {currentUser.isAuthenticated ? (
+                      <GlobalReadingsList list="subscriptions" match={match} />
+                    ) : (
+                      <GlobalReadingsList
+                        class="global-readings-list"
+                        list="global"
+                        match={match}
+                      />
+                    )}
+                  </Timeline>
+                </>
+              );
+            }}
+
+            // render={({ match, history }: RouteComponentProps) => {
+            //   return (
+            //     <>
+            //       {alerts.message && <Alert />}
+            //       <Timeline>
+            //         <LeftAside>
+            //           {currentUser.isAuthenticated ? (
+            //             <ArticleForm history={history} />
+            //           ) : (
+            //             <SignUpCard />
+            //           )}
+            //         </LeftAside>
+            //         <Aside>
+            //           <GlobalAside list="global" title="Global Readings" />
+            //         </Aside>
+            //         <GlobalReadingsList class="global-readings-list" list="global" match={match} />
+            //       </Timeline>
+            //     </>
+            //   );
+            // }}
+          />
+          <Route
+            exact
+            path="/global"
+            render={({ match, history }: RouteComponentProps) => {
+              return (
+                <>
+                  {alerts.message && <Alert />}
+                  <Timeline>
+                    <LeftAside>
+                      {currentUser.isAuthenticated ? (
+                        <ArticleForm history={history} />
+                      ) : (
+                        <SignUpCard />
+                      )}
+                    </LeftAside>
+                    <Aside>
                       <GlobalAside list="global" title="Global Readings" />
                     </Aside>
-                    <GlobalReadingsList list="global" match={match} />
+                    <GlobalReadingsList
+                      class="global-readings-list"
+                      list="global"
+                      match={match}
+                    />
                   </Timeline>
                 </>
               );
@@ -158,6 +218,7 @@ const Routes: React.FC<RouteProps> = ({ alerts, currentUser }) => {
               );
             }}
           />
+          //not sure what this does
           <Route
             exact
             path="/reset/:username/:token"
