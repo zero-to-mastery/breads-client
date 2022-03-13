@@ -107,6 +107,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({
                       {reading.created_at}
                     </Moment>
                     <span> </span>
+
                     {tags && <Tags reading={reading} tags={tags} list={list} />}
                   </small>
                 </div>

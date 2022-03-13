@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { getReadings, getWebsites } from "../selectors";
 import Card from "../../../common/Card";
+import TagPairs from "../../../common/TagPairs";
 import ReadingStats from "../../../common/ReadingsStats";
 import { TagsAside } from "../../tags";
-import { getTagById } from "../../tags/selectors";
+import { getTagById, getPairedTags } from "../../tags/selectors";
 import { RootState } from "../../rootReducer";
 
 type OwnProps = {
@@ -13,6 +14,8 @@ type OwnProps = {
   fav?: any;
   outdated?: any;
   tag_id?: any;
+  tagPairs: number[];
+  tagTitle: string;
 };
 
 type GlobalAsideProps = PropsFromRedux & OwnProps;
@@ -24,6 +27,9 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({
   list,
   title,
   tag,
+  tagPairs,
+  tag_id,
+  tagTitle,
 }) => {
   let totalReadings,
     totalWebsites,
@@ -49,36 +55,39 @@ const GlobalAside: React.FunctionComponent<GlobalAsideProps> = ({
     }
   }
 
-  if (!title && tag) title = `#${tag.tag_name}`;
+  if (!title && tagTitle) title = `#${tagTitle.tag_name}`;
 
   return (
-    <Card username={title}>
-      <ReadingStats
-        loading={loading}
-        loading_id={list}
-        statName="Readings"
-        stat={totalReadings}
-      />
-      <ReadingStats
-        loading={loading}
-        loading_id={list}
-        statName="Websites Read From"
-        stat={totalWebsites}
-      />
-      <ReadingStats
-        loading={loading}
-        loading_id={list}
-        statName="Most Read Website"
-        stat={topWebsite}
-      />
-      <ReadingStats
-        loading={loading}
-        loading_id={list}
-        statName="Loaves"
-        stat={totalBooks}
-      />
-      <TagsAside list={list} />
-    </Card>
+    <Fragment>
+      <TagPairs tag_id={tag} tagPairs={tagPairs} />
+      <Card username={title}>
+        <ReadingStats
+          loading={loading}
+          loading_id={list}
+          statName="Readings"
+          stat={totalReadings}
+        />
+        <ReadingStats
+          loading={loading}
+          loading_id={list}
+          statName="Websites Read From"
+          stat={totalWebsites}
+        />
+        <ReadingStats
+          loading={loading}
+          loading_id={list}
+          statName="Most Read Website"
+          stat={topWebsite}
+        />
+        <ReadingStats
+          loading={loading}
+          loading_id={list}
+          statName="Loaves"
+          stat={totalBooks}
+        />
+        <TagsAside list={list} />
+      </Card>
+    </Fragment>
   );
 };
 
@@ -93,7 +102,8 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
     ),
     websites: getWebsites(state, ownProps.list, ownProps.tag_id),
     loading: state.loading,
-    tag: getTagById(state, ownProps.tag_id),
+    tag: ownProps.tag_id,
+    tagTitle: getTagById(state, ownProps.tag_id),
   };
 }
 

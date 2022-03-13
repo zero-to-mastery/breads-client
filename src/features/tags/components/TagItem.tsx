@@ -9,12 +9,15 @@ type TagItemProps = PropsFromRedux & OwnProps;
 interface OwnProps {
   key: number;
   id: number;
+  tag: any;
+  tagCount: boolean;
 }
 
 class TagItem extends Component<TagItemProps> {
-  render() {
-    const { tag, key } = this.props;
+  state = { tagForPairing: null };
 
+  render() {
+    const { tag, key, tagCount } = this.props;
     return (
       <li className="menu__list-item" key={key}>
         <NavLink
@@ -24,7 +27,7 @@ class TagItem extends Component<TagItemProps> {
           className="menu__link"
         >
           #{tag.tag_name}
-          {tag.count > 1 && <span>{tag.count}</span>}
+          {tagCount ? tag.count > 1 && <span>{tag.count}</span> : null}
         </NavLink>
       </li>
     );

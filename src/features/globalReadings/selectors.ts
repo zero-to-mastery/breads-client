@@ -36,6 +36,7 @@ export const getReadings = (
     if (fav) return getFavoriteReadings(readings);
     if (outdated) return getUserReadingsInNeedOfUpdate(state, list);
     if (tag_id) return getTagReadings(readings, tag_id);
+    //console.log('readings ' + readings)
     return readings;
   }
 };
@@ -45,7 +46,8 @@ export const getReadings = (
  */
 export const getReadingById = (state: any, list: string, id: number): any => {
   if (state.readingsByList[`${list}`]) {
-    // give time for readingsByList to load
+    // console.log(state)
+    //console.log(state[NAME][id]['tags'])// give time for readingsByList to load
     return state[NAME][id];
   }
 };

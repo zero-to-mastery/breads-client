@@ -33,7 +33,9 @@ class ReadingsList extends Component<ReadingsListProps> {
 
   render() {
     const { readings, list, outdated } = this.props;
-
+    //console.log(list);
+    //console.log(readings);
+    //ie so list is global
     return (
       <VirtualizedList readings={readings} list={list} outdated={outdated} />
     );

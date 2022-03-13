@@ -113,7 +113,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
             <div className="navbar__items navbar__items--right">
               <NavLink
                 exact
-                to="/"
+                to="/global"
                 activeClassName="navbar__item--active navbar__link"
                 className="navbar__item navbar__link"
               >
@@ -192,7 +192,7 @@ class Navbar extends Component<NotificationProps, NotificationState> {
                   <>
                     <NavLink
                       exact
-                      to="/"
+                      to="/global"
                       className="menu__list-item menu__link"
                     >
                       Global
