@@ -3492,3 +3492,50 @@ body {
   transition: background 0.5s ease-in-out;
   background-color: #303846;
 }
+
+.wrapper {
+  margin-top: 15px;
+  position: absolute;
+  margin-left: 20px;
+}
+
+.label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.dropbtn {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-left: 190px;
+  outline: none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  overflow: auto;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  margin-top: 13px;
+  margin-left: -15px;
+  padding-right: 22px;
+  text-align: right;
+}
+
+.dropdown-content li {
+  list-style: none;
+  margin-right: -10px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  margin-left: 140px;
+  float: right;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}

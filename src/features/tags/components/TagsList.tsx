@@ -9,12 +9,12 @@ type TagsListProps = {
 
 const TagsList: React.FC<TagsListProps> = ({ tags, isHidden }) => {
   let tagsList;
+  let tagCount = true;
   if (tags) {
     tagsList = tags.map((tag) => {
-      return <TagItem id={tag} key={tag} />;
+      return <TagItem id={tag} key={tag} tagCount={tagCount} />;
     });
   }
-
   return <div className={`menu__list ${isHidden}`}>{tagsList}</div>;
 };
 

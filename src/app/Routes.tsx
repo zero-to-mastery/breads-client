@@ -159,6 +159,37 @@ const Routes: React.FC<RouteProps> = ({ alerts, currentUser }) => {
               );
             }}
           />
+          {/*//and here's where you'll find it?*/}
+          {/*//or use the same id and filter within the results? Probably easier*/}
+          {/*<Route
+            exact
+            path="/tag/links/:id"
+            render={({ match, history }: RouteComponentProps<TParams>) => {
+              return (
+                <>
+                  {alerts.message && <Alert />}
+                  <Timeline>
+                    <LeftAside>
+                      {currentUser.isAuthenticated ? (
+                        <ArticleForm history={history} />
+                      ) : (
+                        <SignUpCard />
+                      )}
+                    </LeftAside>
+                    <Aside>
+                      <GlobalAside list="global" tag_id={match.params.id} />
+                    </Aside>
+                    <GlobalReadingsList
+                      list="global"
+                      tag_id={match.params.id}
+                      match={match}
+                    />
+                  </Timeline>
+                </>
+              );
+            }}
+          />
+*/}
           <Route
             exact
             path="/signin"
