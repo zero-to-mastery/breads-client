@@ -27,7 +27,7 @@ export const loadTags = (tags: Tags) => ({
   tags,
 });
 
-export const fetchTags = (list: string, id: number): fetchingTags => {
+export const fetchTags = (list: string, id: string): fetchingTags => {
   return (dispatch, getState) => {
     if (list === "global") {
       dispatch(addLoader("tags"));
@@ -121,7 +121,7 @@ const shouldFetchTags = (state: any, list: string) => {
 
 export const fetchTagsIfNeeded = (
   list: string,
-  id: number
+  id: string
 ): fetchingTagsIfNeeded => {
   return (dispatch, getState) => {
     if (shouldFetchTags(getState(), list)) {

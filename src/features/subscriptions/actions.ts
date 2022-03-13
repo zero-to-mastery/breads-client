@@ -11,12 +11,17 @@ import {
   postingNewSubscription,
   fetchingSubscriptionsIfNeeded,
 } from "./types";
+import { UserFollowers } from "../user/types";
+import { AxiosResponse } from "axios";
 
 const { addAlert } = alerts.actions;
 
-export const loadSubscriptions = (users: any, id: number) => ({
+export const loadSubscriptions = (
+  userFollowers: AxiosResponse<UserFollowers>,
+  id: string | number
+) => ({
   type: LOAD_SUBSCRIPTIONS,
-  users,
+  userFollowers,
   id,
 });
 
@@ -33,9 +38,9 @@ export const removeSubscriptions = (id: number, user_id: number | null) => ({
 });
 
 export const fetchSubscriptions =
-  (user_id: number): fetchingSubscriptions =>
+  (user_id: string | number): fetchingSubscriptions =>
   async (dispatch) => {
-    return apiCall("get", `/users/${user_id}/subscriptions`)
+    return apiCall<UserFollowers>("get", `/users/${user_id}/subscriptions`)
       .then((res) => dispatch(loadSubscriptions(res, user_id)))
       .catch((err) =>
         dispatch(addAlert({ message: err.message, type: "danger" }))
@@ -79,7 +84,7 @@ export const postNewSubscription =
 
 const shouldFetchSubscriptions = (
   state: any,
-  id: number
+  id: string | number
 ): boolean | undefined => {
   const subscriptions = state.subscriptions[id];
   const upToDate = state.subscriptions.upToDate;
@@ -89,7 +94,7 @@ const shouldFetchSubscriptions = (
 };
 
 export const fetchSubscriptionsIfNeeded = (
-  id: number
+  id: string | number
 ): fetchingSubscriptionsIfNeeded => {
   return (dispatch, getState) => {
     if (shouldFetchSubscriptions(getState(), id)) {

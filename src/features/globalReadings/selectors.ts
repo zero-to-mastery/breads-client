@@ -21,9 +21,9 @@ const getTagReadings = (readings: any[], tag_id: number): any[] => {
 export const getReadings = (
   state: any,
   list: string,
-  fav: any,
-  outdated: any,
-  tag_id: number
+  fav?: any,
+  outdated?: any,
+  tag_id?: number
 ): any[] | void => {
   // give time for readingsByList items to load
   if (
@@ -36,6 +36,7 @@ export const getReadings = (
     if (fav) return getFavoriteReadings(readings);
     if (outdated) return getUserReadingsInNeedOfUpdate(state, list);
     if (tag_id) return getTagReadings(readings, tag_id);
+    //console.log('readings ' + readings)
     return readings;
   }
 };
@@ -45,7 +46,8 @@ export const getReadings = (
  */
 export const getReadingById = (state: any, list: string, id: number): any => {
   if (state.readingsByList[`${list}`]) {
-    // give time for readingsByList to load
+    // console.log(state)
+    //console.log(state[NAME][id]['tags'])// give time for readingsByList to load
     return state[NAME][id];
   }
 };
@@ -56,7 +58,7 @@ export const getReadingById = (state: any, list: string, id: number): any => {
 export const getWebsites = (
   state: any,
   list: string,
-  tag_id: number
+  tag_id?: number
 ): { [k: string]: any } => {
   let websiteCount: { [k: string]: any } = {};
 

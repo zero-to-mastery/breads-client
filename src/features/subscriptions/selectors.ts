@@ -9,7 +9,7 @@ export const getSubscriptions = (
 
 export const getFollowers = (
   state: any,
-  id: number
+  id: number | string
 ): arrayOfIds | undefined => {
   if (state.subscriptions[id]) {
     return state.subscriptions[id].followers;
@@ -18,7 +18,7 @@ export const getFollowers = (
 
 export const getFollowings = (
   state: any,
-  id: number
+  id: number | string
 ): arrayOfIds | undefined => {
   if (state.subscriptions[id]) {
     return state.subscriptions[id].following;

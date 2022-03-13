@@ -1,11 +1,6 @@
+import { User, UserFollowers } from "./user/types";
 import { RECEIVE_ENTITIES } from "./actionTypes";
 import { Tags } from "./tags/types";
-
-export interface Users {
-  id: number;
-  username: string;
-  image: string;
-}
 
 export interface Readings {
   id: number;
@@ -22,7 +17,7 @@ export interface Readings {
 }
 
 export interface Entities {
-  user?: Users;
+  users?: User[];
   readings?: Readings;
   tags?: Tags;
 }
@@ -35,6 +30,8 @@ export interface ReceiveEntitiesAction {
   list: any;
   id?: any;
   user_id?: number | null;
+  users?: User[];
+  userFollowers?: UserFollowers;
 }
 
 export const receiveEntities = (

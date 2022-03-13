@@ -27,9 +27,15 @@ class Tags extends Component<TagsProps> {
 
     let tag_links;
     if (reading.tags && tags) {
+      //console.log('raeding ' + reading.tags)
+      //console.log('raeding ' + reading)
+
       tag_links = reading.tags.map(
         (tag_id: number): React.ReactNode | string => {
+          //so you get tags from here, joint tags, where does it pick them up from? the fact there are two, say?
+          //from reading. trace this back.
           if (tags[tag_id]) {
+            // console.log('tags ' + tags[tag_id])
             return (
               <Link to={`/tag/${tags[tag_id].id}`} key={tag_id}>
                 {` #${tags[tag_id].tag_name}`}
